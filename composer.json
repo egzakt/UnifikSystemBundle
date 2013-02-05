@@ -1,0 +1,29 @@
+{
+    "name": "egzakt/system-bundle",
+    "type": "symfony-bundle",
+    "description": "The core bundle of the symfony-egzakt distribution",
+    "keywords": ["egzakt", "system", "cms"],
+    "homepage": "https://github.com/egzakt/symfony-egzakt",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hubert Perron",
+            "email": "hubert.perron@gmail.com"
+        },
+        {
+            "name": "Jean-François Côté",
+            "email": "tioiscote@gmail.com"
+        },
+        {
+            "name": "Émilie Marchand"
+            "email": "emilie.marchand.egz@gmail.com"
+        }
+    ],
+    "require": {
+        "symfony/symfony": "2.2.*"
+    },
+    "autoload": {
+        "psr-0": { "Egzakt\\SystemBundle": "" }
+    },
+    "target-dir": "Egzakt/SystemBundle"
+}
