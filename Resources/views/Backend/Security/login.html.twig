@@ -1,0 +1,30 @@
+{% extends 'EgzaktSystemBundle:Backend:layout.html.twig' %}
+
+{% block body_extra %}
+    {{ parent() }} id="login_page"
+{% endblock %}
+
+{% block wrapper %}
+    <div id="wrapper_login">
+
+        {% if error %}
+            <div id="error_message">
+                <ul>
+                    <li>{{ error.message }}</li>
+                </ul>
+            </div>
+        {% endif %}
+
+        <form id="login_form" action="{{ path('egzakt_system_backend_login_check') }}" method="post">
+            <label class="utilisateur" for="connexion_utilisateur_nom">{% trans %}User{% endtrans %}</label>
+            <input type="text" name="_username" id="connexion_utilisateur_nom" />
+
+            <label class="mot_passe" for="connexion_mot_passe">{% trans %}Password{% endtrans %}</label>
+            <input type="password" name="_password" id="connexion_mot_passe" />
+
+            <div class="button"><input type="submit" value="{% trans %}Sign In{% endtrans %}" /></div>
+        </form>
+
+    </div>
+    <div id="form_connexion_bas"><img src="{{ asset('bundles/egzaktbackendcore/images/graphics/login_form_bottom.png') }}" width="370" height="20" alt="" /></div>
+{% endblock %}

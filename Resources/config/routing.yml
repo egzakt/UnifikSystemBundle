@@ -1,3 +1,30 @@
-egzakt_system_homepage:
-    pattern:  /hello/{name}
-    defaults: { _controller: EgzaktSystemBundle:Default:index }
+# Security
+egzakt_system_backend_login:
+    pattern:  /login
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Security:login" }
+
+egzakt_system_backend_login_check:
+    pattern:  /login-check
+    options:  { i18n: false }
+
+egzakt_system_backend_logout:
+    pattern:  /logout
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Security:logout" }
+
+# Home
+egzakt_system_backend_dashboard:
+    pattern:  /
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:index" }
+
+egzakt_system_backend_app:
+    pattern:  /app/{app_slug}
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:index" }
+
+# Help
+egzakt_system_backend_help_detail:
+    pattern:  /help/{itemId}
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:helpDetail" }
+
+egzakt_system_backend_help:
+    pattern:  /help
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:help" }

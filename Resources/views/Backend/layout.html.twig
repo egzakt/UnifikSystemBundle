@@ -1,0 +1,69 @@
+{% extends '::base.html.twig' %}
+
+{% block title %}
+    {#{% render 'EgzaktBackendCoreBundle:Navigation:PageTitle' %}#}
+{% endblock %}
+
+{% block stylesheets %}
+    {#{% include 'EgzaktBackendCoreBundle:Core:stylesheets.html.twig' %}#}
+{% endblock %}
+
+{% block javascripts %}
+    {#{% include 'EgzaktBackendCoreBundle:Core:javascripts.html.twig' %}#}
+{% endblock %}
+
+{% block body %}
+
+    <div id="loading"><img src="{{ asset('bundles/egzaktbackendcore/images/icons/ajax-loader.gif') }}" width="32" height="32" alt="" /></div>
+
+    {#{% include 'EgzaktBackendCoreBundle:Core:delete.html.twig' %}#}
+
+    {% block header %}
+        {#{% include 'EgzaktBackendCoreBundle:Core:header.html.twig' %}#}
+    {% endblock %}
+
+    {% block top_bar %}
+        <div id="login_bar">
+            {% if app.user %}
+                {#{% block login_nav %}{% render 'EgzaktBackendCoreBundle:Navigation:Header' %}{% endblock %}#}
+            {% endif %}
+            <h6>{% trans %}Content Management System (CMS){% endtrans %}</h6>
+        </div>
+    {% endblock %}
+
+    {% block wrapper %}
+        <div id="cols_wrapper">
+
+            <div id="navigation_col">
+                {#{% render 'EgzaktBackendCoreBundle:Navigation:SectionBar' %}#}
+                {#{% render 'EgzaktBackendCoreBundle:Navigation:GlobalBundleBar' %}#}
+            </div>
+
+            <div id="main_col">
+                {% block breadcrumbs %}
+                    {#{% render 'EgzaktBackendCoreBundle:Navigation:Breadcrumbs' %}#}
+                {% endblock %}
+
+                {% block bundle_bar %}
+                    {#{% render 'EgzaktBackendCoreBundle:Navigation:BundleBar' %}#}
+                {% endblock %}
+
+                {% block locale_bar %}
+                    {#{% render 'EgzaktBackendCoreBundle:Navigation:LocaleBar' %}#}
+                {% endblock %}
+
+                {% block content %}{% endblock %}
+            </div>
+
+            <div style="clear:both;"></div>
+            <div id="egzakt">
+                {% trans %}Developed by{% endtrans %}
+                <a target="_blank" href="http://www.egzakt.com">
+                    <img width="56" height="20" title="Egzakt" alt="Egzakt" src="{{ asset('bundles/egzaktbackendcore/images/graphics/egzakt_logo.gif') }}">
+                </a>
+            </div>
+
+        </div>
+    {% endblock %}
+
+{% endblock %}
