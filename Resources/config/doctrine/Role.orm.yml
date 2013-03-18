@@ -1,0 +1,35 @@
+Egzakt\SystemBundle\Entity\Role:
+  type: entity
+  repositoryClass: Egzakt\SystemBundle\Entity\RoleRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    roleName:
+      type: string
+      length: 30
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  lifecycleCallbacks: {  }
+  oneToMany:
+    translations:
+      targetEntity: Egzakt\SystemBundle\Entity\RoleTranslation
+      mappedBy: translatable
+      fetch: EAGER
+      cascade: [persist]
+  manyToMany:
+    users:
+      targetEntity: Egzakt\SystemBundle\Entity\User
+      mappedBy: userRoles
+      orderBy:
+        username: ASC

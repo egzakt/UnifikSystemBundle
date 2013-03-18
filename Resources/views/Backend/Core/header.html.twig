@@ -1,0 +1,9 @@
+<div id="header">
+    <a href="{{ path('egzakt_system_backend_dashboard') }}">
+        <img src="{{ asset('bundles/egzaktsystem/backend/images/graphics/logo.jpg') }}" height="60" alt="{{ project_name }}" title="{{ project_name }}" />
+    </a>
+
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        {#{% render 'EgzaktBackendCoreBundle:Navigation:App' %}#}
+    {% endif %}
+</div>
