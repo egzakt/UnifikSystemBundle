@@ -1,0 +1,59 @@
+Egzakt\SystemBundle\Entity\User:
+  type: entity
+  repositoryClass: Egzakt\SystemBundle\Entity\UserRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    username:
+      type: string
+      length: 255
+    password:
+      type: string
+      length: 32
+    salt:
+      type: string
+      length: 255
+    firstname:
+      type: string
+      length: 255
+    lastname:
+      type: string
+      length: 255
+    email:
+      type: string
+      length: 255
+    facebookId:
+      type: string
+      length: 255
+      nullable: true
+    active:
+      type: boolean
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  lifecycleCallbacks: {  }
+  manyToMany:
+    userRoles:
+      targetEntity: Egzakt\SystemBundle\Entity\Role
+      inversedBy: users
+      cascade: [persist]
+      joinTable:
+        name: UserRole
+        joinColumns:
+          userId:
+            referencedColumnName: id
+            onDelete: cascade
+        inverseJoinColumns:
+          roleId:
+            referencedColumnName: id
+            onDelete: cascade
