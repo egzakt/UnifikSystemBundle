@@ -1,0 +1,16 @@
+Egzakt\SystemBundle\Entity\Navigation:
+  type: entity
+  repositoryClass: Egzakt\SystemBundle\Entity\NavigationRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: 255
+  oneToMany:
+    sectionNavigations:
+      targetEntity: Egzakt\SystemBundle\Entity\SectionNavigation
+      mappedBy: navigation

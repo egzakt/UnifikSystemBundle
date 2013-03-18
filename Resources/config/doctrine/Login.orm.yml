@@ -19,4 +19,3 @@ Egzakt\SystemBundle\Entity\Login:
       gedmo:
         timestampable:
           on: create
-  lifecycleCallbacks: {  }

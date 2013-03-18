@@ -1,0 +1,56 @@
+Egzakt\SystemBundle\Entity\Section:
+  type: entity
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    ordering:
+      type: integer
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  repositoryClass: Egzakt\SystemBundle\Entity\SectionRepository
+  oneToMany:
+    translations:
+      targetEntity: Egzakt\SystemBundle\Entity\SectionTranslation
+      mappedBy: translatable
+      fetch: EAGER
+      cascade: [persist]
+    children:
+      targetEntity: Egzakt\SystemBundle\Entity\Section
+      mappedBy: parent
+      orderBy: { ordering: ASC }
+    texts:
+      targetEntity: Egzakt\SystemBundle\Entity\Text
+      mappedBy: section
+    sectionBundles:
+      targetEntity: Egzakt\SystemBundle\Entity\SectionBundle
+      mappedBy: section
+      orderBy:
+        ordering: ASC
+    sectionNavigations:
+      targetEntity: Egzakt\SystemBundle\Entity\SectionNavigation
+      mappedBy: section
+      cascade: [persist]
+  manyToOne:
+    parent:
+      targetEntity: Egzakt\SystemBundle\Entity\Section
+      inversedBy: children
+      joinColumn:
+        name: parent_id
+        referencedColumnName: id
+        onDelete:  cascade
+    app:
+      targetEntity: Egzakt\SystemBundle\Entity\App
+      inversedBy:  sections
+

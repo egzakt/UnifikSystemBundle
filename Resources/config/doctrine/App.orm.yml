@@ -1,0 +1,30 @@
+Egzakt\SystemBundle\Entity\App:
+  type: entity
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: 255
+      gedmo:
+        - sluggable
+    prefix:
+      type: string
+      nullable: true
+    ordering:
+      type: integer
+      nullable: true
+    slug:
+      type: string
+      length: 255
+      gedmo:
+        slug:
+          fields: [name]
+          separator: -
+  oneToMany:
+    sections:
+      targetEntity: Egzakt\SystemBundle\Entity\Section
+      mappedBy: app
