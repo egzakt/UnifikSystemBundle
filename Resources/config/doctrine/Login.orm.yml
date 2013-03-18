@@ -1,0 +1,22 @@
+Egzakt\SystemBundle\Entity\Login:
+  type: entity
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    username:
+      type: string
+      length: 255
+    ip:
+      type: string
+      length: 16
+    success:
+      type: boolean
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+  lifecycleCallbacks: {  }

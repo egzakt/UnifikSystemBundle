@@ -6,7 +6,7 @@ use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-use Egzakt\Backend\CoreBundle\Entity\Login;
+use Egzakt\SystemBundle\Entity\Login;
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
 
 /**
