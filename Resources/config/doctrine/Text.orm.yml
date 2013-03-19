@@ -1,0 +1,41 @@
+Egzakt\SystemBundle\Entity\Text:
+  type: entity
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    collapsable:
+      type: boolean
+    static:
+      type: boolean
+      default: false
+    ordering:
+      type: integer
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+  repositoryClass: Egzakt\SystemBundle\Entity\TextRepository
+  manyToOne:
+    section:
+      targetEntity: Egzakt\SystemBundle\Entity\Section
+      inversedBy:   Texts
+      joinColumn:
+        name: section_id
+        referencedColumnName: id
+        onDelete:  cascade
+  oneToMany:
+    translations:
+      targetEntity: Egzakt\SystemBundle\Entity\TextTranslation
+      mappedBy: translatable
+      fetch: EAGER
+      cascade: [persist]

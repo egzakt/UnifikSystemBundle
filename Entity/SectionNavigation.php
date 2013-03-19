@@ -3,7 +3,6 @@
 namespace Egzakt\SystemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
 
@@ -56,7 +55,7 @@ class SectionNavigation extends BaseEntity
     /**
      * Set ordering
      *
-     * @param integer $ordering Ordering number
+     * @param integer $ordering
      */
     public function setOrdering($ordering)
     {
@@ -76,7 +75,7 @@ class SectionNavigation extends BaseEntity
     /**
      * Set created at
      *
-     * @param \DateTime $createdAt Created at date/time
+     * @param \DateTime $createdAt
      */
     public function setCreatedAt($createdAt)
     {
@@ -96,7 +95,7 @@ class SectionNavigation extends BaseEntity
     /**
      * Set updated_at
      *
-     * @param \DateTime $updatedAt Updated at date/time
+     * @param \DateTime $updatedAt
      */
     public function setUpdatedAt($updatedAt)
     {

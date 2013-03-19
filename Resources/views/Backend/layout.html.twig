@@ -36,7 +36,7 @@
 
             <div id="navigation_col">
                 {#{% render 'EgzaktBackendCoreBundle:Navigation:SectionBar' %}#}
-                {#{% render 'EgzaktBackendCoreBundle:Navigation:GlobalBundleBar' %}#}
+                {% render controller('EgzaktSystemBundle:Backend/Navigation:GlobalBundleBar') %}
             </div>
 
             <div id="main_col">

@@ -1,13 +1,13 @@
 <?php
 
-namespace Egzakt\Backend\CoreBundle\Controller;
+namespace Egzakt\SystemBundle\Controller\Backend;
 
 use Symfony\Component\HttpFoundation\Response;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\Backend\SectionBundle\Entity\SectionBundle;
-use Egzakt\Backend\SectionBundle\Entity\SectionRepository;
+use Egzakt\SystemBundle\Entity\SectionBundle;
+use Egzakt\SystemBundle\Entity\SectionRepository;
 use Egzakt\Backend\CoreBundle\Lib\Exception;
 
 /**
@@ -54,14 +54,13 @@ class NavigationController extends BaseController
      */
     public function globalBundleBarAction()
     {
-        /** @var \Egzakt\Backend\SectionBundle\Entity\SectionBundleRepository $sectionBundleRepo */
-        $sectionBundleRepo = $this->getDoctrine()->getRepository('EgzaktBackendSectionBundle:SectionBundle');
+        $sectionBundleRepo = $this->getDoctrine()->getRepository('EgzaktSystemBundle:SectionBundle');
         $sectionBundles = $sectionBundleRepo->findBy(array('section' => null), array('ordering' => 'ASC'));
 
         // Removing global bundles that are inactive in the kernel
         $symfonyActiveBundles = array_keys($this->get('kernel')->getBundles());
 
-        /** @var \Egzakt\Backend\SectionBundle\Entity\SectionBundle $sectionBundle */
+        /** @var SectionBundle $sectionBundle */
         foreach ($sectionBundles as $key => $sectionBundle) {
 
             $bundleName = $sectionBundle->getBundle()->getName();
@@ -72,7 +71,7 @@ class NavigationController extends BaseController
         }
 
         // TODO: Quickfix laid, a modifier
-        $sectionBundleCurrent = new \Egzakt\Backend\SectionBundle\Entity\SectionBundle();
+        $sectionBundleCurrent = new SectionBundle();
         if ($this->getCore()->getBundle()) {
             $sectionBundleCurrent = $sectionBundleRepo->findOneBy(array(
                 'section' => null,
@@ -81,7 +80,7 @@ class NavigationController extends BaseController
         }
 
         if (false == $sectionBundleCurrent) {
-            $sectionBundleCurrent = new \Egzakt\Backend\SectionBundle\Entity\SectionBundle();
+            $sectionBundleCurrent = new SectionBundle();
         }
 
         $navigationBuilder = $this->get('egzakt_system.navigation_builder');
@@ -241,12 +240,12 @@ class NavigationController extends BaseController
     {
         $bundles = $this->get('kernel')->getBundles();
 
-        /** @var \Egzakt\Backend\SectionBundle\Entity\Section $section */
+        /** @var Section $section */
         foreach ($sections as $section) {
 
             $sectionBundles = array();
 
-            /** @var \Egzakt\Backend\SectionBundle\Entity\SectionBundle $sectionBundle */
+            /** @var SectionBundle $sectionBundle */
             foreach ($section->getSectionBundles() as $sectionBundle) {
                 if (in_array($sectionBundle->getBundle()->getName(), array_keys($bundles))) {
                     $sectionBundles[] = $sectionBundle;
@@ -262,7 +261,7 @@ class NavigationController extends BaseController
     /**
      * Locale Bar Action
      *
-     * @return \Symfony\Bundle\FrameworkBundle\Controller\Response
+     * @return Response
      */
     public function localeBarAction()
     {
