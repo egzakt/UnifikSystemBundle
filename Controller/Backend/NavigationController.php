@@ -8,7 +8,6 @@ use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Egzakt\SystemBundle\Entity\Section;
 use Egzakt\SystemBundle\Entity\SectionBundle;
 use Egzakt\SystemBundle\Entity\SectionRepository;
-use Egzakt\Backend\CoreBundle\Lib\Exception;
 
 /**
  * Navigation Controller
@@ -89,7 +88,7 @@ class NavigationController extends BaseController
         $navigationBuilder->build();
 
         return $this->render(
-            'EgzaktBackendCoreBundle:Navigation:global_bundle_bar.html.twig',
+            'EgzaktSystemBundle:Backend/Navigation:global_bundle_bar.html.twig',
             array('sectionBundles' => $sectionBundles, 'sectionBundleCurrent' => $sectionBundleCurrent)
         );
     }
@@ -186,6 +185,7 @@ class NavigationController extends BaseController
      */
     public function bundleBarAction()
     {
+        return new Response('abc');
         if (false == $this->getCore()->getSection()) {
             return new Response();
         }

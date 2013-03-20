@@ -1,7 +1,119 @@
 parameters:
-#    egzakt_system.example.class: Egzakt\SystemBundle\Example
+
+    egzakt_system.kernel_controller_listener.class: Egzakt\SystemBundle\Listener\ControllerListener
+    egzakt_system.kernel_response_listener.class:   Egzakt\SystemBundle\Listener\ResponseListener
+    egzakt_system.post_load_listener.class:         Egzakt\SystemBundle\Listener\PostLoadListener
+    egzakt_system.kernel_exception_listener.class:  Egzakt\SystemBundle\Listener\ExceptionListener
+    egzakt_system.core.class:                       Egzakt\SystemBundle\Lib\Core
+    egzakt_system.helper.class:                     Egzakt\SystemBundle\Lib\Helper
+    egzakt_system.twig_extension.class:             Egzakt\SystemBundle\Extensions\TwigExtension
+    egzakt_system.inspect_extension.class:          Egzakt\SystemBundle\Extensions\InspectExtension
+    egzakt_system.navigation_builder.class:         Egzakt\SystemBundle\Lib\NavigationBuilder
+    egzakt_system.section_hooks.class:              Egzakt\SystemBundle\Lib\SectionHooks
+    egzakt_system.navigation_item.class:            Egzakt\SystemBundle\Lib\NavigationItem
+    egzakt_system.breadcrumbs.class:                Egzakt\SystemBundle\Lib\Breadcrumbs
+    egzakt_system.page_title.class:                 Egzakt\SystemBundle\Lib\PageTitle
+
+    egzakt_backend.core.class:                      Egzakt\SystemBundle\Lib\Backend\Core
 
 services:
-#    egzakt_system.example:
-#        class: %egzakt_system.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+
+    egzakt_system.kernel_controller_listener:
+        class: %egzakt_system.kernel_controller_listener.class%
+        tags:
+          - { name: kernel.event_listener, event: kernel.controller }
+        calls:
+          - [ setLogger, [ @logger ] ]
+          - [ setSystemCore, [ @egzakt_system.core ] ]
+          - [ setContainer, [ @service_container ] ]
+
+#    egzakt_system.kernel_response_listener:
+#        class: %egzakt_system.kernel_response_listener.class%
+#        tags:
+#          - { name: kernel.event_listener, event: kernel.response }
+#        calls:
+#          - [ setRouter, [ @router ] ]
+#          - [ setRequest, [ @request= ] ]
+#          - [ setSession, [ @session ] ]
+
+    egzakt_system.post_load_listener:
+        class: %egzakt_system.post_load_listener.class%
+        tags:
+            - { name: doctrine.event_listener, event: postLoad }
+        calls:
+          - [ setContainer, [ @service_container ] ]
+
+    egzakt_system.kernel_exception_listener:
+        class: %egzakt_system.kernel_exception_listener.class%
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
+        calls:
+            - [ setKernel, [ @kernel ] ]
+
+    egzakt_system.core:
+        class: %egzakt_system.core.class%
+        calls:
+          - [ setRequest, [ @request= ] ]
+          - [ setDoctrine, [ @doctrine ] ]
+          - [ setLogger, [ @logger ] ]
+
+    egzakt_system.helper:
+        class: %egzakt_system.helper.class%
+        calls:
+          - [ setContainer, [ @service_container ] ]
+
+    egzakt_system.twig_extension:
+        class: %egzakt_system.twig_extension.class%
+        tags:
+          - { name: twig.extension }
+        calls:
+          - [ setHelper, [ @egzakt_system.helper ] ]
+          - [ setLocale, [ %locale% ] ]
+
+    egzakt_system.inspect_extension:
+        class: %egzakt_system.inspect_extension.class%
+        tags:
+          - { name: twig.extension }
+
+    egzakt_system.section_hooks:
+        class: %egzakt_system.section_hooks.class%
+        calls:
+          - [ setDoctrine, [ @doctrine ] ]
+          - [ setContainer, [ @service_container ] ]
+
+    egzakt_system.navigation_builder:
+        scope: prototype
+        class: %egzakt_system.navigation_builder.class%
+        calls:
+          - [ setContainer, [ @service_container ] ]
+
+    egzakt_system.navigation_item:
+        scope: prototype
+        class: %egzakt_system.navigation_item.class%
+
+    egzakt_system.breadcrumbs:
+        shared: true
+        class:  %egzakt_system.breadcrumbs.class%
+
+    egzakt_system.page_title:
+        shared: true
+        class:  %egzakt_system.page_title.class%
+
+    egzakt_system.pre_persist_listener:
+        class: Egzakt\SystemBundle\Listener\DoctrineEventListener
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: onFlush }
+
+    egzakt_backend.core:
+        class:  %egzakt_backend.core.class%
+        shared: true
+        calls:
+          - [ setRequest, [ @request= ] ]
+          - [ setSession, [ @session= ] ]
+          - [ setLogger, [ @logger ] ]
+          - [ setDoctrine, [ @doctrine ] ]
+          - [ setKernel, [ @kernel ] ]
+          - [ setBreadcrumbs, [ @egzakt_system.breadcrumbs ] ]
+          - [ setPageTitle, [ @egzakt_system.page_title ] ]
+          - [ setLocale, [ %locale% ] ]
