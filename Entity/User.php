@@ -473,4 +473,27 @@ class User extends BaseEntity implements UserInterface, \Serializable
             $this->username
         ) = unserialize($serialized);
     }
+
+    /**
+     * Add userRoles
+     *
+     * @param \Egzakt\SystemBundle\Entity\Role $userRoles
+     * @return User
+     */
+    public function addUserRole(\Egzakt\SystemBundle\Entity\Role $userRoles)
+    {
+        $this->userRoles[] = $userRoles;
+    
+        return $this;
+    }
+
+    /**
+     * Remove userRoles
+     *
+     * @param \Egzakt\SystemBundle\Entity\Role $userRoles
+     */
+    public function removeUserRole(\Egzakt\SystemBundle\Entity\Role $userRoles)
+    {
+        $this->userRoles->removeElement($userRoles);
+    }
 }

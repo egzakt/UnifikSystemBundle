@@ -55,6 +55,7 @@ class ControllerListener
         $controllerNamespaceTokens = $this->getTokenizedControllerName($controllerNamespace);
         $applicationName = isset($controllerNamespaceTokens[2]) ? $controllerNamespaceTokens[2] : '';
         $applicationName = strtolower($applicationName);
+        $applicationName = 'backend'; // DEBUG DEBUG
         $applicationCore = $this->container->get('egzakt_' . $applicationName . '.core');
         $applicationCore->setRequestType($event->getRequestType());
 

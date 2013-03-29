@@ -738,4 +738,67 @@ class Section extends BaseEntity
 
         $this->setSectionNavigations($sectionNavigations);
     }
+
+    /**
+     * Add translations
+     *
+     * @param \Egzakt\SystemBundle\Entity\SectionTranslation $translations
+     * @return Section
+     */
+    public function addTranslation(\Egzakt\SystemBundle\Entity\SectionTranslation $translations)
+    {
+        $this->translations[] = $translations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove translations
+     *
+     * @param \Egzakt\SystemBundle\Entity\SectionTranslation $translations
+     */
+    public function removeTranslation(\Egzakt\SystemBundle\Entity\SectionTranslation $translations)
+    {
+        $this->translations->removeElement($translations);
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Egzakt\SystemBundle\Entity\Section $children
+     */
+    public function removeChildren(\Egzakt\SystemBundle\Entity\Section $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Remove texts
+     *
+     * @param \Egzakt\SystemBundle\Entity\Text $texts
+     */
+    public function removeText(\Egzakt\SystemBundle\Entity\Text $texts)
+    {
+        $this->texts->removeElement($texts);
+    }
+
+    /**
+     * Remove sectionBundles
+     *
+     * @param \Egzakt\SystemBundle\Entity\SectionBundle $sectionBundles
+     */
+    public function removeSectionBundle(\Egzakt\SystemBundle\Entity\SectionBundle $sectionBundles)
+    {
+        $this->sectionBundles->removeElement($sectionBundles);
+    }
+
+    /**
+     * Remove sectionNavigations
+     *
+     * @param \Egzakt\SystemBundle\Entity\SectionNavigation $sectionNavigations
+     */
+    public function removeSectionNavigation(\Egzakt\SystemBundle\Entity\SectionNavigation $sectionNavigations)
+    {
+        $this->sectionNavigations->removeElement($sectionNavigations);
+    }
 }

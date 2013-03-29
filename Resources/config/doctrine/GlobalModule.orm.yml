@@ -1,0 +1,20 @@
+Egzakt\SystemBundle\Entity\GlobalModule:
+  type: entity
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: 255
+    controller:
+      type: string
+      length: 255
+    ordering:
+      type: integer
+  repositoryClass: Egzakt\SystemBundle\Entity\GlobalModuleRepository
+  uniqueConstraints:
+    unique_controller_idx:
+      columns: controller

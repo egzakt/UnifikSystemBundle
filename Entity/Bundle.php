@@ -299,4 +299,37 @@ class Bundle extends BaseEntity
 
         return $tokens;
     }
+
+    /**
+     * Remove sectionBundles
+     *
+     * @param \Egzakt\SystemBundle\Entity\SectionBundle $sectionBundles
+     */
+    public function removeSectionBundle(\Egzakt\SystemBundle\Entity\SectionBundle $sectionBundles)
+    {
+        $this->sectionBundles->removeElement($sectionBundles);
+    }
+
+    /**
+     * Add params
+     *
+     * @param \Egzakt\SystemBundle\Entity\BundleParam $params
+     * @return Bundle
+     */
+    public function addParam(\Egzakt\SystemBundle\Entity\BundleParam $params)
+    {
+        $this->params[] = $params;
+    
+        return $this;
+    }
+
+    /**
+     * Remove params
+     *
+     * @param \Egzakt\SystemBundle\Entity\BundleParam $params
+     */
+    public function removeParam(\Egzakt\SystemBundle\Entity\BundleParam $params)
+    {
+        $this->params->removeElement($params);
+    }
 }

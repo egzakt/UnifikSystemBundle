@@ -159,4 +159,37 @@ class Role extends BaseEntity
     {
         return $this->translations;
     }
+
+    /**
+     * Add translations
+     *
+     * @param \Egzakt\SystemBundle\Entity\RoleTranslation $translations
+     * @return Role
+     */
+    public function addTranslation(\Egzakt\SystemBundle\Entity\RoleTranslation $translations)
+    {
+        $this->translations[] = $translations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove translations
+     *
+     * @param \Egzakt\SystemBundle\Entity\RoleTranslation $translations
+     */
+    public function removeTranslation(\Egzakt\SystemBundle\Entity\RoleTranslation $translations)
+    {
+        $this->translations->removeElement($translations);
+    }
+
+    /**
+     * Remove users
+     *
+     * @param \Egzakt\SystemBundle\Entity\User $users
+     */
+    public function removeUser(\Egzakt\SystemBundle\Entity\User $users)
+    {
+        $this->users->removeElement($users);
+    }
 }

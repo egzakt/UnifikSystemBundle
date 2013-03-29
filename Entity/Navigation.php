@@ -118,4 +118,14 @@ class Navigation extends BaseEntity
 
         return $this->sections;
     }
+
+    /**
+     * Remove sectionNavigations
+     *
+     * @param \Egzakt\SystemBundle\Entity\SectionNavigation $sectionNavigations
+     */
+    public function removeSectionNavigation(\Egzakt\SystemBundle\Entity\SectionNavigation $sectionNavigations)
+    {
+        $this->sectionNavigations->removeElement($sectionNavigations);
+    }
 }

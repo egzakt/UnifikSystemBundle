@@ -8,6 +8,7 @@ use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Egzakt\SystemBundle\Entity\Section;
 use Egzakt\SystemBundle\Entity\SectionBundle;
 use Egzakt\SystemBundle\Entity\SectionRepository;
+use Egzakt\SystemBundle\Entity\GlobalModule;
 
 /**
  * Navigation Controller
@@ -53,44 +54,12 @@ class NavigationController extends BaseController
      */
     public function globalBundleBarAction()
     {
-        $sectionBundleRepo = $this->getDoctrine()->getRepository('EgzaktSystemBundle:SectionBundle');
-        $sectionBundles = $sectionBundleRepo->findBy(array('section' => null), array('ordering' => 'ASC'));
+        $globalModuleRepo = $this->getEm()->getRepository('EgzaktSystemBundle:GlobalModule');
+        $globalModules = $globalModuleRepo->findAll();
 
-        // Removing global bundles that are inactive in the kernel
-        $symfonyActiveBundles = array_keys($this->get('kernel')->getBundles());
-
-        /** @var SectionBundle $sectionBundle */
-        foreach ($sectionBundles as $key => $sectionBundle) {
-
-            $bundleName = $sectionBundle->getBundle()->getName();
-
-            if (false === in_array($bundleName, $symfonyActiveBundles)) {
-                unset($sectionBundles[$key]);
-            }
-        }
-
-        // TODO: Quickfix laid, a modifier
-        $sectionBundleCurrent = new SectionBundle();
-        if ($this->getCore()->getBundle()) {
-            $sectionBundleCurrent = $sectionBundleRepo->findOneBy(array(
-                'section' => null,
-                'bundle' => $this->getCore()->getBundle()->getId()
-            ));
-        }
-
-        if (false == $sectionBundleCurrent) {
-            $sectionBundleCurrent = new SectionBundle();
-        }
-
-        $navigationBuilder = $this->get('egzakt_system.navigation_builder');
-        $navigationBuilder->setElements($sectionBundles);
-        $navigationBuilder->setSelectedElement($sectionBundleCurrent);
-        $navigationBuilder->build();
-
-        return $this->render(
-            'EgzaktSystemBundle:Backend/Navigation:global_bundle_bar.html.twig',
-            array('sectionBundles' => $sectionBundles, 'sectionBundleCurrent' => $sectionBundleCurrent)
-        );
+        return $this->render('EgzaktSystemBundle:Backend/Navigation:global_bundle_bar.html.twig', array(
+            'globalModules' => $globalModules
+        ));
     }
 
     /**

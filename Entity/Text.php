@@ -307,4 +307,27 @@ class Text extends BaseEntity
     {
         return array('isStatic');
     }
+
+    /**
+     * Add translations
+     *
+     * @param \Egzakt\SystemBundle\Entity\TextTranslation $translations
+     * @return Text
+     */
+    public function addTranslation(\Egzakt\SystemBundle\Entity\TextTranslation $translations)
+    {
+        $this->translations[] = $translations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove translations
+     *
+     * @param \Egzakt\SystemBundle\Entity\TextTranslation $translations
+     */
+    public function removeTranslation(\Egzakt\SystemBundle\Entity\TextTranslation $translations)
+    {
+        $this->translations->removeElement($translations);
+    }
 }

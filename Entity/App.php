@@ -226,4 +226,14 @@ class App
     {
         return $this->prefix;
     }
+
+    /**
+     * Remove sections
+     *
+     * @param \Egzakt\SystemBundle\Entity\Section $sections
+     */
+    public function removeSection(\Egzakt\SystemBundle\Entity\Section $sections)
+    {
+        $this->sections->removeElement($sections);
+    }
 }

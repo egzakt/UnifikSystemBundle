@@ -1,7 +1,9 @@
-{% if sectionBundles %}
+{% if globalModules %}
     <ul id="global_bundles">
-        {% for sectionBundle in sectionBundles %}
-            {% render sectionBundle.bundle.name ~ ':Navigation:GlobalBundleBar' with { 'sectionBundle': sectionBundle, 'selected': sectionBundle == sectionBundleCurrent } %}
+        {% for globalModule in globalModules %}
+            <li>
+                {{ render(controller(globalModule.controller)) }}
+            </li>
         {% endfor %}
     </ul>
 {% endif %}

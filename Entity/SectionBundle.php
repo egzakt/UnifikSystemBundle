@@ -255,4 +255,27 @@ class SectionBundle extends BaseEntity
     {
         $this->params[] = $params;
     }
+
+    /**
+     * Add params
+     *
+     * @param \Egzakt\SystemBundle\Entity\SectionBundleParam $params
+     * @return SectionBundle
+     */
+    public function addParam(\Egzakt\SystemBundle\Entity\SectionBundleParam $params)
+    {
+        $this->params[] = $params;
+    
+        return $this;
+    }
+
+    /**
+     * Remove params
+     *
+     * @param \Egzakt\SystemBundle\Entity\SectionBundleParam $params
+     */
+    public function removeParam(\Egzakt\SystemBundle\Entity\SectionBundleParam $params)
+    {
+        $this->params->removeElement($params);
+    }
 }
