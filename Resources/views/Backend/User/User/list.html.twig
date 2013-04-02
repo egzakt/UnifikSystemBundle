@@ -1,0 +1,69 @@
+{% extends 'EgzaktSystemBundle:Backend/User:layout.html.twig' %}
+
+{% block content_main %}
+
+    <div id="list_actions_bar">
+        <a class="add" href="{{ path('egzakt_system_backend_user_edit') }}">{% trans %}Add a user{% endtrans %}</a>
+    </div>
+
+    {% for role in roles %}
+        <div class="list_box">
+            <h2>{{ role.name }}</h2>
+            <table cellspacing="0" class="table-autosort">
+                <thead>
+                <tr>
+                    <th class="name table-sortable:ignorecase">{% trans %}Username{% endtrans %}</th>
+                    <th class="table-sortable:ignorecase">{% trans %}Firstname{% endtrans %}</th>
+                    <th class="table-sortable:ignorecase">{% trans %}Lastname{% endtrans %}</th>
+                    <th class="table-sortable:date">{% trans %}Last updated{% endtrans %}</th>
+                    <th class="edit"></th>
+                    <th class="delete"></th>
+                </tr>
+                <tr class="filters">
+                    <th class="name">
+                        <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a username"|trans }}" style="width:190px;" />
+                    </th>
+                    <th>
+                        <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a first name"|trans }}" />
+                    </th>
+                    <th>
+                        <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a last name"|trans }}" />
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                    <th>&nbsp;</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in role.users %}
+                    <tr id="item_{{ entity.id }}">
+                        <td class="name {{ entity.active ? '' : ' inactive' }}">
+                            <a href="{{ path('EgzaktBackendUserBundle_edit', { 'id': entity.id }) }}">{{ entity.username }}</a>
+                        </td>
+                        <td>{{ entity.firstname }}</td>
+                        <td>{{ entity.lastname }}</td>
+                        <td>{{ entity.updatedat|date('Y-m-d') }}</td>
+                        <td class="edit">
+                            <a href="{{ path(bundle ~ '_edit', { 'id': entity.id }) }}" title="Modifier">
+                                <img src="{{ asset('bundles/egzaktbackendcore/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+                            </a>
+                        </td>
+                        <td class="delete">
+                            <a href="{{ path(bundle ~ '_delete', { 'id': entity.id }) }}" rel="{{ path(bundle ~ '_delete', { 'id': entity.id, 'message': true }) }}" title="{% trans %}Delete{% endtrans %}">
+                                <img src="{{ asset('bundles/egzaktbackendcore/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="total">
+                <span class="sub-total"></span>
+                {{ role.users|length }} {% trans %}result{% endtrans %}{{ role.users|length > 1 ? 's' : '' }}
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

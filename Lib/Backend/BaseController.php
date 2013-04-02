@@ -79,6 +79,8 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      */
     public function getBundleName()
     {
+        trigger_error('getBundleName is deprecated.', E_USER_DEPRECATED);
+
         return $this->getCore()->getBundleName();
     }
 
@@ -119,7 +121,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      */
     public function getEm()
     {
-        return $this->getDoctrine()->getEntityManager();
+        return $this->getDoctrine()->getManager();
     }
 
     /**

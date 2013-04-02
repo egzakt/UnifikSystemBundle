@@ -28,3 +28,17 @@ egzakt_system_backend_help_detail:
 egzakt_system_backend_help:
     pattern:  /help
     defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:help" }
+
+# Users
+egzakt_system_backend_user:
+    pattern:  /users
+    defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:index" }
+
+egzakt_system_backend_user_edit:
+    pattern:  /users/{id}/edit
+    defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:edit", id: 0 }
+
+egzakt_system_backend_user_delete:
+    pattern:  /users/{id}/delete
+    defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:delete" }
+

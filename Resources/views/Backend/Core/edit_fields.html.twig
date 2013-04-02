@@ -1,0 +1,114 @@
+{% extends 'form_table_layout.html.twig' %}
+
+{% block form_widget %}
+    <div id="fields_box">
+        <div {{ block('widget_container_attributes') }}>
+            {{ block('field_rows') }}
+            {{ form_rest(form) }}
+        </div>
+    </div>
+{% endblock form_widget %}
+
+{% block field_row %}
+    <tr>
+        <th{% if errors|length > 0 %} class="error"{% endif %}>
+            {{ form_label(form, label|default(null)) }}
+        </th>
+        <td>
+            {{ form_widget(form) }}
+            {% if errors|length > 0 %}
+                <div class="error">
+                    {{ form_errors(form) }}
+                </div>
+            {% endif %}
+        </td>
+    </tr>
+{% endblock %}
+
+{% block text_widget %}
+    <input type="text" {{ block('widget_attributes') }} value="{{ value }}" class="text" />
+{% endblock %}
+
+{% block email_widget %}
+    <input type="email" {{ block('widget_attributes') }} value="{{ value }}" class="text" />
+{% endblock %}
+
+{% block url_widget %}
+    <input type="url" {{ block('widget_attributes') }} value="{{ value }}" class="text" />
+{% endblock %}
+
+{% block password_widget %}
+    <input type="password" {{ block('widget_attributes') }} value="{{ value }}" class="password" />
+{% endblock %}
+
+{% block date_widget %}
+    {% if widget == 'single_text' %}
+        <input type="text" {{ block('widget_attributes') }} value="{{ value }}" class="calendar" />
+    {% else %}
+        <div {{ block('widget_container_attributes') }}>
+            {{ date_pattern|replace({
+            '{{ year }}' : form_widget(form.year),
+            '{{ month }}': form_widget(form.month),
+            '{{ day }}'  : form_widget(form.day),
+            })|raw }}
+        </div>
+    {% endif %}
+{% endblock date_widget %}
+
+{% block choice_widget %}
+    {% spaceless %}
+        {% if expanded %}
+            <ul {{ block('widget_container_attributes') }}>
+                {% for child in form %}
+                    <li>
+                        {{ form_widget(child) }}&nbsp;{{ form_label(child, null, {'withoutColon': true}) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+                {% if empty_value is not none %}
+                    <option value="">{{ empty_value|trans }}</option>
+                {% endif %}
+                {% if preferred_choices|length > 0 %}
+                    {% set options = preferred_choices %}
+                    {{ block('widget_choice_options') }}
+                    {% if choices|length > 0 and separator is not none %}
+                        <option disabled="disabled">{{ separator }}</option>
+                    {% endif %}
+                {% endif %}
+                {% set options = choices %}
+                {{ block('widget_choice_options') }}
+            </select>
+        {% endif %}
+    {% endspaceless %}
+{% endblock choice_widget %}
+
+{% block field_label %}
+    {% if required and checked is not defined %}
+        <span class="required" title="{% trans %}This field is required{% endtrans %}">* </span>
+    {% endif %}
+
+    {{ parent() }}{% if withoutColon is not defined %}{% trans %}:{% endtrans %}{% endif %}
+
+    {% if attr.alt is defined %}
+        <div class="note">{{ attr.alt|trans|raw }}</div>
+    {% endif %}
+{% endblock %}
+
+{% block generic_label %}
+    {% spaceless %}
+        {% if required %}
+            {% set attr = attr|merge({'class': attr.class|default('') ~ ' required'}) %}
+        {% endif %}
+        <label{% for attrname,attrvalue in attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>{{ label|trans|raw }}</label>
+    {% endspaceless %}
+{% endblock %}
+
+{% block form_errors %}
+    {% if errors|length > 0 %}
+        <div class="error">
+            {{ block('field_errors') }}
+        </div>
+    {% endif %}
+{% endblock %}
