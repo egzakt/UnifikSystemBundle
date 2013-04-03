@@ -7,7 +7,7 @@
 
 {% block content_main %}
 
-    <form novalidate="novalidate" action="" method="post" {{ form_enctype(form) }}>
+    <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
 
         {% block edit_actions %}
             {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
@@ -55,7 +55,7 @@
             </table>
         </div>
 
-        {#{{ block('edit_actions') }}#}
+        {{ block('edit_actions') }}
 
     </form>
 

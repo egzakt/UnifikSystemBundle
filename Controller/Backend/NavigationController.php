@@ -50,15 +50,18 @@ class NavigationController extends BaseController
     /**
      * Global Bundle Bar Action
      *
+     * @param $masterRoute
+     *
      * @return Response
      */
-    public function globalBundleBarAction()
+    public function globalBundleBarAction($masterRoute)
     {
         $globalModuleRepo = $this->getEm()->getRepository('EgzaktSystemBundle:GlobalModule');
         $globalModules = $globalModuleRepo->findAll();
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:global_bundle_bar.html.twig', array(
-            'globalModules' => $globalModules
+            'globalModules' => $globalModules,
+            'masterRoute' => $masterRoute
         ));
     }
 
