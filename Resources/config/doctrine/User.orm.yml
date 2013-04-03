@@ -10,12 +10,6 @@ Egzakt\SystemBundle\Entity\User:
     username:
       type: string
       length: 255
-    password:
-      type: string
-      length: 32
-    salt:
-      type: string
-      length: 255
     firstname:
       type: string
       length: 255
@@ -31,6 +25,12 @@ Egzakt\SystemBundle\Entity\User:
       nullable: true
     active:
       type: boolean
+    password:
+      type: string
+      length: 255
+    salt:
+      type: string
+      length: 32
     createdAt:
       type: datetime
       gedmo:

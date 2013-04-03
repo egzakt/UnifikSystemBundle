@@ -4,6 +4,7 @@ namespace Egzakt\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * User Type
@@ -19,11 +20,10 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('active')
+            ->add('active', null, array('disabled' => $options['self_edit']))
             ->add('username')
             ->add('password', 'repeated', array(
                 'type' => 'password',
-                'options' => array('required' => $options['new']),
                 'invalid_message' => 'The password fields must match.',
                 'first_options' => array('label' => 'Password'),
                 'second_options' => array('label' => 'Repeat')
@@ -52,14 +52,13 @@ class UserType extends AbstractType
     /**
      * Returns the default options for this type.
      *
-     * @param array $options
-     *
-     * @return array The default options
+     * @param OptionsResolverInterface $resolver
      */
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
-            'new' => false
-        );
+        $resolver->setDefaults(array(
+            'data_class' => 'Egzakt\SystemBundle\Entity\User',
+            'self_edit' => false
+        ));
     }
 }

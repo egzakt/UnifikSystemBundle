@@ -4,15 +4,14 @@ namespace Egzakt\SystemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\ExecutionContext;
-use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
 
 /**
  * User
  */
-class User extends BaseEntity implements UserInterface, \Serializable
+class User extends BaseEntity implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer $id
@@ -80,6 +79,8 @@ class User extends BaseEntity implements UserInterface, \Serializable
     public function __construct()
     {
         $this->userRoles = new ArrayCollection();
+        $this->salt = md5(uniqid(null, true));
+        $this->active = true;
     }
 
     /**
@@ -351,36 +352,6 @@ class User extends BaseEntity implements UserInterface, \Serializable
     }
 
     /**
-     * Is Password Valid
-     *
-     * Validate the password fields
-     *
-     * @param ExecutionContext $context The context
-     */
-    public function isPasswordValid(ExecutionContext $context)
-    {
-        if (!$this->getId() && !$this->getPassword()) {
-            $propertyPath = $context->getPropertyPath() . '.password.Password';
-            $context->setPropertyPath($propertyPath);
-            $context->addViolation('This value should not be blank', array(), null);
-        }
-    }
-
-    /**
-     * Is Roles Valid
-     *
-     * @param ExecutionContext $context The context
-     */
-    public function isRolesValid(ExecutionContext $context)
-    {
-        if (!count($this->userRoles)) {
-            $propertyPath = $context->getPropertyPath() . '.userroles';
-            $context->setPropertyPath($propertyPath);
-            $context->addViolation('This value should not be blank', array(), null);
-        }
-    }
-
-    /**
      * Get Roles
      *
      * @return array
@@ -421,27 +392,30 @@ class User extends BaseEntity implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
-        $this->container->get('security.context')->setToken(null);
+        return true;
     }
 
     /**
-     * Equals
+     * Add userRoles
      *
-     * @param UserInterface $user A User
-     *
-     * @return bool
+     * @param Role $userRoles
+     * @return User
      */
-    public function equals(UserInterface $user)
+    public function addUserRole(Role $userRoles)
     {
-        if (!$user instanceof User) {
-            return false;
-        }
+        $this->userRoles[] = $userRoles;
+    
+        return $this;
+    }
 
-        if ($this->getUsername() !== $user->getUsername()) {
-            return false;
-        }
-
-        return true;
+    /**
+     * Remove userRoles
+     *
+     * @param Role $userRoles
+     */
+    public function removeUserRole(Role $userRoles)
+    {
+        $this->userRoles->removeElement($userRoles);
     }
 
     /**
@@ -474,26 +448,24 @@ class User extends BaseEntity implements UserInterface, \Serializable
         ) = unserialize($serialized);
     }
 
-    /**
-     * Add userRoles
-     *
-     * @param \Egzakt\SystemBundle\Entity\Role $userRoles
-     * @return User
-     */
-    public function addUserRole(\Egzakt\SystemBundle\Entity\Role $userRoles)
+    public function isAccountNonExpired()
     {
-        $this->userRoles[] = $userRoles;
-    
-        return $this;
+        return true;
     }
 
-    /**
-     * Remove userRoles
-     *
-     * @param \Egzakt\SystemBundle\Entity\Role $userRoles
-     */
-    public function removeUserRole(\Egzakt\SystemBundle\Entity\Role $userRoles)
+    public function isAccountNonLocked()
     {
-        $this->userRoles->removeElement($userRoles);
+        return true;
     }
+
+    public function isCredentialsNonExpired()
+    {
+        return true;
+    }
+
+    public function isEnabled()
+    {
+        return $this->active;
+    }
+
 }

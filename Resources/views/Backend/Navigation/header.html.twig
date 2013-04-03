@@ -1,0 +1,17 @@
+<div id="welcome">
+    <div id="login_name">
+        <span>{% trans %}Welcome{% endtrans %},</span> <strong>{{ app.user.username }}</strong>
+    </div>
+    <form action="{{ path('egzakt_system_backend_logout') }}">
+        <input type="submit" name="btn_deconnexion" class="btn_deconnexion" value="{% trans %}Logout{% endtrans %}"/>
+    </form>
+</div>
+
+<ul class="tools">
+    <li>
+        <a href="{{ path('egzakt_system_backend_help') }}" id="help">{% trans %}Online help{% endtrans %}</a>
+    </li>
+    <li>
+        <a href="/" id="view_site" target="_blank">{% trans %}Access site{% endtrans %}</a>
+    </li>
+</ul>

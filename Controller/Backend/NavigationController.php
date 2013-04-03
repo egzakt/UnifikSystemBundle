@@ -72,7 +72,7 @@ class NavigationController extends BaseController
      */
     public function headerAction()
     {
-        return $this->render('EgzaktBackendCoreBundle:Navigation:header.html.twig');
+        return $this->render('EgzaktSystemBundle:Backend/Navigation:header.html.twig');
     }
 
     /**

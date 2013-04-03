@@ -1,0 +1,23 @@
+{% if entity.isDeletable %}
+    {% trans %}Are you sure you want to delete{% endtrans %} "{{ entity|striptags|truncate(truncateLength, true)|raw }}"?.
+{% else %}
+    "{{ entity|striptags|truncate(truncateLength, true)|raw }}" {% trans %}cannot be deleted because of these restrictions:{% endtrans %}
+    <ul>
+        {% for restriction in entity.deleteRestrictions %}
+            {% set result = attribute(entity, restriction) %}
+
+            {% if result is sameas(true)  %}
+                <li>{{ restriction|trans }}</li>
+
+            {% elseif result is not sameas(false) %}
+                {% set count = result|length %}
+                {% if count != 0 %}
+                    {% set message = "{1} 1 %name% restriction|]1,Inf] %count% %name% restriction" %}
+                    <li>
+                        {{ message|trans({'%name%': restriction })|transchoice(count) }}
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+{% endif %}

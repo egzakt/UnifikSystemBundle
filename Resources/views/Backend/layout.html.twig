@@ -25,7 +25,9 @@
     {% block top_bar %}
         <div id="login_bar">
             {% if app.user %}
-                {#{% block login_nav %}{% render 'EgzaktBackendCoreBundle:Navigation:Header' %}{% endblock %}#}
+                {% block login_nav %}
+                    {{ render(controller('EgzaktSystemBundle:Backend/Navigation:Header')) }}
+                {% endblock %}
             {% endif %}
             <h6>{% trans %}Content Management System (CMS){% endtrans %}</h6>
         </div>

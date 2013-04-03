@@ -2,16 +2,17 @@
 {% form_theme form 'EgzaktSystemBundle:Backend/Core:edit_fields.html.twig' %}
 
 {% block content_header %}
-    <h1>{{ entity|trans }}</h1>
+    <h1>{{ user|trans }}</h1>
 {% endblock %}
 
 {% block content_main %}
 
-    <form novalidate="novalidate" action="{{ path('egzakt_system_backend_user_edit', { 'id': entity.id ? entity.id : 0 }) }}" method="post" {{ form_enctype(form) }}>
+    <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
 
         {% block edit_action %}
             {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
-                'delete_route': path('egzakt_system_backend_user_delete', { 'id': 0 }),
+                'entity': user,
+                'delete_route': path('egzakt_system_backend_user_delete', { 'id': user.id ? user.id : 0 }),
                 'cancel_route': path('egzakt_system_backend_user')
             } %}
         {% endblock %}
@@ -31,13 +32,13 @@
 
                 {{ form_rest(form) }}
 
-                {% if entity.id %}
+                {% if user.id %}
                     <tr>
                         <th>
                             {% trans %}Last update {% endtrans %} :
                         </th>
                         <td style="vertical-align:bottom">
-                            {{ entity.updatedAt }}
+                            {{ user.updatedAt|date }}
                         </td>
                     </tr>
                 {% endif %}

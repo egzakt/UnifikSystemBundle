@@ -16,7 +16,6 @@ use Egzakt\SystemBundle\Form\Backend\UserType;
  */
 class UserController extends BaseController
 {
-
     /**
      * Lists all User entities.
      *
@@ -39,38 +38,51 @@ class UserController extends BaseController
      */
     public function editAction($id, Request $request)
     {
-        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
+        $user = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
 
-        if (!$entity) {
-            $entity = new User();
+        if (!$user) {
+            $user = new User();
+            $user->setContainer($this->container);
         }
 
-        $form = $this->createForm(new UserType(), $entity);
+        $form = $this->createForm(new UserType(), $user, array(
+            'validation_groups' => $user->getId() ? 'edit' : 'new',
+            'self_edit' => $user == $this->getUser()
+        ));
 
         if ($request->getMethod() == 'POST') {
 
-            $oldPassword = $entity->getPassword();
+            $previousEncodedPassword = $user->getPassword();
 
-            $form->bindRequest($request);
+            $form->bind($request);
 
             if ($form->isValid()) {
 
-                $entity->setPassword($entity->getPassword() ? md5($entity->getPassword()) : $oldPassword);
-                $this->getEm()->persist($entity);
+                // New password set
+                if ($form->get('password')->getData()) {
+                    $encoder = $this->get('security.encoder_factory')->getEncoder($user);
+                    $encodedPassword = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+                } else {
+                    $encodedPassword = $previousEncodedPassword;
+                }
+
+                $user->setPassword($encodedPassword);
+
+                $this->getEm()->persist($user);
                 $this->getEm()->flush();
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl($this->getBundleName()));
+                    return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
                 }
 
-                return $this->redirect($this->generateUrl($this->getBundleName() . '_edit', array(
-                    'id' => $entity->getId() ? : 0
+                return $this->redirect($this->generateUrl('egzakt_system_backend_user_edit', array(
+                    'id' => $user->getId()
                 )));
             }
         }
 
         return $this->render('EgzaktSystemBundle:Backend/User/User:edit.html.twig', array(
-            'entity' => $entity,
+            'user' => $user,
             'form' => $form->createView()
         ));
     }
@@ -84,7 +96,7 @@ class UserController extends BaseController
      */
     public function deleteAction($id)
     {
-        $user = $this->getEm()->getRepository('EgzaktBackendUserBundle:User')->find($id);
+        $user = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
 
         if (!$user) {
             throw $this->createNotFoundException('Unable to find User entity.');
@@ -99,7 +111,7 @@ class UserController extends BaseController
                 $template = $this->get('translator')->trans('You can\'t delete yourself.');
             } else {
                 $isDeletable = $user->isDeletable();
-                $template = $this->renderView('EgzaktBackendCoreBundle:Core:delete_message.html.twig', array(
+                $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
                     'entity' => $user,
                     'truncateLength' => $this->getSectionBundle()->getParam('breadcrumbs_truncate_length')
                 ));

@@ -11,3 +11,22 @@ Egzakt\SystemBundle\Entity\Member:
             - NotBlank: { groups: [reset_password, register] }
     constraints:
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: email, groups: [Default, edit, register] }
+
+Egzakt\SystemBundle\Entity\User:
+    properties:
+        username:
+            - NotBlank: { groups: [new, edit] }
+            - Length: { groups: [new, edit], min: 3, minMessage: This field must be at least 3 characters long }
+        firstname:
+            - NotBlank: { groups: [new, edit] }
+        lastname:
+            - NotBlank: { groups: [new, edit] }
+        email:
+            - Email: { groups: [new, edit, forgot_password] }
+            - NotBlank: { groups: [new, edit, forgot_password] }
+        password:
+            - NotBlank: { groups: [new, reset_password] }
+            - Length: { groups: [new, edit, reset_password], min: 8, minMessage: Password must be at least 8 characters long }
+    constraints:
+      - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: username, groups: [new, edit] }
+      - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: email, groups: [new, edit]  }
