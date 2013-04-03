@@ -1,0 +1,62 @@
+{% extends 'EgzaktSystemBundle:Backend/Member:layout.html.twig' %}
+{% form_theme form 'EgzaktSystemBundle:Backend/Core:edit_fields.html.twig' %}
+
+{% block content_header %}
+    <h1>{{ member|trans }}</h1>
+{% endblock %}
+
+{% block content_main %}
+
+    <form novalidate="novalidate" action="" method="post" {{ form_enctype(form) }}>
+
+        {% block edit_actions %}
+            {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
+                'entity': member,
+                'delete_route': path('egzakt_system_backend_member_delete', { 'id': 0 }),
+                'cancel_route': path('egzakt_system_backend_member')
+            } %}
+        {% endblock %}
+
+        <div id="fields_box">
+            <table class="fields" cellspacing="0">
+
+                {{ form_errors(form) }}
+
+                {{ form_row(form.active) }}
+                {{ form_row(form.emailConfirmed) }}
+                {{ form_row(form.firstname) }}
+                {{ form_row(form.lastname) }}
+                {{ form_row(form.address) }}
+                {{ form_row(form.city) }}
+                {{ form_row(form.postalCode) }}
+                {{ form_row(form.telephone) }}
+
+                {% include 'EgzaktSystemBundle:Backend/Core:collapsable_fields.html.twig' with {
+                    'link_name': 'Login informations',
+                    'fields': [
+                        form_row(form.email),
+                        form_row(form.password)
+                    ]
+                } %}
+
+                {% if member.id %}
+                    <tr>
+                        <th>
+                            {% trans %}Last update {% endtrans %} :
+                        </th>
+                        <td style="vertical-align:bottom">
+                            {{ member.updatedAt|date('Y-m-d') }}
+                        </td>
+                    </tr>
+                {% endif %}
+
+                {{ form_row(form._token) }}
+
+            </table>
+        </div>
+
+        {#{{ block('edit_actions') }}#}
+
+    </form>
+
+{% endblock content_main %}

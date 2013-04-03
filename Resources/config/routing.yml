@@ -42,3 +42,16 @@ egzakt_system_backend_user_delete:
     pattern:  /users/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:delete" }
 
+# Members
+egzakt_system_backend_member:
+    pattern:  /members
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Member/Member:list" }
+
+egzakt_system_backend_member_edit:
+    pattern:  /members/{id}/edit
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Member/Member:edit", id: 0 }
+
+egzakt_system_backend_member_delete:
+    pattern:  /members/{id}/delete
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Member/Member:delete" }
+

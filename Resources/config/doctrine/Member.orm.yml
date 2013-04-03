@@ -1,0 +1,49 @@
+Egzakt\SystemBundle\Entity\Member:
+  type: entity
+  repositoryClass: Egzakt\SystemBundle\Entity\MemberRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    firstname:
+      type: string
+      length: 255
+    lastname:
+      type: string
+      length: 255
+    email:
+      type: string
+      length: 255
+    password:
+      type: string
+      length: 32
+    address:
+      type: string
+      nullable: true
+    city:
+      type: string
+      nullable: true
+    postalCode:
+      type: string
+      nullable: true
+    telephone:
+      type: string
+      nullable: true
+    emailConfirmed:
+      type: boolean
+      nullable: true
+    active:
+      type: boolean
+      nullable: true
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update

@@ -76,6 +76,9 @@ class Core
      */
     public function getCurrentAppName()
     {
+        // TODO HACK
+        return 'backend';
+
         if ($this->currentAppName) {
             return $this->currentAppName;
         }

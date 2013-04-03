@@ -104,11 +104,3 @@
         <label{% for attrname,attrvalue in attr %} {{attrname}}="{{attrvalue}}"{% endfor %}>{{ label|trans|raw }}</label>
     {% endspaceless %}
 {% endblock %}
-
-{% block form_errors %}
-    {% if errors|length > 0 %}
-        <div class="error">
-            {{ block('field_errors') }}
-        </div>
-    {% endif %}
-{% endblock %}

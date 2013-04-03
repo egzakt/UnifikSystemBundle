@@ -4,7 +4,7 @@ namespace Egzakt\SystemBundle\Lib;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Sluggable\Util\Urlizer;
-use Symfony\Component\DependencyInjection\Container;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Egzakt\SystemBundle\Lib\EntityInterface;
 use Egzakt\SystemBundle\Lib\NavigationInterface;
@@ -44,7 +44,7 @@ abstract class BaseEntity implements EntityInterface, NavigationInterface
     /**
      * The container
      *
-     * @var Container
+     * @var ContainerInterface
      */
     protected $container;
 
@@ -278,7 +278,7 @@ abstract class BaseEntity implements EntityInterface, NavigationInterface
     /**
      * Sets the Container
      *
-     * @param Container $container
+     * @param ContainerInterface $container
      */
     public function setContainer($container)
     {

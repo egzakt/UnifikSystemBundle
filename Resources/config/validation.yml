@@ -1,0 +1,13 @@
+Egzakt\SystemBundle\Entity\Member:
+    properties:
+        firstname:
+            - NotBlank: { groups: [Default, edit, register] }
+        lastname:
+            - NotBlank: { groups: [Default, edit, register] }
+        email:
+            - Email: { groups: [Default, forgot_password, edit, register] }
+            - NotBlank: { groups: [Default, forgot_password, edit, register] }
+        password:
+            - NotBlank: { groups: [reset_password, register] }
+    constraints:
+      - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: email, groups: [Default, edit, register] }
