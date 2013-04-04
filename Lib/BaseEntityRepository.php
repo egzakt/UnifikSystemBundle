@@ -4,6 +4,8 @@ namespace Egzakt\SystemBundle\Lib;
 
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\Exception\BadMethodCallException;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\NoResultException;
@@ -13,12 +15,12 @@ use Doctrine\DBAL\LockMode;
 /**
  * Egzakt Backend Base for Entities
  */
-abstract class BaseEntityRepository extends EntityRepository
+abstract class BaseEntityRepository extends EntityRepository implements ContainerAwareInterface
 {
     /**
      * Dependency injection container
      *
-     * @var Container
+     * @var ContainerInterface
      */
     protected $container;
 
@@ -40,9 +42,9 @@ abstract class BaseEntityRepository extends EntityRepository
     /**
      * Sets the Container
      *
-     * @param Container $container
+     * @param ContainerInterface $container
      */
-    public function setContainer($container)
+    public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;
     }

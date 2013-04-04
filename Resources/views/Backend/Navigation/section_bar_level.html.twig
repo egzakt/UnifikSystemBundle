@@ -1,0 +1,17 @@
+{% if sections %}
+    {% for section in sections %}
+        {% if section.entity.route %}
+            <li class="{% if section.hasChildren %}with_sublevel {% endif %}{% if section.selected %}open selected{% endif %}">
+                <a href="{{ path(section.entity.route, { section_id: section.entity.id }) }}">
+                    {{ section.entity.translate(app.request.locale) }}
+                </a>
+                {% if section.selected and section.hasChildren %}
+                    <ul class="level_{{ level }}">
+                        {% include 'EgzaktBackendCoreBundle:Navigation:section_bar_level_bundles.html.twig' with { 'sectionBundles': section.entity.sectionBundlesBackend } %}
+                        {% include 'EgzaktBackendCoreBundle:Navigation:section_bar_level.html.twig' with { 'sections': section.children, 'level': level + 1 } %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endif %}
+    {% endfor %}
+{% endif %}

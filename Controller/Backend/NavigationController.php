@@ -30,7 +30,7 @@ class NavigationController extends BaseController
         }
 
         /** @var SectionRepository $sectionRepo */
-        $sectionRepo = $this->getDoctrine()->getRepository('EgzaktBackendSectionBundle:Section');
+        $sectionRepo = $this->getDoctrine()->getRepository('EgzaktSystemBundle:Section');
         $sections = $sectionRepo->findAllFromTree(array('app' => $appCurrent->getId()), array('ordering' => 'ASC'));
         $sections = $this->removeInactiveBundlesFromSections($sections);
 
@@ -41,10 +41,10 @@ class NavigationController extends BaseController
 
         $sections = $navigationBuilder->getElements();
 
-        return $this->render(
-            'EgzaktBackendCoreBundle:Navigation:section_bar.html.twig',
-            array('sections' => $sections, 'sectionCurrent' => $sectionCurrent)
-        );
+        return $this->render('EgzaktSystemBundle:Backend/Navigation:section_bar.html.twig', array(
+            'sections' => $sections,
+            'sectionCurrent' => $sectionCurrent
+        ));
     }
 
     /**
@@ -153,22 +153,24 @@ class NavigationController extends BaseController
     /**
      * Bundle Bar Action
      *
+     * @param $masterRoute
      * @return Response
      */
-    public function bundleBarAction()
+    public function bundleBarAction($masterRoute)
     {
-        return new Response('abc');
-        if (false == $this->getCore()->getSection()) {
+        if (false == $this->getSection()) {
             return new Response();
         }
 
-        $sectionBundles = $this->getCore()->getSection()->getSectionBundlesBackend();
-        $sectionBundleCurrent = $this->getCore()->getSectionBundle();
+        $mappings = $this->getEm()->getRepository('EgzaktSystemBundle:Mapping')->findBy(array(
+            'section' => $this->getSection(),
+            'navigation' => 3
+        ));
 
-        return $this->render(
-            'EgzaktBackendCoreBundle:Navigation:bundle_bar.html.twig',
-            array('sectionBundles' => $sectionBundles, 'sectionBundleCurrent' => $sectionBundleCurrent)
-        );
+        return $this->render('EgzaktSystemBundle:Backend/Navigation:bundle_bar.html.twig', array(
+            'mappings' => $mappings,
+            'masterRoute' => $masterRoute
+        ));
     }
 
     /**

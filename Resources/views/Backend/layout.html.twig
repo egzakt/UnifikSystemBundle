@@ -1,5 +1,7 @@
 {% extends '::base.html.twig' %}
 
+{% set masterRoute = app.request.attributes.get('_route') %}
+
 {% block title %}
     {#{% render 'EgzaktBackendCoreBundle:Navigation:PageTitle' %}#}
 {% endblock %}
@@ -37,8 +39,8 @@
         <div id="cols_wrapper">
 
             <div id="navigation_col">
-                {#{% render 'EgzaktBackendCoreBundle:Navigation:SectionBar' %}#}
-                {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalBundleBar', { masterRoute: app.request.attributes.get('_route') })) }}
+                {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionBar', { masterRoute: masterRoute })) }}
+                {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalBundleBar', { masterRoute: masterRoute })) }}
             </div>
 
             <div id="main_col">
@@ -47,7 +49,7 @@
                 {% endblock %}
 
                 {% block bundle_bar %}
-                    {#{% render 'EgzaktBackendCoreBundle:Navigation:BundleBar' %}#}
+                    {{ render(controller('EgzaktSystemBundle:Backend/Navigation:BundleBar', { masterRoute: masterRoute })) }}
                 {% endblock %}
 
                 {% block locale_bar %}

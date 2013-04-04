@@ -51,7 +51,7 @@ class SectionRepository extends BaseEntityRepository
     public function findAllFromTree(array $criteria = null, array $orderBy = null)
     {
         $dql = 'SELECT s, t, sb, sn, n, b, p
-                FROM EgzaktBackendSectionBundle:Section s
+                FROM EgzaktSystemBundle:Section s
                 LEFT JOIN s.sectionBundles sb
                 LEFT JOIN s.sectionNavigations sn
                 LEFT JOIN sn.navigation n

@@ -1,0 +1,7 @@
+{% if mappings %}
+    <ul id="bundles">
+        {% for mapping in mappings %}
+            {{ render(controller(mapping.target, { masterRoute: masterRoute })) }}
+        {% endfor %}
+    </ul>
+{% endif %}

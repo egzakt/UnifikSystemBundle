@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Lib\Backend;
 
+use Egzakt\SystemBundle\Entity\Section;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Egzakt\SystemBundle\Lib\BaseControllerInterface;
@@ -55,7 +56,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     /**
      * Get the Section entity
      *
-     * @return \Egzakt\Backend\SectionBundle\Entity\Section
+     * @return Section
      */
     public function getSection()
     {

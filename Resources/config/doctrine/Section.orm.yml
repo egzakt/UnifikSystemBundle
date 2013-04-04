@@ -42,6 +42,9 @@ Egzakt\SystemBundle\Entity\Section:
       targetEntity: Egzakt\SystemBundle\Entity\SectionNavigation
       mappedBy: section
       cascade: [persist]
+    mappings:
+      targetEntity: Egzakt\SystemBundle\Entity\Mapping
+      mappedBy: section
   manyToOne:
     parent:
       targetEntity: Egzakt\SystemBundle\Entity\Section

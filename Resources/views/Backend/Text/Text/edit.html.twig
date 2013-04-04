@@ -1,0 +1,64 @@
+{% extends 'EgzaktBackendTextBundle::layout.html.twig' %}
+{% form_theme edit_form 'EgzaktBackendCoreBundle:Core:edit_fields.html.twig' %}
+
+{% block content_header %}
+    <h1>{{ entity.i18nTitle|trans|raw }}</h1>
+{% endblock %}
+
+{% block content_main %}
+
+    <form novalidate="novalidate" action="{{ path(bundle ~ '_edit', { 'id': entity.id ? entity.id : 0, 'section_id': section.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+
+        {% include 'EgzaktBackendCoreBundle:Core:edit_actions.html.twig' %}
+
+        <div id="fields_box">
+            <table class="fields" cellspacing="0">
+
+                {{ form_row(edit_form.translation.active) }}
+
+                {% if (not entity.static) %}
+                    {{ form_row(edit_form.collapsable) }}
+                    {{ form_row(edit_form.translation.name) }}
+                {% endif %}
+
+                {{ form_row(edit_form.translation.text) }}
+
+                {{ form_rest(edit_form) }}
+
+                {% if entity.id %}
+                    <tr>
+                        <th>
+                            {% trans %}Last update{% endtrans %} :
+                        </th>
+                        <td style="vertical-align:bottom">
+                            {{ entity.updatedAt|localeDate('long', 'short') }}
+                        </td>
+                    </tr>
+                {% endif %}
+
+            </table>
+        </div>
+
+        {% include 'EgzaktBackendCoreBundle:Core:edit_actions.html.twig' %}
+
+    </form>
+
+    <script type="text/javascript">
+        $(function(){
+
+            var chkCollapsable = function(){
+                if ($('#texte_collapsable').is(':checked')) {
+                    $('#texte_translation_name').parent().parent().show();
+                }
+                else {
+                    $('#texte_translation_name').parent().parent().hide();
+                }
+            };
+
+            $('#texte_collapsable').click(chkCollapsable);
+            chkCollapsable();
+
+        });
+    </script>
+
+{% endblock %}

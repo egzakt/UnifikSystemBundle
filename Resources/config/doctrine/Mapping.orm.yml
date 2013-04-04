@@ -1,0 +1,39 @@
+Egzakt\SystemBundle\Entity\Mapping:
+  type: entity
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    type:
+      type: string
+      length: 255
+    target:
+      type: string
+      length: 255
+    ordering:
+      type: integer
+      nullable: true
+  manyToOne:
+    section:
+      targetEntity: Egzakt\SystemBundle\Entity\Section
+      inversedBy:  sectionModules
+      joinColumn:
+        name: section_id
+        referencedColumnName: id
+        onDelete: cascade
+    app:
+      targetEntity: Egzakt\SystemBundle\Entity\App
+      inversedBy:  sectionModules
+      joinColumn:
+        name: app_id
+        referencedColumnName: id
+        onDelete: cascade
+    navigation:
+      targetEntity: Egzakt\SystemBundle\Entity\Navigation
+      inversedBy:  sectionModules
+      joinColumn:
+        name: navigation_id
+        referencedColumnName: id
+        onDelete: cascade

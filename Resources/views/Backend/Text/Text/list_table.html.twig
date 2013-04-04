@@ -1,0 +1,75 @@
+<table cellspacing="0" class="table-autosort">
+    <thead>
+        <tr>
+            <th class="default_ordering table-sortable:numeric">
+                {% trans %}Ordering{% endtrans %}
+            </th>
+            <th class="name table-sortable:ignorecase">
+                {% trans %}Content{% endtrans %}
+            </th>
+            <th class="centered">
+                {% trans %}Collapsable{% endtrans %}
+            </th>
+            <th class="update table-sortable:date">
+                {% trans %}Last update{% endtrans %}
+            </th>
+           <th colspan="2" class="switch_list_mode">
+                <a href="#"><img src="{{ asset("bundles/egzaktbackendcore/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
+            </th>
+        </tr>
+        <tr class="filters">
+            <th class="default_ordering">
+                &nbsp;
+            </th>
+            <th class="name">
+                <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a content"|trans }}" />
+            </th>
+            <th>
+                &nbsp;
+            </th>
+            <th>
+                &nbsp;
+            </th>
+            <th>&nbsp;</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for entity in entities %}
+            <tr id="item_{{ entity.id }}">
+                <td class="default_ordering">
+                    {{ entity.ordering }}
+                </td>
+                <td class="name {% if not entity.active %} inactive{% endif %}">
+                    <a href="{{ path(bundle ~ '_edit', { 'id': entity.id, 'section_id': section.id }) }}">
+                        {{ entity|striptags|truncate(truncateLength, true)|raw }}
+                    </a>
+                </td>
+                <td class="centered">
+                    {% if entity.collapsable %}
+                         <img src="{{ asset('bundles/egzaktbackendcore/images/icons/tick.png') }}" width="16" height="16" alt="{% trans %}yes{% endtrans %}">
+                    {% endif %}
+                </td>
+                <td>
+                    {{ entity.updatedAt|date('Y-m-d') }}
+                </td>
+                <td class="edit">
+                    <a href="{{ path(bundle ~ '_edit', { 'id': entity.id, 'section_id': section.id }) }}" title="{% trans %}Edit{% endtrans %}">
+                        <img src="{{ asset('bundles/egzaktbackendcore/images/buttons/edit.png') }}" width="15" height="15" alt="{% trans %}edit{% endtrans %}" />
+                    </a>
+                </td>
+                <td class="delete">
+                    <a href="{{ path(bundle ~ '_delete', { 'id': entity.id, 'section_id': section.id }) }}" rel="{{ path(bundle ~ '_delete', { 'id': entity.id, 'section_id': section.id, 'message': true }) }}" title="{% trans %}Delete{% endtrans %}">
+                        <img src="{{ asset('bundles/egzaktbackendcore/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                    </a>
+                </td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="total">
+    <span class="sub-total"></span>
+    {% set count = entities|length %}
+    {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+</div>
