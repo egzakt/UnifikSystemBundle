@@ -162,14 +162,16 @@ class NavigationController extends BaseController
             return new Response();
         }
 
+        $section = $this->getSection();
         $mappings = $this->getEm()->getRepository('EgzaktSystemBundle:Mapping')->findBy(array(
-            'section' => $this->getSection(),
+            'section' => $section,
             'navigation' => 3
         ));
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:bundle_bar.html.twig', array(
             'mappings' => $mappings,
-            'masterRoute' => $masterRoute
+            'masterRoute' => $masterRoute,
+            'section' => $section
         ));
     }
 

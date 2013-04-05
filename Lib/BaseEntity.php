@@ -857,7 +857,7 @@ abstract class BaseEntity implements EntityInterface, NavigationInterface
 
                 $name = strip_tags($name);
 
-                if ($this->container->get('session')->getLocale() == $this->getLocale() || !$referenceName) {
+                if ($this->container->get('request')->getLocale() == $this->getLocale() || !$referenceName) {
                     $this->i18nTitle = $name;
                 } else {
                     $this->i18nTitle = $name . ' <em>(' . $referenceName . ')</em>';

@@ -1,15 +1,18 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend\User;
+namespace Egzakt\SystemBundle\Controller\Backend\Section;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 
+use Egzakt\SystemBundle\Lib\Backend\BaseController;
+
 /**
- * User Controller
+ * Navigation controller.
+ *
  */
 class NavigationController extends BaseController
 {
+
     /**
      * Global Bundle Bar Action
      *
@@ -19,9 +22,9 @@ class NavigationController extends BaseController
      */
     public function globalModuleBarAction($masterRoute)
     {
-        $selected = (0 === strpos($masterRoute, 'egzakt_system_backend_user'));
+        $selected = (0 === strpos($masterRoute, 'egzakt_system_backend_section'));
 
-        return $this->render('EgzaktSystemBundle:Backend/User/Navigation:global_bundle_bar.html.twig', array(
+        return $this->render('EgzaktSystemBundle:Backend/Section/Navigation:global_bundle_bar.html.twig', array(
             'selected' => $selected
         ));
     }

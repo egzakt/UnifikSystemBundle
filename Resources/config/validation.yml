@@ -30,3 +30,13 @@ Egzakt\SystemBundle\Entity\User:
     constraints:
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: username, groups: [new, edit] }
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: email, groups: [new, edit]  }
+
+Egzakt\SystemBundle\Entity\SectionTranslation:
+    properties:
+        name:
+            - NotBlank: { groups: [Default] }
+
+Egzakt\SystemBundle\Entity\Section:
+    constraints:
+      - Callback:
+          methods: [isHeadCodeHtml]

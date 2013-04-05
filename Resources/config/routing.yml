@@ -57,7 +57,7 @@ egzakt_system_backend_member_delete:
 
 # Texts
 egzakt_system_backend_text:
-    pattern:  /texts/{section_id}/
+    pattern:  /texts/{section_id}
     defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:index" }
 
 egzakt_system_backend_text_order:
@@ -71,3 +71,21 @@ egzakt_system_backend_text_edit:
 egzakt_system_backend_text_delete:
     pattern:  /texts/{section_id}/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:delete" }
+
+# Sections
+egzakt_system_backend_section_root:
+    pattern:  /sections/root
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:list" }
+
+egzakt_system_backend_section_root_order:
+    pattern:  /sections/root/order
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:order" }
+
+egzakt_system_backend_section_root_edit:
+    pattern:  /sections/root/{id}/edit
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:edit", id: 0 }
+
+egzakt_system_backend_section_root_delete:
+    pattern:  /sections/root/{id}/delete
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:delete" }
+    

@@ -1,0 +1,32 @@
+{% extends 'EgzaktSystemBundle:Backend/Section:layout.html.twig' %}
+
+{% block content_header %}
+    <h1>{% trans %}Sections List{% endtrans %}</h1>
+{% endblock %}
+
+{% block content_main %}
+
+    <script type="text/javascript">
+       var url_ordre = '{{ path('egzakt_system_backend_section_root_order') }}';
+    </script>
+
+    <div id="list_actions_bar">
+       <a class="add" href="{{ path('egzakt_system_backend_section_root_edit') }}">
+           {% trans %}Add a section{% endtrans %}
+       </a>
+    </div>
+
+    {% for navigation in navigations %}
+        {% if navigation.sections|length %}
+            <div class="list_box">
+                <h2>{{ navigation|capitalize }}</h2>
+
+                {% include 'EgzaktSystemBundle:Backend/Section/Root:list_table.html.twig' with {
+                    'entities': navigation.sections,
+                    'navigation': navigation
+                } %}
+            </div>
+        {% endif %}
+    {% endfor %}
+
+{% endblock content_main %}

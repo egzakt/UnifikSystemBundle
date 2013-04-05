@@ -1,1 +1,5 @@
-{% extends 'EgzaktBackendCoreBundle:Navigation:bundle_bar_item.html.twig' %}
+<li>
+    <a class="text{% if selected %} selected{% endif %}" href="{{ path('egzakt_system_backend_text', { section_id: section.id }) }}">
+        {% trans %}Texts{% endtrans %}
+    </a>
+</li>
