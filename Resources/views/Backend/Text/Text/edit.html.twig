@@ -1,5 +1,5 @@
-{% extends 'EgzaktBackendTextBundle::layout.html.twig' %}
-{% form_theme edit_form 'EgzaktBackendCoreBundle:Core:edit_fields.html.twig' %}
+{% extends 'EgzaktSystemBundle:Backend/Text:layout.html.twig' %}
+{% form_theme edit_form 'EgzaktSystemBundle:Backend/Core:edit_fields.html.twig' %}
 
 {% block content_header %}
     <h1>{{ entity.i18nTitle|trans|raw }}</h1>
@@ -7,16 +7,22 @@
 
 {% block content_main %}
 
-    <form novalidate="novalidate" action="{{ path(bundle ~ '_edit', { 'id': entity.id ? entity.id : 0, 'section_id': section.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <form novalidate="novalidate" method="post" {{ form_enctype(edit_form) }}>
 
-        {% include 'EgzaktBackendCoreBundle:Core:edit_actions.html.twig' %}
+        {% block edit_actions %}
+            {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
+                'entity': entity,
+                'delete_route': path('egzakt_system_backend_text_delete', { section_id: section.id, id: 0 }),
+                'cancel_route': path('egzakt_system_backend_text', { section_id: section.id })
+            } %}
+        {% endblock %}
 
         <div id="fields_box">
             <table class="fields" cellspacing="0">
 
                 {{ form_row(edit_form.translation.active) }}
 
-                {% if (not entity.static) %}
+                {% if not entity.static %}
                     {{ form_row(edit_form.collapsable) }}
                     {{ form_row(edit_form.translation.name) }}
                 {% endif %}
@@ -31,7 +37,7 @@
                             {% trans %}Last update{% endtrans %} :
                         </th>
                         <td style="vertical-align:bottom">
-                            {{ entity.updatedAt|localeDate('long', 'short') }}
+                            {{ entity.updatedAt|date }}
                         </td>
                     </tr>
                 {% endif %}
@@ -39,13 +45,12 @@
             </table>
         </div>
 
-        {% include 'EgzaktBackendCoreBundle:Core:edit_actions.html.twig' %}
+        {{ block('edit_actions') }}
 
     </form>
 
     <script type="text/javascript">
         $(function(){
-
             var chkCollapsable = function(){
                 if ($('#texte_collapsable').is(':checked')) {
                     $('#texte_translation_name').parent().parent().show();
@@ -57,7 +62,6 @@
 
             $('#texte_collapsable').click(chkCollapsable);
             chkCollapsable();
-
         });
     </script>
 

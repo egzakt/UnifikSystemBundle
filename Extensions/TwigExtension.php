@@ -2,8 +2,11 @@
 
 namespace Egzakt\SystemBundle\Extensions;
 
+use Symfony\Component\Stopwatch\Section;
 use BCC\ExtraToolsBundle\Util\DateFormatter;
+
 use Egzakt\SystemBundle\Lib\Helper;
+use Egzakt\SystemBundle\Lib\Backend\Core;
 
 /**
  * Library of helper functions
@@ -11,7 +14,7 @@ use Egzakt\SystemBundle\Lib\Helper;
 class TwigExtension extends \Twig_Extension
 {
     /**
-     * @var Helper (injected)
+     * @var Helper
      */
     private $helper;
 
@@ -19,6 +22,27 @@ class TwigExtension extends \Twig_Extension
      * @var String
      */
     private $locale;
+
+    /**
+     * @var Core
+     */
+    private $backendCore;
+
+    /**
+     * @param Core $backendCore
+     */
+    public function setBackendCore($backendCore)
+    {
+        $this->backendCore = $backendCore;
+    }
+
+    /**
+     * @return Core
+     */
+    public function getBackendCore()
+    {
+        return $this->backendCore;
+    }
 
     /**
      * Set helper
@@ -65,6 +89,13 @@ class TwigExtension extends \Twig_Extension
             'stripLineBreaks' => new \Twig_Filter_Method($this, 'stripLineBreaks'),
             'formatCurrency' => new \Twig_Filter_Method($this, 'formatCurrency'),
             'ceil' => new \Twig_Filter_Method($this, 'ceil')
+        );
+    }
+
+    public function getGlobals()
+    {
+        return array(
+            'section' => $this->backendCore->getSection()
         );
     }
 

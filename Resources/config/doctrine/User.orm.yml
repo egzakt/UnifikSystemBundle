@@ -48,7 +48,7 @@ Egzakt\SystemBundle\Entity\User:
       inversedBy: users
       cascade: [persist]
       joinTable:
-        name: UserRole
+        name: user_role
         joinColumns:
           userId:
             referencedColumnName: id

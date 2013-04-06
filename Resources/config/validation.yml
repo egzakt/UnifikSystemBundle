@@ -40,3 +40,11 @@ Egzakt\SystemBundle\Entity\Section:
     constraints:
       - Callback:
           methods: [isHeadCodeHtml]
+
+Egzakt\SystemBundle\Entity\TextTranslation:
+    properties:
+        text:
+            - NotBlank: ~
+    constraints:
+        - Callback:
+            methods: [isCollapsableValid]

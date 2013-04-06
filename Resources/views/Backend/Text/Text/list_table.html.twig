@@ -40,9 +40,9 @@
                 <td class="default_ordering">
                     {{ entity.ordering }}
                 </td>
-                <td class="name {% if not entity.active %} inactive{% endif %}">
-                    <a href="{{ path(bundle ~ '_edit', { 'id': entity.id, 'section_id': section.id }) }}">
-                        {{ entity|striptags|truncate(truncateLength, true)|raw }}
+                <td class="name{% if not entity.active %} inactive{% endif %}">
+                    <a href="{{ path('egzakt_system_backend_text_edit', { 'id': entity.id, 'section_id': section.id }) }}">
+                        {{ entity|striptags|truncate(100, true)|raw }}
                     </a>
                 </td>
                 <td class="centered">
@@ -54,7 +54,7 @@
                     {{ entity.updatedAt|date('Y-m-d') }}
                 </td>
                 <td class="edit">
-                    <a href="{{ path(bundle ~ '_edit', { 'id': entity.id, 'section_id': section.id }) }}" title="{% trans %}Edit{% endtrans %}">
+                    <a href="{{ path( ~ '_edit', { 'id': entity.id, 'section_id': section.id }) }}" title="{% trans %}Edit{% endtrans %}">
                         <img src="{{ asset('bundles/egzaktbackendcore/images/buttons/edit.png') }}" width="15" height="15" alt="{% trans %}edit{% endtrans %}" />
                     </a>
                 </td>

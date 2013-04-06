@@ -2,13 +2,16 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Text;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
-use Egzakt\Backend\TextBundle\Form\TextMainType;
-use Egzakt\Backend\TextBundle\Form\TextStaticType;
+use Egzakt\SystemBundle\Entity\Text;
+use Egzakt\SystemBundle\Form\Backend\TextMainType;
+use Egzakt\SystemBundle\Form\Backend\TextStaticType;
 
 /**
  * Text controller.
@@ -60,16 +63,16 @@ class TextController extends BaseController
 
     /**
      * Displays a form to edit an existing Text entity.
-     *
+     * @param Request $request
      * @param integer $id The ID
      *
      * @return RedirectResponse|Response
      */
-    public function editAction($id)
+    public function editAction(Request $request, $id)
     {
         $section = $this->getSection();
 
-        $entity = $this->getEm()->getRepository($this->getBundleName() . ':Text')->find($id);
+        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
 
         if (false == $entity) {
             $entity = new Text();
@@ -78,7 +81,6 @@ class TextController extends BaseController
         }
 
         $this->getCore()->addNavigationElement($entity);
-        $request = $this->getRequest();
 
         if ($entity->isStatic()) {
             $formType = new TextStaticType();
@@ -101,24 +103,22 @@ class TextController extends BaseController
                 $this->invalidateRoutingCache();
 
                 if ($request->request->has('save')) {
-
-                    return $this->redirect($this->generateUrl($this->getBundleName(), array(
+                    return $this->redirect($this->generateUrl('egzakt_system_backend_text', array(
                         'section_id' => $section->getId()
                     )));
                 }
 
-                return $this->redirect($this->generateUrl($this->getBundleName() . '_edit', array(
+                return $this->redirect($this->generateUrl('egzakt_system_backend_text_edit', array(
                     'id' => $entity->getId() ?: 0,
                     'section_id' => $section->getId()
                 )));
             }
         }
 
-        return $this->render($this->getBundleName() . ':Text:edit.html.twig', array(
+        return $this->render('EgzaktSystemBundle:Backend/Text/Text:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $form->createView(),
-            'section' => $section,
-            'truncateLength' => $this->getSectionBundle()->getParam('list_truncate_length')
+            'truncateLength' => 100
         ));
     }
 

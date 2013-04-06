@@ -24,7 +24,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     /**
      * Return the core
      *
-     * @return \Egzakt\Backend\CoreBundle\Lib\Core
+     * @return Core
      */
     public function getCore()
     {

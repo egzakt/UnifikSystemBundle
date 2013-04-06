@@ -11,6 +11,7 @@ use Egzakt\SystemBundle\Lib\Breadcrumbs;
 use Egzakt\SystemBundle\Lib\NavigationInterface;
 use Egzakt\SystemBundle\Lib\PageTitle;
 use Monolog\Logger;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Kernel;
@@ -96,6 +97,31 @@ class Core
      * @var int $requestType
      */
     protected $requestType;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
+
+        if ($container->isScopeActive('request')) {
+            $this->request = $container->get('request');
+        }
+    }
+
+    /**
+     * @return ContainerInterface
+     */
+    public function getContainer()
+    {
+        return $this->container;
+    }
 
     /**
      * Init
