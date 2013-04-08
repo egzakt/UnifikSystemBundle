@@ -50,7 +50,7 @@ class SectionTranslation extends BaseTranslationEntity
     /**
      * @var Section
      */
-    public $translatable;
+    private $translatable;
 
     /**
      * Get id

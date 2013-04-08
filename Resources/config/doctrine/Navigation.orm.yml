@@ -14,3 +14,6 @@ Egzakt\SystemBundle\Entity\Navigation:
     sectionNavigations:
       targetEntity: Egzakt\SystemBundle\Entity\SectionNavigation
       mappedBy: navigation
+    mappings:
+      targetEntity: Egzakt\SystemBundle\Entity\Mapping
+      mappedBy: navigation

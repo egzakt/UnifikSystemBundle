@@ -18,21 +18,21 @@ Egzakt\SystemBundle\Entity\Mapping:
   manyToOne:
     section:
       targetEntity: Egzakt\SystemBundle\Entity\Section
-      inversedBy:  sectionModules
+      inversedBy:  mappings
       joinColumn:
         name: section_id
         referencedColumnName: id
         onDelete: cascade
     app:
       targetEntity: Egzakt\SystemBundle\Entity\App
-      inversedBy:  sectionModules
+      inversedBy:  mappings
       joinColumn:
         name: app_id
         referencedColumnName: id
         onDelete: cascade
     navigation:
       targetEntity: Egzakt\SystemBundle\Entity\Navigation
-      inversedBy:  sectionModules
+      inversedBy:  mappings
       joinColumn:
         name: navigation_id
         referencedColumnName: id

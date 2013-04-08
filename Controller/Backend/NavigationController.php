@@ -241,15 +241,12 @@ class NavigationController extends BaseController
      */
     public function localeBarAction()
     {
-        $localeRepo = $this->getDoctrine()->getRepository('EgzaktSystemCoreBundle:Locale');
+        $localeRepo = $this->getEm()->getRepository('EgzaktSystemBundle:Locale');
         $locales = $localeRepo->findAll();
 
-        return $this->render(
-            'EgzaktBackendCoreBundle:Navigation:locale_bar.html.twig',
-            array(
-                'locales'    => $locales,
-                'editLocale' => $this->getCore()->getEditLocale()
-            )
-        );
+        return $this->render('EgzaktSystemBundle:Backend/Navigation:locale_bar.html.twig', array(
+            'locales'    => $locales,
+            'editLocale' => $this->getCore()->getEditLocale()
+        ));
     }
 }

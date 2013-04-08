@@ -1,0 +1,27 @@
+Egzakt\SystemBundle\Entity\Locale:
+  type: entity
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: 255
+      nullable: true
+    switchName:
+      type: string
+      length: 255
+      nullable: true
+    code:
+      type: string
+      length: 255
+      nullable: true
+    ordering:
+      type: integer
+      nullable: true
+    active:
+      type: boolean
+      nullable: true
+  repositoryClass: Egzakt\SystemBundle\Entity\LocaleRepository

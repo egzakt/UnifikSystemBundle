@@ -92,8 +92,8 @@ abstract class BaseEntity implements EntityInterface, NavigationInterface
                 if ($name || ($this->getSystemCore()->getCurrentAppName() != 'backend')) {
                     return $name;
 
-                } elseif ($this->container->get('session')->getLocale() != $this->getLocale()) {
-                    $name = $this->translate($this->container->get('session')->getLocale())->__toString();
+                } elseif ($this->container->get('request')->getLocale() != $this->getLocale()) {
+                    $name = $this->translate($this->container->get('request')->getLocale())->__toString();
 
                     if (!$name) {
                         return 'No traduction';
@@ -722,7 +722,7 @@ abstract class BaseEntity implements EntityInterface, NavigationInterface
                 return $this->locale;
             }
 
-            if ($locale = $this->container->get('session')->getLocale()) {
+            if ($locale = $this->container->get('request')->getLocale()) {
                 $this->locale = $locale;
                 return $this->locale;
             }
@@ -843,7 +843,7 @@ abstract class BaseEntity implements EntityInterface, NavigationInterface
                 if ($translation->getLocale() === $this->getLocale()) {
                     $name = $translation->__toString();
 
-                } elseif ($this->container->get('session')->getLocale() == $translation->getLocale()) {
+                } elseif ($this->container->get('request')->getLocale() == $translation->getLocale()) {
                     $referenceName = $translation->__toString();
 
                 } elseif (!$referenceName) {

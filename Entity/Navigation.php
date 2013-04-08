@@ -128,4 +128,42 @@ class Navigation extends BaseEntity
     {
         $this->sectionNavigations->removeElement($sectionNavigations);
     }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $mappings;
+
+
+    /**
+     * Add mappings
+     *
+     * @param \Egzakt\SystemBundle\Entity\Mapping $mappings
+     * @return Navigation
+     */
+    public function addMapping(\Egzakt\SystemBundle\Entity\Mapping $mappings)
+    {
+        $this->mappings[] = $mappings;
+    
+        return $this;
+    }
+
+    /**
+     * Remove mappings
+     *
+     * @param \Egzakt\SystemBundle\Entity\Mapping $mappings
+     */
+    public function removeMapping(\Egzakt\SystemBundle\Entity\Mapping $mappings)
+    {
+        $this->mappings->removeElement($mappings);
+    }
+
+    /**
+     * Get mappings
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMappings()
+    {
+        return $this->mappings;
+    }
 }

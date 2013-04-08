@@ -28,7 +28,7 @@ Egzakt\SystemBundle\Entity\Text:
   manyToOne:
     section:
       targetEntity: Egzakt\SystemBundle\Entity\Section
-      inversedBy:   Texts
+      inversedBy:   texts
       joinColumn:
         name: section_id
         referencedColumnName: id

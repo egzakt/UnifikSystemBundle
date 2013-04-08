@@ -14,7 +14,7 @@
                 {% trans %}Last update{% endtrans %}
             </th>
            <th colspan="2" class="switch_list_mode">
-                <a href="#"><img src="{{ asset("bundles/egzaktbackendcore/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
+                <a href="#"><img src="{{ asset("bundles/egzaktsystem/backend/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
             </th>
         </tr>
         <tr class="filters">
@@ -47,20 +47,20 @@
                 </td>
                 <td class="centered">
                     {% if entity.collapsable %}
-                         <img src="{{ asset('bundles/egzaktbackendcore/images/icons/tick.png') }}" width="16" height="16" alt="{% trans %}yes{% endtrans %}">
+                         <img src="{{ asset('bundles/egzaktsystem/backend/images/icons/tick.png') }}" width="16" height="16" alt="{% trans %}yes{% endtrans %}">
                     {% endif %}
                 </td>
                 <td>
                     {{ entity.updatedAt|date('Y-m-d') }}
                 </td>
                 <td class="edit">
-                    <a href="{{ path( ~ '_edit', { 'id': entity.id, 'section_id': section.id }) }}" title="{% trans %}Edit{% endtrans %}">
-                        <img src="{{ asset('bundles/egzaktbackendcore/images/buttons/edit.png') }}" width="15" height="15" alt="{% trans %}edit{% endtrans %}" />
+                    <a href="{{ path('egzakt_system_backend_text_edit', { 'id': entity.id, 'section_id': section.id }) }}" title="{% trans %}Edit{% endtrans %}">
+                        <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="{% trans %}edit{% endtrans %}" />
                     </a>
                 </td>
                 <td class="delete">
-                    <a href="{{ path(bundle ~ '_delete', { 'id': entity.id, 'section_id': section.id }) }}" rel="{{ path(bundle ~ '_delete', { 'id': entity.id, 'section_id': section.id, 'message': true }) }}" title="{% trans %}Delete{% endtrans %}">
-                        <img src="{{ asset('bundles/egzaktbackendcore/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                    <a href="{{ path('egzakt_system_backend_text_delete', { 'id': entity.id, 'section_id': section.id }) }}" rel="{{ path('egzakt_system_backend_text_delete', { 'id': entity.id, 'section_id': section.id, 'message': true }) }}" title="{% trans %}Delete{% endtrans %}">
+                        <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
                     </a>
                 </td>
             </tr>

@@ -28,3 +28,6 @@ Egzakt\SystemBundle\Entity\App:
     sections:
       targetEntity: Egzakt\SystemBundle\Entity\Section
       mappedBy: app
+    mappings:
+      targetEntity: Egzakt\SystemBundle\Entity\Mapping
+      mappedBy: app

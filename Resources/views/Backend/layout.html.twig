@@ -1,73 +1,75 @@
-{% extends '::base.html.twig' %}
-
 {% set masterRoute = app.request.attributes.get('_route') %}
 
-{% block title %}
-    {#{% render 'EgzaktBackendCoreBundle:Navigation:PageTitle' %}#}
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}{#{% render 'EgzaktBackendCoreBundle:Navigation:PageTitle' %}#}{% endblock %}</title>
+        {% block stylesheets %}{% include 'EgzaktSystemBundle:Backend/Core:stylesheets.html.twig' %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body>
+        {% block body %}
 
-{% block stylesheets %}
-    {% include 'EgzaktSystemBundle:Backend/Core:stylesheets.html.twig' %}
-{% endblock %}
+            <div id="loading"><img src="{{ asset('bundles/egzaktsystem/backend/images/icons/ajax-loader.gif') }}" width="32" height="32" alt="" /></div>
 
-{% block javascripts %}
-    {#{% include 'EgzaktBackendCoreBundle:Core:javascripts.html.twig' %}#}
-{% endblock %}
+            {#{% include 'EgzaktBackendCoreBundle:Core:delete.html.twig' %}#}
 
-{% block body %}
+            {% block header %}
+                {% include 'EgzaktSystemBundle:Backend/Core:header.html.twig' %}
+            {% endblock %}
 
-    <div id="loading"><img src="{{ asset('bundles/egzaktsystem/backend/images/icons/ajax-loader.gif') }}" width="32" height="32" alt="" /></div>
+            {% block top_bar %}
+                <div id="login_bar">
+                    {% if app.user %}
+                        {% block login_nav %}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:Header')) }}
+                        {% endblock %}
+                    {% endif %}
+                    <h6>{% trans %}Content Management System (CMS){% endtrans %}</h6>
+                </div>
+            {% endblock %}
 
-    {#{% include 'EgzaktBackendCoreBundle:Core:delete.html.twig' %}#}
+            {% block wrapper %}
+                <div id="cols_wrapper">
 
-    {% block header %}
-        {% include 'EgzaktSystemBundle:Backend/Core:header.html.twig' %}
-    {% endblock %}
+                    <div id="navigation_col">
+                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionBar', { masterRoute: masterRoute })) }}
+                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalBundleBar', { masterRoute: masterRoute })) }}
+                    </div>
 
-    {% block top_bar %}
-        <div id="login_bar">
-            {% if app.user %}
-                {% block login_nav %}
-                    {{ render(controller('EgzaktSystemBundle:Backend/Navigation:Header')) }}
-                {% endblock %}
-            {% endif %}
-            <h6>{% trans %}Content Management System (CMS){% endtrans %}</h6>
-        </div>
-    {% endblock %}
+                    <div id="main_col">
+                        {% block breadcrumbs %}
+                            {#{% render 'EgzaktBackendCoreBundle:Navigation:Breadcrumbs' %}#}
+                        {% endblock %}
 
-    {% block wrapper %}
-        <div id="cols_wrapper">
+                        {% block bundle_bar %}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:BundleBar', { masterRoute: masterRoute })) }}
+                        {% endblock %}
 
-            <div id="navigation_col">
-                {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionBar', { masterRoute: masterRoute })) }}
-                {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalBundleBar', { masterRoute: masterRoute })) }}
-            </div>
+                        {% block locale_bar %}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:LocaleBar', { masterRoute: masterRoute })) }}
+                        {% endblock %}
 
-            <div id="main_col">
-                {% block breadcrumbs %}
-                    {#{% render 'EgzaktBackendCoreBundle:Navigation:Breadcrumbs' %}#}
-                {% endblock %}
+                        {% block content %}{% endblock %}
+                    </div>
 
-                {% block bundle_bar %}
-                    {{ render(controller('EgzaktSystemBundle:Backend/Navigation:BundleBar', { masterRoute: masterRoute })) }}
-                {% endblock %}
+                    <div style="clear:both;"></div>
+                    <div id="egzakt">
+                        {% trans %}Developed by{% endtrans %}
+                        <a target="_blank" href="http://www.egzakt.com">
+                            <img width="56" height="20" title="Egzakt" alt="Egzakt" src="{{ asset('bundles/egzaktsystem/backend/images/graphics/egzakt_logo.gif') }}">
+                        </a>
+                    </div>
 
-                {% block locale_bar %}
-                    {#{% render 'EgzaktBackendCoreBundle:Navigation:LocaleBar' %}#}
-                {% endblock %}
+                </div>
+            {% endblock %}
 
-                {% block content %}{% endblock %}
-            </div>
+        {% endblock %}
 
-            <div style="clear:both;"></div>
-            <div id="egzakt">
-                {% trans %}Developed by{% endtrans %}
-                <a target="_blank" href="http://www.egzakt.com">
-                    <img width="56" height="20" title="Egzakt" alt="Egzakt" src="{{ asset('bundles/egzaktsystem/backend/images/graphics/egzakt_logo.gif') }}">
-                </a>
-            </div>
+        {% block javascripts %}
+            {% include 'EgzaktSystemBundle:Backend/Core:javascripts.html.twig' %}
+        {% endblock %}
 
-        </div>
-    {% endblock %}
-
-{% endblock %}
+    </body>
+</html>
