@@ -1,10 +1,15 @@
 {% extends 'EgzaktSystemBundle:Backend:layout.html.twig' %}
 
-{% block body_extra %}
-    {{ parent() }} id="login_page"
-{% endblock %}
+{% block body_attr 'id="login_page"' %}
 
-{% block wrapper %}
+{% block body %}
+
+    {% include 'EgzaktSystemBundle:Backend/Core:header.html.twig' %}
+
+    <div id="login_bar">
+        <h6>{% trans %}Content Management System (CMS){% endtrans %}</h6>
+    </div>
+
     <div id="wrapper_login">
 
         {% if error %}
@@ -27,4 +32,5 @@
 
     </div>
     <div id="form_connexion_bas"><img src="{{ asset('bundles/egzaktsystem/backend/images/graphics/login_form_bottom.png') }}" width="370" height="20" alt="" /></div>
+
 {% endblock %}
