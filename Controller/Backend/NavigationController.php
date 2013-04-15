@@ -29,9 +29,11 @@ class NavigationController extends BaseController
             $sectionCurrent = new Section();
         }
 
+        $appId = 2; // debug hardcoded frontend
+
         /** @var SectionRepository $sectionRepo */
         $sectionRepo = $this->getDoctrine()->getRepository('EgzaktSystemBundle:Section');
-        $sections = $sectionRepo->findAllFromTree(array('app' => $appCurrent->getId()), array('ordering' => 'ASC'));
+        $sections = $sectionRepo->findAllFromTree(array('app' => $appId), array('ordering' => 'ASC'));
         $sections = $this->removeInactiveBundlesFromSections($sections);
 
         $navigationBuilder = $this->get('egzakt_system.navigation_builder');
@@ -56,11 +58,10 @@ class NavigationController extends BaseController
      */
     public function globalBundleBarAction($masterRoute)
     {
-        $globalModuleRepo = $this->getEm()->getRepository('EgzaktSystemBundle:GlobalModule');
-        $globalModules = $globalModuleRepo->findAll();
+        $mappings = $this->getEm()->getRepository('EgzaktSystemBundle:Mapping')->findBy(array('navigation' => 3), array('ordering' => 'ASC'));
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:global_bundle_bar.html.twig', array(
-            'globalModules' => $globalModules,
+            'mappings' => $mappings,
             'masterRoute' => $masterRoute
         ));
     }

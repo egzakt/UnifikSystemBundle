@@ -1,7 +1,5 @@
-{% if globalModules %}
-    <ul id="global_bundles">
-        {% for globalModule in globalModules %}
-            {{ render(controller(globalModule.controller, { masterRoute: masterRoute })) }}
-        {% endfor %}
-    </ul>
-{% endif %}
+<ul id="global_bundles">
+    {% for mapping in mappings %}
+        {{ render(controller(mapping.target, { masterRoute: masterRoute })) }}
+    {% endfor %}
+</ul>
