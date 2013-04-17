@@ -13,12 +13,15 @@ Egzakt\SystemBundle\Entity\User:
     firstname:
       type: string
       length: 255
+      nullable: true
     lastname:
       type: string
       length: 255
+      nullable: true
     email:
       type: string
       length: 255
+      nullable: true
     facebookId:
       type: string
       length: 255
@@ -31,6 +34,7 @@ Egzakt\SystemBundle\Entity\User:
     salt:
       type: string
       length: 32
+      nullable: true
     createdAt:
       type: datetime
       gedmo:
