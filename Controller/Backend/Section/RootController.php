@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Section;
 
+use Egzakt\SystemBundle\Entity\Mapping;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -10,7 +11,6 @@ use Symfony\Component\Finder\Finder;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Entity\SectionNavigation;
 use Egzakt\SystemBundle\Form\Backend\RootSectionType;
 
 /**
@@ -54,8 +54,6 @@ class RootController extends BaseController
 
         if ('POST' == $request->getMethod()) {
 
-            $previousSectionNavigations = $entity->getSectionNavigations();
-
             $form->bindRequest($request);
 
             if ($form->isValid()) {
@@ -65,37 +63,16 @@ class RootController extends BaseController
                 // On insert
                 if (false == $id) {
 
-//                    // Fetching default linked bundles
-//                    $bundles = $this->getEm()->getRepository('EgzaktBackendCoreBundle:Bundle')->findByParam(
-//                        'automatically_linked',
-//                        true
-//                    );
-//
-//                    // Adding autolinked bundles
-//                    $ordering = 1;
-//                    foreach ($bundles as $bundle) {
-//                        $sectionBundle = new SectionBundle();
-//                        $sectionBundle->setSection($entity);
-//                        $sectionBundle->setBundle($bundle);
-//                        $sectionBundle->setOrdering($ordering);
-//
-//                        $this->getEm()->persist($sectionBundle);
-//                        $ordering++;
-//                    }
-                }
+		    $sectionBar = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation')->findOneByName('_section_bar');
+		    $sectionModuleBar = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation')->findOneByName('_section_module_bar');
 
-                // Dirty trick to keep the previous ordering of the sectionNavigation entities
-                foreach ($entity->getSectionNavigations() as $sectionNavigation) {
-                    foreach ($previousSectionNavigations as $previousSectionNavigation) {
-                        if ($sectionNavigation->getNavigation() == $previousSectionNavigation->getNavigation()) {
-                            $sectionNavigation->setOrdering($previousSectionNavigation->getOrdering());
-                        }
-                    }
-                    $this->getEm()->persist($sectionNavigation);
-                }
+		    $mapping = new Mapping();
+		    $mapping->setSection($entity);
+		    $mapping->setApp($this->getApp());
+		    $mapping->setType('route');
+		    $mapping->setTarget('egzakt_system_backend_text');
 
-                foreach ($previousSectionNavigations as $previousSectionNavigation) {
-                    $this->getEm()->remove($previousSectionNavigation);
+		    $entity->addMapping($mapping);
                 }
 
                 $this->getEm()->flush();

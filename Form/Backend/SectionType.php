@@ -50,6 +50,7 @@ class SectionType extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
+	    'cascade_validation' => true,
             'data_class' => 'Egzakt\SystemBundle\Entity\Section'
         );
     }

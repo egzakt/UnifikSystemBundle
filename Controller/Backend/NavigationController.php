@@ -16,6 +16,19 @@ use Egzakt\SystemBundle\Entity\GlobalModule;
 class NavigationController extends BaseController
 {
     /**
+     * @var SectionRepository
+     */
+    protected $sectionRepository;
+
+    /**
+     * Init
+     */
+    public function init()
+    {
+	$this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
+    }
+
+    /**
      * Section Bar Action
      *
      * @return Response
@@ -31,10 +44,7 @@ class NavigationController extends BaseController
 
         $appId = 2; // debug hardcoded frontend
 
-        /** @var SectionRepository $sectionRepo */
-        $sectionRepo = $this->getDoctrine()->getRepository('EgzaktSystemBundle:Section');
-        $sections = $sectionRepo->findAllFromTree(array('app' => $appId), array('ordering' => 'ASC'));
-        $sections = $this->removeInactiveBundlesFromSections($sections);
+	$sections = $this->sectionRepository->findAll();
 
         $navigationBuilder = $this->get('egzakt_system.navigation_builder');
         $navigationBuilder->setElements($sections);

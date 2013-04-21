@@ -32,18 +32,4 @@ class RootSectionType extends SectionType
     {
         return 'root_section';
     }
-
-    /**
-     * Get Default Options
-     *
-     * @param array $options
-     *
-     * @return array
-     */
-    public function getDefaultOptions(array $options)
-    {
-        return array(
-            'data_class' => 'Egzakt\SystemBundle\Entity\Section'
-        );
-    }
 }
