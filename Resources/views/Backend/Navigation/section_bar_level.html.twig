@@ -7,7 +7,7 @@
                 </a>
                 {% if section.selected and section.hasChildren %}
                     <ul class="level_{{ level }}">
-                        {% include 'EgzaktBackendCoreBundle:Navigation:section_bar_level.html.twig' with { 'sections': section.children, 'level': level + 1 } %}
+                        {% include 'EgzaktSystemBundle:Backend/Navigation:section_bar_level.html.twig' with { 'sections': section.children, 'level': level + 1 } %}
                     </ul>
                 {% endif %}
             </li>

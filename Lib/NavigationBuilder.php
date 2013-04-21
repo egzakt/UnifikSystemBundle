@@ -129,7 +129,7 @@ class NavigationBuilder
      *
      * @return array
      */
-    protected function buildNavigationItems(array $elements, $parentElement = null)
+    protected function buildNavigationItems($elements, $parentElement = null)
     {
         $wrappedElements = array();
 

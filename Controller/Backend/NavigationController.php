@@ -5,10 +5,10 @@ namespace Egzakt\SystemBundle\Controller\Backend;
 use Symfony\Component\HttpFoundation\Response;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
+use Egzakt\SystemBundle\Entity\MappingRepository;
 use Egzakt\SystemBundle\Entity\Section;
 use Egzakt\SystemBundle\Entity\SectionBundle;
 use Egzakt\SystemBundle\Entity\SectionRepository;
-use Egzakt\SystemBundle\Entity\GlobalModule;
 
 /**
  * Navigation Controller
@@ -21,11 +21,17 @@ class NavigationController extends BaseController
     protected $sectionRepository;
 
     /**
+     * @var MappingRepository
+     */
+    protected $mappingRepository;
+
+    /**
      * Init
      */
     public function init()
     {
-	$this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
+        $this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
+        $this->mappingRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Mapping');
     }
 
     /**
@@ -42,9 +48,7 @@ class NavigationController extends BaseController
             $sectionCurrent = new Section();
         }
 
-        $appId = 2; // debug hardcoded frontend
-
-	$sections = $this->sectionRepository->findAll();
+        $sections = $this->sectionRepository->findAll();
 
         $navigationBuilder = $this->get('egzakt_system.navigation_builder');
         $navigationBuilder->setElements($sections);
@@ -162,27 +166,26 @@ class NavigationController extends BaseController
     }
 
     /**
-     * Bundle Bar Action
+     * This render the modules that are associated with the current section
      *
      * @param $masterRoute
+     *
      * @return Response
      */
-    public function bundleBarAction($masterRoute)
+    public function sectionModuleBarAction($masterRoute)
     {
         if (false == $this->getSection()) {
             return new Response();
         }
 
-        $section = $this->getSection();
-        $mappings = $this->getEm()->getRepository('EgzaktSystemBundle:Mapping')->findBy(array(
-            'section' => $section,
-            'navigation' => 3
+        $mappings = $this->mappingRepository->findBy(array(
+            'section' => $this->getSection(),
+            'navigation' => 2, // _section_module_bar
         ));
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:bundle_bar.html.twig', array(
+        return $this->render('EgzaktSystemBundle:Backend/Navigation:section_module_bar.html.twig', array(
             'mappings' => $mappings,
             'masterRoute' => $masterRoute,
-            'section' => $section
         ));
     }
 
@@ -256,7 +259,7 @@ class NavigationController extends BaseController
         $locales = $localeRepo->findAll();
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:locale_bar.html.twig', array(
-            'locales'    => $locales,
+            'locales' => $locales,
             'editLocale' => $this->getCore()->getEditLocale()
         ));
     }

@@ -1,5 +1,6 @@
 Egzakt\SystemBundle\Entity\Login:
   type: entity
+  repositoryClass: Egzakt\SystemBundle\Entity\MappingRepository
   fields:
     id:
       type: integer

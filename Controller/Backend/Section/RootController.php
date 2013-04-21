@@ -3,6 +3,7 @@
 namespace Egzakt\SystemBundle\Controller\Backend\Section;
 
 use Egzakt\SystemBundle\Entity\Mapping;
+use Egzakt\SystemBundle\Entity\NavigationRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -18,6 +19,16 @@ use Egzakt\SystemBundle\Form\Backend\RootSectionType;
  */
 class RootController extends BaseController
 {
+    /**
+     * @var NavigationRepository
+     */
+    protected $navigationRepository;
+
+    public function init()
+    {
+        $this->navigationRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation');
+    }
+
     /**
      * Lists all root sections by navigation
      *
@@ -63,16 +74,33 @@ class RootController extends BaseController
                 // On insert
                 if (false == $id) {
 
-		    $sectionBar = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation')->findOneByName('_section_bar');
-		    $sectionModuleBar = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation')->findOneByName('_section_module_bar');
+                    $sectionModuleBar = $this->navigationRepository->findOneByName('_section_module_bar');
 
-		    $mapping = new Mapping();
-		    $mapping->setSection($entity);
-		    $mapping->setApp($this->getApp());
-		    $mapping->setType('route');
-		    $mapping->setTarget('egzakt_system_backend_text');
+                    $mapping = new Mapping();
+                    $mapping->setSection($entity);
+                    $mapping->setApp($this->getApp());
+                    $mapping->setType('route');
+                    $mapping->setTarget('egzakt_system_backend_text');
 
-		    $entity->addMapping($mapping);
+                    $entity->addMapping($mapping);
+
+                    $mapping = new Mapping();
+                    $mapping->setSection($entity);
+                    $mapping->setApp($this->getApp());
+                    $mapping->setNavigation($sectionModuleBar);
+                    $mapping->setType('render');
+                    $mapping->setTarget('EgzaktSystemBundle:Backend/Text/Navigation:SectionModuleBar');
+
+                    $entity->addMapping($mapping);
+
+                    $mapping = new Mapping();
+                    $mapping->setSection($entity);
+                    $mapping->setApp($this->getApp());
+                    $mapping->setNavigation($sectionModuleBar);
+                    $mapping->setType('render');
+                    $mapping->setTarget('EgzaktSystemBundle:Backend/Section/Navigation:SectionModuleBar');
+
+                    $entity->addMapping($mapping);
                 }
 
                 $this->getEm()->flush();
@@ -83,7 +111,7 @@ class RootController extends BaseController
                 }
 
                 return $this->redirect($this->generateUrl('egzakt_system_backend_section_root_edit', array(
-                    'id' => $entity->getId() ?: 0
+                    'id' => $entity->getId() ? : 0
                 )));
             }
         }

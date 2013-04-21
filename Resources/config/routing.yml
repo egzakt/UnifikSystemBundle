@@ -72,7 +72,7 @@ egzakt_system_backend_text_delete:
     pattern:  /texts/{section_id}/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:delete" }
 
-# Sections
+# Sections (roots handling)
 egzakt_system_backend_section_root:
     pattern:  /sections/root
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:list" }
@@ -88,4 +88,22 @@ egzakt_system_backend_section_root_edit:
 egzakt_system_backend_section_root_delete:
     pattern:  /sections/root/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:delete" }
+    
+# Sections
+egzakt_system_backend_section:
+    pattern:  /sections/{section_id}
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:index" }
+
+egzakt_system_backend_section_order:
+    pattern:  /sections/{section_id}/order
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:order" }
+
+egzakt_system_backend_section_edit:
+    pattern:  /sections/{section_id}/{id}/edit
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:edit", id: 0 }
+
+egzakt_system_backend_section_delete:
+    pattern:  /sections/{section_id}/{id}/delete
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:delete" }
+    
     
