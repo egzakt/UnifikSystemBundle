@@ -1,4 +1,7 @@
-{% set masterRoute = app.request.attributes.get('_route') %}
+{% set subrequestParameters = {
+    'masterRoute': app.request.attributes.get('_route'),
+    'sectionId': section.id
+} %}
 
 <!DOCTYPE html>
 <html>
@@ -34,24 +37,24 @@
                 <div id="cols_wrapper">
 
                     <div id="navigation_col">
-                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionBar', { masterRoute: masterRoute })) }}
-                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalBundleBar', { masterRoute: masterRoute })) }}
+                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionBar', subrequestParameters)) }}
+                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalBundleBar', subrequestParameters)) }}
                     </div>
 
                     <div id="main_col">
                         {% block breadcrumbs %}
-                            {#{% render 'EgzaktBackendCoreBundle:Navigation:Breadcrumbs' %}#}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:Breadcrumbs', subrequestParameters)) }}
                         {% endblock %}
 
                         {% block bundle_bar %}
-                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionModuleBar', { masterRoute: masterRoute })) }}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionModuleBar', subrequestParameters)) }}
                         {% endblock %}
 
                         {% block locale_bar %}
-                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:LocaleBar', { masterRoute: masterRoute })) }}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:LocaleBar', subrequestParameters)) }}
                         {% endblock %}
 
-                        {% block content %}{% endblock %}
+                        {% block content '' %}
                     </div>
 
                     <div style="clear:both;"></div>

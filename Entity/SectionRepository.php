@@ -172,73 +172,19 @@ class SectionRepository extends BaseEntityRepository
         return $this->processQuery($queryBuilder);
     }
 
-    /**
-     * Returns all sections with their subsections, sorted
-     *
-     * @param integer $maxLevel
-     *
-     * @return mixed
-     */
-    public function findAllWithSubsections($maxLevel)
+    public function findByAppJoinChildren($appId)
     {
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->select('s', 'st', 'sm', 'c', 'ct', 'cm')
+            ->leftJoin('s.translations', 'st')
+            ->leftJoin('s.mappings', 'sm')
+            ->leftJoin('s.children', 'c')
+            ->leftJoin('c.translations', 'ct')
+            ->leftJoin('c.mappings', 'cm')
+            ->where('s.app = :appId')
+            ->orderBy('s.ordering')
+            ->setParameter('appId', $appId);
 
-        /** @var int $nivMax */
-        $nivMax = $maxLevel - 1;
-
-        // Construire le CASE ... WHEN ... THEN ...
-        $case = " CASE ";
-        for ($i = 1; $i <= $nivMax; $i++) {
-            $when = array();
-            for ($j = $i+1; $j <= $nivMax+1; $j++) {
-                $when[] = "sn$j.id IS NULL";
-            }
-            $then = array();
-            for ($j = $i; $j > 0; $j--) {
-                $elem = "";
-                if ($j == $i) {
-                    $elem = "sn$j.navigation_id *" . (pow(100, $nivMax) * 10) . " + ";
-                }
-                $then[] = $elem . "s$j.ordering*" . pow(100, $nivMax - $i + $j);
-            }
-            $case .= " WHEN " . implode(" AND ", $when);
-            $case .= " THEN " . implode("  +  ", $then);
-        }
-        $else = array();
-        for ($i = $nivMax; $i >= 0; $i--) {
-            $else[] = "s" . ($i+1) . ".ordering*" . (pow(100, $i));
-        }
-        $case .= " ELSE ";
-        $case .= 'sn' . ($nivMax+1) . ".navigation_id*" . (pow(100, $nivMax) * 10) . " + " . implode(' + ', $else);
-        $case .= " END as master_ordering";
-
-        $order = "master_ordering";
-
-        // Construire les clauses FROM et WHERE
-        $from = "";
-        $aWhere = array();
-        for ($i = 1; $i <= $nivMax+1; $i++) {
-            $from .= ($i == 1 ? " FROM Section s$i" : " LEFT JOIN Section s$i ON s".($i - 1).".parent_id = s$i.id ") .
-                " LEFT JOIN SectionNavigation sn$i ON s$i.id = sn$i.section_id" .
-                " LEFT JOIN SectionTranslation st$i ON s$i.id = st$i.translatable_id";
-            $aWhere[] = " ((st$i.locale = '" . $this->getLocale() . "' AND st$i.active = 1) OR s$i.id IS NULL) ";
-        }
-        $where = " WHERE " . implode(' AND ', $aWhere);
-
-        $rsm = new \Doctrine\ORM\Query\ResultSetMappingBuilder($this->getEntityManager());
-        $rsm->addRootEntityFromClassMetadata('Egzakt\Backend\SectionBundle\Entity\Section', 's');
-
-        $sql = "SELECT s1.*, $case $from $where ORDER BY $order";
-
-        $query = $this->getEntityManager()->createNativeQuery($sql, $rsm);
-        $results = $query->getResult();
-
-        $return = array();
-        /** @var Section $section */
-        foreach ($results as $section) {
-            $return[$section->getId()] = $section->getHierarchicalName();
-        }
-
-        return $return;
-
+        return $this->processQuery($queryBuilder);
     }
 }

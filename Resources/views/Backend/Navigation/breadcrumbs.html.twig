@@ -1,0 +1,16 @@
+{% if elements %}
+    <ul id="breadcrumbs">
+        {% for element in elements %}
+            <li>
+                {% set name = element.translate(app.request.locale)|striptags|truncate(100, true)|raw %}
+
+                {% if loop.last %}
+                    <strong>{{ name|trans|raw }}</strong>
+                {% else %}
+                    <a href="{{ path(element.route, element.routeParams({ 'section_id': (section ? section.id : null) })) }}">{{ name|trans|raw }}</a>
+                    <span>&gt;</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

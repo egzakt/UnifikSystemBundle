@@ -42,13 +42,14 @@ class NavigationController extends BaseController
     public function sectionBarAction()
     {
         $sectionCurrent = $this->getSection();
-        $appCurrent = $this->getApp();
 
         if (false == $sectionCurrent) {
             $sectionCurrent = new Section();
         }
 
-        $sections = $this->sectionRepository->findAll();
+        // TODO: detect it.
+        $currentManagedApp = 2;
+        $sections = $this->sectionRepository->findByAppJoinChildren($currentManagedApp);
 
         $navigationBuilder = $this->get('egzakt_system.navigation_builder');
         $navigationBuilder->setElements($sections);
@@ -123,21 +124,11 @@ class NavigationController extends BaseController
     public function breadcrumbsAction()
     {
         $elementCurrent = $this->getCore()->getElement();
-        $elements = $this->get('egzakt_backend.breadcrumbs')->getElements();
-        $sectionCurrent = $this->getCore()->getSection();
+        $elements = $this->get('egzakt_system.breadcrumbs')->getElements();
 
-        if ($this->getSection()) {
-            $truncateLength = $this->getSectionBundle()->getParam('breadcrumbs_truncate_length');
-        } else {
-            // Exception for the login and dashboard pages
-            $truncateLength = $this->container->getParameter('egzakt_backend_core.breadcrumbs_truncate_length');
-        }
-
-        return $this->render('EgzaktBackendCoreBundle:Navigation:breadcrumbs.html.twig', array(
+        return $this->render('EgzaktSystemBundle:Backend/Navigation:breadcrumbs.html.twig', array(
             'elements' => $elements,
-            'elementCurrent' => $elementCurrent,
-            'section' => $sectionCurrent,
-            'truncateLength' => $truncateLength
+            'elementCurrent' => $elementCurrent
         ));
     }
 
@@ -217,35 +208,6 @@ class NavigationController extends BaseController
             'tabs' => $tabs,
             'entity' => $entity
         ));
-    }
-
-    /**
-     * Remove Inactive Bundles From Sections
-     *
-     * @param array $sections Array of Sections object
-     *
-     * @return array
-     */
-    private function removeInactiveBundlesFromSections($sections)
-    {
-        $bundles = $this->get('kernel')->getBundles();
-
-        /** @var Section $section */
-        foreach ($sections as $section) {
-
-            $sectionBundles = array();
-
-            /** @var SectionBundle $sectionBundle */
-            foreach ($section->getSectionBundles() as $sectionBundle) {
-                if (in_array($sectionBundle->getBundle()->getName(), array_keys($bundles))) {
-                    $sectionBundles[] = $sectionBundle;
-                }
-            }
-
-            $section->setSectionBundles($sectionBundles);
-        }
-
-        return $sections;
     }
 
     /**
