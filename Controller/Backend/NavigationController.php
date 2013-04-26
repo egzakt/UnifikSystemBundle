@@ -139,20 +139,10 @@ class NavigationController extends BaseController
      */
     public function pageTitleAction()
     {
-        $elementCurrent = $this->getCore()->getElement();
-        $elements = $this->get('egzakt_backend.page_title')->getElements();
+        $elements = $this->get('egzakt_system.page_title')->getElements();
 
-        if ($this->getSectionBundle()) {
-            $truncateLength = $this->getSectionBundle()->getParam('breadcrumbs_truncate_length');
-        } else {
-            // Exception for the login and dashboard pages
-            $truncateLength = $this->container->getParameter('egzakt_backend_core.breadcrumbs_truncate_length');
-        }
-
-        return $this->render('EgzaktBackendCoreBundle:Navigation:page_title.html.twig', array(
+        return $this->render('EgzaktSystemBundle:Backend/Navigation:page_title.html.twig', array(
             'elements' => $elements,
-            'elementCurrent' => $elementCurrent,
-            'truncateLength' => $truncateLength
         ));
     }
 

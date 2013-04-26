@@ -1,0 +1,54 @@
+<div id="delete_dialog"></div>
+
+<script type="text/javascript">
+    $(function(){
+        $('.list_box .delete a, .list_box a.delete').click(function(e){
+            if ($(this).attr('rel')) {
+                var linkObj = $(this);
+
+                $.ajax({
+                    type: "GET",
+                    dataType: 'json',
+                    url: $(this).attr('rel'),
+                    beforeSend: function(){
+                        $('#loading').show();
+                    },
+                    success: function(response){
+
+                        $('#loading').hide();
+                        $('#delete_dialog').html(response.template);
+
+                        if (response.isDeletable) {
+                            $('#delete_dialog').dialog({
+                                modal: true,
+                                title: "{% trans %}Delete confirmation{% endtrans %}",
+                                buttons: {
+                                    "{% trans %}Delete{% endtrans %}": function() {
+                                        window.location = linkObj.attr('href');
+                                        $(this).dialog("close");
+                                    },
+                                    "{% trans %}Cancel{% endtrans %}": function() {
+                                        $(this).dialog("close");
+                                    }
+                                }
+                            });
+
+                        } else {
+                            $('#delete_dialog').dialog({
+                                modal: true,
+                                title: "{% trans %}Notice{% endtrans %}",
+                                buttons: {
+                                    Ok: function() {
+                                        $(this).dialog("close");
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+
+                e.preventDefault();
+            }
+        });
+    });
+</script>

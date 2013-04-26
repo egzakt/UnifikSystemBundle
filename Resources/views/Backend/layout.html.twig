@@ -6,7 +6,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}{#{% render 'EgzaktBackendCoreBundle:Navigation:PageTitle' %}#}{% endblock %}</title>
+        <title>{% block title %}{{ render(controller('EgzaktSystemBundle:Backend/Navigation:PageTitle')) }}{% endblock %}</title>
         {% block stylesheets %}{% include 'EgzaktSystemBundle:Backend/Core:stylesheets.html.twig' %}{% endblock %}
         <link rel="icon" type="image/png" href="{{ asset('bundles/egzaktsystem/backend/images/icons/favicon.png') }}" />
     </head>
@@ -15,7 +15,7 @@
 
             <div id="loading"><img src="{{ asset('bundles/egzaktsystem/backend/images/icons/ajax-loader.gif') }}" width="32" height="32" alt="" /></div>
 
-            {#{% include 'EgzaktBackendCoreBundle:Core:delete.html.twig' %}#}
+            {% include 'EgzaktSystemBundle:Backend/Core:delete.html.twig' %}
 
             {% block header %}
                 {% include 'EgzaktSystemBundle:Backend/Core:header.html.twig' %}
