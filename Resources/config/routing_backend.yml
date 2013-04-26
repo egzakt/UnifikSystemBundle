@@ -105,5 +105,3 @@ egzakt_system_backend_section_edit:
 egzakt_system_backend_section_delete:
     pattern:  /sections/{section_id}/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:delete" }
-    
-    
