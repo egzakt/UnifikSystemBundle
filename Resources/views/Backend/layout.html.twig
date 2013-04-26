@@ -8,7 +8,7 @@
         <meta charset="UTF-8" />
         <title>{% block title %}{#{% render 'EgzaktBackendCoreBundle:Navigation:PageTitle' %}#}{% endblock %}</title>
         {% block stylesheets %}{% include 'EgzaktSystemBundle:Backend/Core:stylesheets.html.twig' %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <link rel="icon" type="image/png" href="{{ asset('bundles/egzaktsystem/backend/images/icons/favicon.png') }}" />
     </head>
     <body {% block body_attr '' %}>
         {% block body %}
@@ -60,7 +60,7 @@
                     <div id="egzakt">
                         {% trans %}Developed by{% endtrans %}
                         <a target="_blank" href="http://www.egzakt.com">
-                            <img width="56" height="20" title="Egzakt" alt="Egzakt" src="{{ asset('bundles/egzaktsystem/backend/images/graphics/egzakt_logo.gif') }}">
+                            <img width="56" height="20" title="Egzakt" alt="Egzakt" src="{{ asset('bundles/egzaktsystem/backend/images/graphics/egzakt_logo.png') }}">
                         </a>
                     </div>
 
