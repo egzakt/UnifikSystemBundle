@@ -70,6 +70,7 @@ services:
           - [ setHelper, [ @egzakt_system.helper ] ]
           - [ setLocale, [ %locale% ] ]
           - [ setBackendCore, [ @egzakt_backend.core ] ]
+          - [ setDoctrine, [ @doctrine ] ]
 
     egzakt_system.inspect_extension:
         class: %egzakt_system.inspect_extension.class%

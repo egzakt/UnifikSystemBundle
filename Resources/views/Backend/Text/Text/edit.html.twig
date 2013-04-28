@@ -2,7 +2,7 @@
 {% form_theme edit_form 'EgzaktSystemBundle:Backend/Core:edit_fields.html.twig' %}
 
 {% block content_header %}
-    <h1>{{ entity.i18nTitle|trans|raw }}</h1>
+    <h1>{{ entity|i18nFallback|raw }}</h1>
 {% endblock %}
 
 {% block content_main %}
@@ -12,13 +12,15 @@
         {% block edit_actions %}
             {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'entity': entity,
-                'delete_route': path('egzakt_system_backend_text_delete', { section_id: section.id, id: 0 }),
+                'delete_route': path('egzakt_system_backend_text_delete', { section_id: section.id, id: entity.id ?: 0 }),
                 'cancel_route': path('egzakt_system_backend_text', { section_id: section.id })
             } %}
         {% endblock %}
 
         <div id="fields_box">
             <table class="fields" cellspacing="0">
+
+                {{ form_errors(edit_form) }}
 
                 {{ form_row(edit_form.translation.active) }}
 
@@ -50,19 +52,14 @@
     </form>
 
     <script type="text/javascript">
-        $(function(){
-            var chkCollapsable = function(){
-                if ($('#texte_collapsable').is(':checked')) {
-                    $('#texte_translation_name').parent().parent().show();
-                }
-                else {
-                    $('#texte_translation_name').parent().parent().hide();
-                }
-            };
-
-            $('#texte_collapsable').click(chkCollapsable);
-            chkCollapsable();
-        });
+        $('#text_collapsable').click(function(){
+            var $row = $('#text_translation_name').parents('tr');
+            if ($('#text_collapsable').is(':checked')) {
+                $row.show();
+            } else {
+                $row.hide();
+            }
+        }).triggerHandler('click');
     </script>
 
 {% endblock %}

@@ -27,7 +27,7 @@ class NavigationController extends BaseController
      * Global Bundle Bar Action
      *
      * @param string $masterRoute
-     *s
+     *
      * @return Response
      */
     public function globalModuleBarAction($masterRoute)

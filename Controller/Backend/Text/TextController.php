@@ -118,45 +118,46 @@ class TextController extends BaseController
         return $this->render('EgzaktSystemBundle:Backend/Text/Text:edit.html.twig', array(
             'entity' => $entity,
             'edit_form' => $form->createView(),
-            'truncateLength' => 100
         ));
     }
 
     /**
-     * Deletes a Text entity.
+     * Delete a Text entity.
      *
-     * @param integer $id The Id of the text to delete
+     * @param Request $request
+     * @param int $id
      *
-     * @throws \Symfony\Bundle\FrameworkBundle\Controller\NotFoundHttpException
+     * @return RedirectResponse|Response
      *
-     * @return RedirectResponse
+     * @throws NotFoundHttpException
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
-        $entity = $this->getEm()->getRepository($this->getBundleName() . ':Text')->find($id);
+        $text = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Text entity.');
+        if (!$text) {
+            throw $this->createNotFoundException('Unable to find a Text entity using id "' . $id . '".');
         }
 
-        if ($this->get('request')->get('message')) {
+        if ($request->get('message')) {
             $template = $this->renderView('EgzaktBackendCoreBundle:Core:delete_message.html.twig', array(
-                'entity' => $entity,
-                'truncateLength' => $this->getSectionBundle()->getParam('breadcrumbs_truncate_length')
+                'entity' => $text
             ));
 
             return new Response(json_encode(array(
                 'template' => $template,
-                'isDeletable' => $entity->isDeletable()
+                'isDeletable' => $text->isDeletable()
             )));
         }
 
-        $this->getEm()->remove($entity);
+        $this->getEm()->remove($text);
         $this->getEm()->flush();
 
         $this->invalidateRoutingCache();
 
-        return $this->redirect($this->generateUrl($this->getBundleName(), array('section_id' => $this->getSection()->getId())));
+        return $this->redirect($this->generateUrl('egzakt_system_backend_text', array(
+            'section_id' => $this->getSection()->getId()
+        )));
     }
 
 

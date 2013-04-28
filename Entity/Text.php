@@ -204,25 +204,20 @@ class Text extends BaseEntity
      */
     public function __toString()
     {
-        if (false == $this->id || $this->collapsable || $this->static) {
-            return parent::__toString();
+        if (false == $this->id) {
+            return 'New text';
         }
 
-        // Strip \n \r so the "Delete" link works (return character break the confirm popup message)
-        $text = trim(str_replace(array(chr(10), chr(13)), '', strip_tags($this->translate()->getText())));
-
-        if ($text || ($this->getSystemCore()->getCurrentAppName() != 'backend')) {
-            return $text;
-
-        } elseif ($this->container->getParameter('locale') != $this->getLocale()) {
-            $text = $this->translate($this->container->getParameter('locale'))->getText();
+        if ($name = $this->translate()->getName()) {
+            return $name;
         }
 
-        if (!$text) {
-            return 'Untitled';
+        if ($text = $this->translate()->getText()) {
+            return strip_tags($text);
         }
 
-        return '<span class=\'translated\'>' . $text . '</em>';
+        // No translation found in the current locale
+        return '';
     }
 
     /**

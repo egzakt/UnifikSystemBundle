@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\ExecutionContext;
 
 use Egzakt\SystemBundle\Lib\BaseTranslationEntity;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 /**
  * TextTranslation
@@ -180,19 +181,12 @@ class TextTranslation extends BaseTranslationEntity
     /**
      * Validate the sub-fields of a collapsable text
      *
-     * @param ExecutionContext $context The Execution Context
+     * @param ExecutionContextInterface $context The Execution Context
      */
-    public function isCollapsableValid(ExecutionContext $context)
+    public function isCollapsableValid(ExecutionContextInterface $context)
     {
-        if ($this->translatable->getCollapsable()) {
-
-            // Validate presence of name
-            if (false == $this->getName()) {
-
-                $propertyPath = $context->getPropertyPath() . '.name';
-                $context->setPropertyPath($propertyPath);
-                $context->addViolation('A collapsable text must have a name', array(), null);
-            }
+        if ($this->translatable->getCollapsable() && false == $this->getName())  {
+            $context->addViolationAt('name', 'A collapsable text must have a name');
         }
     }
 }

@@ -22,11 +22,6 @@ abstract class BaseTranslationEntity
                 return $this->getName() ? $this->getName() : 'Untitled';
             }
 
-            // DEPRECATED
-            if (method_exists($this, 'getNom')) {
-                return $this->getNom() ? $this->getNom() : 'Untitled';
-            }
-
             return $this->getEntityName();
         }
 

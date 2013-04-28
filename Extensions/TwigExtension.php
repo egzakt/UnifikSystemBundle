@@ -2,6 +2,8 @@
 
 namespace Egzakt\SystemBundle\Extensions;
 
+use Doctrine\Bundle\DoctrineBundle\Registry;
+use Egzakt\SystemBundle\Lib\BaseEntity;
 use Symfony\Component\Stopwatch\Section;
 use BCC\ExtraToolsBundle\Util\DateFormatter;
 
@@ -27,6 +29,19 @@ class TwigExtension extends \Twig_Extension
      * @var Core
      */
     private $backendCore;
+
+    /**
+     * @var Registry
+     */
+    private $doctrine;
+
+    /**
+     * @param Registry $doctrine
+     */
+    public function setDoctrine($doctrine)
+    {
+        $this->doctrine = $doctrine;
+    }
 
     /**
      * @param Core $backendCore
@@ -88,7 +103,8 @@ class TwigExtension extends \Twig_Extension
             'trim' => new \Twig_Filter_Method($this, 'trim'),
             'stripLineBreaks' => new \Twig_Filter_Method($this, 'stripLineBreaks'),
             'formatCurrency' => new \Twig_Filter_Method($this, 'formatCurrency'),
-            'ceil' => new \Twig_Filter_Method($this, 'ceil')
+            'ceil' => new \Twig_Filter_Method($this, 'ceil'),
+            'i18nFallback' => new \Twig_Filter_Method($this, 'i18nFallback'),
         );
     }
 
@@ -116,7 +132,7 @@ class TwigExtension extends \Twig_Extension
      *
      * @param \DateTime $startDate
      * @param \DateTime $endDate
-     * @param string 	$locale
+     * @param string    $locale
      *
      * @return string
      */
@@ -146,7 +162,7 @@ class TwigExtension extends \Twig_Extension
                 $range = $formatter->format($startDate, 'long', 'none', $locale, 'MMMM d') . ' to ' . $formatter->format($endDate, 'long', 'none', $locale, 'd, Y');
             }
 
-        } elseif($startDateInfos['year'] == $endDateInfos['year']) {
+        } elseif ($startDateInfos['year'] == $endDateInfos['year']) {
 
             // ex.: 2 février au 5 mai 2012
             if ($locale == 'fr') {
@@ -164,7 +180,7 @@ class TwigExtension extends \Twig_Extension
         }
 
         if ($locale == 'fr') {
-            $range = preg_replace(array('/^1 /','/au 1 /'), array('1er ','au 1er '), $range);
+            $range = preg_replace(array('/^1 /', '/au 1 /'), array('1er ', 'au 1er '), $range);
         }
 
         return $range;
@@ -240,6 +256,46 @@ class TwigExtension extends \Twig_Extension
         }
 
         return $formatedPrice;
+    }
+
+    /**
+     * This filter try to generate a string representation of an entity in the current locale.
+     * If there is no usable reprentation available, a fallback machanism is launch and every
+     * active locales are tried until one provides an usable result.
+     *
+     * @param BaseEntity $entity
+     *
+     * @return string
+     */
+    public function i18nFallback(BaseEntity $entity)
+    {
+        // Fallback not necessary, entity provides a usable string representation in the current locale.
+        if ((string) $entity) {
+            return $entity;
+        }
+
+        $entityPreviousLocale = $entity->getLocale();
+        $locales = $this->doctrine->getManager()->getRepository('EgzaktSystemBundle:Locale')->findBy(
+            array('active' => true),
+            array('ordering' => 'ASC')
+        );
+
+        // fallback to other locales
+        foreach ($locales as $locale) {
+
+            if ($locale->getCode() === $entityPreviousLocale) {
+                continue;
+            }
+
+            $entity->setLocale($locale->getCode());
+
+            if ($fallback = (string) $entity) {
+                $entity->setLocale($entityPreviousLocale);
+                return '<em>' . $fallback . '</em>';
+            }
+        }
+
+        return '';
     }
 
     /**

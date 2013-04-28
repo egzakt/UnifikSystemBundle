@@ -42,7 +42,7 @@
                 </td>
                 <td class="name{% if not entity.active %} inactive{% endif %}">
                     <a href="{{ path('egzakt_system_backend_text_edit', { 'id': entity.id, 'section_id': section.id }) }}">
-                        {{ entity|striptags|truncate(100, true)|raw }}
+                        {{ entity|i18nFallback|truncate(100, true)|raw }}
                     </a>
                 </td>
                 <td class="centered">

@@ -387,24 +387,9 @@ class Section extends BaseEntity
             return $this->routeParams;
         }
 
-        // The defaults navigation params are from the first associated bundle
-        $sectionBundles = $this->getSectionBundlesBackend();
-
-        if (count($sectionBundles)) {
-            return $sectionBundles[0]->getRouteParams();
-        }
-
-        // No bundle associated, looking for childs with associated bundle
-        /** @var $children \Egzakt\Backend\SectionBundle\Entity\Section */
-        foreach ($this->getChildren() as $children) {
-
-            if ($children->getRoute()) {
-                return $children->getRouteParams();
-            }
-        }
-
-        // No params could be found
-        return false;
+        return array(
+            'section_id' => $this->id
+        );
     }
 
     /**
