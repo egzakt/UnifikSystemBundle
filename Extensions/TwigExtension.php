@@ -31,19 +31,6 @@ class TwigExtension extends \Twig_Extension
     private $backendCore;
 
     /**
-     * @var Registry
-     */
-    private $doctrine;
-
-    /**
-     * @param Registry $doctrine
-     */
-    public function setDoctrine($doctrine)
-    {
-        $this->doctrine = $doctrine;
-    }
-
-    /**
      * @param Core $backendCore
      */
     public function setBackendCore($backendCore)
@@ -104,7 +91,6 @@ class TwigExtension extends \Twig_Extension
             'stripLineBreaks' => new \Twig_Filter_Method($this, 'stripLineBreaks'),
             'formatCurrency' => new \Twig_Filter_Method($this, 'formatCurrency'),
             'ceil' => new \Twig_Filter_Method($this, 'ceil'),
-            'i18nFallback' => new \Twig_Filter_Method($this, 'i18nFallback'),
         );
     }
 
@@ -256,46 +242,6 @@ class TwigExtension extends \Twig_Extension
         }
 
         return $formatedPrice;
-    }
-
-    /**
-     * This filter try to generate a string representation of an entity in the current locale.
-     * If there is no usable reprentation available, a fallback machanism is launch and every
-     * active locales are tried until one provides an usable result.
-     *
-     * @param BaseEntity $entity
-     *
-     * @return string
-     */
-    public function i18nFallback(BaseEntity $entity)
-    {
-        // Fallback not necessary, entity provides a usable string representation in the current locale.
-        if ((string) $entity) {
-            return $entity;
-        }
-
-        $entityPreviousLocale = $entity->getLocale();
-        $locales = $this->doctrine->getManager()->getRepository('EgzaktSystemBundle:Locale')->findBy(
-            array('active' => true),
-            array('ordering' => 'ASC')
-        );
-
-        // fallback to other locales
-        foreach ($locales as $locale) {
-
-            if ($locale->getCode() === $entityPreviousLocale) {
-                continue;
-            }
-
-            $entity->setLocale($locale->getCode());
-
-            if ($fallback = (string) $entity) {
-                $entity->setLocale($entityPreviousLocale);
-                return '<em>' . $fallback . '</em>';
-            }
-        }
-
-        return '';
     }
 
     /**

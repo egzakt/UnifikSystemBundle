@@ -1,0 +1,7 @@
+{% if entity == '' %}
+    <em>
+{% endif %}
+{{ entity|transTitle|striptags|truncate(truncateLength|default(100)) }}
+{% if entity == '' %}
+    </em>
+{% endif %}

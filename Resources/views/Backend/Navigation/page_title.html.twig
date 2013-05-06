@@ -1,8 +1,8 @@
 {% block title %}
 {% spaceless %}
-    {% for element in elements -%}
-        {{ element.translate(app.request.locale)|striptags|truncate(100, true)|trans|raw }} -
-    {%- endfor %}
+    {% for element in elements %}
+        {{ element|transTitle|striptags|truncate(100) }} -
+    {% endfor %}
     {{ project_title|trans }}
 {% endspaceless %}
 {%- endblock -%}

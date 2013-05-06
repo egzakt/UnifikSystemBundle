@@ -7,6 +7,7 @@ parameters:
     egzakt_system.core.class:                       Egzakt\SystemBundle\Lib\Core
     egzakt_system.helper.class:                     Egzakt\SystemBundle\Lib\Helper
     egzakt_system.twig_extension.class:             Egzakt\SystemBundle\Extensions\TwigExtension
+    egzakt_system.twig_translation_extension.class: Egzakt\SystemBundle\Extensions\TranslationExtension
     egzakt_system.inspect_extension.class:          Egzakt\SystemBundle\Extensions\InspectExtension
     egzakt_system.navigation_builder.class:         Egzakt\SystemBundle\Lib\NavigationBuilder
     egzakt_system.section_hooks.class:              Egzakt\SystemBundle\Lib\SectionHooks
@@ -70,6 +71,12 @@ services:
           - [ setHelper, [ @egzakt_system.helper ] ]
           - [ setLocale, [ %locale% ] ]
           - [ setBackendCore, [ @egzakt_backend.core ] ]
+
+    egzakt_system.twig_translation_extension:
+        class: %egzakt_system.twig_translation_extension.class%
+        tags:
+          - { name: twig.extension }
+        calls:
           - [ setDoctrine, [ @doctrine ] ]
 
     egzakt_system.inspect_extension:

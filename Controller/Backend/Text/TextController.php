@@ -27,7 +27,9 @@ class TextController extends BaseController
     {
         parent::init();
 
-//        $this->getCore()->addNavigationElement($this->getSectionBundle());
+        $this->createAndPushNavigationElement('Texts', 'egzakt_system_backend_text', array(
+            'section_id' => $this->getSection()->getId()
+        ));
     }
 
     /**

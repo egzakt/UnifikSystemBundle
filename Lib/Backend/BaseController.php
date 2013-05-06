@@ -146,4 +146,33 @@ abstract class BaseController extends Controller implements BaseControllerInterf
 
         $this->getCore()->addNavigationElement($navigationElement);
     }
+
+    protected function createNavigationElement($name, $route, $routeParams)
+    {
+        $navigationElement = new NavigationElement();
+        $navigationElement->setContainer($this->container);
+        $navigationElement->setName($name);
+        $navigationElement->setRouteBackend($route);
+        $navigationElement->setRouteBackendParams($routeParams);
+
+        return $navigationElement;
+    }
+
+    protected function addNavigationElement($element)
+    {
+        trigger_error('addNavigationElement is deprecated. Use pushNavigationElement instead.', E_USER_DEPRECATED);
+
+        $this->pushNavigationElement($element);
+    }
+
+    protected function pushNavigationElement($element)
+    {
+        $this->getCore()->addNavigationElement($element);
+    }
+
+    protected function createAndPushNavigationElement($name, $route, $routeParams)
+    {
+        $navigationElement = $this->createNavigationElement($name, $route, $routeParams);
+        $this->pushNavigationElement($navigationElement);
+    }
 }

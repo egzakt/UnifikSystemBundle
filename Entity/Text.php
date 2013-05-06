@@ -213,7 +213,7 @@ class Text extends BaseEntity
         }
 
         if ($text = $this->translate()->getText()) {
-            return strip_tags($text);
+            return $text;
         }
 
         // No translation found in the current locale
