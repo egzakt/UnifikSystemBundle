@@ -1116,6 +1116,10 @@ table.fields th {
     white-space: nowrap;
 }
 
+table.fields tr.translation th label {
+    color: #653DB8;
+}
+
 /* With child-selector to avoid overriding ckeditor */
 table.fields > tbody > tr > td {
     width: 80%;
