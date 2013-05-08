@@ -7,8 +7,6 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Egzakt\SystemBundle\Entity\App;
-use Egzakt\SystemBundle\Lib\Core;
-use Egzakt\SystemBundle\Lib\Backend\Core as BackendCore;
 use Egzakt\SystemBundle\Entity\Section;
 use Egzakt\SystemBundle\Lib\BaseControllerInterface;
 use Egzakt\SystemBundle\Lib\NavigationElement;
