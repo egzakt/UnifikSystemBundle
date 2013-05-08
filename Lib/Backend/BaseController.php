@@ -2,9 +2,14 @@
 
 namespace Egzakt\SystemBundle\Lib\Backend;
 
-use Egzakt\SystemBundle\Entity\Section;
+use Doctrine\ORM\EntityManager;
+use Egzakt\SystemBundle\Lib\BaseEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use Egzakt\SystemBundle\Entity\App;
+use Egzakt\SystemBundle\Lib\Core;
+use Egzakt\SystemBundle\Lib\Backend\Core as BackendCore;
+use Egzakt\SystemBundle\Entity\Section;
 use Egzakt\SystemBundle\Lib\BaseControllerInterface;
 use Egzakt\SystemBundle\Lib\NavigationElement;
 
@@ -18,7 +23,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      */
     public function init()
     {
-
+        // base implementation
     }
 
     /**
@@ -36,7 +41,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      *
      * @deprecated Use getCore.
      *
-     * @return \Egzakt\Backend\CoreBundle\Lib\Core
+     * @return BackendCore
      */
     public function getBackendCore()
     {
@@ -46,7 +51,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     /**
      * Return the system core
      *
-     * @return \Egzakt\System\CoreBundle\Lib\Core
+     * @return Core
      */
     public function getSystemCore()
     {
@@ -65,8 +70,6 @@ abstract class BaseController extends Controller implements BaseControllerInterf
 
     /**
      * Get the SectionBundle entity
-     *
-     * @return \Egzakt\Backend\SectionBundle\Entity\SectionBundle
      */
     public function getSectionBundle()
     {
@@ -86,19 +89,9 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     }
 
     /**
-     * Get the Bundle
+     * Get the current app entity
      *
-     * @return \Egzakt\Backend\CoreBundle\Entity\Bundle
-     */
-    public function getBundle()
-    {
-        return $this->getCore()->getBundle();
-    }
-
-    /**
-     * Get the App
-     *
-     * @return \Egzakt\Backend\CoreBundle\Entity\App
+     * @return App
      */
     public function getApp()
     {
@@ -118,7 +111,7 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     /**
      * Get the Entity Manager
      *
-     * @return \Doctrine\ORM\EntityManager
+     * @return EntityManager
      */
     public function getEm()
     {
@@ -129,8 +122,8 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      * Add a custom navigation element for the current tab
      *
      * @param string $tabIndex Index of the tab in the configuration array
-     * @param Entity $entity
-     * @param array  $tabs List of tabs
+     * @param BaseEntity $entity
+     * @param array $tabs List of tabs
      */
     protected function addTabNavigationElement($tabIndex, $entity, $tabs = null)
     {
@@ -147,7 +140,16 @@ abstract class BaseController extends Controller implements BaseControllerInterf
         $this->getCore()->addNavigationElement($navigationElement);
     }
 
-    protected function createNavigationElement($name, $route, $routeParams)
+    /**
+     * Helper method to create a navigation element
+     *
+     * @param $name
+     * @param $route
+     * @param array $routeParams
+     *
+     * @return NavigationElement
+     */
+    protected function createNavigationElement($name, $route, $routeParams = array())
     {
         $navigationElement = new NavigationElement();
         $navigationElement->setContainer($this->container);
@@ -158,6 +160,13 @@ abstract class BaseController extends Controller implements BaseControllerInterf
         return $navigationElement;
     }
 
+    /**
+     * Push a navigation element on top on the navigation element stack
+     *
+     * @param $element
+     *
+     * @deprecated Use pushNavigationElement instead
+     */
     protected function addNavigationElement($element)
     {
         trigger_error('addNavigationElement is deprecated. Use pushNavigationElement instead.', E_USER_DEPRECATED);
@@ -165,12 +174,24 @@ abstract class BaseController extends Controller implements BaseControllerInterf
         $this->pushNavigationElement($element);
     }
 
+    /**
+     * Push a navigation element on top on the navigation element stack.
+     *
+     * @param $element
+     */
     protected function pushNavigationElement($element)
     {
         $this->getCore()->addNavigationElement($element);
     }
 
-    protected function createAndPushNavigationElement($name, $route, $routeParams)
+    /**
+     * Helper method to create and push a navigation element to the navigation stack.
+     *
+     * @param $name
+     * @param $route
+     * @param array $routeParams
+     */
+    protected function createAndPushNavigationElement($name, $route, $routeParams = array())
     {
         $navigationElement = $this->createNavigationElement($name, $route, $routeParams);
         $this->pushNavigationElement($navigationElement);
