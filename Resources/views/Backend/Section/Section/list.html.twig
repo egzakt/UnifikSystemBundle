@@ -62,7 +62,7 @@
                         {{ entity.ordering }}
                     </td>
                     <td class="name{% if not entity.active %} inactive{% endif %}">
-                        <a href="{{ path('egzakt_system_backend_section_edit', { 'id': entity.id, 'section_id': section.id }) }}">{{ entity.i18nTitle|raw }}</a>
+                        <a href="{{ path('egzakt_system_backend_section_edit', { 'id': entity.id, 'section_id': section.id }) }}">{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
                     </td>
                     <td>
                         {{ entity.children|length }}
@@ -86,7 +86,7 @@
         </table>
         <div class="total">
             <span class="sub-total"></span>
-            {{ entities|length }} {% trans %}result{% endtrans %} {{ entities|length > 1 ? 's' : '' }}
+            {{ entities|length }} {% trans %}result{% endtrans %}{{ entities|length > 1 ? 's' : '' }}
         </div>
     </div>
 

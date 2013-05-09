@@ -85,7 +85,7 @@ class SectionController extends BaseController
 
         $this->getCore()->addNavigationElement($entity);
 
-        $form = $this->createForm(new SectionType(), $entity, array('current_section' => $this->getSection()));
+        $form = $this->createForm(new SectionType(), $entity, array('current_section' => $entity));
 
         if ('POST' === $request->getMethod()) {
 
@@ -99,30 +99,13 @@ class SectionController extends BaseController
                 // On insert
                 if (false == $id) {
 
-                    // Fetching default linked bundles
-//                    $bundles = $em->getRepository('EgzaktBackendCoreBundle:Bundle')->findByParam(
-//                        'automatically_linked',
-//                        true
-//                    );
-//
-//                    // If this section match the max level we remove it from the autolinked bundles
-//                    $maxSectionLevel = $this->container->getParameter('egzakt_backend_section.max_level');
-//                    $sectionLevel = ($this->getSection()->getLevel() + 1);
-//
-//                    if ($sectionLevel >= $maxSectionLevel) {
-//                        foreach ($bundles as $key => $bundle) {
-//                            if ('EgzaktBackendSectionBundle' == $bundle->getName()) {
-//                                unset($bundles[$key]);
-//                                break;
-//                            }
-//                        }
-//                    }
-
                     $sectionModuleBar = $this->navigationRepository->findOneByName('_section_module_bar');
+
+                    $app = $this->getEm()->getRepository('EgzaktSystemBundle:App')->findOneByName('backend');
 
                     $mapping = new Mapping();
                     $mapping->setSection($entity);
-                    $mapping->setApp($this->getApp());
+                    $mapping->setApp($app);
                     $mapping->setType('route');
                     $mapping->setTarget('egzakt_system_backend_text');
 
@@ -130,7 +113,7 @@ class SectionController extends BaseController
 
                     $mapping = new Mapping();
                     $mapping->setSection($entity);
-                    $mapping->setApp($this->getApp());
+                    $mapping->setApp($app);
                     $mapping->setNavigation($sectionModuleBar);
                     $mapping->setType('render');
                     $mapping->setTarget('EgzaktSystemBundle:Backend/Text/Navigation:SectionModuleBar');
@@ -139,7 +122,7 @@ class SectionController extends BaseController
 
                     $mapping = new Mapping();
                     $mapping->setSection($entity);
-                    $mapping->setApp($this->getApp());
+                    $mapping->setApp($app);
                     $mapping->setNavigation($sectionModuleBar);
                     $mapping->setType('render');
                     $mapping->setTarget('EgzaktSystemBundle:Backend/Section/Navigation:SectionModuleBar');
@@ -173,38 +156,40 @@ class SectionController extends BaseController
     /**
      * Deletes a Section entity.
      *
+     * @param Request $request
      * @param integer $id The ID of the Section to delete
      *
      * @throws NotFoundHttpException
      *
      * @return Response|RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
-        $entity = $this->getEm()->getRepository($this->getBundleName() . ':Section')->find($id);
+        $section = $this->sectionRepository->find($id);
 
-        if (!$entity) {
+        if (!$section) {
             throw $this->createNotFoundException('Unable to find Section entity.');
         }
 
-        if ($this->get('request')->get('message')) {
-            $template = $this->renderView('EgzaktBackendCoreBundle:Core:delete_message.html.twig', array(
-                'entity' => $entity,
-                'truncateLength' => $this->getSectionBundle()->getParam('breadcrumbs_truncate_length')
+        if ($request->get('message')) {
+            $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
+                'entity' => $section
             ));
 
             return new Response(json_encode(array(
                 'template' => $template,
-                'isDeletable' => $entity->isDeletable()
+                'isDeletable' => $section->isDeletable()
             )));
         }
 
-        $this->getEm()->remove($entity);
+        $this->getEm()->remove($section);
         $this->getEm()->flush();
 
         $this->invalidateRoutingCache();
 
-        return $this->redirect($this->generateUrl($this->getBundleName(), array('section_id' => $this->getSection()->getId())));
+        return $this->redirect($this->generateUrl('egzakt_system_backend_section', array(
+            'section_id' => $this->getSection()->getId()
+        )));
     }
 
 

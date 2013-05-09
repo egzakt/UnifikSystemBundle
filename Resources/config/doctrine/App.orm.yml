@@ -1,5 +1,6 @@
 Egzakt\SystemBundle\Entity\App:
   type: entity
+  repositoryClass: Egzakt\SystemBundle\Entity\AppRepository
   fields:
     id:
       type: integer

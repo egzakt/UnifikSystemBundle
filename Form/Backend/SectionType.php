@@ -27,7 +27,7 @@ class SectionType extends AbstractType
                 'required' => false,
                 'query_builder' => function(EntityRepository $er) use ($options) {
                     $qb = $er->createQueryBuilder('s');
-                    if ($options['current_section']) {
+                    if ($options['current_section'] && $options['current_section']->getId()) {
                         $qb->where('s.id <> :current_section');
                         $qb->setParameter(':current_section', $options['current_section']->getId());
                     }

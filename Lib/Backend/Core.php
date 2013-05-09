@@ -274,7 +274,7 @@ class Core
             $this->app = $this->getSection()->getApp();
             $method = 'the section entity';
         } else {
-            $this->app = $appRepo->findOneBy(array('ordering' => 1));
+            $this->app = $appRepo->findFirstOneExcept('backend');
             $method = 'first app entity in table (empty table?)';
         }
 

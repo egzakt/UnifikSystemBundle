@@ -47,9 +47,14 @@ class NavigationController extends BaseController
             $sectionCurrent = new Section();
         }
 
-        // TODO: detect it.
-        $currentManagedApp = 2;
-        $sections = $this->sectionRepository->findByAppJoinChildren($currentManagedApp);
+        $sections = $this->sectionRepository->findByAppJoinChildren($this->getApp());
+
+        // Cleanup of level 1 sections
+        foreach ($sections as $key => $section) {
+            if ($section->getParent()) {
+                unset($sections[$key]);
+            }
+        }
 
         $navigationBuilder = $this->get('egzakt_system.navigation_builder');
         $navigationBuilder->setElements($sections);
