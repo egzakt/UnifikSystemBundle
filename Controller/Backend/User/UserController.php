@@ -112,8 +112,7 @@ class UserController extends BaseController
             } else {
                 $isDeletable = $user->isDeletable();
                 $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
-                    'entity' => $user,
-                    'truncateLength' => $this->getSectionBundle()->getParam('breadcrumbs_truncate_length')
+                    'entity' => $user
                 ));
             }
 

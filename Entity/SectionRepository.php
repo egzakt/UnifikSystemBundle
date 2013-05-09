@@ -187,4 +187,19 @@ class SectionRepository extends BaseEntityRepository
 
         return $this->processQuery($queryBuilder);
     }
+
+    public function findRootsWithoutNavigation()
+    {
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->select('s', 'st', 'c', 'ct')
+            ->leftJoin('s.translations', 'st')
+            ->leftJoin('s.sectionNavigations', 'n')
+            ->leftJoin('s.children', 'c')
+            ->leftJoin('c.translations', 'ct')
+            ->where('s.parent IS NULL')
+            ->andWhere('n.id IS NULL')
+            ->orderBy('s.ordering');
+
+        return $this->processQuery($queryBuilder);
+    }
 }

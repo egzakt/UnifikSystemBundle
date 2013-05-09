@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Text;
 
+use Egzakt\SystemBundle\Lib\NavigationElement;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -27,7 +28,7 @@ class TextController extends BaseController
     {
         parent::init();
 
-        $this->createAndPushNavigationElement('Texts', 'egzakt_system_backend_text', array(
+        $this->createAndPushNavigationElement('Text list', 'egzakt_system_backend_text', array(
             'section_id' => $this->getSection()->getId()
         ));
     }

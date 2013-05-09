@@ -4,6 +4,7 @@ namespace Egzakt\SystemBundle\Controller\Backend\Section;
 
 use Egzakt\SystemBundle\Entity\Mapping;
 use Egzakt\SystemBundle\Entity\NavigationRepository;
+use Egzakt\SystemBundle\Entity\SectionRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -24,9 +25,22 @@ class RootController extends BaseController
      */
     protected $navigationRepository;
 
+    /**
+     * @var SectionRepository
+     */
+    protected $sectionRepository;
+
+    /**
+     * Init
+     */
     public function init()
     {
+        parent::init();
+
+        $this->createAndPushNavigationElement('Sections', 'egzakt_system_backend_section_root');
+
         $this->navigationRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation');
+        $this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
     }
 
     /**
@@ -36,10 +50,12 @@ class RootController extends BaseController
      */
     public function listAction()
     {
-        $navigations = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation')->findHaveSections();
+        $navigations = $this->navigationRepository->findHaveSections();
+        $withoutNavigation = $this->sectionRepository->findRootsWithoutNavigation();
 
         return $this->render('EgzaktSystemBundle:Backend/Section/Root:list.html.twig', array(
-            'navigations' => $navigations
+            'navigations' => $navigations,
+            'withoutNavigation' => $withoutNavigation
         ));
     }
 
@@ -53,13 +69,15 @@ class RootController extends BaseController
      */
     public function editAction($id, Request $request)
     {
-        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Section')->find($id);
+        $entity = $this->sectionRepository->find($id);
 
         if (false == $entity) {
             $entity = new Section();
             $entity->setContainer($this->container);
             $entity->setApp($this->getApp());
         }
+
+        $this->pushNavigationElement($entity);
 
         $form = $this->createForm(new RootSectionType(), $entity);
 
@@ -125,38 +143,39 @@ class RootController extends BaseController
     /**
      * Deletes a RootSection entity.
      *
+     * @param Request $request T
+     *
      * @param integer $id The ID of the RootSection to delete
      *
      * @throws NotFoundHttpException
      *
      * @return Response|RedirectResponse
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
-        $entity = $this->getEm()->getRepository('EgzaktBackendSectionBundle:Section')->find($id);
+        $section = $this->sectionRepository->find($id);
 
-        if (!$entity) {
+        if (!$section) {
             throw $this->createNotFoundException('Unable to find Section entity.');
         }
 
-        if ($this->get('request')->get('message')) {
-            $template = $this->renderView('EgzaktBackendCoreBundle:Core:delete_message.html.twig', array(
-                'entity' => $entity,
-                'truncateLength' => $this->getSectionBundle()->getParam('breadcrumbs_truncate_length')
+        if ($request->get('message')) {
+            $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
+                'entity' => $section
             ));
 
             return new Response(json_encode(array(
                 'template' => $template,
-                'isDeletable' => $entity->isDeletable()
+                'isDeletable' => $section->isDeletable()
             )));
         }
 
-        $this->getEm()->remove($entity);
+        $this->getEm()->remove($section);
         $this->getEm()->flush();
 
-        $this->invalidateRoutingCache();
+//        $this->invalidateRoutingCache();
 
-        return $this->redirect($this->generateUrl($this->getBundleName(), array()));
+        return $this->redirect($this->generateUrl('egzakt_system_backend_section_root'));
     }
 
     /**

@@ -89,6 +89,20 @@ class Section extends BaseEntity
         $this->sectionNavigations = new ArrayCollection();
     }
 
+    public function __toString()
+    {
+        if (false == $this->id) {
+            return 'New section';
+        }
+
+        if ($name = $this->translate()->getName()) {
+            return $name;
+        }
+
+        // No translation found in the current locale
+        return '';
+    }
+
     /**
      * Set id
      *

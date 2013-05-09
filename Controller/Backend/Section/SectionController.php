@@ -85,7 +85,7 @@ class SectionController extends BaseController
 
         $this->getCore()->addNavigationElement($entity);
 
-        $form = $this->createForm(new SectionType(), $entity);
+        $form = $this->createForm(new SectionType(), $entity, array('current_section' => $this->getSection()));
 
         if ('POST' === $request->getMethod()) {
 

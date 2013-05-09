@@ -29,4 +29,85 @@
         {% endif %}
     {% endfor %}
 
+    {% if withoutNavigation %}
+        <div class="list_box">
+            <h2>{% trans %}Without navigation{% endtrans %}</h2>
+
+            <table cellspacing="0" class="table-autosort">
+                <thead>
+                    <tr>
+                        <th class="name table-sortable:ignorecase">
+                            {% trans %}Name{% endtrans %}
+                        </th>
+                        <th class="table-sortable:numeric">
+                            {% trans %}Nb. of subsections{% endtrans %}
+                        </th>
+                        <th class=" table-sortable:date">
+                            {% trans %}Last update{% endtrans %}
+                        </th>
+                        <th class="edit">
+                            &nbsp;
+                        </th>
+                        <th class="delete">
+                            &nbsp;
+                        </th>
+                    </tr>
+                    <tr class="filters">
+                        <th class="name">
+                            <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <th class="default_ordering">
+                            &nbsp;
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for section in withoutNavigation %}
+                    <tr id="item_{{ section.id }}">
+                        <td class="name{% if not section.active %} inactive{% endif %}">
+                            <a href="{{ path('egzakt_system_backend_section_root_edit', { id: section.id }) }}">{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': section } %}</a>
+                        </td>
+                        <td>
+                            {{ section.children|length }}
+                        </td>
+                        <td>
+                            {{ section.updatedAt|date('Y-m-d') }}
+                        </td>
+                        <td class="edit">
+                            {% if section.isEditable %}
+                                <a href="{{ path('egzakt_system_backend_section_root_edit', { id: section.id }) }}" title="{% trans %}Edit{% endtrans %}">
+                                    <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+                                </a>
+                            {% endif %}
+                        </td>
+                        <td class="delete">
+                            <a href="{{ path('egzakt_system_backend_section_root_delete', { id: section.id }) }}" rel="{{ path('egzakt_system_backend_section_root_delete', { id: section.id, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
+                                <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="total">
+                <span class="sub-total"></span>
+                {% set count = withoutNavigation|length %}
+                {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+            </div>
+        </div>
+    {% endif %}
+
 {% endblock content_main %}
