@@ -40,7 +40,8 @@ class TextStaticType extends AbstractType
     public function getDefaultOptions(array $options)
     {
         return array(
-            'data_class' => 'Egzakt\SystemBundle\Entity\Text'
+            'data_class' => 'Egzakt\SystemBundle\Entity\Text',
+            'cascade_validation' => true
         );
     }
 }

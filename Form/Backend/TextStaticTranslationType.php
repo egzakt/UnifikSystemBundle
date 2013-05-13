@@ -33,4 +33,18 @@ class TextStaticTranslationType extends AbstractType
     {
         return 'text_translation';
     }
+
+    /**
+     * Get Default Options
+     *
+     * @param array $options
+     *
+     * @return array
+     */
+    public function getDefaultOptions(array $options)
+    {
+        return array(
+            'data_class' => 'Egzakt\SystemBundle\Entity\TextTranslation',
+        );
+    }
 }

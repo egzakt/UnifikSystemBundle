@@ -196,31 +196,32 @@ class SectionController extends BaseController
     /**
      * Set order on a Section entity.
      *
+     * @param Request $request
+     *
      * @return Response
      */
-    public function orderAction()
+    public function orderAction(Request $request)
     {
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $i = 0;
 
-            /** @var \Doctrine\ORM\EntityManager $em  */
             $em = $this->getDoctrine()->getEntityManager();
-            $repo = $em->getRepository($this->getBundleName() . ':Section');
+            $repo = $this->sectionRepository;
 
-            $elements = explode(';', trim($this->getRequest()->request->get('elements'), ';'));
+            $elements = explode(';', trim($request->get('elements'), ';'));
 
             foreach ($elements as $element) {
 
                 $element = explode('_', $element);
-                /** @var \Egzakt\Backend\SectionBundle\Entity\Section $entity  */
                 $entity = $repo->find($element[1]);
 
                 if ($entity) {
                     $entity->setOrdering(++$i);
                     $em->persist($entity);
-                    $em->flush();
                 }
+
+                $em->flush();
             }
 
             $this->invalidateRoutingCache();
