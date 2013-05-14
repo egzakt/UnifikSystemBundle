@@ -1,7 +1,7 @@
 {% block title %}
 {% spaceless %}
     {% for element in elements %}
-        {{ element|transTitle|striptags|truncate(100) }} -
+        {{ element|transTitle|striptags|truncate(100)|raw }} -
     {% endfor %}
     {{ project_title|trans }}
 {% endspaceless %}
