@@ -103,7 +103,7 @@ class TextController extends BaseController
                 $em->persist($entity);
                 $em->flush();
 
-                $this->invalidateRoutingCache();
+                $this->get('egzakt_system.router_invalidator')->invalidate();
 
                 if ($request->request->has('save')) {
                     return $this->redirect($this->generateUrl('egzakt_system_backend_text', array(
@@ -156,7 +156,7 @@ class TextController extends BaseController
         $this->getEm()->remove($text);
         $this->getEm()->flush();
 
-        $this->invalidateRoutingCache();
+        $this->get('egzakt_system.router_invalidator')->invalidate();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_text', array(
             'section_id' => $this->getSection()->getId()
@@ -191,23 +191,10 @@ class TextController extends BaseController
                 }
             }
 
-            $this->invalidateRoutingCache();
+            $this->get('egzakt_system.router_invalidator')->invalidate();
         }
 
         return new Response('');
-    }
-
-    /**
-     * Invalidate Routing Cache
-     */
-    private function invalidateRoutingCache()
-    {
-        $finder = new Finder();
-        $cacheDir = $this->container->getParameter('kernel.cache_dir');
-
-        foreach ($finder->files()->name('/(.*)Url(Matcher|Generator)(.*)/')->in($cacheDir) as $file) {
-            unlink($file);
-        }
     }
 
 }

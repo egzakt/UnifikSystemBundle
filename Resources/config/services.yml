@@ -14,7 +14,7 @@ parameters:
     egzakt_system.navigation_item.class:            Egzakt\SystemBundle\Lib\NavigationItem
     egzakt_system.breadcrumbs.class:                Egzakt\SystemBundle\Lib\Breadcrumbs
     egzakt_system.page_title.class:                 Egzakt\SystemBundle\Lib\PageTitle
-
+    egzakt_system.router_invalidator.class:         Egzakt\SystemBundle\Lib\RouterInvalidator
     egzakt_backend.core.class:                      Egzakt\SystemBundle\Lib\Backend\Core
 
 services:
@@ -113,6 +113,10 @@ services:
         tags:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: onFlush }
+
+    egzakt_system.router_invalidator:
+        class: %egzakt_system.router_invalidator.class%
+        arguments: [ @kernel ]
 
     egzakt_backend.core:
         class:  %egzakt_backend.core.class%
