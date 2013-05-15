@@ -90,21 +90,21 @@ class UserController extends BaseController
     /**
      * Deletes a User entity.
      *
+     * @param Request $request
      * @param $id
      * @return RedirectResponse|Response
      * @throws NotFoundHttpException
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
         $user = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
+        $connectedUser = $this->getUser();
 
         if (!$user) {
             throw $this->createNotFoundException('Unable to find User entity.');
         }
 
-        if ($this->get('request')->get('message')) {
-
-            $connectedUser = $this->get('security.context')->getToken()->getUser();
+        if ($request->get('message')) {
 
             if ($connectedUser instanceof User && $connectedUser->getId() == $user->getId()) {
                 $isDeletable = false;
@@ -122,9 +122,11 @@ class UserController extends BaseController
             )));
         }
 
-        $this->getEm()->remove($user);
-        $this->getEm()->flush();
+        if ($connectedUser instanceof User && $connectedUser->getId() != $user->getId()) {
+            $this->getEm()->remove($user);
+            $this->getEm()->flush();
+        }
 
-        return $this->redirect($this->generateUrl('EgzaktBackendUserBundle'));
+        return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
     }
 }
