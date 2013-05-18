@@ -80,7 +80,6 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     {
         $this->userRoles = new ArrayCollection();
         $this->salt = md5(uniqid(null, true));
-        $this->active = true;
     }
 
     /**
