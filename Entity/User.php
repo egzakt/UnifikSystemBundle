@@ -14,52 +14,47 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
 class User extends BaseEntity implements AdvancedUserInterface, \Serializable
 {
     /**
-     * @var integer $id
+     * @var int
      */
     protected $id;
 
     /**
-     * @var string $username
+     * @var string
      */
     protected $username;
 
     /**
-     * @var string $password
+     * @var string
      */
     protected $password;
 
     /**
-     * @var string $firstname
+     * @var string
      */
     protected $firstname;
 
     /**
-     * @var string $lastname
+     * @var string
      */
     protected $lastname;
 
     /**
-     * @var string $email
+     * @var string
      */
     protected $email;
 
     /**
-     * @var string $facebookId
-     */
-    protected $facebookId;
-
-    /**
-     * @var boolean $active
+     * @var boolean
      */
     protected $active;
 
     /**
-     * @var \DateTime $createdAt
+     * @var \DateTime
      */
     protected $createdAt;
 
     /**
-     * @var \DateTime $updatedAt
+     * @var \DateTime
      */
     protected $updatedAt;
 
@@ -74,7 +69,7 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     protected $salt;
 
     /**
-     * Construct
+     * Constructor
      */
     public function __construct()
     {
@@ -87,12 +82,13 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
      *
      * @return string
      */
-    public function __toString() {
+    public function __toString()
+    {
         if ($this->id) {
             return $this->firstname . ' ' . $this->lastname;
         }
 
-        return 'New ' . $this->getEntityName();
+        return 'New User';
     }
 
     /**
@@ -213,51 +209,6 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
-    }
-
-    /**
-     * Set facebookId
-     *
-     * @param string $facebookId
-     */
-    public function setFacebookId($facebookId)
-    {
-        $this->facebookId = $facebookId;
-    }
-
-    /**
-     * Get facebookId
-     *
-     * @return string
-     */
-    public function getFacebookId()
-    {
-        return $this->facebookId;
-    }
-
-    /**
-     * Set Facebook Data
-     *
-     * @param Array $fbdata
-     */
-    public function setFacebookData($fbdata)
-    {
-        if (isset($fbdata['id'])) {
-            $this->setUsername($fbdata['id']);
-            $this->setFacebookId($fbdata['id']);
-        }
-
-        if (isset($fbdata['first_name'])) {
-            $this->setFirstname($fbdata['first_name']);
-        }
-
-        if (isset($fbdata['last_name'])) {
-            $this->setLastname($fbdata['last_name']);
-        }
-
-        if (isset($fbdata['email'])) {
-            $this->setEmail($fbdata['email']);
-        }
     }
 
     /**
@@ -398,6 +349,7 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
      * Add userRoles
      *
      * @param Role $userRoles
+     *
      * @return User
      */
     public function addUserRole(Role $userRoles)
@@ -447,24 +399,35 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
         ) = unserialize($serialized);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function isAccountNonExpired()
     {
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function isAccountNonLocked()
     {
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function isCredentialsNonExpired()
     {
         return true;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function isEnabled()
     {
         return $this->active;
     }
-
 }

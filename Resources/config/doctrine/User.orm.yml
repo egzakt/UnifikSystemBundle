@@ -22,10 +22,6 @@ Egzakt\SystemBundle\Entity\User:
       type: string
       length: 255
       nullable: true
-    facebookId:
-      type: string
-      length: 255
-      nullable: true
     active:
       type: boolean
     password:
