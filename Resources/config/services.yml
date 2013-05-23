@@ -50,6 +50,7 @@ services:
             - { name: kernel.event_listener, event: kernel.exception }
         calls:
             - [ setKernel, [ @kernel ] ]
+            - [ setTemplating, [ @templating ] ]
 
     egzakt_system.core:
         class: %egzakt_system.core.class%

@@ -2,6 +2,8 @@
 
 namespace Egzakt\SystemBundle\Listener;
 
+use Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -18,43 +20,53 @@ class ExceptionListener
     private $kernel;
 
     /**
-     * Event handler that renders not found page
-     * in case of a NotFoundHttpException
+     * @var TimedTwigEngine
+     */
+    private $templating;
+
+    /**
+     * Event handler that renders custom pages in case of a NotFoundHttpException (404)
+     * or a AccessDeniedHttpException (403).
      *
      * @param GetResponseForExceptionEvent $event
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
+        if ('dev' == $this->kernel->getEnvironment()) {
+            return;
+        }
+
         $exception = $event->getException();
 
-        if ($exception instanceof NotFoundHttpException && $this->kernel->getEnvironment() != 'dev') {
+        if ($exception instanceof NotFoundHttpException) {
 
-            $httpKernel = $event->getKernel();
-            $response = $httpKernel->forward('EgzaktFrontendCoreBundle:Exception:error404', array(
-                'exception' => $exception,
-            ));
-
+            $response = $this->templating->renderResponse('EgzaktSystemBundle:Frontend/Exception:404.html.twig');
             $response->setStatusCode(404);
+
             $event->setResponse($response);
+
         } elseif ($exception instanceof AccessDeniedHttpException) {
 
-            $httpKernel = $event->getKernel();
-            $response = $httpKernel->forward('EgzaktFrontendCoreBundle:Exception:error403', array(
-              'exception' => $exception,
-            ));
-
+            $response = $this->templating->renderResponse('EgzaktSystemBundle:Frontend/Exception:403.html.twig');
             $response->setStatusCode(403);
+
             $event->setResponse($response);
         }
     }
 
     /**
-     * Set kernel
-     *
      * @param Kernel $kernel
      */
     public function setKernel($kernel)
     {
         $this->kernel = $kernel;
+    }
+
+    /**
+     * @param TimedTwigEngine $templating
+     */
+    public function setTemplating($templating)
+    {
+        $this->templating = $templating;
     }
 }
