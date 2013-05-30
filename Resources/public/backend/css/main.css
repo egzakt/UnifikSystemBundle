@@ -647,7 +647,7 @@ ul#bundles a.db.selected {
     display: inline-block;
     padding: 4px 7px 4px 18px;
     margin: 3px 0 0 8px;
-    background: #653DB8 url(/bundles/egzaktsystem/backend/images/icons/talk.png) no-repeat 6px 6px;
+    background: #a8a8a8 url(/bundles/egzaktsystem/backend/images/icons/talk.png) no-repeat 6px 6px;
     border-radius: 2px;
     behavior: url(/_integration_backend/js/PIE.php); /* For IE < 9 */
     position: relative; /* For PIE */
