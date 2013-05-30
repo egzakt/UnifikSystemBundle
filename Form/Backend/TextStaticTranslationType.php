@@ -4,6 +4,7 @@ namespace Egzakt\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Text Static Translation Type
@@ -35,16 +36,13 @@ class TextStaticTranslationType extends AbstractType
     }
 
     /**
-     * Get Default Options
-     *
-     * @param array $options
-     *
-     * @return array
+     * Set default options
+     * @param OptionsResolverInterface $resolver
      */
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'data_class' => 'Egzakt\SystemBundle\Entity\TextTranslation',
-        );
+        ));
     }
 }

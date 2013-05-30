@@ -95,11 +95,11 @@ class TextController extends BaseController
 
         if ('POST' == $request->getMethod()) {
 
-            $form->bindRequest($request);
+            $form->bind($request);
 
             if ($form->isValid()) {
 
-                $em = $this->getDoctrine()->getEntityManager();
+                $em = $this->getEm();
                 $em->persist($entity);
                 $em->flush();
 
