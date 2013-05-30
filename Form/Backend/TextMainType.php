@@ -4,6 +4,7 @@ namespace Egzakt\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
  * Test Main Type
@@ -35,16 +36,15 @@ class TextMainType extends AbstractType
     }
 
     /**
-     * Get Default Options
+     * Set default options
      *
-     * @param array $options
-     * @return array
+     * @param OptionsResolverInterface $resolver
      */
-    public function getDefaultOptions(array $options)
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        return array(
+        $resolver->setDefaults(array(
             'data_class' => 'Egzakt\SystemBundle\Entity\Text',
             'cascade_validation' => true
-        );
+        ));
     }
 }
