@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;;
+use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Egzakt\SystemBundle\Entity\Mapping;
 use Egzakt\SystemBundle\Entity\NavigationRepository;
 use Egzakt\SystemBundle\Entity\Section;
@@ -89,12 +89,11 @@ class SectionController extends BaseController
 
         if ('POST' === $request->getMethod()) {
 
-            $form->bindRequest($request);
+            $form->bind($request);
 
             if ($form->isValid()) {
 
-                $em = $this->getDoctrine()->getEntityManager();
-                $em->persist($entity);
+                $this->getEm()->persist($entity);
 
                 // On insert
                 if (false == $id) {
@@ -130,7 +129,7 @@ class SectionController extends BaseController
                     $entity->addMapping($mapping);
                 }
 
-                $em->flush();
+                $this->getEm()->flush();
 
                 $this->get('egzakt_system.router_invalidator')->invalidate();
 
@@ -205,23 +204,19 @@ class SectionController extends BaseController
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $i = 0;
-
-            $em = $this->getDoctrine()->getEntityManager();
-            $repo = $this->sectionRepository;
-
             $elements = explode(';', trim($request->get('elements'), ';'));
 
             foreach ($elements as $element) {
 
                 $element = explode('_', $element);
-                $entity = $repo->find($element[1]);
+                $entity = $this->sectionRepository->find($element[1]);
 
                 if ($entity) {
                     $entity->setOrdering(++$i);
-                    $em->persist($entity);
+                    $this->getEm()->persist($entity);
                 }
 
-                $em->flush();
+                $this->getEm()->flush();
             }
 
             $this->get('egzakt_system.router_invalidator')->invalidate();
