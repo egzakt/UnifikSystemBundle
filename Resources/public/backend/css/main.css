@@ -1271,8 +1271,9 @@ tr.collapsable_fields table.fields tr:first-child td {
     border-bottom: 1px solid #B3B3B3;
 }
 
-.error {
-    color: #DE4935;
+.error,
+.error label {
+    color: #DE4935 !important;
 }
 
 .fields tr td .error {
