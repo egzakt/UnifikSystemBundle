@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Text;
 
-use Egzakt\SystemBundle\Lib\NavigationElement;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -143,7 +142,7 @@ class TextController extends BaseController
         }
 
         if ($request->get('message')) {
-            $template = $this->renderView('EgzaktBackendCoreBundle:Core:delete_message.html.twig', array(
+            $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
                 'entity' => $text
             ));
 
@@ -165,7 +164,7 @@ class TextController extends BaseController
 
 
     /**
-     * Set order on a BloxTexte entity.
+     * Set order on a Text entity.
      *
      * @return Response
      */
@@ -174,15 +173,12 @@ class TextController extends BaseController
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $i = 0;
-
-            $repo = $this->getEm()->getRepository($this->getBundleName() . ':Text');
-
             $elements = explode(';', trim($this->getRequest()->request->get('elements'), ';'));
 
             foreach ($elements as $element) {
 
                 $element = explode('_', $element);
-                $entity = $repo->find($element[1]);
+                $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($element[1]);
 
                 if ($entity) {
                     $entity->setOrdering(++$i);

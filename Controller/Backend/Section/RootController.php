@@ -89,7 +89,8 @@ class RootController extends BaseController
 
         if ('POST' == $request->getMethod()) {
 
-            $form->bindRequest($request);
+            $previousSectionNavigations = $entity->getSectionNavigations();
+            $form->bind($request);
 
             if ($form->isValid()) {
 
@@ -126,6 +127,20 @@ class RootController extends BaseController
                     $mapping->setTarget('EgzaktSystemBundle:Backend/Section/Navigation:SectionModuleBar');
 
                     $entity->addMapping($mapping);
+                }
+
+                // Ugly workaround to handle sectionNavigation relations
+                foreach ($entity->getSectionNavigations() as $sectionNavigation) {
+                    foreach ($previousSectionNavigations as $previousSectionNavigation) {
+                        if ($sectionNavigation->getNavigation() == $previousSectionNavigation->getNavigation()) {
+                            $sectionNavigation->setOrdering($previousSectionNavigation->getOrdering());
+                        }
+                    }
+                    $this->getEm()->persist($sectionNavigation);
+                }
+
+                foreach ($previousSectionNavigations as $previousSectionNavigation) {
+                    $this->getEm()->remove($previousSectionNavigation);
                 }
 
                 $this->getEm()->flush();
@@ -195,8 +210,6 @@ class RootController extends BaseController
         if ($this->getRequest()->isXmlHttpRequest()) {
 
             $i = 0;
-
-            $repo = $this->getEm()->getRepository('EgzaktFrontendCoreBundle:SectionNavigation');
             $elements = explode(';', trim($this->getRequest()->request->get('elements'), ';'));
 
             // Get the navigation id
@@ -206,7 +219,7 @@ class RootController extends BaseController
             foreach ($elements as $element) {
 
                 $sectionId = preg_replace('/(.)*-/', '', $element);
-                $entity = $repo->findOneBy(array('section' => $sectionId, 'navigation' => $navigationId));
+                $entity = $this->getEm()->getRepository('EgzaktSystemBundle:SectionNavigation')->findOneBy(array('section' => $sectionId, 'navigation' => $navigationId));
 
                 if ($entity) {
                     $entity->setOrdering(++$i);
