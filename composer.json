@@ -20,7 +20,7 @@
         }
     ],
     "require": {
-        "symfony/symfony": "2.2.*"
+        "symfony/symfony": "2.3.*"
     },
     "autoload": {
         "psr-0": { "Egzakt\\SystemBundle": "" }
