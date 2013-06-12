@@ -64,7 +64,8 @@ class TextController extends BaseController
     }
 
     /**
-     * Displays a form to edit an existing Text entity.
+     * Displays a form to edit or create a Text entity.
+     *
      * @param Request $request
      * @param integer $id The ID
      *
@@ -74,23 +75,23 @@ class TextController extends BaseController
     {
         $section = $this->getSection();
 
-        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
+        $text = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
 
-        if (false == $entity) {
-            $entity = new Text();
-            $entity->setContainer($this->container);
-            $entity->setSection($section);
+        if (false == $text) {
+            $text = new Text();
+            $text->setContainer($this->container);
+            $text->setSection($section);
         }
 
-        $this->getCore()->addNavigationElement($entity);
+        $this->getCore()->addNavigationElement($text);
 
-        if ($entity->isStatic()) {
+        if ($text->isStatic()) {
             $formType = new TextStaticType();
         } else {
             $formType = new TextMainType();
         }
 
-        $form = $this->createForm($formType, $entity);
+        $form = $this->createForm($formType, $text);
 
         if ('POST' == $request->getMethod()) {
 
@@ -99,27 +100,24 @@ class TextController extends BaseController
             if ($form->isValid()) {
 
                 $em = $this->getEm();
-                $em->persist($entity);
+                $em->persist($text);
                 $em->flush();
 
                 $this->get('egzakt_system.router_invalidator')->invalidate();
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('egzakt_system_backend_text', array(
-                        'section_id' => $section->getId()
-                    )));
+                    return $this->redirect($this->generateUrl('egzakt_system_backend_text'));
                 }
 
                 return $this->redirect($this->generateUrl('egzakt_system_backend_text_edit', array(
-                    'id' => $entity->getId() ?: 0,
-                    'section_id' => $section->getId()
+                    'id' => $text->getId() ?: 0
                 )));
             }
         }
 
         return $this->render('EgzaktSystemBundle:Backend/Text/Text:edit.html.twig', array(
-            'entity' => $entity,
-            'edit_form' => $form->createView(),
+            'text' => $text,
+            'form' => $form->createView(),
         ));
     }
 

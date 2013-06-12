@@ -15,6 +15,8 @@ class RouterExtensionCompilerPass implements CompilerPassInterface
         $container->setParameter('router.options.generator_base_class', 'Egzakt\SystemBundle\Lib\RouterUrlGenerator');
 
         // scope widening injection bypass, alternatively rely on the provider pattern by injecting the container itself
-        $container->findDefinition('twig.extension.routing')->addMethodCall('setContainer', array(new Reference('service_container')));
+        $container->findDefinition('twig.extension.routing')->addMethodCall('setAutoParametersHandler', array(
+            new Reference('egzakt_system.router_auto_parameters_handler')
+        ));
     }
 }

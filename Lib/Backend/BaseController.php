@@ -3,8 +3,8 @@
 namespace Egzakt\SystemBundle\Lib\Backend;
 
 use Doctrine\ORM\EntityManager;
-use Egzakt\SystemBundle\Lib\BaseEntity;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 use Egzakt\SystemBundle\Entity\App;
 use Egzakt\SystemBundle\Entity\Section;
@@ -163,5 +163,17 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     {
         $navigationElement = $this->createNavigationElement($name, $route, $routeParams);
         $this->pushNavigationElement($navigationElement);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function generateUrl($route, $parameters = array(), $referenceType = UrlGeneratorInterface::ABSOLUTE_PATH)
+    {
+        return $this->container->get('router')->generate(
+            $route,
+            $this->get('egzakt_system.router_auto_parameters_handler')->inject($parameters),
+            $referenceType
+        );
     }
 }
