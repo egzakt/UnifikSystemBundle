@@ -9,7 +9,7 @@
     </div>
 {% endblock form_widget %}
 
-{% block field_row %}
+{% block form_row %}
     <tr{% if '[translation]' in full_name %} class="translation"{% endif %}>
         <th{% if errors|length > 0 %} class="error"{% endif %}>
             {{ form_label(form, label|default(null)) }}
