@@ -7,7 +7,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Egzakt\SystemBundle\Entity\MappingRepository;
 use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Entity\SectionBundle;
 use Egzakt\SystemBundle\Entity\SectionRepository;
 
 /**
@@ -172,36 +171,6 @@ class NavigationController extends BaseController
         return $this->render('EgzaktSystemBundle:Backend/Navigation:section_module_bar.html.twig', array(
             'mappings' => $mappings,
             'masterRoute' => $masterRoute,
-        ));
-    }
-
-    /**
-     * List of tabs available when editing an entity
-     *
-     * @param Entity $entity
-     * @param array  $tabs List of tabs
-     *
-     * @return Response
-     * @throws Exception
-     */
-    public function tabsAction($entity, $tabs = null)
-    {
-        if (!$tabs) {
-            $tabs = $this->getSectionBundle()->getParam('tabs');
-        }
-
-        $tabCurrent = $this->getCore()->getRequest()->get('tab');
-
-        if (!$tabCurrent) {
-            throw new Exception('Selected tab name not found. Maybe you forgot to add a "tab" route default value? Available values: ' . implode(', ', array_keys($tabs)));
-        }
-
-        // Determine which tab is selected
-        $tabs[$tabCurrent]['selected'] = true;
-
-        return $this->render('EgzaktBackendCoreBundle:Navigation:tabs.html.twig', array(
-            'tabs' => $tabs,
-            'entity' => $entity
         ));
     }
 

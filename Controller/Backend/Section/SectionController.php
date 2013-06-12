@@ -225,41 +225,4 @@ class SectionController extends BaseController
         return new Response('');
     }
 
-    /**
-     * @deprecated
-     *
-     * Display all sections into a tree with checkboxes
-     * (Called with a twig render from an entity's edit form)
-     *
-     * @param Doctrine\ORM\PersistentCollection $currentSections The current sections of the entity
-     * @param Symfony\Component\Form\FormView   $form
-     * @param int                               $maxLevel Max level of section children to display
-     *
-     * @return Response
-     */
-    public function formChoicesTreeAction($currentSections, $form, $maxLevel)
-    {
-        // TODO : waiting for the new query to get sections with children
-        $sections = $this->getEm()->getRepository('EgzaktBackendSectionBundle:Section')->findBy(
-            array(
-                'app' => $this->getApp()->getId(),
-                'parent' => null
-            ),
-            array('ordering' => 'ASC')
-        );
-
-        // Transform the current sections into an ids list
-        $currentSectionsIds = array();
-
-        foreach($currentSections as $section) {
-            $currentSectionsIds[] = $section->getId();
-        }
-
-        return $this->render('EgzaktBackendSectionBundle:Section:form_choices_tree.html.twig', array(
-            'currentSectionsIds' => $currentSectionsIds,
-            'form' => $form,
-            'sections' => $sections,
-            'maxLevel' => $maxLevel
-        ));
-    }
 }

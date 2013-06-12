@@ -4,9 +4,7 @@ namespace Egzakt\SystemBundle\Lib\Backend;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Egzakt\SystemBundle\Entity\App;
-use Egzakt\SystemBundle\Entity\Bundle;
 use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Entity\SectionBundle;
 use Egzakt\SystemBundle\Lib\Breadcrumbs;
 use Egzakt\SystemBundle\Lib\NavigationInterface;
 use Egzakt\SystemBundle\Lib\PageTitle;
@@ -80,12 +78,6 @@ class Core
      * @var Bundle
      */
     private $bundle;
-
-    /**
-     * The current section bundle entity
-     * @var SectionBundle
-     */
-    private $sectionBundle;
 
     /**
      * The current element (can be any entity implementing NavigationInterface)
@@ -186,26 +178,6 @@ class Core
         $this->section = $em->getRepository('EgzaktSystemBundle:Section')->find($this->getSectionId());
 
         return $this->section;
-    }
-
-    /**
-     * Get the current SectionBundle
-     *
-     * @return SectionBundle
-     */
-    public function getSectionBundle()
-    {
-        if ($this->sectionBundle) {
-            return $this->sectionBundle;
-        }
-        $em = $this->doctrine->getEntityManager();
-
-        $this->sectionBundle = $em->getRepository('EgzaktSystemBundle:SectionBundle')->findOneBy(array(
-            'section' => $this->getSection() ? $this->getSection()->getId() : null,
-            'bundle' => $this->getBundle() ? $this->getBundle()->getId() : null
-        ));
-
-        return $this->sectionBundle;
     }
 
     /**

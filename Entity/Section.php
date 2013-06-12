@@ -51,11 +51,6 @@ class Section extends BaseEntity
     /**
      * @var array
      */
-    protected $sectionBundles;
-
-    /**
-     * @var array
-     */
     protected $routeParams;
 
     /**
@@ -324,26 +319,6 @@ class Section extends BaseEntity
     }
 
     /**
-     * Get bundles related to the section which are not automatically linked
-     *
-     * @return ArrayCollection
-     */
-    public function getNonAutomaticallyLinkedBundles()
-    {
-        if (!$this->nonAutomaticallyLinkedBundles) {
-            $this->nonAutomaticallyLinkedBundles = new ArrayCollection();
-
-            foreach ($this->sectionBundles as $sectionBundle) {
-                if (!$sectionBundle->getBundle()->getParam('automatically_linked')) {
-                    $this->nonAutomaticallyLinkedBundles[] = $sectionBundle->getBundle();
-                }
-            }
-        }
-
-        return $this->nonAutomaticallyLinkedBundles;
-    }
-
-    /**
      * getLevel
      *
      * @return integer
@@ -405,57 +380,6 @@ class Section extends BaseEntity
             'section_id' => $this->id
         );
     }
-
-    /**
-     * Add sectionBundles
-     *
-     * @param SectionBundle $sectionBundle The SectionBundle *entity*
-     */
-    public function addSectionBundles(SectionBundle $sectionBundle)
-    {
-        $this->sectionBundles[] = $sectionBundle;
-    }
-
-    /**
-     * Get sectionBundles
-     *
-     * @return ArrayCollection
-     */
-    public function getSectionBundles()
-    {
-        return $this->sectionBundles;
-    }
-
-    /**
-     * Set sectionBundles
-     *
-     * @param array $sectionBundles An array of sectionBundles
-     */
-    public function setSectionBundles($sectionBundles)
-    {
-        $this->sectionBundles = $sectionBundles;
-    }
-
-    /**
-     * Get Section Bundles Backend
-     *
-     * @return array
-     */
-    public function getSectionBundlesBackend()
-    {
-        $sectionBundles = array();
-
-        /** @var $sectionBundle SectionBundle */
-        foreach ($this->sectionBundles as $sectionBundle) {
-
-            if ($sectionBundle->getBundle()->getApp() == 'Backend') {
-                $sectionBundles[] = $sectionBundle;
-            }
-        }
-
-        return $sectionBundles;
-    }
-
 
     /**
      * Set ordering
@@ -525,16 +449,6 @@ class Section extends BaseEntity
     public function addSection(Section $children)
     {
         $this->children[] = $children;
-    }
-
-    /**
-     * Add sectionBundles
-     *
-     * @param SectionBundle $sectionBundle SectionBundle to add
-     */
-    public function addSectionBundle(SectionBundle $sectionBundle)
-    {
-        $this->sectionBundles[] = $sectionBundle;
     }
 
     /**
@@ -651,42 +565,6 @@ class Section extends BaseEntity
     }
 
     /**
-     * Get the bundles
-     *
-     * @return ArrayCollection
-     */
-    public function getBundles()
-    {
-        $bundles = new ArrayCollection();
-
-        foreach ($this->sectionBundles as $sectionBundle) {
-            $bundles[] = $sectionBundle->getBundle();
-        }
-
-        return $bundles;
-    }
-
-    /**
-     * Set the bundles
-     *
-     * @param $bundles ArrayCollection
-     */
-    public function setBundles($bundles)
-    {
-        $sectionBundles = new ArrayCollection();
-
-        foreach ($bundles as $bundle) {
-
-            $sectionBundle = new SectionBundle();
-            $sectionBundle->setBundle($bundle);
-            $sectionBundle->setSection($this);
-            $sectionBundles[] = $sectionBundle;
-        }
-
-        $this->setSectionBundles($sectionBundles);
-    }
-
-    /**
      * Get the navigations
      *
      * @return ArrayCollection
@@ -763,16 +641,6 @@ class Section extends BaseEntity
     public function removeText(\Egzakt\SystemBundle\Entity\Text $texts)
     {
         $this->texts->removeElement($texts);
-    }
-
-    /**
-     * Remove sectionBundles
-     *
-     * @param \Egzakt\SystemBundle\Entity\SectionBundle $sectionBundles
-     */
-    public function removeSectionBundle(\Egzakt\SystemBundle\Entity\SectionBundle $sectionBundles)
-    {
-        $this->sectionBundles->removeElement($sectionBundles);
     }
 
     /**

@@ -98,37 +98,38 @@ class MemberController extends BaseController
     }
 
     /**
-     * Deletes a Member entity.
+     * Delete a Member entity.
      *
-     * @param integer $id The id of the Member to delete
+     * @param Request $request
+     * @param int $id
      *
-     * @return Response|RedirectResponse
+     * @return RedirectResponse|Response
+     *
      * @throws NotFoundHttpException
      */
-    public function deleteAction($id)
+    public function deleteAction(Request $request, $id)
     {
-        $entity = $this->getEm()->getRepository('EgzaktBackendMemberBundle:Member')->find($id);
+        $member = $this->getEm()->getRepository('EgzaktSystemBundle:Member')->find($id);
 
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find Member entity.');
+        if (!$member) {
+            throw $this->createNotFoundException('Unable to find a member entity using id "' . $id . '".');
         }
 
-        if ($this->get('request')->get('message')) {
-            $template = $this->renderView('EgzaktBackendCoreBundle:Core:delete_message.html.twig', array(
-                'entity' => $entity,
-                'truncateLength' => $this->getSectionBundle()->getParam('breadcrumbs_truncate_length')
+        if ($request->get('message')) {
+            $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
+                'entity' => $member
             ));
 
             return new Response(json_encode(array(
                 'template' => $template,
-                'isDeletable' => $entity->isDeletable()
+                'isDeletable' => $member->isDeletable()
             )));
         }
 
-        $this->getEm()->remove($entity);
+        $this->getEm()->remove($member);
         $this->getEm()->flush();
 
-        return $this->redirect($this->generateUrl($this->getBundleName()));
+        return $this->redirect($this->generateUrl('egzakt_system_backend_member'));
     }
 
 }

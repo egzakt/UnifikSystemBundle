@@ -50,9 +50,8 @@ class SectionRepository extends BaseEntityRepository
      */
     public function findAllFromTree(array $criteria = null, array $orderBy = null)
     {
-        $dql = 'SELECT s, t, sb, sn, n, b, p
+        $dql = 'SELECT s, t, sn, n, b, p
                 FROM EgzaktSystemBundle:Section s
-                LEFT JOIN s.sectionBundles sb
                 LEFT JOIN s.sectionNavigations sn
                 LEFT JOIN sn.navigation n
                 LEFT JOIN sb.bundle b
@@ -183,7 +182,7 @@ class SectionRepository extends BaseEntityRepository
             ->leftJoin('c.mappings', 'cm')
             ->where('s.app = :appId')
             ->orderBy('s.ordering')
-            ->setParameter('appId', $appId);
+            ->setParameter('appId', $appId->getId());
 
         return $this->processQuery($queryBuilder);
     }

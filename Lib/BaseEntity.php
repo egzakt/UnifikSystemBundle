@@ -784,7 +784,7 @@ abstract class BaseEntity implements EntityInterface, NavigationInterface
             // Support Doctrine Proxies...
             $reflectionClass = new \ReflectionClass($this);
             if ($reflectionClass->implementsInterface('Doctrine\ORM\Proxy\Proxy')) {
-                $parentClass = $this->container->get('doctrine')->getEntityManager()->getClassMetadata(get_class($this))->name;
+                $parentClass = $this->container->get('doctrine')->getManager()->getClassMetadata(get_class($this))->name;
                 $translationClass = $parentClass . 'Translation';
             }
             unset($reflectionClass);

@@ -67,14 +67,6 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     }
 
     /**
-     * Get the SectionBundle entity
-     */
-    public function getSectionBundle()
-    {
-        return $this->getCore()->getSectionBundle();
-    }
-
-    /**
      * Get the Bundle Name
      *
      * @return string
@@ -114,28 +106,6 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     public function getEm()
     {
         return $this->getDoctrine()->getManager();
-    }
-
-    /**
-     * Add a custom navigation element for the current tab
-     *
-     * @param string $tabIndex Index of the tab in the configuration array
-     * @param BaseEntity $entity
-     * @param array $tabs List of tabs
-     */
-    protected function addTabNavigationElement($tabIndex, $entity, $tabs = null)
-    {
-        if (!$tabs) {
-            $tabs = $this->getSectionBundle()->getParam('tabs');
-        }
-
-        $navigationElement = new NavigationElement();
-        $navigationElement->setContainer($this->get('service_container'));
-        $navigationElement->setName($tabs[$tabIndex]['name']);
-        $navigationElement->setRouteBackend($entity->getRoute($tabs[$tabIndex]['route_suffix']));
-        $navigationElement->setRouteBackendParams($entity->getRouteParams(array('id' => $entity->getId())));
-
-        $this->getCore()->addNavigationElement($navigationElement);
     }
 
     /**

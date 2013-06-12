@@ -33,11 +33,6 @@ Egzakt\SystemBundle\Entity\Section:
     texts:
       targetEntity: Egzakt\SystemBundle\Entity\Text
       mappedBy: section
-    sectionBundles:
-      targetEntity: Egzakt\SystemBundle\Entity\SectionBundle
-      mappedBy: section
-      orderBy:
-        ordering: ASC
     sectionNavigations:
       targetEntity: Egzakt\SystemBundle\Entity\SectionNavigation
       mappedBy: section
