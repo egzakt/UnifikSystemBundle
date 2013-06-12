@@ -71,7 +71,7 @@
     {% endspaceless %}
 {% endblock choice_widget %}
 
-{% block field_label %}
+{% block form_label %}
     {% if required and checked is not defined %}
         <span class="required" title="{% trans %}This field is required{% endtrans %}">* </span>
     {% endif %}
