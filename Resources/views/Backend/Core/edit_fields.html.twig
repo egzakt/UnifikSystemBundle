@@ -1,14 +1,5 @@
 {% extends 'form_table_layout.html.twig' %}
 
-{% block form_widget %}
-    <div id="fields_box">
-        <div {{ block('widget_container_attributes') }}>
-            {{ block('field_rows') }}
-            {{ form_rest(form) }}
-        </div>
-    </div>
-{% endblock form_widget %}
-
 {% block form_row %}
     <tr{% if '[translation]' in full_name %} class="translation"{% endif %}>
         <th{% if errors|length > 0 %} class="error"{% endif %}>
@@ -36,22 +27,6 @@
         {% endif %}
     {% endspaceless %}
 {% endblock form_errors %}
-
-{% block text_widget %}
-    <input type="text" {{ block('widget_attributes') }} value="{{ value }}" class="text" />
-{% endblock %}
-
-{% block email_widget %}
-    <input type="email" {{ block('widget_attributes') }} value="{{ value }}" class="text" />
-{% endblock %}
-
-{% block url_widget %}
-    <input type="url" {{ block('widget_attributes') }} value="{{ value }}" class="text" />
-{% endblock %}
-
-{% block password_widget %}
-    <input type="password" {{ block('widget_attributes') }} value="{{ value }}" class="password" />
-{% endblock %}
 
 {% block date_widget %}
     {% if widget == 'single_text' %}
@@ -96,7 +71,7 @@
     {% endspaceless %}
 {% endblock choice_widget %}
 
-{% block field_label %}
+{% block form_label %}
     {% if required and checked is not defined %}
         <span class="required" title="{% trans %}This field is required{% endtrans %}">* </span>
     {% endif %}

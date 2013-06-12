@@ -1159,15 +1159,15 @@ table.fields td .warning {
     margin-bottom: 5px;
 }
 
-table.fields input.checkbox,
-table.fields input.radio,
 table.fields input[type=checkbox],
 table.fields input[type=radio] {
     border: 0;
     padding: 0;
 }
 
-table.fields input.text {
+table.fields input[type=text],
+table.fields input[type=url],
+table.fields input[type=email] {
     width: 450px;
 }
 
@@ -1176,11 +1176,11 @@ table.fields textarea {
     width: 450px;
 }
 
-table.fields input.money {
+table.fields input[type=number] {
     width: 80px;
 }
 
-table.fields input.password {
+table.fields input[type=password] {
     width: 150px;
 }
 
