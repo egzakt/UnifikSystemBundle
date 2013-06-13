@@ -40,8 +40,6 @@ class SectionController extends BaseController
 
         $this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
         $this->navigationRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation');
-
-//        $this->getCore()->addNavigationElement($this->getSectionBundle());
     }
 
     /**
@@ -134,14 +132,11 @@ class SectionController extends BaseController
                 $this->get('egzakt_system.router_invalidator')->invalidate();
 
                 if ($request->get('save')) {
-                    return $this->redirect($this->generateUrl('egzakt_system_backend_section', array(
-                        'section_id' => $section->getId()
-                    )));
+                    return $this->redirect($this->generateUrl('egzakt_system_backend_section'));
                 }
 
                 return $this->redirect($this->generateUrl('egzakt_system_backend_section_edit', array(
-                    'id' => $entity->getId() ?: 0,
-                    'section_id' => $section->getId()
+                    'id' => $entity->getId() ?: 0
                 )));
             }
         }
@@ -186,9 +181,7 @@ class SectionController extends BaseController
 
         $this->get('egzakt_system.router_invalidator')->invalidate();
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_section', array(
-            'section_id' => $this->getSection()->getId()
-        )));
+        return $this->redirect($this->generateUrl('egzakt_system_backend_section'));
     }
 
 

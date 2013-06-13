@@ -12,8 +12,8 @@
         {% block edit_actions %}
             {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'entity': entity,
-                'delete_route': path('egzakt_system_backend_section_delete', { section_id: section.id, id: 0 }),
-                'cancel_route': path('egzakt_system_backend_section', { section_id: section.id })
+                'delete_route': path('egzakt_system_backend_section_delete', { id: entity.id ?: 0 }),
+                'cancel_route': path('egzakt_system_backend_section')
             } %}
         {% endblock %}
 

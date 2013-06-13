@@ -13,13 +13,12 @@ use Egzakt\SystemBundle\Lib\Backend\BaseController;
 class NavigationController extends BaseController
 {
 
-    public function sectionModuleBarAction($masterRoute, $section)
+    public function sectionModuleBarAction($masterRoute)
     {
         $selected = (0 === strpos($masterRoute, 'egzakt_system_backend_section'));
 
         return $this->render('EgzaktSystemBundle:Backend/Section/Navigation:section_module_bar.html.twig', array(
-            'selected' => $selected,
-            'section' => $section
+            'selected' => $selected
         ));
     }
 

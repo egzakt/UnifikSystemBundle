@@ -27,9 +27,7 @@ class TextController extends BaseController
     {
         parent::init();
 
-        $this->createAndPushNavigationElement('Text list', 'egzakt_system_backend_text', array(
-            'section_id' => $this->getSection()->getId()
-        ));
+        $this->createAndPushNavigationElement('Text list', 'egzakt_system_backend_text');
     }
 
     /**
@@ -58,7 +56,6 @@ class TextController extends BaseController
         return $this->render('EgzaktSystemBundle:Backend/Text/Text:list.html.twig', array(
             'mainEntities' => $mainEntities,
             'staticEntities' => $staticEntities,
-            'section' => $section,
             'truncateLength' => 100
         ));
     }
@@ -155,9 +152,7 @@ class TextController extends BaseController
 
         $this->get('egzakt_system.router_invalidator')->invalidate();
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_text', array(
-            'section_id' => $this->getSection()->getId()
-        )));
+        return $this->redirect($this->generateUrl('egzakt_system_backend_text'));
     }
 
 

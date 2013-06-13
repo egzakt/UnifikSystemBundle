@@ -18,9 +18,15 @@ class RouterAutoParametersHandler
      */
     public function getAutoParameters()
     {
-        $sectionId = $this->container->get('request')->get(
-            'sectionId', $this->container->get('request')->get('section_id', 0) // backward compatibility double-check
+        $request = $this->container->get('request');
+
+        $sectionId = $request->get('sectionId',
+            $request->get('section_id', 0) // backward compatibility double-check
         );
+
+        if (false == $sectionId && $section = $request->get('section')) {
+            $sectionId = $section->getId();
+        }
 
         $parameters = array(
             'section_id' => $sectionId,

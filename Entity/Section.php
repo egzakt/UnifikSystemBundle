@@ -315,7 +315,7 @@ class Section extends BaseEntity
      */
     public function getDeleteRestrictions()
     {
-        return array('getChildren', 'getNonAutomaticallyLinkedBundles');
+        return array('getChildren');
     }
 
     /**
@@ -327,7 +327,6 @@ class Section extends BaseEntity
     {
         return count($this->getParents()) + 1;
     }
-
 
     /**
      * Get route

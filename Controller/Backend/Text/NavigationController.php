@@ -13,29 +13,12 @@ use Egzakt\SystemBundle\Entity\Text;
  */
 class NavigationController extends BaseController
 {
-    public function sectionModuleBarAction($masterRoute, $section)
+    public function sectionModuleBarAction($masterRoute)
     {
         $selected = (0 === strpos($masterRoute, 'egzakt_system_backend_text'));
 
         return $this->render('EgzaktSystemBundle:Backend/Text/Navigation:section_module_bar.html.twig', array(
             'selected' => $selected,
-            'section' => $section
-        ));
-    }
-
-    /**
-     * Global Bundle Bar Action
-     *
-     * @param string $masterRoute
-     *
-     * @return Response
-     */
-    public function globalModuleBarAction($masterRoute)
-    {
-        $selected = (0 === strpos($masterRoute, 'egzakt_system_backend_text'));
-
-        return $this->render('EgzaktSystemBundle:Backend/Text/Navigation:global_bundle_bar.html.twig', array(
-            'selected' => $selected
         ));
     }
 }

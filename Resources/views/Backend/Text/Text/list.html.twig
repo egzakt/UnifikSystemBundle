@@ -7,11 +7,11 @@
 {% block content_main %}
 
     <script type="text/javascript">
-        var url_ordre = '{{ path('egzakt_system_backend_text_order', { 'section_id': section.id }) }}';
+        var url_ordre = '{{ path('egzakt_system_backend_text_order') }}';
     </script>
 
     <div id="list_actions_bar">
-        <a class="add" href="{{ path('egzakt_system_backend_text_edit', { 'section_id': section.id }) }}">{% trans %}Add a text{% endtrans %}</a>
+        <a class="add" href="{{ path('egzakt_system_backend_text_edit') }}">{% trans %}Add a text{% endtrans %}</a>
     </div>
 
     <div class="list_box">
@@ -22,7 +22,7 @@
     {% if staticEntities %}
         <div class="list_box">
             <h2>{% trans %}Static block{% endtrans %}</h2>
-            {% include 'EgzaktSystemBundle:Backend/Text/Text:list_table.html.twig' with { 'entities': staticEntities } %}
+            {% include 'EgzaktSystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: staticEntities } %}
         </div>
     {% endif %}
 
