@@ -34,3 +34,6 @@ Egzakt\SystemBundle\Entity\SectionNavigation:
         name: navigation_id
         referencedColumnName: id
         onDelete:  cascade
+  uniqueConstraints:
+    section_navigation:
+      columns: [ section_id, navigation_id ]
