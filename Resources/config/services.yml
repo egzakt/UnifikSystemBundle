@@ -17,6 +17,7 @@ parameters:
     egzakt_system.router_invalidator.class:               Egzakt\SystemBundle\Lib\RouterInvalidator
     egzakt_system.router_auto_parameters_handler.class:   Egzakt\SystemBundle\Lib\RouterAutoParametersHandler
     egzakt_backend.core.class:                            Egzakt\SystemBundle\Lib\Backend\Core
+    egzakt_backend.form.type.advanced_file.class:         Egzakt\SystemBundle\Form\Backend\AdvancedFileType
 
 services:
 
@@ -147,3 +148,8 @@ services:
         class: Twig_Extensions_Extension_Intl
         tags:
             - { name: twig.extension }
+
+    egzakt_system.form.type.advanced_file:
+        class: %egzakt_backend.form.type.advanced_file.class%
+        tags:
+          - { name: form.type, alias: advanced_file }
