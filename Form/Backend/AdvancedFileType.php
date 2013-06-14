@@ -3,9 +3,9 @@
 namespace Egzakt\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
+use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 
@@ -19,15 +19,16 @@ class AdvancedFileType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
+        if (null == $options['file_path_method']) {
+            throw new MissingOptionsException('The "file_path_method" option must be set.');
+        }
+
         $filePath = null;
+        $parentData = $form->getParent()->getData();
 
-        if (null !== $options['file_path']) {
-            $parentData = $form->getParent()->getData();
-
-            if (null !== $parentData) {
-                $accessor = PropertyAccess::createPropertyAccessor();
-                $filePath = $accessor->getValue($parentData, $options['file_path']);
-            }
+        if (null !== $parentData) {
+            $accessor = PropertyAccess::createPropertyAccessor();
+            $filePath = $accessor->getValue($parentData, $options['file_path_method']);
         }
 
         $view->vars['file_path'] = $filePath;
@@ -41,7 +42,7 @@ class AdvancedFileType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'file_path' => null
+            'file_path_method' => null
         ));
     }
 

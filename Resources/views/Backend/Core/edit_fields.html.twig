@@ -96,13 +96,13 @@
     {% spaceless %}
         {% if file_path is not null %}
             <div class="uploaded_file">
+                {# TODO: supply an absolute path for the href #}
                 <a href="{{ file_path }}" target="_blank">{{ file_path }}</a>
             </div>
 
             {% if not required %}
                 <div class="delete_uploaded_file">
-                    <label>{% trans %}Delete:{% endtrans %}</label>
-                    {#<input type="checkbox" id="{{ id ~ "Delete" }}" name="{{ form.parent.vars.name ~ "[" ~ name ~ "Delete]" }}" value="1" />#}
+                    <label for="{{ id ~ "Delete" }}">{% trans %}Delete:{% endtrans %}</label>
                     <input type="checkbox" id="{{ id ~ "Delete" }}" name="{{ name ~ "Delete" }}" value="1" />
                 </div>
             {% endif %}
