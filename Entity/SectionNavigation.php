@@ -43,6 +43,22 @@ class SectionNavigation extends BaseEntity
     private $navigation;
 
     /**
+     * @return string
+     */
+    public function __toString()
+    {
+        if (false == $this->id) {
+            return 'New section-navigation relation';
+        }
+
+        if ($this->section && $this->navigation) {
+            return $this->section . ' - ' . $this->navigation;
+        }
+
+        return '';
+    }
+
+    /**
      * Get id
      *
      * @return integer

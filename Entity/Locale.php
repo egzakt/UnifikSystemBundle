@@ -41,6 +41,22 @@ class Locale extends BaseEntity
      */
     private $active;
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        if (false == $this->id) {
+            return 'New locale';
+        }
+
+        if ($this->name) {
+            return $this->name;
+        }
+
+        // No translation found in the current locale
+        return '';
+    }
 
     /**
      * Get id
@@ -79,6 +95,7 @@ class Locale extends BaseEntity
      * Set switchName
      *
      * @param string $switchName
+     *
      * @return Locale
      */
     public function setSwitchName($switchName)
@@ -102,7 +119,8 @@ class Locale extends BaseEntity
      * Set code
      *
      * @param string $code
-     * @return Locale
+     *
+     * @return string
      */
     public function setCode($code)
     {
@@ -125,6 +143,7 @@ class Locale extends BaseEntity
      * Set ordering
      *
      * @param integer $ordering
+     *
      * @return Locale
      */
     public function setOrdering($ordering)

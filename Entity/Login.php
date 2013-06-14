@@ -36,6 +36,22 @@ class Login extends BaseEntity
      */
     private $createdAt;
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        if (false == $this->id) {
+            return 'New login';
+        }
+
+        if ($this->username) {
+            return $this->username . ' - ' . $this->ip;
+        }
+
+        return '';
+    }
+
 
     /**
      * Get id

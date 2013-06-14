@@ -44,6 +44,23 @@ class Role extends BaseEntity
      */
     protected $users;
 
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        if (false == $this->id) {
+            return 'New role';
+        }
+
+        if ($name = $this->roleName) {
+            return $name;
+        }
+
+        // No translation found in the current locale
+        return '';
+    }
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
