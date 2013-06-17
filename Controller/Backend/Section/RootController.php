@@ -90,7 +90,7 @@ class RootController extends BaseController
         if ('POST' == $request->getMethod()) {
 
             $previousSectionNavigations = $entity->getSectionNavigations();
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
 
