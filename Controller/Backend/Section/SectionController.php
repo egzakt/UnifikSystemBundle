@@ -87,7 +87,7 @@ class SectionController extends BaseController
 
         if ('POST' === $request->getMethod()) {
 
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
 

@@ -54,7 +54,7 @@ class UserController extends BaseController
 
             $previousEncodedPassword = $user->getPassword();
 
-            $form->bind($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
 
