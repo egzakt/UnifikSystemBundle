@@ -176,4 +176,14 @@ abstract class BaseController extends Controller implements BaseControllerInterf
             $referenceType
         );
     }
+
+    /**
+     * Adds a flash message for type.
+     *
+     * @param string $type
+     * @param string $message
+     */
+    protected function addFlash($type, $message) {
+        $this->get('session')->getFlashBag()->add($type, $message);
+    }
 }

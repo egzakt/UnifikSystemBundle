@@ -1,4 +1,4 @@
-{% if locales %}
+{% if locales and locales|length > 1 %}
     <ul id="languages">
         {% for locale in locales %}
             <li{% if (editLocale == locale.code) %} class="selected"{% endif %}><a href="?edit-locale={{ locale.code }}">{{ locale }}</a></li>
