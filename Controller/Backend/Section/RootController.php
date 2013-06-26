@@ -127,6 +127,15 @@ class RootController extends BaseController
                     $mapping->setTarget('EgzaktSystemBundle:Backend/Section/Navigation:SectionModuleBar');
 
                     $entity->addMapping($mapping);
+
+                    // Frontend mapping
+                    $mapping = new Mapping();
+                    $mapping->setSection($entity);
+                    $mapping->setApp($this->getApp());
+                    $mapping->setType('route');
+                    $mapping->setTarget('egzakt_system_frontend_text');
+
+                    $entity->addMapping($mapping);
                 }
 
                 // Ugly workaround to handle sectionNavigation relations
