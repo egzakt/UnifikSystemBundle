@@ -41,12 +41,12 @@ class Loader extends BaseLoader
             $this->generate($mapping, $collection);
         }
 
-	    if ($this->routesToRemove) {
-        	$this->routesToRemove = array_unique($this->routesToRemove);
-        	foreach ($this->routesToRemove as $routeToRemove) {
-        		$collection->remove($routeToRemove);
-        	}
-	    }
+        if ($this->routesToRemove) {
+            $this->routesToRemove = array_unique($this->routesToRemove);
+            foreach ($this->routesToRemove as $routeToRemove) {
+                $collection->remove($routeToRemove);
+            }
+        }
 
         return $collection;
     }
