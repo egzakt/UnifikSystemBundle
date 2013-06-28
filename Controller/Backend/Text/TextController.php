@@ -102,6 +102,8 @@ class TextController extends BaseController
 
                 $this->get('egzakt_system.router_invalidator')->invalidate();
 
+                $this->get('session')->getFlashBag()->add('success', 'The text has been updated.');
+
                 if ($request->request->has('save')) {
                     return $this->redirect($this->generateUrl('egzakt_system_backend_text'));
                 }
@@ -109,6 +111,8 @@ class TextController extends BaseController
                 return $this->redirect($this->generateUrl('egzakt_system_backend_text_edit', array(
                     'id' => $text->getId() ?: 0
                 )));
+            } else {
+                $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
             }
         }
 
@@ -149,6 +153,8 @@ class TextController extends BaseController
 
         $this->getEm()->remove($text);
         $this->getEm()->flush();
+
+        $this->get('session')->getFlashBag()->add('success', 'The text has been deleted.');
 
         $this->get('egzakt_system.router_invalidator')->invalidate();
 

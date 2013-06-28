@@ -83,11 +83,18 @@ class MemberController extends BaseController
                 $this->getEm()->persist($member);
                 $this->getEm()->flush();
 
+                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+                    '%entity% has been updated.',
+                    array('%entity%' => $member))
+                );
+
                 if ($request->request->has('save')) {
                     return $this->redirect($this->generateUrl('egzakt_system_backend_member'));
                 }
 
                 return $this->redirect($this->generateUrl($member->getRoute(), $member->getRouteParams()));
+            } else {
+                $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
             }
         }
 
@@ -125,6 +132,12 @@ class MemberController extends BaseController
                 'isDeletable' => $member->isDeletable()
             )));
         }
+
+        // Call the translator before we flush the entity so we can have the real __toString()
+        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+            '%entity% has been deleted.',
+            array('%entity%' => $member != '' ? $member : $member->getEntityName()))
+        );
 
         $this->getEm()->remove($member);
         $this->getEm()->flush();

@@ -1398,3 +1398,31 @@ span.cke_skin_kama {
     padding-left: 18px;
     margin-top: 8px;
 }
+
+/* MESSAGES
+-----------------------------------------*/
+.flash-success {
+    font-weight: bold;
+    margin: 5px 0;
+    padding: 10px 10px 10px 35px;
+    color: #38a431 !important;
+    border: 1px solid #38a431;
+    background: white url(/bundles/egzaktsystem/backend/images/icons/success.gif) no-repeat 5px center;
+}
+
+.flash-success p {
+    margin: 0;
+}
+
+.flash-error {
+    font-weight: bold;
+    margin: 5px 0;
+    padding: 10px 10px 10px 35px;
+    color: #DE4935 !important;
+    border: 1px solid #DE4935;
+    background: white url(/bundles/egzaktsystem/backend/images/icons/error.gif) no-repeat 5px center;
+}
+
+.flash-error p {
+    margin: 0;
+}

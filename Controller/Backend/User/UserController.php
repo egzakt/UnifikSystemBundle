@@ -71,6 +71,11 @@ class UserController extends BaseController
                 $this->getEm()->persist($user);
                 $this->getEm()->flush();
 
+                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+                    '%entity% has been updated.',
+                    array('%entity%' => $user))
+                );
+
                 if ($request->request->has('save')) {
                     return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
                 }
@@ -78,6 +83,8 @@ class UserController extends BaseController
                 return $this->redirect($this->generateUrl('egzakt_system_backend_user_edit', array(
                     'id' => $user->getId()
                 )));
+            } else {
+                $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
             }
         }
 
@@ -123,6 +130,13 @@ class UserController extends BaseController
         }
 
         if ($connectedUser instanceof User && $connectedUser->getId() != $user->getId()) {
+
+            // Call the translator before we flush the entity so we can have the real __toString()
+            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+                '%entity% has been deleted.',
+                array('%entity%' => $user != '' ? $user : $user->getEntityName()))
+            );
+
             $this->getEm()->remove($user);
             $this->getEm()->flush();
         }

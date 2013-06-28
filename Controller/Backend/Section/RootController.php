@@ -155,6 +155,11 @@ class RootController extends BaseController
                 $this->getEm()->flush();
                 $this->get('egzakt_system.router_invalidator')->invalidate();
 
+                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+                    '%entity% has been updated.',
+                    array('%entity%' => $entity))
+                );
+
                 if ($request->request->has('save')) {
                     return $this->redirect($this->generateUrl('egzakt_system_backend_section_root'));
                 }
@@ -162,6 +167,8 @@ class RootController extends BaseController
                 return $this->redirect($this->generateUrl('egzakt_system_backend_section_root_edit', array(
                     'id' => $entity->getId() ? : 0
                 )));
+            } else {
+                $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
             }
         }
 
@@ -200,6 +207,12 @@ class RootController extends BaseController
                 'isDeletable' => $section->isDeletable()
             )));
         }
+
+        // Call the translator before we flush the entity so we can have the real __toString()
+        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+            '%entity% has been deleted.',
+            array('%entity%' => $section->getName() != '' ? $section->getName() : $section->getEntityName()))
+        );
 
         $this->getEm()->remove($section);
         $this->getEm()->flush();
