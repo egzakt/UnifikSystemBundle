@@ -2,13 +2,11 @@
 
 namespace Egzakt\SystemBundle\Extensions;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
-use Egzakt\SystemBundle\Lib\BaseEntity;
 use Symfony\Component\Stopwatch\Section;
 use BCC\ExtraToolsBundle\Util\DateFormatter;
 
+use Egzakt\SystemBundle\Lib\Core;
 use Egzakt\SystemBundle\Lib\Helper;
-use Egzakt\SystemBundle\Lib\Backend\Core;
 
 /**
  * Library of helper functions
@@ -28,22 +26,14 @@ class TwigExtension extends \Twig_Extension
     /**
      * @var Core
      */
-    private $backendCore;
+    protected $systemCore;
 
     /**
-     * @param Core $backendCore
+     * @param mixed $systemCore
      */
-    public function setBackendCore($backendCore)
+    public function setSystemCore($systemCore)
     {
-        $this->backendCore = $backendCore;
-    }
-
-    /**
-     * @return Core
-     */
-    public function getBackendCore()
-    {
-        return $this->backendCore;
+        $this->systemCore = $systemCore;
     }
 
     /**
@@ -96,8 +86,14 @@ class TwigExtension extends \Twig_Extension
 
     public function getGlobals()
     {
+        if ($this->systemCore->isLoaded()) {
+            $section = $this->systemCore->getApplicationCore()->getSection();
+        } else {
+            $section = null;
+        }
+
         return array(
-            'section' => $this->backendCore->getSection()
+            'section' => $section
         );
     }
 
