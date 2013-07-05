@@ -4,6 +4,6 @@
     </a>
 
     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {#{% render 'EgzaktBackendCoreBundle:Navigation:App' %}#}
+        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:App')) }}
     {% endif %}
 </div>

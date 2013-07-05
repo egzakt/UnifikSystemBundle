@@ -17,3 +17,11 @@ Egzakt\SystemBundle\Entity\Navigation:
     mappings:
       targetEntity: Egzakt\SystemBundle\Entity\Mapping
       mappedBy: navigation
+  manyToOne:
+    app:
+      targetEntity: Egzakt\SystemBundle\Entity\App
+      inversedBy: navigations
+      joinColumn:
+        name: app_id
+        referencedColumnName: id
+        onDelete: cascade

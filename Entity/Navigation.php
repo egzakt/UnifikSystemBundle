@@ -166,4 +166,32 @@ class Navigation extends BaseEntity
     {
         return $this->mappings;
     }
+    /**
+     * @var \Egzakt\SystemBundle\Entity\App
+     */
+    private $app;
+
+
+    /**
+     * Set app
+     *
+     * @param \Egzakt\SystemBundle\Entity\App $app
+     * @return Navigation
+     */
+    public function setApp(\Egzakt\SystemBundle\Entity\App $app = null)
+    {
+        $this->app = $app;
+    
+        return $this;
+    }
+
+    /**
+     * Get app
+     *
+     * @return \Egzakt\SystemBundle\Entity\App 
+     */
+    public function getApp()
+    {
+        return $this->app;
+    }
 }

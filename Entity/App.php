@@ -121,7 +121,7 @@ class App
      */
     public function getRoute()
     {
-        return 'EgzaktBackendCoreBundle_app';
+        return 'egzakt_system_backend_app';
     }
 
     /**
@@ -133,7 +133,7 @@ class App
      */
     public function getRouteParams($params = array())
     {
-        $defaults = array('app_slug' => $this->getSlug());
+        $defaults = array('appSlug' => $this->getSlug());
         $params = array_merge($defaults, $params);
 
         return $params;
@@ -273,5 +273,43 @@ class App
     public function getMappings()
     {
         return $this->mappings;
+    }
+    /**
+     * @var \Doctrine\Common\Collections\Collection
+     */
+    private $navigations;
+
+
+    /**
+     * Add navigations
+     *
+     * @param \Egzakt\SystemBundle\Entity\Navigation $navigations
+     * @return App
+     */
+    public function addNavigation(\Egzakt\SystemBundle\Entity\Navigation $navigations)
+    {
+        $this->navigations[] = $navigations;
+    
+        return $this;
+    }
+
+    /**
+     * Remove navigations
+     *
+     * @param \Egzakt\SystemBundle\Entity\Navigation $navigations
+     */
+    public function removeNavigation(\Egzakt\SystemBundle\Entity\Navigation $navigations)
+    {
+        $this->navigations->removeElement($navigations);
+    }
+
+    /**
+     * Get navigations
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getNavigations()
+    {
+        return $this->navigations;
     }
 }

@@ -14,7 +14,8 @@ class AppRepository extends BaseEntityRepository
         $qb = $this->createQueryBuilder('a')
             ->andWhere('a.name <> :except')
             ->setParameter('except', $exceptName)
-            ->orderBy('a.ordering', 'ASC');
+            ->orderBy('a.ordering', 'ASC')
+            ->setMaxResults(1);
 
         return $this->processQuery($qb, true);
     }

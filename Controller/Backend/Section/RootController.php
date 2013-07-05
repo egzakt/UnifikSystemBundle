@@ -56,8 +56,8 @@ class RootController extends BaseController
      */
     public function listAction()
     {
-        $navigations = $this->navigationRepository->findHaveSections();
-        $withoutNavigation = $this->sectionRepository->findRootsWithoutNavigation();
+        $navigations = $this->navigationRepository->findHaveSections($this->getApp()->getId());
+        $withoutNavigation = $this->sectionRepository->findRootsWithoutNavigation($this->getApp()->getId());
 
         return $this->render('EgzaktSystemBundle:Backend/Section/Root:list.html.twig', array(
             'navigations' => $navigations,

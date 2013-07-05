@@ -17,7 +17,7 @@ egzakt_system_backend_dashboard:
     defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:index" }
 
 egzakt_system_backend_app:
-    pattern:  /app/{app_slug}
+    pattern:  /app/{appSlug}
     defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:index" }
 
 # Help

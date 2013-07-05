@@ -175,9 +175,9 @@ class Core implements ApplicationCoreInterface
         }
 
         $appRepo = $this->doctrine->getManager()->getRepository('EgzaktSystemBundle:App');
-        if ($this->request->get('app_slug')) {
-            $this->app = $appRepo->findOneBy(array('slug' => $this->request->get('app_slug')));
-            $method = 'route parameter {app_slug}';
+        if ($this->request->get('appSlug')) {
+            $this->app = $appRepo->findOneBy(array('slug' => $this->request->get('appSlug')));
+            $method = 'route parameter {appSlug}';
         } elseif ($this->getSection()) {
             $this->app = $this->getSection()->getApp();
             $method = 'the section entity';

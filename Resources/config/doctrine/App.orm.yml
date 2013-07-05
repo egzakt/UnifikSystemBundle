@@ -32,3 +32,6 @@ Egzakt\SystemBundle\Entity\App:
     mappings:
       targetEntity: Egzakt\SystemBundle\Entity\Mapping
       mappedBy: app
+    navigations:
+      targetEntity: Egzakt\SystemBundle\Entity\Navigation
+      mappedBy: app

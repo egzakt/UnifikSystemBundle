@@ -1,0 +1,17 @@
+{#{% if apps|length > 1 %}#}
+    <div id="apps">
+        <div class="padding">
+            <h6>{% trans %}Application{% endtrans %}</h6>
+            <ul>
+                {% for application in apps %}
+                    <li>
+                        <a href="{{ path(application.route, application.routeParams) }}" {% if application.id == appCurrent.id %}class="selected"{% endif %}>
+                            <span>{{ application|capitalize }}</span>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+            <div style="clear:both;"></div>
+        </div>
+    </div>
+{#{% endif %}#}

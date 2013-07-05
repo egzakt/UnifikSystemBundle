@@ -104,7 +104,7 @@ class NavigationController extends BaseController
     {
         $appCurrent = $this->getCore()->getApp();
 
-        $appRepo = $this->getDoctrine()->getRepository('EgzaktBackendCoreBundle:App');
+        $appRepo = $this->getDoctrine()->getRepository('EgzaktSystemBundle:App');
         $apps = $appRepo->findBy(array(), array('ordering' => 'asc'));
 
         // BC fix, previous version had a "backend" application that need to be removed
@@ -114,7 +114,7 @@ class NavigationController extends BaseController
             }
         }
 
-        return $this->render('EgzaktBackendCoreBundle:Navigation:app.html.twig', array(
+        return $this->render('EgzaktSystemBundle:Backend/Navigation:app.html.twig', array(
             'apps' => $apps,
             'appCurrent' => $appCurrent
         ));
