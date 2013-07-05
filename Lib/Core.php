@@ -2,34 +2,20 @@
 
 namespace Egzakt\SystemBundle\Lib;
 
-use Doctrine\Bundle\DoctrineBundle\Registry;
-use Symfony\Bridge\Monolog\Logger;
-use Symfony\Component\HttpFoundation\Request;
-
 /**
- * Core
+ * SystemCore
  */
 class Core
 {
     /**
-     * @var Request
+     * @var ApplicationCoreInterface
      */
-    private $request;
-
-    /**
-     * @var Registry
-     */
-    private $doctrine;
-
-    /**
-     * @var Logger
-     */
-    private $logger;
+    protected $applicationCore;
 
     /**
      * @var string
      */
-    private $currentAppName;
+    protected $currentAppName;
 
     /**
      * Init
@@ -39,34 +25,27 @@ class Core
         // ...
     }
 
-    /**
-     * Set Request
-     *
-     * @param Request $request The Request
-     */
-    public function setRequest($request)
+    public function isLoaded()
     {
-        $this->request = $request;
+        if ($this->applicationCore) {
+            return true;
+        }
     }
 
     /**
-     * Set Doctrine
-     *
-     * @param Registry $doctrine The Doctrine Registry
+     * @param ApplicationCoreInterface $applicationCore
      */
-    public function setDoctrine($doctrine)
+    public function setApplicationCore($applicationCore)
     {
-        $this->doctrine = $doctrine;
+        $this->applicationCore = $applicationCore;
     }
 
     /**
-     * Set Logger
-     *
-     * @param Logger $logger The Logger
+     * @return ApplicationCoreInterface
      */
-    public function setLogger($logger)
+    public function getApplicationCore()
     {
-        $this->logger = $logger;
+        return $this->applicationCore;
     }
 
     /**
@@ -76,22 +55,11 @@ class Core
      */
     public function getCurrentAppName()
     {
-        // TODO HACK
-        return 'backend';
-
         if ($this->currentAppName) {
             return $this->currentAppName;
         }
 
-        // Match each camel cased token
-        $controller = str_replace('\\', '', $this->request->get('_controller'));
-        $tokens = preg_split('/(?<=\\w)(?=[A-Z])/', $controller);
-
-        if (isset($tokens[1])) {
-            return strtolower($tokens[1]);
-        }
-
-        return null;
+        return $this->applicationCore->getAppName();
     }
 
     /**

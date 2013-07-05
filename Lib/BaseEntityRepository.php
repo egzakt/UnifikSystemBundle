@@ -106,7 +106,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
             return $this->locale;
         }
 
-        if ($locale = $this->container->get('session')->getLocale()) {
+        if ($locale = $this->container->get('request')->getLocale()) {
             $this->locale = $locale;
             return $this->locale;
         }

@@ -41,10 +41,31 @@ class Loader extends BaseLoader
             $this->generate($mapping, $collection);
         }
 
-        if ($this->routesToRemove) {
-            $this->routesToRemove = array_unique($this->routesToRemove);
-            foreach ($this->routesToRemove as $routeToRemove) {
-                $collection->remove($routeToRemove);
+	    if ($this->routesToRemove) {
+        	$this->routesToRemove = array_unique($this->routesToRemove);
+        	foreach ($this->routesToRemove as $routeToRemove) {
+        		$collection->remove($routeToRemove);
+        	}
+	    }
+
+        $collection = $this->processBackendRoutes($collection);
+
+        return $collection;
+    }
+
+    protected function processBackendRoutes($collection)
+    {
+        $egzaktRequest = array(
+            'sectionId' => null,
+            'appId' => 1,
+            'appPrefix' => 'admin',
+            'appName' => 'backend'
+        );
+
+        foreach ($collection->all() as $name => $route) {
+            if (0 === strpos($name, 'egzakt_system_backend_')) {
+                $route->setDefault('_egzaktEnabled', true);
+                $route->setDefault('_egzaktRequest', $egzaktRequest);
             }
         }
 
@@ -100,12 +121,18 @@ class Loader extends BaseLoader
         $route->setPattern($expandedPattern);
 
         // additionals parameters
-        $route->setDefault('_sectionId', $mapping['section_id']);
-        $route->setDefault('_appId', $mapping['app_id']);
-        $route->setDefault('_appPrefix', $mapping['app_prefix']);
-        $route->setDefault('_sectionSlug', $mapping['slug']);
-        $route->setDefault('_sectionsPath', $sectionsPath);
-        $route->setDefault('_mappedRouteName', $sourceName);
+        $egzaktRequest = array(
+            'sectionId' => $mapping['section_id'],
+            'appId' => $mapping['app_id'],
+            'appPrefix' => $mapping['app_prefix'],
+            'appName' => $mapping['app_name'],
+            'sectionSlug' => $mapping['slug'],
+            'sectionsPath' => $sectionsPath,
+            'mappedRouteName' => $sourceName
+        );
+
+        $route->setDefault('_egzaktEnabled', true);
+        $route->setDefault('_egzaktRequest', $egzaktRequest);
 
         // adding the route to the main collection
         $collection->add($name, $route);
@@ -199,7 +226,7 @@ class Loader extends BaseLoader
     protected function getMappingSqlQuery()
     {
         return '
-            SELECT m.target, s.id as section_id, s.parent_id, st.locale, st.slug, a.id as app_id, a.prefix as app_prefix, (
+            SELECT m.target, s.id as section_id, s.parent_id, st.locale, st.slug, a.id as app_id, a.prefix as app_prefix, a.name as app_name, (
                 SELECT COUNT(t.id) FROM text t
                 INNER JOIN text_translation tt ON tt.translatable_id = t.id
                 WHERE t.section_id = s.id

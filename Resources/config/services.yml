@@ -10,7 +10,6 @@ parameters:
     egzakt_system.twig_translation_extension.class:       Egzakt\SystemBundle\Extensions\TranslationExtension
     egzakt_system.inspect_extension.class:                Egzakt\SystemBundle\Extensions\InspectExtension
     egzakt_system.navigation_builder.class:               Egzakt\SystemBundle\Lib\NavigationBuilder
-    egzakt_system.section_hooks.class:                    Egzakt\SystemBundle\Lib\SectionHooks
     egzakt_system.navigation_item.class:                  Egzakt\SystemBundle\Lib\NavigationItem
     egzakt_system.breadcrumbs.class:                      Egzakt\SystemBundle\Lib\Breadcrumbs
     egzakt_system.page_title.class:                       Egzakt\SystemBundle\Lib\PageTitle
@@ -18,6 +17,7 @@ parameters:
     egzakt_system.router_auto_parameters_handler.class:   Egzakt\SystemBundle\Lib\RouterAutoParametersHandler
     egzakt_backend.core.class:                            Egzakt\SystemBundle\Lib\Backend\Core
     egzakt_backend.form.type.advanced_file.class:         Egzakt\SystemBundle\Form\Backend\AdvancedFileType
+    egzakt_frontend.core.class:                           Egzakt\SystemBundle\Lib\Frontend\Core
 
 services:
 
@@ -26,18 +26,7 @@ services:
         tags:
           - { name: kernel.event_listener, event: kernel.controller }
         calls:
-          - [ setLogger, [ @logger ] ]
-          - [ setSystemCore, [ @egzakt_system.core ] ]
           - [ setContainer, [ @service_container ] ]
-
-#    egzakt_system.kernel_response_listener:
-#        class: %egzakt_system.kernel_response_listener.class%
-#        tags:
-#          - { name: kernel.event_listener, event: kernel.response }
-#        calls:
-#          - [ setRouter, [ @router ] ]
-#          - [ setRequest, [ @request= ] ]
-#          - [ setSession, [ @session ] ]
 
     egzakt_system.post_load_listener:
         class: %egzakt_system.post_load_listener.class%
@@ -56,10 +45,6 @@ services:
 
     egzakt_system.core:
         class: %egzakt_system.core.class%
-        calls:
-          - [ setRequest, [ @request= ] ]
-          - [ setDoctrine, [ @doctrine ] ]
-          - [ setLogger, [ @logger ] ]
 
     egzakt_system.helper:
         class: %egzakt_system.helper.class%
@@ -73,7 +58,7 @@ services:
         calls:
           - [ setHelper, [ @egzakt_system.helper ] ]
           - [ setLocale, [ %locale% ] ]
-          - [ setBackendCore, [ @egzakt_backend.core ] ]
+          - [ setSystemCore, [ @egzakt_system.core ] ]
 
     egzakt_system.twig_translation_extension:
         class: %egzakt_system.twig_translation_extension.class%
@@ -86,12 +71,6 @@ services:
         class: %egzakt_system.inspect_extension.class%
         tags:
           - { name: twig.extension }
-
-    egzakt_system.section_hooks:
-        class: %egzakt_system.section_hooks.class%
-        calls:
-          - [ setDoctrine, [ @doctrine ] ]
-          - [ setContainer, [ @service_container ] ]
 
     egzakt_system.navigation_builder:
         scope: prototype
@@ -132,9 +111,7 @@ services:
         calls:
           - [ setContainer, [ @service_container ] ] # only used to fix the request scope widening problem
           - [ setSession, [ @session= ] ]
-          - [ setLogger, [ @logger ] ]
           - [ setDoctrine, [ @doctrine ] ]
-          - [ setKernel, [ @kernel ] ]
           - [ setBreadcrumbs, [ @egzakt_system.breadcrumbs ] ]
           - [ setPageTitle, [ @egzakt_system.page_title ] ]
           - [ setLocale, [ %locale% ] ]
@@ -153,3 +130,12 @@ services:
         class: %egzakt_backend.form.type.advanced_file.class%
         tags:
           - { name: form.type, alias: advanced_file }
+
+    egzakt_frontend.core:
+        class:  %egzakt_frontend.core.class%
+        shared: true
+        calls:
+          - [ setContainer, [ @service_container ] ] # only used to fix the request scope widening problem
+          - [ setDoctrine, [ @doctrine ] ]
+          - [ setBreadcrumbs, [ @egzakt_system.breadcrumbs ] ]
+          - [ setPageTitle, [ @egzakt_system.page_title ] ]
