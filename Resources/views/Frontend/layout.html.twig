@@ -1,13 +1,50 @@
+{% set subrequestParameters = {
+    'masterRoute': app.request.attributes.get('_route')
+} %}
+
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8" />
-    <title>Frontend</title>
-    <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}" />
+    {% block head %}
+        <meta charset="UTF-8" />
+        <title>{% block title %}{{ render(controller('EgzaktSystemBundle:Frontend/Navigation:PageTitle')) }}{% endblock %}</title>
+        {% block stylesheets %}{% include 'EgzaktSystemBundle:Frontend/Core:stylesheets.html.twig' %}{% endblock %}
+        <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}" />
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+        {% block metas %}{% include 'EgzaktSystemBundle:Frontend/Core:facebook_metas.html.twig' %}{% endblock %}
+        {% block head_extra %}{{ render(controller('EgzaktSystemBundle:Frontend/Core:HeadExtra')) }}{% endblock %}
+    {% endblock %}
 </head>
-<body>
+
+<body{% block body_attr %} id="{# get_bundle_name() #}_bundle" class="{# get_controller_name() #}_controller {# get_action_name() #}_action"{% endblock %}>
     {% block body %}
-        {% block content '' %}
+
+        <div id="wrapper">
+            <div id="utilities_navigation">
+                {#{{ render(controller('EgzaktSystemBundle:Frontend/Navigation:LocaleSwitcher')) }}#}
+                {#{{ render(controller('EgzaktSystemBundle:Frontend/Navigation:User')) }}#}
+            </div>
+
+            <div id="main_col"{% block mainColClass %} class="main_col_full"{% endblock mainColClass %}>
+
+                {#{% render 'EgzaktFrontendCoreBundle:Navigation:Breadcrumbs' %}#}
+
+                <div id="content">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+
+            Section : {{  section.name }}
+        </div>
+
+        {% block javascripts %}
+            {% include 'EgzaktSystemBundle:Frontend/Core:javascripts.html.twig' %}
+        {% endblock %}
+
+        {% block analytics %}
+            {% include 'EgzaktSystemBundle:Frontend/Core:analytics.html.twig' %}
+        {% endblock %}
     {% endblock %}
 </body>
 </html>

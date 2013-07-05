@@ -542,6 +542,11 @@ class Section extends BaseEntity
         return false;
     }
 
+    public function getHeadExtra()
+    {
+        return '';
+    }
+
     /**
      * Basic verification to ensure the headCode contains html
      *

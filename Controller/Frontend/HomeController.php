@@ -5,12 +5,12 @@ namespace Egzakt\SystemBundle\Controller\Frontend;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Egzakt\SystemBundle\Lib\Frontend\BaseController;
 
 /**
  * Home Controller
  */
-class HomeController extends Controller
+class HomeController extends BaseController
 {
     /**
      * Index Action
