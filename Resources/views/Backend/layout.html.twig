@@ -27,7 +27,7 @@
                 <div id="login_bar">
                     {% if app.user %}
                         {% block login_nav %}
-                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:Header')) }}
+                            {% include 'EgzaktSystemBundle:Backend/Navigation:header.html.twig'%}
                         {% endblock %}
                     {% endif %}
                     <h6>{% trans %}Content Management System (CMS){% endtrans %}</h6>
@@ -39,7 +39,8 @@
 
                     <div id="navigation_col">
                         {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionBar', subrequestParameters)) }}
-                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalBundleBar', subrequestParameters)) }}
+                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:AppModuleBar', subrequestParameters)) }}
+                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalModuleBar', subrequestParameters)) }}
                     </div>
 
                     <div id="main_col">

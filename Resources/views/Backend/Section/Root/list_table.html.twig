@@ -47,7 +47,7 @@
         {% for entity in entities %}
             <tr id="item_{{ navigation.id }}-{{ entity.id }}">
                 <td class="name{% if not entity.active %} inactive{% endif %}">
-                    <a href="{{ path('egzakt_system_backend_section_root_edit', { id: entity.id }) }}">{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
+                    <a href="{{ path('egzakt_system_backend_section_root_edit', { id: entity.id, appSlug: managedApp.slug }) }}">{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
                 </td>
                 <td>
                     {{ entity.children|length }}
@@ -62,13 +62,13 @@
                 {% endif %}
                 <td class="edit">
                     {% if entity.isEditable %}
-                        <a href="{{ path('egzakt_system_backend_section_root_edit', { id: entity.id }) }}" title="{% trans %}Edit{% endtrans %}">
+                        <a href="{{ path('egzakt_system_backend_section_root_edit', { id: entity.id, appSlug: managedApp.slug }) }}" title="{% trans %}Edit{% endtrans %}">
                             <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
                         </a>
                     {% endif %}
                 </td>
                 <td class="delete">
-                    <a href="{{ path('egzakt_system_backend_section_root_delete', { id: entity.id }) }}" rel="{{ path('egzakt_system_backend_section_root_delete', { id: entity.id, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
+                    <a href="{{ path('egzakt_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug }) }}" rel="{{ path('egzakt_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
                         <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
                     </a>
                 </td>

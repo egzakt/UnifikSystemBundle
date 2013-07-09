@@ -488,6 +488,37 @@ ul#sections ul.level_3 ul li.selected > a {
     background-position: 4px -43px;
 }
 
+/* APP GLOBAL NAVIGATION
+-----------------------------------------*/
+ul#app_global_bar {
+    width: 235px;
+    font-size: 1.083em;
+    line-height: 1.1em;
+    margin: 20px 0;
+    border:solid 1px #2882E6;
+}
+
+ul#app_global_bar a {
+    display: block;
+    position: relative;
+    width: 187px;
+    padding: 7px 20px 7px 28px;
+    background: #E6E6E6 url(/bundles/egzaktsystem/backend/images/icons/global_bundles_arrow.gif) no-repeat 223px center;
+    border-bottom: 1px solid #CCCCCC;
+    text-decoration: none;
+}
+
+ul#app_global_bar > li.selected > a {
+    font-weight: bold;
+    color: #2882E6;
+}
+
+ul#app_global_bar img {
+    position: absolute;
+    top: 8px;
+    left: 6px;
+}
+
 /* GLOBAL BUNDLES NAVIGATION
 -----------------------------------------*/
 ul#global_bundles {

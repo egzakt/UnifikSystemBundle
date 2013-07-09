@@ -28,14 +28,20 @@ class SectionType extends AbstractType
                 'required' => false,
                 'query_builder' => function(EntityRepository $er) use ($options) {
                     $qb = $er->createQueryBuilder('s');
+
                     if ($options['current_section'] && $options['current_section']->getId()) {
                         $qb->where('s.id <> :current_section');
                         $qb->setParameter(':current_section', $options['current_section']->getId());
                     }
+
+                    $qb->andWhere('s.app = :appId');
+                    $qb->setParameter(':appId', $options['managed_app']->getId());
+
                     return $qb;
                 }
             ))
             ->add('app', null, array(
+                'label' => 'Application',
                 'required' => false,
                 'empty_value' => false,
                 'class' => 'EgzaktSystemBundle:App',
@@ -51,16 +57,19 @@ class SectionType extends AbstractType
                 'multiple' => true,
                 'expanded' => true,
                 'class' => 'EgzaktSystemBundle:Navigation',
-                'query_builder' => function(EntityRepository $er) {
+                'required' => false,
+                'query_builder' => function(EntityRepository $er) use ($options) {
                     $qb = $er->createQueryBuilder('n');
 
-                    // excluding internal navigations that starts with an underscore.
+                    $qb->andWhere('n.app = :appId');
+                    $qb->setParameter(':appId', $options['managed_app']->getId());
+
+                    // excluding internal navigations that starts with an underscore
                     $qb->andWhere($qb->expr()->neq($qb->expr()->substring('n.name', 1, 1), ':prefix'));
                     $qb->setParameter(':prefix', '_');
 
                     return $qb;
                 },
-                'property' => 'name'
             ));
     }
 
@@ -84,7 +93,8 @@ class SectionType extends AbstractType
         $resolver->setDefaults(array(
             'cascade_validation' => true,
             'data_class' => 'Egzakt\SystemBundle\Entity\Section',
-            'current_section' => null
+            'current_section' => null,
+            'managed_app' => null
         ));
     }
 }

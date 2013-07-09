@@ -42,7 +42,9 @@ class RootController extends BaseController
     {
         parent::init();
 
-        $this->createAndPushNavigationElement('Sections', 'egzakt_system_backend_section_root');
+        $this->createAndPushNavigationElement('Sections', 'egzakt_system_backend_section_root', array(
+            'appSlug' => $this->getApp()->getSlug()
+        ));
 
         $this->navigationRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation');
         $this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
@@ -61,7 +63,8 @@ class RootController extends BaseController
 
         return $this->render('EgzaktSystemBundle:Backend/Section/Root:list.html.twig', array(
             'navigations' => $navigations,
-            'withoutNavigation' => $withoutNavigation
+            'withoutNavigation' => $withoutNavigation,
+            'managedApp' => $this->getApp()
         ));
     }
 
@@ -85,11 +88,10 @@ class RootController extends BaseController
 
         $this->pushNavigationElement($entity);
 
-        $form = $this->createForm(new RootSectionType(), $entity, array('current_section' => $entity));
+        $form = $this->createForm(new RootSectionType(), $entity, array('current_section' => $entity, 'managed_app' => $this->getApp()));
 
         if ('POST' == $request->getMethod()) {
 
-            $previousSectionNavigations = $entity->getSectionNavigations();
             $form->submit($request);
 
             if ($form->isValid()) {
@@ -138,20 +140,6 @@ class RootController extends BaseController
                     $entity->addMapping($mapping);
                 }
 
-                // Ugly workaround to handle sectionNavigation relations
-                foreach ($entity->getSectionNavigations() as $sectionNavigation) {
-                    foreach ($previousSectionNavigations as $previousSectionNavigation) {
-                        if ($sectionNavigation->getNavigation() == $previousSectionNavigation->getNavigation()) {
-                            $sectionNavigation->setOrdering($previousSectionNavigation->getOrdering());
-                        }
-                    }
-                    $this->getEm()->persist($sectionNavigation);
-                }
-
-                foreach ($previousSectionNavigations as $previousSectionNavigation) {
-                    $this->getEm()->remove($previousSectionNavigation);
-                }
-
                 $this->getEm()->flush();
                 $this->get('egzakt_system.router_invalidator')->invalidate();
 
@@ -161,11 +149,12 @@ class RootController extends BaseController
                 );
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('egzakt_system_backend_section_root'));
+                    return $this->redirect($this->generateUrl('egzakt_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));
                 }
 
                 return $this->redirect($this->generateUrl('egzakt_system_backend_section_root_edit', array(
-                    'id' => $entity->getId() ? : 0
+                    'id' => $entity->getId() ? : 0,
+                    'appSlug' => $this->getApp()->getSlug()
                 )));
             } else {
                 $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
@@ -174,7 +163,8 @@ class RootController extends BaseController
 
         return $this->render('EgzaktSystemBundle:Backend/Section/Root:edit.html.twig', array(
             'entity' => $entity,
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'managedApp' => $this->getApp()
         ));
     }
 
@@ -219,7 +209,7 @@ class RootController extends BaseController
 
         $this->get('egzakt_system.router_invalidator')->invalidate();
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_section_root'));
+        return $this->redirect($this->generateUrl('egzakt_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));
     }
 
     /**

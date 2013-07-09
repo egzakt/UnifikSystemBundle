@@ -1,0 +1,5 @@
+<ul id="app_global_bar">
+    {% for mapping in mappings %}
+        {{ render(controller(mapping.target, { masterRoute: masterRoute, appSlug: managedApp.slug })) }}
+    {% endfor %}
+</ul>

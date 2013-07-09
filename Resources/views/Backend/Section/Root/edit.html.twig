@@ -11,8 +11,8 @@
 
         {% block edit_actions %}
             {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
-                'delete_route': path('egzakt_system_backend_section_root_delete', { 'id': entity.id ?: 0 }),
-                'cancel_route': path('egzakt_system_backend_section_root'),
+                'delete_route': path('egzakt_system_backend_section_root_delete', { 'id': entity.id ?: 0, appSlug: managedApp.slug }),
+                'cancel_route': path('egzakt_system_backend_section_root', { appSlug: managedApp.slug }),
             } %}
         {% endblock %}
 
@@ -26,12 +26,12 @@
 
                 {% include 'EgzaktSystemBundle:Backend/Core:collapsable_fields.html.twig' with {
                     'link_name': 'SEO Informations',
-                    'fields': [form_row(form.translation.slug) , form_row(form.translation.pageTitle), form_row(form.translation.headCode)]
+                    'fields': [form_row(form.translation.slug), form_row(form.translation.pageTitle), form_row(form.translation.headCode)]
                 } %}
 
                 {% include 'EgzaktSystemBundle:Backend/Core:collapsable_fields.html.twig' with {
                     'link_name': 'Parameters',
-                    'fields': [form_row(form.parent) , form_row(form.app), form_row(form.navigations)]
+                    'fields': [form_row(form.parent), form_row(form.app), form_row(form.navigations)]
                 } %}
 
                 {{ form_rest(form) }}

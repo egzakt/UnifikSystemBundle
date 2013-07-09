@@ -37,6 +37,7 @@ Egzakt\SystemBundle\Entity\Section:
       targetEntity: Egzakt\SystemBundle\Entity\SectionNavigation
       mappedBy: section
       cascade: [persist]
+      orphanRemoval: true
     mappings:
       targetEntity: Egzakt\SystemBundle\Entity\Mapping
       mappedBy: section

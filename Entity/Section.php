@@ -591,17 +591,29 @@ class Section extends BaseEntity
      */
     public function setNavigations($navigations)
     {
-        $sectionNavigations = new ArrayCollection();
+        // Removing unassociated navigations
+        foreach ($this->sectionNavigations as $key => $sectionNavigation) {
+            if (false == $navigations->contains($sectionNavigation->getNavigation())) {
+                unset($this->sectionNavigations[$key]);
+            }
+        }
 
         foreach ($navigations as $navigation) {
 
+            // Already associated
+            foreach ($this->sectionNavigations as $sectionNavigation) {
+                if ($sectionNavigation->getNavigation() === $navigation) {
+                    continue 2;
+                }
+            }
+
+            // Has to be associated
             $sectionNavigation = new SectionNavigation();
             $sectionNavigation->setNavigation($navigation);
             $sectionNavigation->setSection($this);
-            $sectionNavigations[] = $sectionNavigation;
-        }
 
-        $this->setSectionNavigations($sectionNavigations);
+            $this->sectionNavigations[] = $sectionNavigation;
+        }
     }
 
     /**
