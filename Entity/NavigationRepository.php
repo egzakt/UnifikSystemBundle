@@ -9,6 +9,11 @@ use Egzakt\SystemBundle\Lib\BaseEntityRepository;
  */
 class NavigationRepository extends BaseEntityRepository
 {
+    const SECTION_BAR_ID = 1;
+    const SECTION_MODULE_BAR_ID = 2;
+    const GLOBAL_MODULE_BAR_ID = 3;
+    const APP_MODULE_BAR_ID = 4;
+
     /**
      * Select all albums that have photos
      *

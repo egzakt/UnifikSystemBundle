@@ -69,11 +69,6 @@ class Section extends BaseEntity
     protected $translations;
 
     /**
-     * @var ArrayCollection
-     */
-    protected $nonAutomaticallyLinkedBundles;
-
-    /**
      * Construct
      *
      */
@@ -335,7 +330,7 @@ class Section extends BaseEntity
      */
     public function getRouteFrontend()
     {
-        return 'section_id_' . $this->getId();
+        return 'section_id_' . $this->id;
     }
 
     /**

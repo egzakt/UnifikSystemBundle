@@ -58,11 +58,18 @@ class LoadNavigationData extends AbstractFixture implements OrderedFixtureInterf
         $secondary->setName('Secondary');
         $secondary->setApp($manager->merge($this->getReference('app-frontend')));
 
+        $footer = new Navigation();
+        $footer->setCode('footer');
+        $footer->setName('Footer');
+        $footer->setApp($manager->merge($this->getReference('app-frontend')));
+
         $manager->persist($primary);
         $manager->persist($secondary);
+        $manager->persist($footer);
 
         $this->addReference('navigation-frontend-primary', $primary);
         $this->addReference('navigation-frontend-secondary', $secondary);
+        $this->addReference('navigation-frontend-footer', $footer);
 
         $manager->flush();
     }

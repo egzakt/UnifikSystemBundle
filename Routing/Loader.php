@@ -88,7 +88,10 @@ class Loader extends BaseLoader
         if ($sourceRoute = $collection->get($sourceName)) {
             $route = clone $sourceRoute;
         } else {
-            throw new RouteNotFoundException(sprintf('Unable to generate a mapping using named route "%s" as such route does not exist.', $sourceName));
+            throw new RouteNotFoundException(sprintf(
+                'Unable to generate a mapping for "section_id_%s" using the named route "%s" as such route does not exist.',
+                $mapping['section_id'], $sourceName
+            ));
         }
 
         // Validate parents hierarchy

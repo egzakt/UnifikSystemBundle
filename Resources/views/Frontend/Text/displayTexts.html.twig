@@ -1,0 +1,21 @@
+{% if texts %}
+    {% set textId = 0 %}
+    <div class="editor">
+        {% for text in texts %}
+            {% if text.collapsable %}
+                <div class="collapsible_block{% if textId == text.id %} selected{% endif %}" id="block-{{ text.id }}">
+                    <a href="#" class="collapsible_link{% if textId == text.id %} selected{% endif %}">
+                        <span>{{ text.name }}</span>
+                    </a>
+                    <div class="collapsible_content{% if textId == text.id %} open{% endif %}">
+                        {{ text.text|raw }}
+                    </div>
+                </div>
+            {% else %}
+                <div class="block{% if textId == text.id %} selected{% endif %}" id="block-{{ text.id }}">
+                    {{ text.text|raw }}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endif %}

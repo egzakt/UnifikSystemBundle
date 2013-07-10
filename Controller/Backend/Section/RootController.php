@@ -101,7 +101,7 @@ class RootController extends BaseController
                 // On insert
                 if (false == $id) {
 
-                    $sectionModuleBar = $this->navigationRepository->findOneByName('_section_module_bar');
+                    $sectionModuleBar = $this->navigationRepository->find(NavigationRepository::SECTION_MODULE_BAR_ID);
                     $backendApp = $this->appRepository->find(1);
 
                     $mapping = new Mapping();

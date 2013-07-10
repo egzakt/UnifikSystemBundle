@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend;
 
+use Egzakt\SystemBundle\Entity\NavigationRepository;
 use Symfony\Component\HttpFoundation\Response;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
@@ -14,11 +15,6 @@ use Egzakt\SystemBundle\Entity\SectionRepository;
  */
 class NavigationController extends BaseController
 {
-    const SECTION_BAR_ID = 1;
-    const SECTION_MODULE_BAR_ID = 2;
-    const GLOBAL_MODULE_BAR_ID = 3;
-    const APP_MODULE_BAR_ID = 4;
-
     /**
      * @var SectionRepository
      */
@@ -83,7 +79,7 @@ class NavigationController extends BaseController
      */
     public function globalModuleBarAction($masterRoute)
     {
-        $mappings = $this->mappingRepository->findBy(array('navigation' => static::GLOBAL_MODULE_BAR_ID), array('ordering' => 'ASC'));
+        $mappings = $this->mappingRepository->findBy(array('navigation' => NavigationRepository::GLOBAL_MODULE_BAR_ID), array('ordering' => 'ASC'));
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:global_module_bar.html.twig', array(
             'mappings' => $mappings,
@@ -100,7 +96,7 @@ class NavigationController extends BaseController
      */
     public function appModuleBarAction($masterRoute)
     {
-        $mappings = $this->mappingRepository->findBy(array('navigation' => static::APP_MODULE_BAR_ID), array('ordering' => 'ASC'));
+        $mappings = $this->mappingRepository->findBy(array('navigation' => NavigationRepository::APP_MODULE_BAR_ID), array('ordering' => 'ASC'));
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:app_module_bar.html.twig', array(
             'mappings' => $mappings,
@@ -179,7 +175,7 @@ class NavigationController extends BaseController
 
         $mappings = $this->mappingRepository->findBy(array(
             'section' => $this->getSection(),
-            'navigation' => static::SECTION_MODULE_BAR_ID
+            'navigation' => NavigationRepository::SECTION_MODULE_BAR_ID
         ));
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:section_module_bar.html.twig', array(

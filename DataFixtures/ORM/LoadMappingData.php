@@ -17,6 +17,7 @@ class LoadMappingData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        // Home section defaut route
         $mapping = new Mapping();
         $mapping->setSection($manager->merge($this->getReference('section-home')));
         $mapping->setApp($manager->merge($this->getReference('app-backend')));
@@ -25,18 +26,20 @@ class LoadMappingData extends AbstractFixture implements OrderedFixtureInterface
 
         $manager->persist($mapping);
 
+        // Home section texts module
         $mapping = new Mapping();
         $mapping->setSection($manager->merge($this->getReference('section-home')));
         $mapping->setApp($manager->merge($this->getReference('app-backend')));
-        $mapping->setNavigation($manager->merge($this->getReference('navigation-section-bar')));
-        $mapping->setTarget('EgzaktSystemBundle:Backend/Text/Navigation:BundleBar');
+        $mapping->setNavigation($manager->merge($this->getReference('navigation-section-modules-bar')));
+        $mapping->setTarget('EgzaktSystemBundle:Backend/Text/Navigation:SectionModuleBar');
         $mapping->setType('render');
 
         $manager->persist($mapping);
 
-        // Global module bar
+        // Global modules bar
         $mapping = new Mapping();
         $mapping->setNavigation($manager->merge($this->getReference('navigation-global-module-bar')));
+        $mapping->setApp($manager->merge($this->getReference('app-backend')));
         $mapping->setTarget('EgzaktSystemBundle:Backend/User/Navigation:GlobalModuleBar');
         $mapping->setType('render');
 
@@ -45,11 +48,25 @@ class LoadMappingData extends AbstractFixture implements OrderedFixtureInterface
         // App global bar modules
         $mapping = new Mapping();
         $mapping->setNavigation($manager->merge($this->getReference('navigation-app-module-bar')));
+        $mapping->setApp($manager->merge($this->getReference('app-backend')));
         $mapping->setTarget('EgzaktSystemBundle:Backend/Section/Navigation:AppModuleBar');
         $mapping->setType('render');
 
         $manager->persist($mapping);
 
+        $manager->flush();
+
+        $this->loadFrontend($manager);
+    }
+
+    public function loadFrontend(ObjectManager $manager)
+    {
+        $mapping = new Mapping();
+        $mapping->setTarget('egzakt_system_frontend_home');
+        $mapping->setType('route');
+        $mapping->setSection($manager->merge($this->getReference('section-home')));
+        $mapping->setApp($manager->merge($this->getReference('app-frontend')));
+        $manager->persist($mapping);
         $manager->flush();
     }
 

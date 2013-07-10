@@ -18,6 +18,7 @@ parameters:
     egzakt_backend.core.class:                            Egzakt\SystemBundle\Lib\Backend\Core
     egzakt_backend.form.type.advanced_file.class:         Egzakt\SystemBundle\Form\Backend\AdvancedFileType
     egzakt_frontend.core.class:                           Egzakt\SystemBundle\Lib\Frontend\Core
+    egzakt_frontend.locale_switcher.class:                Egzakt\SystemBundle\Lib\Frontend\LocaleSwitcher
 
 services:
 
@@ -139,3 +140,12 @@ services:
           - [ setDoctrine, [ @doctrine ] ]
           - [ setBreadcrumbs, [ @egzakt_system.breadcrumbs ] ]
           - [ setPageTitle, [ @egzakt_system.page_title ] ]
+
+    egzakt_frontend.locale_switcher:
+        class: %egzakt_frontend.locale_switcher.class%
+        calls:
+          - [ setRouter, [ @router ] ]
+          - [ setDoctrine, [ @doctrine ] ]
+          - [ setSession, [ @session ] ]
+          - [ setHelper, [ @egzakt_system.helper ] ]
+          - [ setCore, [ @egzakt_frontend.core ] ]

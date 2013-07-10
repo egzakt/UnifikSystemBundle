@@ -89,7 +89,7 @@ class Core implements ApplicationCoreInterface
 
             $this->addNavigationElement($section);
         } else {
-            throw new NotFoundHttpException('EgzaktFrontend: This section does not exist');
+            throw new NotFoundHttpException(sprintf('The section_id_%s does not exist or is not active in the database', $sectionId));
         }
     }
 

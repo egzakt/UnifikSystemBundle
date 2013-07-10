@@ -83,7 +83,7 @@ class SectionController extends BaseController
 
         $this->getCore()->addNavigationElement($entity);
 
-        $form = $this->createForm(new SectionType(), $entity, array('current_section' => $entity));
+        $form = $this->createForm(new SectionType(), $entity, array('current_section' => $entity, 'managed_app' => $this->getApp()));
 
         if ('POST' === $request->getMethod()) {
 
@@ -96,7 +96,7 @@ class SectionController extends BaseController
                 // On insert
                 if (false == $id) {
 
-                    $sectionModuleBar = $this->navigationRepository->findOneByName('_section_module_bar');
+                    $sectionModuleBar = $this->navigationRepository->find(NavigationRepository::SECTION_MODULE_BAR_ID);
 
                     $app = $this->getEm()->getRepository('EgzaktSystemBundle:App')->findOneByName('backend');
 
