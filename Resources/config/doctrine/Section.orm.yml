@@ -53,4 +53,7 @@ Egzakt\SystemBundle\Entity\Section:
     app:
       targetEntity: Egzakt\SystemBundle\Entity\App
       inversedBy:  sections
-
+  manyToMany:
+    roles:
+      targetEntity: Egzakt\SystemBundle\Entity\Role
+      mappedBy: sections

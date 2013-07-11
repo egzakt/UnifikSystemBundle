@@ -59,9 +59,9 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     protected $updatedAt;
 
     /**
-     * @var ArrayCollection
+     * @var \Doctrine\Common\Collections\Collection
      */
-    protected $userRoles;
+    protected $roles;
 
     /**
      * @var string $salt
@@ -73,7 +73,7 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
      */
     public function __construct()
     {
-        $this->userRoles = new ArrayCollection();
+        $this->roles = new ArrayCollection();
         $this->salt = md5(uniqid(null, true));
     }
 
@@ -272,36 +272,6 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Add userRoles
-     *
-     * @param Role $userRoles
-     */
-    public function addRole(Role $userRoles)
-    {
-        $this->userRoles[] = $userRoles;
-    }
-
-    /**
-     * Set userRoles
-     *
-     * @param Role $userRoles
-     */
-    public function setUserRoles($userRoles)
-    {
-        $this->userRoles = $userRoles;
-    }
-
-    /**
-     * Get userRoles
-     *
-     * @return ArrayCollection
-     */
-    public function getUserRoles()
-    {
-        return $this->userRoles;
-    }
-
-    /**
      * Get Roles
      *
      * @return array
@@ -310,11 +280,44 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     {
         $roles = array();
 
-        foreach($this->getUserRoles() as $role) {
-            $roles[] = $role->getRoleName();
+        foreach($this->roles as $role) {
+            $roles[] = $role;
         }
 
         return $roles;
+    }
+
+    /**
+     * Add roles
+     *
+     * @param \Egzakt\SystemBundle\Entity\Role $roles
+     * @return User
+     */
+    public function addRole(\Egzakt\SystemBundle\Entity\Role $roles)
+    {
+        $this->roles[] = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \Egzakt\SystemBundle\Entity\Role $roles
+     */
+    public function removeRole(\Egzakt\SystemBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
+    }
+
+    /**
+     * Set Roles
+     *
+     * @param $roles
+     */
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
     }
 
     /**
@@ -343,60 +346,6 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     public function eraseCredentials()
     {
         return true;
-    }
-
-    /**
-     * Add userRoles
-     *
-     * @param Role $userRoles
-     *
-     * @return User
-     */
-    public function addUserRole(Role $userRoles)
-    {
-        $this->userRoles[] = $userRoles;
-    
-        return $this;
-    }
-
-    /**
-     * Remove userRoles
-     *
-     * @param Role $userRoles
-     */
-    public function removeUserRole(Role $userRoles)
-    {
-        $this->userRoles->removeElement($userRoles);
-    }
-
-    /**
-     * Serializes the user.
-     *
-     * The serialized data have to contain the fields used byt the equals method.
-     *
-     * @return string
-     */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->password,
-            $this->username
-        ));
-    }
-
-    /**
-     * Unserializes the user.
-     *
-     * @param string $serialized The serialized string
-     */
-    public function unserialize($serialized)
-    {
-        list(
-            $this->id,
-            $this->password,
-            $this->username
-        ) = unserialize($serialized);
     }
 
     /**
@@ -430,4 +379,33 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     {
         return $this->active;
     }
+
+    /**
+     * @see \Serializable::serialize()
+     */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->salt,
+            $this->active
+        ));
+    }
+
+    /**
+     * @see \Serializable::unserialize()
+     */
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->username,
+            $this->password,
+            $this->salt,
+            $this->active
+        ) = unserialize($serialized);
+    }
+
 }

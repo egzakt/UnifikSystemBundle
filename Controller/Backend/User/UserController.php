@@ -6,10 +6,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Egzakt\SystemBundle\Entity\User;
 use Egzakt\SystemBundle\Form\Backend\UserType;
+use Egzakt\SystemBundle\Entity\Role;
 
 /**
  * User controller.
@@ -17,13 +19,44 @@ use Egzakt\SystemBundle\Form\Backend\UserType;
 class UserController extends BaseController
 {
     /**
+     * @var bool
+     */
+    protected $isDeveloper;
+
+    /**
+     * Init
+     */
+    public function init()
+    {
+        parent::init();
+
+        // Check if the current User has the privileges
+        if (!$this->get('security.context')->isGranted('ROLE_BACKEND_ADMIN')) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $this->createAndPushNavigationElement('Users', 'egzakt_system_backend_user');
+
+        // Check if the current User has the privileges
+        if (!$this->get('security.context')->isGranted('ROLE_BACKEND_ADMIN')) {
+            throw new AccessDeniedHttpException();
+        }
+
+        $this->isDeveloper = $this->get('security.context')->isGranted('ROLE_DEVELOPER');
+    }
+
+    /**
      * Lists all User entities.
      *
      * @return Response
      */
     public function indexAction()
     {
-        $roles = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->findWithUser();
+        if (!$this->isDeveloper) {
+            $roles = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->findAllExcept(array('ROLE_DEVELOPER', 'ROLE_BACKEND_ACCESS'));
+        } else {
+            $roles = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->findAllExcept('ROLE_BACKEND_ACCESS');
+        }
 
         return $this->render('EgzaktSystemBundle:Backend/User/User:list.html.twig', array('roles' => $roles));
     }
@@ -45,9 +78,12 @@ class UserController extends BaseController
             $user->setContainer($this->container);
         }
 
+        $this->pushNavigationElement($user);
+
         $form = $this->createForm(new UserType(), $user, array(
             'validation_groups' => $user->getId() ? 'edit' : 'new',
-            'self_edit' => $user == $this->getUser()
+            'self_edit' => $user == $this->getUser(),
+            'developer' => $this->isDeveloper
         ));
 
         if ($request->getMethod() == 'POST') {
@@ -57,6 +93,16 @@ class UserController extends BaseController
             $form->submit($request);
 
             if ($form->isValid()) {
+
+                // All Users are automatically granted the ROLE_BACKEND_ACCESS Role
+                $backendAccessRole = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->findOneBy(array('role' => 'ROLE_BACKEND_ACCESS'));
+                if (!$backendAccessRole) {
+                    $backendAccessRole = new Role();
+                    $backendAccessRole->setRole('ROLE_BACKEND_ACCESS');
+                    $this->getEm()->persist($backendAccessRole);
+                }
+
+                $user->addRole($backendAccessRole);
 
                 // New password set
                 if ($form->get('password')->getData()) {

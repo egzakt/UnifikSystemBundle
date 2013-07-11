@@ -65,7 +65,8 @@ class TwigExtension extends \Twig_Extension
     {
         return array(
             'isExternalUrl' => new \Twig_Function_Method($this, 'isExternalUrl'),
-            'dateRange' => new \Twig_Function_Method($this, 'dateRange')
+            'dateRange' => new \Twig_Function_Method($this, 'dateRange'),
+            'tree_indentation' => new \Twig_Function_Method($this, 'treeIndentation')
         );
     }
 
@@ -247,6 +248,26 @@ class TwigExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'twig_extension';
+        return 'egzakt_system_extension';
+    }
+
+    /**
+     * Tree Indentation
+     *
+     * Indent label or widget to render as a tree
+     *
+     * @param $level
+     *
+     * @return string
+     */
+    public function treeIndentation($level)
+    {
+        $indent = '';
+
+        for($i=2; $i <= $level; $i++) {
+            $indent .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
+        }
+
+        return $indent;
     }
 }

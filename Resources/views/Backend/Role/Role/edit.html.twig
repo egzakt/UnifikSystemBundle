@@ -1,0 +1,50 @@
+{% extends 'EgzaktSystemBundle:Backend/Role:layout.html.twig' %}
+{% form_theme form 'EgzaktSystemBundle:Backend/Core:edit_fields.html.twig' %}
+
+{% block content_header %}
+    <h1>{{ entity.i18nTitle|trans|raw }}</h1>
+{% endblock %}
+
+{% block content_main %}
+
+    <form novalidate="novalidate" action="{{ path(entity.route, entity.routeParams) }}" method="post" {{ form_enctype(form) }}>
+
+        {% block edit_action %}
+            {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
+                'delete_route': path(entity.route('delete'), entity.routeParams),
+                'cancel_route': path('egzakt_system_backend_role'),
+            } %}
+        {% endblock %}
+
+        <div id="fields_box">
+            <table class="fields" cellspacing="0">
+
+                {{ form_errors(form) }}
+
+                {{ form_row(form.translation.name) }}
+
+                {% if form.sections is defined %}
+                    {{ form_row(form.sections) }}
+                {% endif %}
+
+                {{ form_rest(form) }}
+
+                {% if entity.id %}
+                    <tr>
+                        <th>
+                            {% trans %}Last update {% endtrans %} :
+                        </th>
+                        <td style="vertical-align:bottom">
+                            {{ entity.updatedAt|date }}
+                        </td>
+                    </tr>
+                {% endif %}
+
+            </table>
+        </div>
+
+        {{ block('edit_action') }}
+
+    </form>
+
+{% endblock content_main %}

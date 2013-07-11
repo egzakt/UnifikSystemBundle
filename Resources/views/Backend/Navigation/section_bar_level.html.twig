@@ -2,7 +2,7 @@
     {% for section in sections %}
         {% if section.entity.route %}
             <li class="{% if section.hasChildren %}with_sublevel {% endif %}{% if section.selected %}open selected{% endif %}">
-                <a href="{{ path(section.entity.route, { section_id: section.entity.id }) }}">
+                <a href="{{ path(section.entity.route, section.entity.routeParams) }}">
                    {% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': section.entity } %}
                 </a>
                 {% if section.selected and section.hasChildren %}

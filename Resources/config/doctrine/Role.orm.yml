@@ -7,7 +7,7 @@ Egzakt\SystemBundle\Entity\Role:
       id: true
       generator:
         strategy: AUTO
-    roleName:
+    role:
       type: string
       length: 30
     createdAt:
@@ -30,6 +30,20 @@ Egzakt\SystemBundle\Entity\Role:
   manyToMany:
     users:
       targetEntity: Egzakt\SystemBundle\Entity\User
-      mappedBy: userRoles
+      mappedBy: roles
       orderBy:
         username: ASC
+    sections:
+      targetEntity: Egzakt\SystemBundle\Entity\Section
+      inversedBy: roles
+      cascade: [persist]
+      joinTable:
+        name: section_role
+        joinColumns:
+          roleId:
+            referencedColumnName: id
+            onDelete: cascade
+        inverseJoinColumns:
+          sectionId:
+            referencedColumnName: id
+            onDelete: cascade

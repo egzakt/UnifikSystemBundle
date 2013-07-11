@@ -43,7 +43,7 @@ Egzakt\SystemBundle\Entity\User:
           on: update
   lifecycleCallbacks: {  }
   manyToMany:
-    userRoles:
+    roles:
       targetEntity: Egzakt\SystemBundle\Entity\Role
       inversedBy: users
       cascade: [persist]

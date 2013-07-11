@@ -1,0 +1,7 @@
+<a href="{{ path('egzakt_system_backend_dashboard', { _want_to_be_this_user: '_exit' }) }}" class="exit_impersonating">
+    {% if previousToken %}
+        {% trans %}Go back to{% endtrans %} <strong>{{ previousToken.user.username }}</strong>
+    {% else %}
+        {% trans %}Exit impersonation{% endtrans %}
+    {% endif %}
+</a>

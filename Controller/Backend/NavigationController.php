@@ -63,6 +63,8 @@ class NavigationController extends BaseController
 
         $sections = $navigationBuilder->getElements();
 
+        $sections = $this->get('egzakt_system.section_filter')->filterSections($sections);
+
         return $this->render('EgzaktSystemBundle:Backend/Navigation:section_bar.html.twig', array(
             'sections' => $sections,
             'sectionCurrent' => $sectionCurrent,

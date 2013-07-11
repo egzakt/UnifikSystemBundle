@@ -50,3 +50,8 @@ Egzakt\SystemBundle\Entity\TextTranslation:
     constraints:
         - Callback:
             methods: [isCollapsableValid]
+
+Egzakt\SystemBundle\Entity\RoleTranslation:
+    properties:
+        name:
+            - NotBlank: ~

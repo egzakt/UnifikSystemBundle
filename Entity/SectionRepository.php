@@ -206,4 +206,31 @@ class SectionRepository extends BaseEntityRepository
 
         return $this->processQuery($queryBuilder);
     }
+
+    /**
+     * Find Having Roles
+     *
+     * @param $roles
+     *
+     * @return mixed
+     */
+    public function findHavingRoles($roles)
+    {
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->select('s.id')
+            ->innerJoin('s.roles', 'r')
+            ->where('r.role IN (:roles)')
+            ->setParameter('roles', $roles);
+
+        // Array of array('id' => 1)
+        $results = $queryBuilder->getQuery()->getScalarResult();
+
+        $ids = array();
+        foreach($results as $section) {
+            $ids[] = $section['id'];
+        }
+
+        // Return the list of IDs in a single array
+        return $ids;
+    }
 }

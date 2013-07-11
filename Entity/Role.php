@@ -4,6 +4,7 @@ namespace Egzakt\SystemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Security\Core\Role\RoleInterface;
 
 use Egzakt\SystemBundle\Entity\User;
 use Egzakt\SystemBundle\Entity\RoleTranslation;
@@ -12,7 +13,7 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
 /**
  * Role
  */
-class Role extends BaseEntity
+class Role extends BaseEntity implements RoleInterface, \Serializable
 {
     /**
      * @var integer $id
@@ -20,9 +21,9 @@ class Role extends BaseEntity
     protected $id;
 
     /**
-     * @var string $roleName
+     * @var string $role
      */
-    protected $roleName;
+    protected $role;
 
     /**
      * @var \DateTime $createdAt
@@ -45,6 +46,11 @@ class Role extends BaseEntity
     protected $users;
 
     /**
+     * @var ArrayCollection
+     */
+    protected $sections;
+
+    /**
      * @return string
      */
     public function __toString()
@@ -53,7 +59,7 @@ class Role extends BaseEntity
             return 'New role';
         }
 
-        if ($name = $this->roleName) {
+        if ($name = $this->name) {
             return $name;
         }
 
@@ -64,6 +70,7 @@ class Role extends BaseEntity
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->sections = new ArrayCollection();
         $this->translations = new ArrayCollection();
     }
 
@@ -78,23 +85,21 @@ class Role extends BaseEntity
     }
 
     /**
-     * Set roleName
+     * Get Role
      *
-     * @param string $roleName
+     * @return null|string
      */
-    public function setRoleName($roleName)
+    public function getRole()
     {
-        $this->roleName = $roleName;
+        return $this->role;
     }
 
     /**
-     * Get roleName
-     *
-     * @return string
+     * @param string $role
      */
-    public function getRoleName()
+    public function setRole($role)
     {
-        return $this->roleName;
+        $this->role = $role;
     }
 
     /**
@@ -158,6 +163,49 @@ class Role extends BaseEntity
     }
 
     /**
+     * Add sections
+     *
+     * @param \Egzakt\SystemBundle\Entity\Section $sections
+     * @return Role
+     */
+    public function addSection(\Egzakt\SystemBundle\Entity\Section $sections)
+    {
+        $this->sections[] = $sections;
+
+        return $this;
+    }
+
+    /**
+     * Set Sections
+     *
+     * @param ArrayCollection $sections
+     */
+    public function setSections(ArrayCollection $sections)
+    {
+        $this->sections = $sections;
+    }
+
+    /**
+     * Remove sections
+     *
+     * @param \Egzakt\SystemBundle\Entity\Section $sections
+     */
+    public function removeSection(\Egzakt\SystemBundle\Entity\Section $sections)
+    {
+        $this->sections->removeElement($sections);
+    }
+
+    /**
+     * Get sections
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSections()
+    {
+        return $this->sections;
+    }
+
+    /**
      * Add translations
      *
      * @param RoleTranslation $translations
@@ -209,4 +257,83 @@ class Role extends BaseEntity
     {
         $this->users->removeElement($users);
     }
+
+    /**
+     * Get the backend route
+     *
+     * @param string $suffix
+     *
+     * @return string
+     */
+    public function getRouteBackend($suffix = 'edit')
+    {
+        return 'egzakt_system_backend_role_' . $suffix;
+    }
+
+    /**
+     * Get params for the backend route
+     *
+     * @param array $params Additional parameters
+     *
+     * @return array
+     */
+    public function getRouteBackendParams($params = array())
+    {
+        $defaults = array(
+            'id' => $this->id ? $this->id : 0
+        );
+
+        $params = array_merge($defaults, $params);
+
+        return $params;
+    }
+
+    /**
+     * Is Deletable
+     *
+     * @return bool
+     */
+    public function isDeletable()
+    {
+        return !in_array($this->getRole(), array('ROLE_DEVELOPER', 'ROLE_BACKEND_ADMIN', 'ROLE_ADMIN'));
+    }
+
+    /**
+     * Not Deletable
+     *
+     * @return bool
+     *
+     * @TODO Remove this and refactor the getDeleteRestrictions functionnality
+     */
+    public function notDeletable()
+    {
+        return !$this->isDeletable();
+    }
+
+    /**
+     * List of methods to check before allowing deletion
+     *
+     * @return array
+     */
+    public function getDeleteRestrictions()
+    {
+        return array('notDeletable');
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->role
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->role
+        ) = unserialize($serialized);
+    }
+
 }

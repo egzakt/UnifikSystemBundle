@@ -15,6 +15,10 @@ parameters:
     egzakt_system.page_title.class:                       Egzakt\SystemBundle\Lib\PageTitle
     egzakt_system.router_invalidator.class:               Egzakt\SystemBundle\Lib\RouterInvalidator
     egzakt_system.router_auto_parameters_handler.class:   Egzakt\SystemBundle\Lib\RouterAutoParametersHandler
+    egzakt_system.section_filter.class:                   Egzakt\SystemBundle\Lib\SectionFilter
+    egzakt_system.tree_entity_orderer.class:              Egzakt\SystemBundle\Lib\TreeEntityOrderer
+    egzakt_system.form.type.tree_choice.class:            Egzakt\SystemBundle\Form\Type\TreeChoiceType
+    egzakt_backend.security.cms_voter.class:              Egzakt\SystemBundle\Lib\Backend\CmsVoter
     egzakt_backend.core.class:                            Egzakt\SystemBundle\Lib\Backend\Core
     egzakt_backend.form.type.advanced_file.class:         Egzakt\SystemBundle\Form\Backend\AdvancedFileType
     egzakt_frontend.core.class:                           Egzakt\SystemBundle\Lib\Frontend\Core
@@ -149,3 +153,22 @@ services:
           - [ setSession, [ @session ] ]
           - [ setHelper, [ @egzakt_system.helper ] ]
           - [ setCore, [ @egzakt_frontend.core ] ]
+          
+    egzakt_system.tree_entity_orderer:
+        class: %egzakt_system.tree_entity_orderer.class%
+
+    egzakt_system.form.type.tree_choice:
+        class: %egzakt_system.form.type.tree_choice.class%
+        arguments: [@egzakt_system.tree_entity_orderer]
+        tags:
+            - { name: form.type, alias: tree_choice }
+
+    egzakt_system.section_filter:
+        class: %egzakt_system.section_filter.class%
+        arguments: [@doctrine.orm.entity_manager, @security.context]
+
+    egzakt_system.security.cms_voter:
+        class: %egzakt_backend.security.cms_voter.class%
+        arguments: [@service_container]
+        tags:
+            - { name: security.voter }

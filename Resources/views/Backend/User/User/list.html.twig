@@ -8,7 +8,7 @@
 
     {% for role in roles %}
         <div class="list_box">
-            <h2>{{ role.name }}</h2>
+            <h2>{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': role } %}</h2>
             <table cellspacing="0" class="table-autosort">
                 <thead>
                 <tr>
@@ -16,6 +16,11 @@
                     <th class="table-sortable:ignorecase">{% trans %}Firstname{% endtrans %}</th>
                     <th class="table-sortable:ignorecase">{% trans %}Lastname{% endtrans %}</th>
                     <th class="table-sortable:date">{% trans %}Last updated{% endtrans %}</th>
+                    {% block impersonate_header %}
+                        {% if is_granted('ROLE_DEVELOPER') and role.role != 'ROLE_DEVELOPER' %}
+                            <th class="impersonate">&nbsp;</th>
+                        {% endif %}
+                    {% endblock %}
                     <th class="edit"></th>
                     <th class="delete"></th>
                 </tr>
@@ -32,6 +37,7 @@
                     <th>
                         &nbsp;
                     </th>
+                    {{ block('impersonate_header') }}
                     <th>&nbsp;</th>
                     <th>&nbsp;</th>
                 </tr>
@@ -45,6 +51,7 @@
                         <td>{{ entity.firstname }}</td>
                         <td>{{ entity.lastname }}</td>
                         <td>{{ entity.updatedat|date('Y-m-d') }}</td>
+                        {% include 'EgzaktSystemBundle:Backend/User/User:switch_user.html.twig' with { role: role, user: entity } %}
                         <td class="edit">
                             <a href="{{ path('egzakt_system_backend_user_edit', { 'id': entity.id }) }}" title="Modifier">
                                 <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />

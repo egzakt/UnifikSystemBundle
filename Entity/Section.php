@@ -69,6 +69,16 @@ class Section extends BaseEntity
     protected $translations;
 
     /**
+     * @var ArrayCollection
+     */
+    protected $roles;
+
+    /**
+     * @var ArrayCollection
+     */
+    protected $mappings;
+
+    /**
      * Construct
      *
      */
@@ -76,6 +86,8 @@ class Section extends BaseEntity
     {
         $this->children = new ArrayCollection();
         $this->translations = new ArrayCollection();
+        $this->roles = new ArrayCollection();
+        $this->mappings = new ArrayCollection();
         $this->sectionNavigations = new ArrayCollection();
     }
 
@@ -645,6 +657,49 @@ class Section extends BaseEntity
     }
 
     /**
+     * Add roles
+     *
+     * @param \Egzakt\SystemBundle\Entity\Role $roles
+     * @return Section
+     */
+    public function addRole(\Egzakt\SystemBundle\Entity\Role $roles)
+    {
+        $this->roles[] = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Set Roles
+     *
+     * @param ArrayCollection $roles
+     */
+    public function setRoles(ArrayCollection $roles)
+    {
+        $this->roles = $roles;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \Egzakt\SystemBundle\Entity\Role $roles
+     */
+    public function removeRole(\Egzakt\SystemBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
+    }
+
+    /**
+     * Get roles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
      * Remove texts
      *
      * @param \Egzakt\SystemBundle\Entity\Text $texts
@@ -663,11 +718,6 @@ class Section extends BaseEntity
     {
         $this->sectionNavigations->removeElement($sectionNavigations);
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    private $mappings;
-
 
     /**
      * Add mappings

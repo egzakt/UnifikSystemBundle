@@ -20,7 +20,7 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
     public function load(ObjectManager $manager)
     {
         $role = new Role();
-        $role->setRoleName('ROLE_ADMIN');
+        $role->setRole('ROLE_BACKEND_ADMIN');
 
         $roleFr = new RoleTranslation();
         $roleFr->setLocale($manager->merge($this->getReference('locale-fr'))->getCode());

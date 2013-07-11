@@ -18,6 +18,7 @@ Egzakt\SystemBundle\Entity\RoleTranslation:
     name:
       type: string
       length: 255
+      nullable: true
   manyToOne:
     translatable:
       targetEntity: Egzakt\SystemBundle\Entity\Role

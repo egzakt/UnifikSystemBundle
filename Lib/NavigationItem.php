@@ -112,6 +112,20 @@ class NavigationItem implements NavigationInterface
     }
 
     /**
+     * Remove Children
+     *
+     * @param $object
+     */
+    public function removeChildren($object)
+    {
+        foreach($this->children as $key => $children) {
+            if ($children == $object) {
+                unset($this->children[$key]);
+            }
+        }
+    }
+
+    /**
      * Set Parent
      *
      * @param $parent

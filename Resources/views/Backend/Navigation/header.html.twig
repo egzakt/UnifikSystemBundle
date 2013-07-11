@@ -1,6 +1,7 @@
 <div id="welcome">
     <div id="login_name">
         <span>{% trans %}Welcome{% endtrans %},</span> <strong>{{ app.user.username }}</strong>
+        {{ render(controller('EgzaktSystemBundle:Backend/Role/Navigation:impersonatingBar')) }}
     </div>
     <form action="{{ path('egzakt_system_backend_logout') }}">
         <input type="submit" name="btn_deconnexion" class="btn_deconnexion" value="{% trans %}Logout{% endtrans %}"/>
