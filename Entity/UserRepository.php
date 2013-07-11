@@ -99,7 +99,7 @@ class UserRepository extends BaseEntityRepository implements UserProviderInterfa
     {
         $queryBuilder = $this->createQueryBuilder('u')
             ->select('u')
-            ->innerJoin('u.userRoles', 'r')
+            ->innerJoin('u.roles', 'r')
             ->where('r.id = :role_id')
             ->setParameter('role_id', $role->getId())
             ->orderBy('u.lastname', 'ASC');
