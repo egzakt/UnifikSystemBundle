@@ -36,6 +36,40 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($roleFr);
         $manager->persist($roleEn);
 
+        $role = new Role();
+        $role->setRole('ROLE_BACKEND_ACCESS');
+
+        $roleFr = new RoleTranslation();
+        $roleFr->setLocale($manager->merge($this->getReference('locale-fr'))->getCode());
+        $roleFr->setName('Accès Admin');
+        $roleFr->setTranslatable($role);
+
+        $roleEn = new RoleTranslation();
+        $roleEn->setLocale($manager->merge($this->getReference('locale-en'))->getCode());
+        $roleEn->setName('Backend Access');
+        $roleEn->setTranslatable($role);
+
+        $manager->persist($role);
+        $manager->persist($roleFr);
+        $manager->persist($roleEn);
+
+        $role = new Role();
+        $role->setRole('ROLE_DEVELOPER');
+
+        $roleFr = new RoleTranslation();
+        $roleFr->setLocale($manager->merge($this->getReference('locale-fr'))->getCode());
+        $roleFr->setName('Développeur');
+        $roleFr->setTranslatable($role);
+
+        $roleEn = new RoleTranslation();
+        $roleEn->setLocale($manager->merge($this->getReference('locale-en'))->getCode());
+        $roleEn->setName('Developer');
+        $roleEn->setTranslatable($role);
+
+        $manager->persist($role);
+        $manager->persist($roleFr);
+        $manager->persist($roleEn);
+
         $manager->flush();
 
         $this->addReference('role-admin', $role);
