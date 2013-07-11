@@ -288,36 +288,57 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * Add roles
-     *
-     * @param \Egzakt\SystemBundle\Entity\Role $roles
-     * @return User
-     */
-    public function addRole(\Egzakt\SystemBundle\Entity\Role $roles)
+    * Get User Roles
+    *
+    * @return ArrayCollection
+    */
+    public function getUserRoles()
     {
-        $this->roles[] = $roles;
+        return $this->roles;
+    }
+
+    /**
+     * Add Role
+     *
+     * @param Role $role
+     *
+     * @return $this
+     */
+    public function addRole(\Egzakt\SystemBundle\Entity\Role $role)
+    {
+        $this->roles[] = $role;
 
         return $this;
     }
 
     /**
-     * Remove roles
+     * Remove Role
      *
-     * @param \Egzakt\SystemBundle\Entity\Role $roles
+     * @param Role $role
      */
-    public function removeRole(\Egzakt\SystemBundle\Entity\Role $roles)
+    public function removeRole(Role $role)
     {
-        $this->roles->removeElement($roles);
+        $this->roles->removeElement($role);
     }
 
     /**
-     * Set Roles
-     *
-     * @param $roles
-     */
+    * Set Roles
+    *
+    * @param $roles
+    */
     public function setRoles($roles)
     {
         $this->roles = $roles;
+    }
+
+    /**
+    * Set User Roles
+    *
+    * @param $roles
+    */
+    public function setUserRoles($roles)
+    {
+        $this->setRoles($roles);
     }
 
     /**

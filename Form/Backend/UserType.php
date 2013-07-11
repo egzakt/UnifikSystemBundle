@@ -32,7 +32,7 @@ class UserType extends AbstractType
             ->add('firstname')
             ->add('lastname')
             ->add('email')
-            ->add('userroles', 'entity', array(
+            ->add('userRoles', 'entity', array(
                 'class' => 'EgzaktSystemBundle:Role',
                 'expanded' => true,
                 'multiple' => true,
@@ -70,7 +70,7 @@ class UserType extends AbstractType
             'data_class' => 'Egzakt\SystemBundle\Entity\User',
             'self_edit' => false,
             'developer' => false,
-            'error_mapping' => array('userRoles' => 'userroles')
+            'error_mapping' => array('roles' => 'userRoles')
         ));
     }
 }

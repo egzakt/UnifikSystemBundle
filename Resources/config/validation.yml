@@ -27,7 +27,7 @@ Egzakt\SystemBundle\Entity\User:
         password:
             - NotBlank: { groups: [new, reset_password] }
             - Length: { groups: [new, edit, reset_password], min: 8, minMessage: Password must be at least 8 characters long }
-        userRoles:
+        roles:
             - Count: { groups: [new, edit], min: 1, minMessage: You must select at least 1 role }
     constraints:
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: username, groups: [new, edit] }
