@@ -106,24 +106,23 @@ class NavigationController extends BaseController
     }
 
     /**
-     * Locale switcher action
+     * Locale Switcher Action
      *
      * @return Response
      */
     public function localeSwitcherAction()
     {
-        return new Response('');
-//        $localeSwitcher = $this->get('egzakt_frontend.locale_switcher');
-//        $localeSwitcher->setElement($this->getCore()->getElement());
-//
-//        $routes = $localeSwitcher->generate();
-//
-//        return $this->render(
-//            'EgzaktFrontendCoreBundle:Navigation:locale_switcher.html.twig',
-//            array(
-//                'routes' => $routes,
-//            )
-//        );
+        $localeSwitcher = $this->get('egzakt_system.locale_switcher');
+        $localeSwitcher->setElement($this->getCore()->getElement());
+
+        $routes = $localeSwitcher->generate();
+
+        return $this->render(
+            'EgzaktSystemBundle:Frontend/Navigation:locale_switcher.html.twig',
+            array(
+                'routes' => $routes,
+            )
+        );
     }
 
 }

@@ -1,0 +1,9 @@
+{% if routes|length %}
+    <ul id="locale_navigation">
+        {% for route in routes %}
+            <li>
+                <a href="{{ route.url }}">{{ route.locale }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
