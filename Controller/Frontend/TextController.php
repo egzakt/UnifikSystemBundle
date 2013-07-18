@@ -5,7 +5,6 @@ namespace Egzakt\SystemBundle\Controller\Frontend;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Egzakt\SystemBundle\Entity\Section;
 use Egzakt\SystemBundle\Entity\Text;
 use Egzakt\SystemBundle\Entity\TextRepository;
 use Egzakt\SystemBundle\Lib\Frontend\BaseController;

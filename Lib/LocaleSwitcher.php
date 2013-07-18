@@ -19,37 +19,37 @@ class LocaleSwitcher
     /**
      * @var EntityInterface
      */
-    private $element;
+    protected $element;
 
     /**
      * @var Registry
      */
-    private $doctrine;
+    protected $doctrine;
 
     /**
      * @var EntityManager
      */
-    private $em;
+    protected $em;
 
     /**
      * @var I18nRouter
      */
-    private $router;
+    protected $router;
 
     /**
      * @var Request
      */
-    private $request;
+    protected $request;
 
     /**
      * @var Core
      */
-    private $core;
+    protected $core;
 
     /**
     * @var array
     */
-    private $parameters;
+    protected $parameters;
 
     /**
      * Construct
@@ -76,24 +76,10 @@ class LocaleSwitcher
         $locales = $this->doctrine->getRepository('EgzaktSystemBundle:Locale')->findAllExcept($this->request->getLocale());
 
         // Get the object class (it may be a proxy...)
-        $className = get_class($this->element);
-        $reflectionClass = new \ReflectionClass($this->element);
-        if ($reflectionClass->implementsInterface('Doctrine\ORM\Proxy\Proxy')) {
-            $className = $this->doctrine->getManager()->getClassMetadata($className)->name;
-        }
-        unset($reflectionClass);
+        $className = $this->getClassNameFromEntity($this->element);
 
-        // If a repository exists
-        if (class_exists($className . 'Repository')) {
-            $repository = $this->em->getRepository($className);
-            $repository->setCurrentAppName('backend'); // Faking backend access to force a left join on future queries
-
-            $element = $repository->find($this->element->getId());
-        }
-        // Otherwise, set the current element with this Custom Element
-        else {
-            $element = $this->element;
-        }
+        // Reload Element with all locales
+        $element = $this->reloadElement($className);
 
         if ($element) {
             foreach ($locales as $locale) {
@@ -102,7 +88,7 @@ class LocaleSwitcher
 
                 // If the homepage of the currently processed locale is not active, we jump to the next one.
                 try {
-                    $url = $this->router->generate('section_id_1', array('_locale' => $locale->getCode()));
+                    $this->router->generate('section_id_1', array('_locale' => $locale->getCode()));
                 } catch (\Exception $e) {
                     continue;
                 }
@@ -116,28 +102,8 @@ class LocaleSwitcher
                 try {
                     $url = $this->router->generate($element->getRoute(), $parameters);
                 } catch (\Exception $e) {
-
-                    // ... route generation failed, launching fallback strategies
-
-                    // Strategy 1-A: Find a section parent who can generate a valid URL
-                    if ($parent = $element->getParent()) {
-
-                        $this->setElement($parent);
-
-                        $data = $this->generate();
-                        $url = $data[$locale->getCode()]['url'];
-                    }
-
-                    // Strategy 1-B: The element (not a section) does not have a parent, we use the current section as a starting point
-                    elseif (false == $element instanceof Section) {
-
-                        $this->setElement($this->core->getSection());
-                        $data = $this->generate();
-                        $url = $data[$locale->getCode()]['url'];
-                    }
-
-                    // Strategy 2: TODO: Redirect to the "no content for this locale" page
-                    // Strategy 3: TODO: Remove the locale switcher
+                    // Fallback if no route found
+                    $url = $this->fallBack($element, $locale);
                 }
 
                 $data = array();
@@ -155,13 +121,81 @@ class LocaleSwitcher
     }
 
     /**
-     * Unset Entity Manager
+     * Fallback
      *
-     * Unset the temporary Entity Manager
+     * Fallback to the parent if it exists or to the current Section in the Core
+     *
+     * @param $element
+     * @param $locale
+     *
+     * @return mixed
      */
-    private function unsetEntityManager()
+    protected function fallBack($element, $locale)
     {
-        $this->em->clear();
+        if ($parent = $element->getParent()) {
+
+            $this->setElement($parent);
+
+            $data = $this->generate();
+            $url = $data[$locale->getCode()]['url'];
+
+        } elseif (false == $element instanceof Section) {
+
+            $this->setElement($this->core->getSection());
+            $data = $this->generate();
+            $url = $data[$locale->getCode()]['url'];
+        }
+
+        return $url;
+    }
+
+    /**
+     * Get Class Name From Entity
+     *
+     * Get the object class name (it may be a proxy...)
+     *
+     * @param $entity
+     *
+     * @return string
+     */
+    protected function getClassNameFromEntity($entity)
+    {
+        $className = get_class($entity);
+        $reflectionClass = new \ReflectionClass($entity);
+
+        if ($reflectionClass->implementsInterface('Doctrine\ORM\Proxy\Proxy')) {
+            $className = $this->doctrine->getManager()->getClassMetadata($className)->name;
+        }
+
+        unset($reflectionClass);
+
+        return $className;
+    }
+
+    /**
+     * Reload Element
+     *
+     * Reload the element with all locales LEFT JOINED
+     *
+     * @param $className
+     *
+     * @return EntityInterface|object
+     */
+    protected function reloadElement($className)
+    {
+        // If a repository exists
+        if (class_exists($className . 'Repository')) {
+            $repository = $this->em->getRepository($className);
+            $repository->setCurrentAppName('backend'); // Faking backend access to force a left join on future queries
+
+            $element = $repository->find($this->element->getId());
+        }
+        // Otherwise, set the current element with this Custom Element
+        else {
+            $element = $this->element;
+        }
+
+        return $element;
     }
 
     /**
@@ -194,6 +228,16 @@ class LocaleSwitcher
         // Create a temporary Entity Manager that we'll use to fetch objects on different locales
         $em = $this->doctrine->getManager();
         $this->em = $em::create($em->getConnection(), $em->getConfiguration());
+    }
+
+    /**
+     * Unset Entity Manager
+     *
+     * Unset the temporary Entity Manager
+     */
+    protected function unsetEntityManager()
+    {
+        unset($this->em);
     }
 
 }

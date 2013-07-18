@@ -29,6 +29,8 @@ class HttpKernelExtension extends BaseHttpKernelExtension
         if (0 === strpos($controller, 'Egzakt') && $request->get('_egzaktEnabled')) {
             $attributes['_egzaktRequest'] = $request->get('_egzaktRequest');
             $attributes['_egzaktEnabled'] = true;
+
+            // Automatically set the Master Request Locale to Sub-Requests
             $attributes['_locale'] = $request->getLocale();
         }
 
