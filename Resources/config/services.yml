@@ -18,11 +18,11 @@ parameters:
     egzakt_system.section_filter.class:                   Egzakt\SystemBundle\Lib\SectionFilter
     egzakt_system.tree_entity_orderer.class:              Egzakt\SystemBundle\Lib\TreeEntityOrderer
     egzakt_system.form.type.tree_choice.class:            Egzakt\SystemBundle\Form\Type\TreeChoiceType
+    egzakt_system.locale_switcher.class:                  Egzakt\SystemBundle\Lib\LocaleSwitcher
     egzakt_backend.security.cms_voter.class:              Egzakt\SystemBundle\Lib\Backend\CmsVoter
     egzakt_backend.core.class:                            Egzakt\SystemBundle\Lib\Backend\Core
     egzakt_backend.form.type.advanced_file.class:         Egzakt\SystemBundle\Form\Backend\AdvancedFileType
     egzakt_frontend.core.class:                           Egzakt\SystemBundle\Lib\Frontend\Core
-    egzakt_frontend.locale_switcher.class:                Egzakt\SystemBundle\Lib\Frontend\LocaleSwitcher
 
 services:
 
@@ -110,6 +110,10 @@ services:
         calls:
           - [ setContainer, [ @service_container ] ]
 
+    egzakt_system.locale_switcher:
+        class: %egzakt_system.locale_switcher.class%
+        arguments: [@service_container]
+
     egzakt_backend.core:
         class:  %egzakt_backend.core.class%
         shared: true
@@ -144,15 +148,6 @@ services:
           - [ setDoctrine, [ @doctrine ] ]
           - [ setBreadcrumbs, [ @egzakt_system.breadcrumbs ] ]
           - [ setPageTitle, [ @egzakt_system.page_title ] ]
-
-    egzakt_frontend.locale_switcher:
-        class: %egzakt_frontend.locale_switcher.class%
-        calls:
-          - [ setRouter, [ @router ] ]
-          - [ setDoctrine, [ @doctrine ] ]
-          - [ setSession, [ @session ] ]
-          - [ setHelper, [ @egzakt_system.helper ] ]
-          - [ setCore, [ @egzakt_frontend.core ] ]
           
     egzakt_system.tree_entity_orderer:
         class: %egzakt_system.tree_entity_orderer.class%

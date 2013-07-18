@@ -21,10 +21,12 @@ class CoreController extends BaseController
     {
         $element = $this->getCore()->getElement();
 
+        $headExtra = '';
+
         if ($element) {
-            $headExtra = $element->getHeadExtra();
-        } else {
-            $headExtra = '';
+            if (method_exists($element, 'getHeadExtra')) {
+                $headExtra = $element->getHeadExtra();
+            }
         }
 
         return $this->render('EgzaktSystemBundle:Frontend/Core:head_extra.html.twig', array(

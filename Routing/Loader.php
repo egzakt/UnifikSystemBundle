@@ -234,12 +234,14 @@ class Loader extends BaseLoader
                 INNER JOIN text_translation tt ON tt.translatable_id = t.id
                 WHERE t.section_id = s.id
                 AND tt.active = 1
+                AND tt.locale = st.locale
             ) AS has_text, (
                 SELECT COUNT(ss.id)
                 FROM section ss
                 INNER JOIN section_translation sst ON sst.translatable_id = ss.id
                 WHERE ss.parent_id = s.id
                 AND sst.active = 1
+                AND sst.locale = st.locale
             ) AS has_children
             FROM mapping m
             INNER JOIN section s ON s.id = m.section_id
