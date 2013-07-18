@@ -94,11 +94,11 @@ class CmsVoter implements VoterInterface {
             try {
                 $route = $this->container->get('router')->match($this->container->get('request')->getPathInfo());
             } catch (ResourceNotFoundException $e) {
-
+                continue;
             }
 
             // If there is a section_id parameter in the Route
-            if (isset($route) && (array_key_exists('section_id', $route))) {
+            if (array_key_exists('section_id', $route)) {
 
                 // Check is the user can access this Section
                 if ($this->container->get('egzakt_system.section_filter')->canAccess($route['section_id'])) {
