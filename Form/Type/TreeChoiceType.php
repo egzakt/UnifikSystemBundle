@@ -13,7 +13,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 
 use Egzakt\SystemBundle\Form\ChoiceList\ORMSortedQueryBuilderLoader;
 use Egzakt\SystemBundle\Lib\TreeEntityOrderer;
-use Egzakt\SystemBundle\Lib\NavigationInterface;
+use Egzakt\SystemBundle\Lib\NavigationElementInterface;
 
 /**
  * Class TreeChoiceType
@@ -131,8 +131,8 @@ class TreeChoiceType extends AbstractType {
         $levels = array();
         foreach($entities as $id => $entity) {
 
-            if (!$entity->data instanceof NavigationInterface) {
-                throw new \Exception('Tree Choice elements must extend the NavigationInterface.');
+            if (!$entity->data instanceof NavigationElementInterface) {
+                throw new \Exception('Tree Choice elements must extend the NavigationElementInterface.');
             }
 
             $levels['level_id_' . $id] = $entity->data->getLevel();
@@ -165,8 +165,8 @@ class TreeChoiceType extends AbstractType {
             if (array_key_exists($key, $entityChoiceList)) {
                 $entity = $entityChoiceList[$key];
 
-                if (!$entity->data instanceof NavigationInterface) {
-                    throw new \Exception('Tree Choice elements must extend the NavigationInterface.');
+                if (!$entity->data instanceof NavigationElementInterface) {
+                    throw new \Exception('Tree Choice elements must extend the NavigationElementInterface.');
                 }
 
                 // Set the level on the child FormView, a checkbox for exemple

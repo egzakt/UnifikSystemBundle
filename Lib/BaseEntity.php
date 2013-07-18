@@ -7,12 +7,12 @@ use Gedmo\Sluggable\Util\Urlizer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Egzakt\SystemBundle\Lib\EntityInterface;
-use Egzakt\SystemBundle\Lib\NavigationInterface;
+use Egzakt\SystemBundle\Lib\NavigationElementInterface;
 
 /**
  * Egzakt Backend Base for Entities
  */
-abstract class BaseEntity implements EntityInterface, NavigationInterface
+abstract class BaseEntity implements EntityInterface, NavigationElementInterface
 {
     /**
      * @var integer
