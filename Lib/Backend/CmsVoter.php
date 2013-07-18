@@ -6,7 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
+use Symfony\Component\Routing\Exception\ResourceNotFoundException;
 use Symfony\Component\Security\Core\Role\RoleHierarchy;
 
 /**
@@ -90,7 +90,12 @@ class CmsVoter implements VoterInterface {
             }
 
             // Get the current route
-            $route = $this->container->get('router')->match($this->container->get('request')->getPathInfo());
+            // Need to use a Try Catch because subrequests (_fragment) can be voted...
+            try {
+                $route = $this->container->get('router')->match($this->container->get('request')->getPathInfo());
+            } catch (ResourceNotFoundException $e) {
+                continue;
+            }
 
             // If there is a section_id parameter in the Route
             if (array_key_exists('section_id', $route)) {
