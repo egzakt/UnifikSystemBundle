@@ -11,7 +11,7 @@ use Egzakt\SystemBundle\Entity\App;
 use Egzakt\SystemBundle\Entity\Section;
 use Egzakt\SystemBundle\Lib\ApplicationCoreInterface;
 use Egzakt\SystemBundle\Lib\Breadcrumbs;
-use Egzakt\SystemBundle\Lib\NavigationInterface;
+use Egzakt\SystemBundle\Lib\NavigationElementInterface;
 use Egzakt\SystemBundle\Lib\PageTitle;
 
 /**
@@ -64,7 +64,7 @@ class Core implements ApplicationCoreInterface
     private $section;
 
     /**
-     * The current element (can be any entity implementing NavigationInterface)
+     * The current element (can be any entity implementing NavigationElementInterface)
      * @var object
      */
     private $element;
@@ -112,19 +112,12 @@ class Core implements ApplicationCoreInterface
     /**
      * Add an element to the Breadcrumbs and the Page Title
      *
-     * @param NavigationInterface $element The element to push in the navigation stack
+     * @param NavigationElementInterface $element The element to push in the navigation stack
      *
      * @throws \Exception
      */
-    public function addNavigationElement(NavigationInterface $element)
+    public function addNavigationElement(NavigationElementInterface $element)
     {
-        if (false == $element instanceof NavigationInterface) {
-            throw new \Exception(
-                'class ' . get_class($element) . ' must implements the NavigationInterface
-                to be usable in the navigation, breadcrumbs and page title.'
-            );
-        }
-
         $this->breadcrumbs->addElement($element);
         $this->pageTitle->addElement($element);
 

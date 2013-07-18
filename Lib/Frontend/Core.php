@@ -7,7 +7,7 @@ use Egzakt\SystemBundle\Entity\App;
 use Egzakt\SystemBundle\Entity\Section;
 use Egzakt\SystemBundle\Lib\ApplicationCoreInterface;
 use Egzakt\SystemBundle\Lib\Breadcrumbs;
-use Egzakt\SystemBundle\Lib\NavigationInterface;
+use Egzakt\SystemBundle\Lib\NavigationElementInterface;
 use Egzakt\SystemBundle\Lib\PageTitle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -46,7 +46,7 @@ class Core implements ApplicationCoreInterface
     protected $section;
 
     /**
-     * @var NavigationInterface The current element (can be any entity implementing NavigationInterface)
+     * @var NavigationElementInterface The current element (can be any entity implementing NavigationElementInterface)
      */
     protected $element;
 
@@ -96,9 +96,9 @@ class Core implements ApplicationCoreInterface
     /**
      * Add Navigation Element
      *
-     * @param NavigationInterface $element The element to add
+     * @param NavigationElementInterface $element The element to add
      */
-    public function addNavigationElement(NavigationInterface $element)
+    public function addNavigationElement(NavigationElementInterface $element)
     {
         $this->breadcrumbs->addElement($element);
         $this->pageTitle->addElement($element);
@@ -110,9 +110,9 @@ class Core implements ApplicationCoreInterface
     /**
      * Remove a navigation element
      *
-     * @param NavigationInterface $element
+     * @param NavigationElementInterface $element
      */
-    public function removeNavigationElement(NavigationInterface $element)
+    public function removeNavigationElement(NavigationElementInterface $element)
     {
         foreach ($this->elements as $k => $existingElement) {
             if ($element == $existingElement) {

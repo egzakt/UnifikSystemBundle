@@ -4,6 +4,7 @@ namespace Egzakt\SystemBundle\Lib;
 
 use Egzakt\SystemBundle\Entity\App;
 use Egzakt\SystemBundle\Entity\Section;
+use Egzakt\SystemBundle\Lib\NavigationElementInterface;
 
 /**
  * Base Controller Interface
@@ -25,12 +26,12 @@ interface ApplicationCoreInterface
     function getSection();
 
     /**
-     * @param NavigationInterface $element
+     * @param NavigationElementInterface $element
      */
-    function addNavigationElement(NavigationInterface $element);
+    function addNavigationElement(NavigationElementInterface $element);
 
     /**
-     * @return NavigationInterface
+     * @return NavigationElementInterface
      */
     function getElement();
 

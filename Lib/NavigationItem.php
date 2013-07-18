@@ -3,9 +3,9 @@
 namespace Egzakt\SystemBundle\Lib;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
-use Egzakt\SystemBundle\Lib\NavigationInterface;
+use Egzakt\SystemBundle\Lib\NavigationItemInterface;
 
-class NavigationItem implements NavigationInterface
+class NavigationItem implements NavigationItemInterface
 {
     /**
      * @var BaseEntity $entity
@@ -32,16 +32,10 @@ class NavigationItem implements NavigationInterface
      */
     protected $level;
 
-    /**
-     * @var mixed $sectionHooks
-     */
-    protected $sectionHooks;
-
 
     public function __construct()
     {
         $this->children = array();
-        $this->sectionHooks = array();
     }
 
     public function __toString()
@@ -88,7 +82,7 @@ class NavigationItem implements NavigationInterface
      */
     public function getChildren()
     {
-        return array_merge($this->children, $this->sectionHooks);
+        return $this->children;
     }
 
     /**
@@ -190,29 +184,9 @@ class NavigationItem implements NavigationInterface
      *
      * @param integer $level The Level
      */
-    function setlevel($level)
+    function setLevel($level)
     {
         $this->level = $level;
-    }
-
-    /**
-     * Set Section Hooks
-     *
-     * @param mixed $sectionHooks
-     */
-    public function setSectionHooks($sectionHooks)
-    {
-        $this->sectionHooks = $sectionHooks;
-    }
-
-    /**
-     * Get Section Hooks
-     *
-     * @return mixed
-     */
-    public function getSectionHooks()
-    {
-        return $this->sectionHooks;
     }
 
     /**

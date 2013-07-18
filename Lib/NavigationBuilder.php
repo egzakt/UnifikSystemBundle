@@ -4,7 +4,7 @@ namespace Egzakt\SystemBundle\Lib;
 
 use Symfony\Component\DependencyInjection\Container;
 
-use Egzakt\SystemBundle\Lib\NavigationInterface;
+use Egzakt\SystemBundle\Lib\NavigationItemInterface;
 use Egzakt\SystemBundle\Entity\Section;
 
 /**
@@ -58,8 +58,8 @@ class NavigationBuilder
     {
         foreach ($elements as $key => $element) {
 
-            if (false == $element instanceof NavigationInterface) {
-                throw new \Exception(get_class($element) . ' need to implement the NavigationInterface to be usable in the ' . get_class($this));
+            if (false == $element instanceof NavigationItemInterface) {
+                throw new \Exception(get_class($element) . ' need to implement the NavigationItemInterface to be usable in the ' . get_class($this));
             }
 
             if (!$element->getParent()) {
@@ -172,101 +172,6 @@ class NavigationBuilder
     }
 
     /**
-     * Apply Section Hooks
-     *
-     * Apply the Section Hooks on the wrapped elements
-     *
-     * @param $parentSection The Parent Section of the navigation, in case of a sub-navigation.
-     */
-    public function applySectionHooks($parentSection = null)
-    {
-        $sectionHooksService = $this->container->get('egzakt_system.section_hooks');
-
-        // If the navigation is a Sub-Navigation, there may be hooks.
-        // These elements will act as "sub-sections" of the Parent Section
-        if ($parentSection) {
-            $sectionHooksElements = $sectionHooksService->getSectionHookElements($sectionHooksService->getSectionHooksById($parentSection->getId()));
-
-            // Merge the hooks with the Section items
-            $this->elements = array_merge(
-                $this->elements,
-                $sectionHooksElements
-            );
-        }
-
-        // Apply hooks on the Section items
-        $sectionHooksService->process($this->elements);
-
-        // Apply the selected state on the Section Hooks
-        $this->findSelectedInSectionHooks();
-    }
-
-    /**
-     * Find Selected In Section Hooks
-     *
-     * Sets the currentElement with the Core Element matching the Section Hook class
-     */
-    protected function findSelectedInSectionHooks()
-    {
-        // Get the Core Elements
-        $coreElements = array_reverse($this->getCoreElements());
-
-        if (count($coreElements)) {
-
-            // Check if the first element (the last one added) is a custom element (not a Section entity)
-            $firstCoreElement = $coreElements[0];
-            if (!$this->isSectionElement($firstCoreElement)) {
-                // Apply the selected state on the Section Hooks
-                $this->findSelectedInSectionHooksLevel($this->elements, $coreElements);
-            }
-
-        }
-    }
-
-    /**
-     * Find Selected In Section Hooks Level
-     *
-     * Recursive function to set the currentElement with the Core Element matching the Section Hook class
-     *
-     * @param $elements
-     * @param $navigationElements
-     *
-     * @return mixed
-     */
-    protected function findSelectedInSectionHooksLevel($elements, $navigationElements)
-    {
-        // Loop through the NavigationItem elements
-        foreach($elements as $element) {
-
-            if ($this->isSectionElement($element->getEntity())) {
-                // Section Hooks of a Section entity
-                $sectionHooksElements = $element->getSectionHooks();
-            } else {
-                // This element is a Section Hook
-                $sectionHooksElements = array($element);
-            }
-
-            if ($sectionHooksElements) {
-                // Loop through the Core Elements
-                foreach($navigationElements as $navigationElement) {
-                    // If this element is the same class as our navigation elements
-                    if (get_class($navigationElement) == get_class($sectionHooksElements[0]->getEntity())) {
-                        // Set this element as the current element, otherwise the selected won't be applied
-                        $this->setSelectedElement($navigationElement);
-                        return $navigationElement;
-                    }
-                }
-            }
-
-            // Support for multi-level hooks (sub-hooks in hooks)
-            if ($element->hasChildren()) {
-                $this->findSelectedInSectionHooksLevel($element->getChildren(), $navigationElements);
-            }
-
-        }
-    }
-
-    /**
      * Is Section Element
      *
      * Whether this element is a Section entity or not
@@ -282,9 +187,9 @@ class NavigationBuilder
     /**
      * Set selected element
      *
-     * @param NavigationInterface $selectedElement The element to select
+     * @param NavigationElementInterface $selectedElement The element to select
      */
-    public function setSelectedElement(NavigationInterface $selectedElement)
+    public function setSelectedElement(NavigationElementInterface $selectedElement)
     {
         $this->selectedElement = $selectedElement;
     }

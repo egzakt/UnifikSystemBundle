@@ -3,9 +3,9 @@
 namespace Egzakt\SystemBundle\Lib;
 
 /**
- * Navigation Interface
+ * Navigation Item Interface
  */
-interface NavigationInterface
+interface NavigationItemInterface
 {
     /**
      * isSelected
@@ -67,5 +67,21 @@ interface NavigationInterface
      *
      * @abstract
      */
-    function setlevel($level);
+    function setLevel($level);
+
+    /**
+     * Get Entity
+     *
+     * @abstract
+     */
+    function getEntity();
+
+    /**
+     * Set Entity
+     *
+     * @param $entity
+     *
+     * @abstract
+     */
+    function setEntity($entity);
 }
