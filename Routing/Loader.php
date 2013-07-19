@@ -120,8 +120,8 @@ class Loader extends BaseLoader
             $sectionsPath = $mapping['app_prefix'] . '/' . $sectionsPath;
         }
 
-        $expandedPattern = preg_replace('/{(sectionsPath|sections_path)}/', $sectionsPath, $route->getPattern());
-        $route->setPattern($expandedPattern);
+        $expandedPath = preg_replace('/{(sectionsPath|sections_path)}/', $sectionsPath, $route->getPath());
+        $route->setPath($expandedPath);
 
         // additionals parameters
         $egzaktRequest = array(
