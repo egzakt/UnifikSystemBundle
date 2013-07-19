@@ -12,7 +12,7 @@ class RouterUrlGenerator extends BaseUrlGenerator
     /**
      * @var array
      */
-    private $automaticParameters = array('sectionId', 'section_id');
+    private $automaticParameters = array('sectionId');
 
     /**
      * @inheritdoc

@@ -123,7 +123,7 @@ class Loader extends BaseLoader
             $sectionsPath = $mapping['app_prefix'] . '/' . $sectionsPath;
         }
 
-        $expandedPath = preg_replace('/{(sectionsPath|sections_path)}/', $sectionsPath, $route->getPath());
+        $expandedPath = preg_replace('/{(sectionsPath)}/', $sectionsPath, $route->getPath());
         $route->setPath($expandedPath);
 
         // additionals parameters

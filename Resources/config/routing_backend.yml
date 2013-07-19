@@ -70,19 +70,19 @@ egzakt_system_backend_member_delete:
 
 # Texts
 egzakt_system_backend_text:
-    pattern:  /texts/{section_id}
+    pattern:  /texts/{sectionId}
     defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:index" }
 
 egzakt_system_backend_text_order:
-    pattern:  /texts/{section_id}/order
+    pattern:  /texts/{sectionId}/order
     defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:order" }
 
 egzakt_system_backend_text_edit:
-    pattern:  /texts/{section_id}/{id}/edit
+    pattern:  /texts/{sectionId}/{id}/edit
     defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:edit", id: 0 }
 
 egzakt_system_backend_text_delete:
-    pattern:  /texts/{section_id}/{id}/delete
+    pattern:  /texts/{sectionId}/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:delete" }
 
 # Sections (roots handling)
@@ -101,20 +101,20 @@ egzakt_system_backend_section_root_edit:
 egzakt_system_backend_section_root_delete:
     pattern:  /sections/{appSlug}/root/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:delete" }
-    
+
 # Sections
 egzakt_system_backend_section:
-    pattern:  /sections/{section_id}
+    pattern:  /sections/{sectionId}
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:index" }
 
 egzakt_system_backend_section_order:
-    pattern:  /sections/{section_id}/order
+    pattern:  /sections/{sectionId}/order
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:order" }
 
 egzakt_system_backend_section_edit:
-    pattern:  /sections/{section_id}/{id}/edit
+    pattern:  /sections/{sectionId}/{id}/edit
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:edit", id: 0 }
 
 egzakt_system_backend_section_delete:
-    pattern:  /sections/{section_id}/{id}/delete
+    pattern:  /sections/{sectionId}/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:delete" }

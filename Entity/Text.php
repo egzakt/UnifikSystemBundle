@@ -265,8 +265,7 @@ class Text extends BaseEntity
     public function getRouteBackendParams($params = array())
     {
         $defaults = array(
-            'id' => $this->id ? $this->id : 0,
-            'section_id' => $this->getCore()->getSection()->getId()
+            'id' => $this->id ? $this->id : 0
         );
         $params = array_merge($defaults, $params);
 

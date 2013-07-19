@@ -1,7 +1,7 @@
 <div class="form_actions_bar">
     <ul>
         <li>
-            <a href="{% if cancel_route is defined %}{{ cancel_route }}{% else %}{{ path( bundle, { 'section_id': section.id }) }}{% endif %}">{% trans %}Cancel{% endtrans %}</a>
+            <a href="{{ cancel_route }}">{% trans %}Cancel{% endtrans %}</a>
             {% if entity.isDeletable %}
             <span>|</span>
         </li>

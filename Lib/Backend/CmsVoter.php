@@ -98,10 +98,10 @@ class CmsVoter implements VoterInterface {
             }
 
             // If there is a section_id parameter in the Route
-            if (array_key_exists('section_id', $route)) {
+            if (array_key_exists('sectionId', $route)) {
 
                 // Check is the user can access this Section
-                if ($this->container->get('egzakt_system.section_filter')->canAccess($route['section_id'])) {
+                if ($this->container->get('egzakt_system.section_filter')->canAccess($route['sectionId'])) {
                     return VoterInterface::ACCESS_GRANTED;
                 } else {
                     $result = VoterInterface::ACCESS_DENIED;
