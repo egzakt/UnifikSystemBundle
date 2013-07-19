@@ -102,6 +102,9 @@ class Loader extends BaseLoader
         // No route name specified, fallback to the auto generated one
         if (false == $name) {
             $name = $mapping['locale'] . self::ROUTING_PREFIX . 'section_id_' . $mapping['section_id'];
+            if ($alias = $route->getOption('mapping_alias')) {
+                $name .= '_' . $alias;
+            }
         }
 
         if (false == $sourceRoute->getOption('keep_on_mapping')) {
@@ -120,8 +123,8 @@ class Loader extends BaseLoader
             $sectionsPath = $mapping['app_prefix'] . '/' . $sectionsPath;
         }
 
-        $expandedPattern = preg_replace('/{(sectionsPath|sections_path)}/', $sectionsPath, $route->getPattern());
-        $route->setPattern($expandedPattern);
+        $expandedPath = preg_replace('/{(sectionsPath|sections_path)}/', $sectionsPath, $route->getPath());
+        $route->setPath($expandedPath);
 
         // additionals parameters
         $egzaktRequest = array(
