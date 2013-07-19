@@ -20,16 +20,11 @@ class RouterAutoParametersHandler
     {
         $request = $this->container->get('request');
 
-        $sectionId = $request->get('sectionId',
-            $request->get('section_id', 0) // backward compatibility double-check
-        );
+        $egzaktRequest = $request->get('_egzaktRequest');
 
-        if (false == $sectionId && $section = $request->get('section')) {
-            $sectionId = $section->getId();
-        }
+        $sectionId = $egzaktRequest['sectionId'];
 
         $parameters = array(
-            'section_id' => $sectionId,
             'sectionId' => $sectionId
         );
 

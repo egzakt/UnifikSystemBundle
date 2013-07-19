@@ -45,7 +45,7 @@ class ControllerListener
 
         // sectionId juggling to make the backend parameters behave like the frontend router auto generated parameters
         if ('backend' === $applicationName) {
-            if ($sectionId = $request->get('sectionId', $request->get('section_id'))) { // BC check
+            if ($sectionId = $request->get('sectionId')) {
                 $egzaktRequest = $request->get('_egzaktRequest');
                 $egzaktRequest['sectionId'] = $sectionId;
                 $request->attributes->set('_egzaktRequest', $egzaktRequest);
