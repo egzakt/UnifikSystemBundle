@@ -382,7 +382,9 @@ class Section extends BaseEntity
             return $this->routeParams;
         }
 
-        return array();
+        return array(
+            'sectionId' => $this->id
+        );
     }
 
     /**
