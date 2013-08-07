@@ -38,7 +38,7 @@ egzakt_frontend_product_list:
 
 The mapping entry read as follow: Connect the `egzakt_frontend_product_list` route in the `frontend` application to the `products` section.
 
-When the router process this mapping entry it does two important things. First, it clone and rename the route to `section_id_15` and inject the egzakt request attributes. The other important processing is the expansion of the {sectionPath} placeholder that gets replaced with the path of the section. The final result look like this:
+When the router process this mapping entry, it does two important things. First, it clone and rename the route to `section_id_15` and inject the egzakt request attributes. The other important processing is the expansion of the {sectionPath} placeholder that gets replaced with the path of the section. The final result look like this:
 
 ```yml
 section_id_15:
@@ -53,17 +53,25 @@ Another common mapping type is to map multiple routes to a section. This scenari
 Let's say you want to map those routes to the `product` section having the id 15:
 
 ```yml
-/{sectionsPath}
-/{sectionsPath}/category/{categorySlug}
-/{sectionsPath}/{productSlug}
+egzakt_product_frontend_list:
+   pattern:  /{sectionsPath}
+   defaults: { _controller: "EgzaktProductBundle:Frontend/Product:list" }
+
+egzakt_product_frontend_category:
+   pattern:  /{sectionsPath}/category/{categorySlug}
+   defaults: { _controller: "EgzaktProductBundle:Frontend/Product:category" }
+
+egzakt_product_frontend_detail:
+   pattern:  /{sectionsPath}/{productSlug}
+   defaults: { _controller: "EgzaktProductBundle:Frontend/Product:detail" }
 ```
 
 If you apply the previous single route mapping technique the results will be as follow:
 
 ```bash
 $ app/console router:debug
-
-section_id_15       ANY    ANY    ANY  /products/{productSlug}
+...
+section_id_15            ANY    ANY    ANY  /products/{productSlug}
 ```
 
 See the problem? Only the last mapped route got generated. This is because of a collision in the route names. The solution is to use an option called `mapping_alias` in the route definition. This option will be appended to the route name, making them unique.
@@ -76,18 +84,19 @@ egzakt_product_frontend_list:
 egzakt_product_frontend_category:
    pattern:  /{sectionsPath}/category/{categorySlug}
    defaults: { _controller: "EgzaktProductBundle:Frontend/Product:category" }
-   option:   { mapping_alias: "category" }
+   options:  { mapping_alias: "category" }
 
 egzakt_product_frontend_detail:
    pattern:  /{sectionsPath}/{productSlug}
    defaults: { _controller: "EgzaktProductBundle:Frontend/Product:detail" }
-   option:   { mapping_alias: "detail" }
+   options:  { mapping_alias: "detail" }
 ```
 
 Now the results look like:
 
 ```bash
 $ app/console router:debug
+...
 section_id_15            ANY    ANY    ANY  /products/{productSlug}
 section_id_15_category   ANY    ANY    ANY  /products/category/{categorySlug}
 section_id_15_detail     ANY    ANY    ANY  /products/details/{categorySlug}
@@ -104,4 +113,4 @@ For example given these values:
 | 3   | NULL      | Our Company   | our-company
 | 4   | 3         | Contact Us    | contact-us
 
-As the `Contact Us` section has a parent, the sectionPath will be `/our-company/contact-us`.
+Since the `Contact Us` section has a parent, the sectionPath will be `/our-company/contact-us`.
