@@ -6,6 +6,7 @@ use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 use Egzakt\SystemBundle\Entity\Role;
 use Egzakt\SystemBundle\Entity\RoleTranslation;
@@ -19,7 +20,11 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
+        $metadata = $manager->getClassMetaData('Egzakt\\SystemBundle\\Entity\\Role');
+        $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
+
         $role = new Role();
+        $role->setId(1);
         $role->setRole('ROLE_BACKEND_ADMIN');
 
         $roleFr = new RoleTranslation();
@@ -37,6 +42,7 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($roleEn);
 
         $role = new Role();
+        $role->setId(2);
         $role->setRole('ROLE_BACKEND_ACCESS');
 
         $roleFr = new RoleTranslation();
@@ -54,6 +60,7 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($roleEn);
 
         $role = new Role();
+        $role->setId(3);
         $role->setRole('ROLE_DEVELOPER');
 
         $roleFr = new RoleTranslation();

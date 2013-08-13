@@ -17,7 +17,7 @@ abstract class BaseEntity implements EntityInterface, NavigationElementInterface
     /**
      * @var integer
      */
-    private $id;
+    protected $id;
 
     /**
      * The element is currently selected.
@@ -25,21 +25,21 @@ abstract class BaseEntity implements EntityInterface, NavigationElementInterface
      *
      * @var boolean
      */
-    private $selected;
+    protected $selected;
 
     /**
      * The level of the element in the navigation
      *
      * @var integer
      */
-    private $level;
+    protected $level;
 
     /**
      * The parent element
      *
      * @var BaseEntity
      */
-    private $parent;
+    protected $parent;
 
     /**
      * The container
@@ -60,7 +60,7 @@ abstract class BaseEntity implements EntityInterface, NavigationElementInterface
      *
      * @var string
      */
-    private $locale;
+    protected $locale;
 
     /**
      * Locales in which the entity is available

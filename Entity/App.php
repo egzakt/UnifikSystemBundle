@@ -6,48 +6,45 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 
+use Egzakt\SystemBundle\Lib\BaseEntity;
+
 /**
  * Represent an egzakt application
  */
-class App
+class App extends BaseEntity
 {
-    /**
-     * @var integer $id
-     */
-    private $id;
-
     /**
      * @var string $name
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string $slug
      */
-    private $slug;
+    protected $slug;
 
     /**
      * @var int $order
      */
-    private $order;
+    protected $order;
 
     /**
      * @var integer $ordering
      */
-    private $ordering;
+    protected $ordering;
 
     /**
      * @var array
      */
-    private $sections;
+    protected $sections;
 
     /**
      * @var string $prefix
      */
-    private $prefix;
+    protected $prefix;
 
     /**
-     * Constructor.
+     * Constructor
      */
     public function __construct()
     {
@@ -62,16 +59,6 @@ class App
     public function __toString()
     {
         return $this->name;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**
@@ -239,7 +226,7 @@ class App
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $mappings;
+    protected $mappings;
 
 
     /**
@@ -277,7 +264,7 @@ class App
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    private $navigations;
+    protected $navigations;
 
 
     /**

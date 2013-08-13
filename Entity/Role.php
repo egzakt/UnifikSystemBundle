@@ -16,11 +16,6 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
 class Role extends BaseEntity implements RoleInterface, \Serializable
 {
     /**
-     * @var integer $id
-     */
-    protected $id;
-
-    /**
      * @var string $role
      */
     protected $role;
@@ -72,16 +67,6 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
         $this->users = new ArrayCollection();
         $this->sections = new ArrayCollection();
         $this->translations = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

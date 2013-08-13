@@ -14,11 +14,6 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
 class Section extends BaseEntity
 {
     /**
-     * @var integer
-     */
-    protected $id;
-
-    /**
      * @var ArrayCollection
      */
     protected $children;

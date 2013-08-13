@@ -4,61 +4,58 @@ namespace Egzakt\SystemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Egzakt\SystemBundle\Lib\BaseEntity;
+
 /**
  * Mapping
  */
-class Mapping
+class Mapping extends BaseEntity
 {
     /**
-     * @var integer
+     * @var string
      */
-    private $id;
+    protected $type;
 
     /**
      * @var string
      */
-    private $type;
-
-    /**
-     * @var string
-     */
-    private $target;
+    protected $target;
 
     /**
      * @var integer
      */
-    private $ordering;
+    protected $ordering;
 
     /**
-     * @var \Egzakt\SystemBundle\Entity\Section
+     * @var Section
      */
-    private $section;
+    protected $section;
 
     /**
-     * @var \Egzakt\SystemBundle\Entity\App
+     * @var App
      */
-    private $app;
+    protected $app;
 
     /**
-     * @var \Egzakt\SystemBundle\Entity\Navigation
+     * @var Navigation
      */
-    private $navigation;
-
+    protected $navigation;
 
     /**
-     * Get id
+     * To string
      *
-     * @return integer 
+     * @return string
      */
-    public function getId()
+    public function __toString()
     {
-        return $this->id;
+        return $this->type . ' ' . $this->target;
     }
 
     /**
      * Set type
      *
      * @param string $type
+     *
      * @return Mapping
      */
     public function setType($type)
@@ -82,6 +79,7 @@ class Mapping
      * Set target
      *
      * @param string $target
+     *
      * @return Mapping
      */
     public function setTarget($target)
@@ -105,6 +103,7 @@ class Mapping
      * Set ordering
      *
      * @param integer $ordering
+     *
      * @return Mapping
      */
     public function setOrdering($ordering)
@@ -127,10 +126,10 @@ class Mapping
     /**
      * Set section
      *
-     * @param \Egzakt\SystemBundle\Entity\Section $section
+     * @param Section $section
      * @return Mapping
      */
-    public function setSection(\Egzakt\SystemBundle\Entity\Section $section = null)
+    public function setSection(Section $section = null)
     {
         $this->section = $section;
     
@@ -140,7 +139,7 @@ class Mapping
     /**
      * Get section
      *
-     * @return \Egzakt\SystemBundle\Entity\Section 
+     * @return Section
      */
     public function getSection()
     {

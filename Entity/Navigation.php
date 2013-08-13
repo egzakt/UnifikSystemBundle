@@ -13,11 +13,6 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
 class Navigation extends BaseEntity
 {
     /**
-     * @var integer $id
-     */
-    private $id;
-
-    /**
      * @var string $name
      */
     private $name;
@@ -48,16 +43,6 @@ class Navigation extends BaseEntity
     public function __toString()
     {
         return $this->name;
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

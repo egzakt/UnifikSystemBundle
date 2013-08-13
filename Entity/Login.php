@@ -12,11 +12,6 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
 class Login extends BaseEntity
 {
     /**
-     * @var integer $id
-     */
-    private $id;
-
-    /**
      * @var string $username
      */
     private $username;
@@ -50,17 +45,6 @@ class Login extends BaseEntity
         }
 
         return '';
-    }
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

@@ -14,10 +14,6 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
  */
 class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
 {
-    /**
-     * @var integer $id
-     */
-    protected $id;
 
     /**
      * @var string $firstname
@@ -119,17 +115,6 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
         $params = array_merge($defaults, $params);
 
         return $params;
-    }
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
     }
 
     /**

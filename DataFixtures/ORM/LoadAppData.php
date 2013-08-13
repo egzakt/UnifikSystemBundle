@@ -7,6 +7,7 @@ use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Doctrine\ORM\Mapping\ClassMetadata;
 
 use Egzakt\SystemBundle\Entity\App;
 
@@ -24,6 +25,9 @@ class LoadAppData extends AbstractFixture implements OrderedFixtureInterface, Co
      */
     public function load(ObjectManager $manager)
     {
+        $metadata = $manager->getClassMetaData('Egzakt\\SystemBundle\\Entity\\App');
+        $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
+
         $appBackend = new App();
         $appBackend->setId(1);
         $appBackend->setName('backend');
@@ -32,7 +36,7 @@ class LoadAppData extends AbstractFixture implements OrderedFixtureInterface, Co
         $manager->persist($appBackend);
 
         $appFrontend = new App();
-        $appFrontend->setId(1);
+        $appFrontend->setId(2);
         $appFrontend->setName('frontend');
         $appFrontend->setOrdering(2);
 
