@@ -9,7 +9,9 @@ use Symfony\Component\Console\Output\Output;
 use Symfony\Bundle\FrameworkBundle\Command\RouterDebugCommand as BaseRouterDebugCommand;
 
 /**
- * A console command for invalidating (clearing) the router cache
+ * A console command for retrieving information about routes
+ *
+ * This Egzakt version display addional informations about route mapping
  */
 class RouterDebugCommand extends BaseRouterDebugCommand
 {
@@ -34,6 +36,9 @@ EOF
         ;
     }
 
+    /**
+     * @inheritdoc
+     */
     protected function outputRoutes(OutputInterface $output, $routes = null)
     {
         if (null === $routes) {
