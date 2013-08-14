@@ -41,18 +41,38 @@ class Loader extends BaseLoader
             $this->generate($mapping, $collection);
         }
 
-        if ($this->routesToRemove) {
-            $this->routesToRemove = array_unique($this->routesToRemove);
-            foreach ($this->routesToRemove as $routeToRemove) {
-                $collection->remove($routeToRemove);
-            }
-        }
-
+        $collection = $this->removeMappingSourceRoutes($collection);
         $collection = $this->processBackendRoutes($collection);
 
         return $collection;
     }
 
+    /**
+     * @param RouteCollection $collection
+     *
+     * @return RouteCollection
+     */
+    protected function removeMappingSourceRoutes($collection)
+    {
+        foreach ($collection->all() as $name => $route) {
+
+            if ($route->getOption('do_not_remove')) {
+                continue;
+            }
+
+            if (preg_match('/.*' . static::ROUTING_PREFIX . 'egzakt_/', $name)) {
+                $collection->remove($name);
+            }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * @param RouteCollection $collection
+     *
+     * @return RouteCollection
+     */
     protected function processBackendRoutes($collection)
     {
         $egzaktRequest = array(
@@ -83,7 +103,7 @@ class Loader extends BaseLoader
      */
     protected function generate($mapping, $collection, $name = '')
     {
-        $sourceName = $mapping['locale'] . self::ROUTING_PREFIX . $mapping['target'];
+        $sourceName = $mapping['locale'] . static::ROUTING_PREFIX . $mapping['target'];
 
         if ($sourceRoute = $collection->get($sourceName)) {
             $route = clone $sourceRoute;
@@ -105,10 +125,6 @@ class Loader extends BaseLoader
             if ($alias = $route->getOption('mapping_alias')) {
                 $name .= '_' . $alias;
             }
-        }
-
-        if (false == $sourceRoute->getOption('keep_on_mapping')) {
-            $this->routesToRemove[] = $sourceName;
         }
 
         // The section does have any active text, using the first child as the generation starting point
