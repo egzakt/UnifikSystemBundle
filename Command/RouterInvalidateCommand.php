@@ -22,7 +22,7 @@ class RouterInvalidateCommand extends ContainerAwareCommand
             ->setName('egzakt:router:invalidate')
             ->setDescription('Invalidate the router cache')
             ->setHelp(<<<EOF
-The <info>prototypr:router:invalidate</info> invalidate (clear) the router cache
+The <info>egzakt:router:invalidate</info> invalidate (clear) the router cache
 
 <info>php app/console egzakt:router:invalidate --env=dev</info>
 EOF
