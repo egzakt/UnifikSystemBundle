@@ -1,0 +1,61 @@
+<?php
+
+namespace {{ namespace }}\Form\{{ application }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
+
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+
+/**
+ * {{ form_class }}
+ */
+class {{ form_class }} extends AbstractType
+{
+    /**
+     * Build Form
+     *
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+    {% if translation %}
+    ->add('translation', new {{ translation.entity }}Type())
+    {% endif %}
+    {%- for field in fields %}
+
+        {% if field.fieldName in ['image', 'photo'] -%}
+        ->add('{{ field.fieldName }}', 'file', array('attr' => array('accept' => 'image/*', 'multiple' => 'multiple')))
+        {%- elseif field.fieldName in ['file'] -%}
+        ->add('{{ field.fieldName }}', 'file', array('attr' => array('multiple' => 'multiple')))
+        {%- elseif field.fieldName not in ['id', 'updatedAt', 'createdAt', 'ordering', 'locale'] -%}
+        ->add('{{ field.fieldName }}', null, array('label' => '{{ field.fieldName|replace({'At': ''})|capitalize }}'{% if field.type == 'text' %}, 'attr' => array('class' => 'ckeditor'){% endif %}{% if field.type in ['date'] %}, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd'{% endif %}))
+        {%- endif -%}
+
+    {%- endfor -%};
+    }
+
+    /**
+     * Get Name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return '{{ form_type_name }}';
+    }
+
+    /**
+     * Set default options
+     *
+     * @param OptionsResolverInterface $resolver
+     */
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => '{{ namespace }}\Entity\{{ entity }}',
+        ));
+    }
+}

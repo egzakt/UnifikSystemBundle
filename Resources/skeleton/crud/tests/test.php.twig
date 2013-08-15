@@ -1,0 +1,98 @@
+<?php
+
+namespace {{ namespace }}\Tests\Controller{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
+
+use Egzakt\Backend\CoreBundle\Tests\BackendWebTestCase;
+
+/**
+ * {{ entity_class }} Controller Test
+ */
+class {{ entity_class }}ControllerTest extends BackendWebTestCase
+{
+    /**
+     * @var integer
+     */
+    private static ${{ entity_class | lower }}Id;
+
+    /**
+     * Test List Action
+     */
+    /*public function testListAction()
+    {
+	$this->loginAction();
+
+	$crawler = $this->client->request('GET', '/admin/');
+
+	$crawler = $this->client->click($crawler->filter('#navigation_col')->selectLink('{{ entity_class }}')->link());
+	$this->assertEquals("{{ entity_class }}s List", $crawler->filter('h1')->text());
+
+	// ...
+    }*/
+
+    /**
+     * Test Add Action
+     */
+    /*public function testAddAction()
+    {
+	$this->loginAction();
+
+	$crawler = $this->client->request('GET', '/admin/');
+
+	$crawler = $this->client->click($crawler->filter('#navigation_col')->selectLink('{{ entity_class }}')->link());
+	$this->assertEquals("{{ entity_class }}s List", $crawler->filter('h1')->text());
+
+	// Click on the add link
+	$link = $crawler->filter('a.add')->link();
+	$crawler = $this->client->click($link);
+	$this->assertEquals("New {{ entity_class }}", $crawler->filter('h1')->text());
+
+	// ...
+    }*/
+
+    /**
+     * Test Edit Action
+     */
+    /*public function testEditAction()
+    {
+	$this->loginAction();
+
+	$crawler = $this->client->request('GET', '/admin/');
+
+	$crawler = $this->client->click($crawler->filter('#navigation_col')->selectLink('{{ entity_class }}')->link());
+	$this->assertEquals("{{ entity_class }}s List", $crawler->filter('h1')->text());
+
+	// Click on the edit link of the newly added {{ entity_class }}
+	$link = $crawler->filter('.list_box tr#item_' . static::${{ entity_class | lower }}Id . ' td.name a')->link();
+	$crawler = $this->client->click($link);
+
+	// Assert we are on the right {{ entity_class }} edit page
+	$this->assertEquals('This is a new {{ entity_class }}', $crawler->filter('h1')->text());
+
+	// ...
+    }*/
+
+    /**
+     * Test Delete Action
+     */
+    /*public function testDeleteAction()
+    {
+	$this->loginAction();
+
+	$crawler = $this->client->request('GET', '/admin/');
+
+	$crawler = $this->client->click($crawler->filter('#navigation_col')->selectLink('{{ entity_class }}')->link());
+	$this->assertEquals("{{ entity_class }}s List", $crawler->filter('h1')->text());
+
+	// Click on the delete link of our {{ entity_class }}
+	$link = $crawler->filter('.list_box tr#item_' . static::${{ entity_class | lower }}Id . ' td.delete a')->link();
+	$this->client->click($link);
+	$crawler = $this->client->followRedirect();
+
+	// Assert we are back on the {{ entity_class }}s list
+	$this->assertEquals("{{ entity_class }}s List", $crawler->filter('h1')->text());
+
+	// Assert our {{ entity_class }} isn't there anymore
+	$this->assertEquals("n results", trim($crawler->filter('.total')->text()));
+	$this->assertEquals(0, $crawler->filter('.list_box tr#item_' . static::${{ entity_class | lower }}Id)->count());
+    }*/
+}

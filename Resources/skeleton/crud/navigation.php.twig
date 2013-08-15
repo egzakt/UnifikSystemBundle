@@ -1,0 +1,24 @@
+<?php
+
+namespace {{ namespace }}\Controller\{{ application }}\{{ entity }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+
+use Egzakt\SystemBundle\Lib\{{ application }}\BaseController;
+use {{ namespace }}\Entity\{{ entity }};
+use {{ namespace }}\Form\{{ entity }}Type;
+
+/**
+ * Navigation controller.
+ */
+class NavigationController extends BaseController
+{
+    public function sectionModuleBarAction($_masterRoute)
+    {
+    $selected = (0 === strpos($_masterRoute, '{{ route_prefix }}'));
+
+    return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity|replace({'\\': '/'}) ~ '/Navigation'}}:section_module_bar.html.twig', array(
+        'selected' => $selected,
+    ));
+    }
+}

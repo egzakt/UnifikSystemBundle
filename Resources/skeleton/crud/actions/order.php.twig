@@ -1,0 +1,31 @@
+
+    /**
+     * Set the order of {{ entity }} entities.
+     *
+     * @return Response
+     */
+    public function orderAction()
+    {
+        if ($this->getRequest()->isXmlHttpRequest()) {
+
+            $i = 0;
+
+            $repo = $this->getEm()->getRepository('{{ namespace|replace({'\\': ''}) ~ ':' ~ entity|replace({'\\': '/'}) }}');
+
+            $elements = explode(';', trim($this->getRequest()->request->get('elements'), ';'));
+
+            foreach ($elements as $element) {
+
+            $element = explode('_', $element);
+            $entity = $repo->find($element[1]);
+
+            if ($entity) {
+            $entity->setOrdering(++$i);
+            $this->getEm()->persist($entity);
+            $this->getEm()->flush();
+            }
+            }
+        }
+
+        return new Response('');
+    }
