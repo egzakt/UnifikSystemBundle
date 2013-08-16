@@ -15,18 +15,18 @@ class NavigationController extends BaseController
     /**
      * Global Bundle Bar Action
      *
-     * @param string $masterRoute
+     * @param string $_masterRoute
      *
      * @return Response
      */
-    public function globalModuleBarAction($masterRoute)
+    public function globalModuleBarAction($_masterRoute)
     {
         // Access restricted to ROLE_BACKEND_ADMIN
         if (false === $this->get('security.context')->isGranted('ROLE_BACKEND_ADMIN')) {
             return new Response();
         }
 
-        $selected = (0 === strpos($masterRoute, 'egzakt_system_backend_role'));
+        $selected = (0 === strpos($_masterRoute, 'egzakt_system_backend_role'));
 
         return $this->render('EgzaktSystemBundle:Backend/Role/Navigation:global_bundle_bar.html.twig', array(
             'selected' => $selected

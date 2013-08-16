@@ -13,9 +13,9 @@ use Egzakt\SystemBundle\Lib\Backend\BaseController;
 class NavigationController extends BaseController
 {
 
-    public function sectionModuleBarAction($masterRoute)
+    public function sectionModuleBarAction($_masterRoute)
     {
-        $selected = (0 === strpos($masterRoute, 'egzakt_system_backend_section'));
+        $selected = (0 === strpos($_masterRoute, 'egzakt_system_backend_section'));
 
         return $this->render('EgzaktSystemBundle:Backend/Section/Navigation:section_module_bar.html.twig', array(
             'selected' => $selected
@@ -25,18 +25,17 @@ class NavigationController extends BaseController
     /**
      * Global Bundle Bar Action
      *
-     * @param string $appSlug
-     * @param string $masterRoute
+     * @param string $_masterRoute
      *
      * @return Response
      */
-    public function appModuleBarAction($appSlug, $masterRoute)
+    public function appModuleBarAction($_masterRoute)
     {
-        $selected = (0 === strpos($masterRoute, 'egzakt_system_backend_section'));
+        $selected = (0 === strpos($_masterRoute, 'egzakt_system_backend_section'));
 
         return $this->render('EgzaktSystemBundle:Backend/Section/Navigation:app_module_bar.html.twig', array(
             'selected' => $selected,
-            'appSlug' => $appSlug
+            'managedApp' => $this->getApp()
         ));
     }
 }

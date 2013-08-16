@@ -1,0 +1,13 @@
+{% macro generate(mapping) %}
+    {% if mapping.type == 'route' %}
+        <a href="{{ path(mapping.target) }}">{{ mapping.section|default('Link'|trans) }}</a>
+    {% elseif mapping.type == 'render' %}
+        {{ render(controller(mapping.target)) }}
+    {% elseif mapping.type == 'include' %}
+        {% include mapping.target %}
+    {% elseif mapping.type == 'url' %}
+        <a href="{{ mapping.target }}">{{ mapping.section|default('Link'|trans) }}</a>
+    {% elseif mapping.type == 'raw' %}
+        {{ mapping.target|raw }}
+    {% endif %}
+{% endmacro %}

@@ -13,9 +13,9 @@ use Egzakt\SystemBundle\Entity\Text;
  */
 class NavigationController extends BaseController
 {
-    public function sectionModuleBarAction($masterRoute)
+    public function sectionModuleBarAction($_masterRoute)
     {
-        $selected = (0 === strpos($masterRoute, 'egzakt_system_backend_text'));
+        $selected = (0 === strpos($_masterRoute, 'egzakt_system_backend_text'));
 
         return $this->render('EgzaktSystemBundle:Backend/Text/Navigation:section_module_bar.html.twig', array(
             'selected' => $selected,

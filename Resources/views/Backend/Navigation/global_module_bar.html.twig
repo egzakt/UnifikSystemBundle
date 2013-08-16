@@ -1,5 +1,7 @@
+{% import 'EgzaktSystemBundle:System:mapping_macro.html.twig' as renderer %}
+
 <ul id="global_bundles">
     {% for mapping in mappings %}
-        {{ render(controller(mapping.target, { masterRoute: masterRoute })) }}
+        {{ renderer.generate(mapping) }}
     {% endfor %}
 </ul>

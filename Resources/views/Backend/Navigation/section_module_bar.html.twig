@@ -1,7 +1,9 @@
+{% import 'EgzaktSystemBundle:System:mapping_macro.html.twig' as renderer %}
+
 {% if mappings %}
     <ul id="bundles">
         {% for mapping in mappings %}
-            {{ render(controller(mapping.target, { masterRoute: masterRoute, section: section })) }}
+            {{ renderer.generate(mapping) }}
         {% endfor %}
     </ul>
 {% endif %}

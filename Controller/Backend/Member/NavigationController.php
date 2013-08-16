@@ -14,13 +14,13 @@ class NavigationController extends BaseController
     /**
      * Global Bundle Bar Action
      *
-     * @param string $masterRoute
+     * @param string $_masterRoute
      *
      * @return Response
      */
-    public function globalModuleBarAction($masterRoute)
+    public function globalModuleBarAction($_masterRoute)
     {
-        $selected = (0 === strpos($masterRoute, 'egzakt_system_backend_member'));
+        $selected = (0 === strpos($_masterRoute, 'egzakt_system_backend_member'));
 
         return $this->render('EgzaktSystemBundle:Backend/Member/Navigation:global_bundle_bar.html.twig', array(
             'selected' => $selected

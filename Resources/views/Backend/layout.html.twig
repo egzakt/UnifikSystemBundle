@@ -1,6 +1,3 @@
-{% set subrequestParameters = {
-    'masterRoute': app.request.attributes.get('_route')
-} %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,22 +34,22 @@
                 <div id="cols_wrapper">
 
                     <div id="navigation_col">
-                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionBar', subrequestParameters)) }}
-                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:AppModuleBar', subrequestParameters)) }}
-                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalModuleBar', subrequestParameters)) }}
+                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionBar')) }}
+                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:AppModuleBar')) }}
+                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalModuleBar')) }}
                     </div>
 
                     <div id="main_col">
                         {% block breadcrumbs %}
-                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:Breadcrumbs', subrequestParameters)) }}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:Breadcrumbs')) }}
                         {% endblock %}
 
                         {% block bundle_bar %}
-                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionModuleBar', subrequestParameters)) }}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionModuleBar')) }}
                         {% endblock %}
 
                         {% block locale_bar %}
-                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:LocaleBar', subrequestParameters)) }}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:LocaleBar')) }}
                         {% endblock %}
 
                         {% block content '' %}

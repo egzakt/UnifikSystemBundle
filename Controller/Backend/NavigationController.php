@@ -75,34 +75,28 @@ class NavigationController extends BaseController
     /**
      * Global Bundle Bar Action
      *
-     * @param $masterRoute
-     *
      * @return Response
      */
-    public function globalModuleBarAction($masterRoute)
+    public function globalModuleBarAction()
     {
         $mappings = $this->mappingRepository->findBy(array('navigation' => NavigationRepository::GLOBAL_MODULE_BAR_ID), array('ordering' => 'ASC'));
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:global_module_bar.html.twig', array(
-            'mappings' => $mappings,
-            'masterRoute' => $masterRoute
+            'mappings' => $mappings
         ));
     }
 
     /**
      * Global Bundle Bar Action
      *
-     * @param $masterRoute
-     *
      * @return Response
      */
-    public function appModuleBarAction($masterRoute)
+    public function appModuleBarAction()
     {
         $mappings = $this->mappingRepository->findBy(array('navigation' => NavigationRepository::APP_MODULE_BAR_ID), array('ordering' => 'ASC'));
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:app_module_bar.html.twig', array(
             'mappings' => $mappings,
-            'masterRoute' => $masterRoute,
             'managedApp' => $this->getApp()
         ));
     }
@@ -165,11 +159,9 @@ class NavigationController extends BaseController
     /**
      * This render the modules that are associated with the current section
      *
-     * @param $masterRoute
-     *
      * @return Response
      */
-    public function sectionModuleBarAction($masterRoute)
+    public function sectionModuleBarAction()
     {
         if (false == $this->getSection()) {
             return new Response();
@@ -182,7 +174,6 @@ class NavigationController extends BaseController
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:section_module_bar.html.twig', array(
             'mappings' => $mappings,
-            'masterRoute' => $masterRoute,
         ));
     }
 
