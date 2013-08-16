@@ -83,7 +83,7 @@ class Loader extends BaseLoader
         );
 
         foreach ($collection->all() as $name => $route) {
-            if (preg_match('/egzakt_.*_backend_/', $name)) {
+            if (preg_match('/egzakt_.*_backend/', $name)) {
                 $route->setDefault('_egzaktEnabled', true);
                 $route->setDefault('_egzaktRequest', $egzaktRequest);
             }
