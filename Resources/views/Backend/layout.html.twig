@@ -34,9 +34,17 @@
                 <div id="cols_wrapper">
 
                     <div id="navigation_col">
-                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionBar')) }}
-                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:AppModuleBar')) }}
-                        {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalModuleBar')) }}
+                        {% block section_bar %}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionBar')) }}
+                        {% endblock %}
+
+                        {% block app_module_bar %}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:AppModuleBar')) }}
+                        {% endblock %}
+
+                        {% block global_module_bar %}
+                            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:GlobalModuleBar')) }}
+                        {% endblock %}
                     </div>
 
                     <div id="main_col">
@@ -44,7 +52,7 @@
                             {{ render(controller('EgzaktSystemBundle:Backend/Navigation:Breadcrumbs')) }}
                         {% endblock %}
 
-                        {% block bundle_bar %}
+                        {% block section_module_bar %}
                             {{ render(controller('EgzaktSystemBundle:Backend/Navigation:SectionModuleBar')) }}
                         {% endblock %}
 
