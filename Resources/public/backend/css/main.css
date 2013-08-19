@@ -1230,11 +1230,16 @@ table.fields input[type=password] {
     width: 150px;
 }
 
-input.calendar {
+table.fields input.calendar {
     width: 90px;
     text-align: right;
     background: #fff url(/bundles/egzaktsystem/backend/images/icons/calendar.gif) no-repeat 3px 3px;
     cursor: pointer;
+}
+
+table.fields div[id$='_time'] {
+    display: inline-block;
+    margin-left: 10px;
 }
 
 table.fields ul.tree {
