@@ -83,6 +83,8 @@ class EntityGenerator extends \Doctrine\ORM\Tools\EntityGenerator
      */
     public function generateEntityClass(ClassMetadataInfo $metadata)
     {
+        parent::setFieldVisibility('protected');
+
         $code = parent::generateEntityClass($metadata);
 
         $shortClassName = explode('\\', $metadata->name);
