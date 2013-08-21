@@ -3,12 +3,11 @@
 namespace Egzakt\SystemBundle\Generator;
 
 use \Doctrine\ORM\Mapping\ClassMetadataInfo;
-use Egzakt\SystemBundle\Generator\EntityGenerator;
 
 /**
  * EntityTranslation Generator
  */
-class EntityTranslationGenerator extends EntityGenerator
+class EntityTranslationGenerator extends \Doctrine\ORM\Tools\EntityGenerator
 {
 
     /**
@@ -28,7 +27,7 @@ class EntityTranslationGenerator extends EntityGenerator
         $shortClassName = 'class ' . end($shortClassName);
 
         // Adding custom extends
-        $code = str_replace($shortClassName . ' extends BaseEntity', $shortClassName . ' extends BaseTranslationEntity', $code);
+        $code = str_replace($shortClassName, $shortClassName . ' extends BaseTranslationEntity', $code);
 
         // Adding custom use statement
         $useStatements = 'use Egzakt\SystemBundle\Lib\BaseTranslationEntity;';
