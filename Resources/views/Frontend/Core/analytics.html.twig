@@ -1,5 +1,5 @@
 {% if app.environment == 'prod' %}
-    <script type="text/javascript">
+    <script>
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-XXXXXX-XX']);
         _gaq.push(['_trackPageview']);
@@ -14,7 +14,7 @@
         '@EgzaktSystemBundle/Resources/public/frontend/js/ga.link.min.js'
         '@EgzaktSystemBundle/Resources/public/frontend/js/gatag.js'
     %}
-    <script type="text/javascript" src="{{ asset_url }}"></script>
+    <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
 {% endif %}

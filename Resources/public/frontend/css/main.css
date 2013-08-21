@@ -73,38 +73,45 @@ h3 {
 
 /* HEADER
 --------------------------------------*/
-#header {
+#site_header {
+    position: relative;
+}
+
+#logo {
+    padding-top: 15px;
     font-size: 2.5em;
     line-height: 1.2em;
+}
+
+#locales_navigation {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    font-size: 1em;
+    line-height: 1.2em;
+}
+
+#locales_navigation li {
+    margin-right: 12px;
+}
+#locales_navigation li:last-child {
+    margin-right: 0;
+}
+
+#secondary_navigation {
+    float: right;
+    margin: 25px 0 0 0;
 }
 
 
 /* NAVIGATIONS
 --------------------------------------*/
-#utilities_navigation {
-	text-align: right;
-}
-
-#utilities_navigation ul {
-	display: inline-block;
-}
-
-#utilities_navigation li {
-	display:inline;
-}
-
-#utilities_navigation a {
-	display: inline-block;
-	padding: 0 4px;
-}
-
-#primary_navigation,
-#secondary_navigation,
-#sub_navigation,
-#footer_navigation {
-    overflow: hidden;
-    width: 910px;
-    padding: 5px 0 5px 8px;
+nav {
+    padding: 5px 8px;
     margin: 20px 0;
     border: 1px solid #000000;
     background-color: #EEEEEE;
@@ -112,28 +119,20 @@ h3 {
     line-height:1.2em;
 }
 
-#primary_navigation li,
-#secondary_navigation li,
-#footer_navigation li {
+nav ul {
+    overflow: hidden;
+}
+
+nav li {
     float: left;
-    padding-right: 20px;
+    margin-right: 20px;
+}
+nav li:last-child {
+    margin-right: 0;
 }
 
-#primary_navigation li a,
-#secondary_navigation li a,
-#footer_navigation li a {
+nav a {
     text-decoration: none;
-}
-
-#footer_navigation li ul li {
-    float: none;
-    padding-left: 5px;
-}
-
-#secondary_navigation {
-    float: right;
-    width: auto;
-    margin:5px 0 0 0;
 }
 
 #sub_navigation {
