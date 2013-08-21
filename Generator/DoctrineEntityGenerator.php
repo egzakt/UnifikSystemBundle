@@ -171,7 +171,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
             )
         );
 
-        foreach ($fields as $field) {
+        foreach ($entityFields as $field) {
             $class->mapField($field);
         }
 
