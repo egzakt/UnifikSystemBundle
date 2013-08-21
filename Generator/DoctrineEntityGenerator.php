@@ -43,24 +43,24 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         // Rebuild fields based on the i18n attribute
         $entityFields = array();
         $entityTranslationFields = array();
-        foreach ($fields as $key => $field) {
+        foreach ($fields as $field) {
             if (substr(strtolower($field['i18n']), 0, 1) == 'y') { // Simulate all Yes combinations
-                unset($field['i18n']);
                 array_push($entityTranslationFields, $field);
+                unset($entityTranslationFields['i18n']);
             } else {
-                unset($field['i18n']);
                 array_push($entityFields, $field);
+                unset($entityFields['i18n']);
             }
         }
         $hasI18n = count($entityTranslationFields) > 0 ? true : false;
 
-        $this->generateEntity($bundle, $entity, $format, $entityFields, $withRepository, $hasI18n);
+        $this->generateEntity($bundle, $entity, $format, $entityFields, $fields, $withRepository, $hasI18n);
         if ($hasI18n) {
-            $this->generateEntityTranslation($bundle, $entity, $format, $entityTranslationFields, $withRepository);
+            $this->generateEntityTranslation($bundle, $entity, $format, $entityTranslationFields, $fields, $withRepository);
         }
     }
 
-    public function generateEntity(BundleInterface $bundle, $entity, $format, array $fields, $withRepository, $hasI18n)
+    public function generateEntity(BundleInterface $bundle, $entity, $format, array $entityFields, array $fields, $withRepository, $hasI18n)
     {
         $entityClass = $this->registry->getAliasNamespace($bundle->getName()).'\\'.$entity;
         $entityPath = $bundle->getPath().'/Entity/'.str_replace('\\', '/', $entity).'.php';
@@ -84,10 +84,9 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
                     'mappedBy' => 'translatable',
                     'inversedBy' => null,
                     'fetch' => 'EAGER',
-                    'cascade' => array('persist'),
                     'orphanRemoval' => false,
                     'isCascadeRemove' => false,
-                    'isCascadePersist' => false,
+                    'isCascadePersist' => true,
                     'isCascadeRefresh' => false,
                     'isCascadeMerge' => false,
                     'isCascadeDetach' => false
@@ -95,14 +94,14 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
             );
         }
 
-        foreach ($fields as $field) {
+        foreach ($entityFields as $field) {
             $class->mapField($field);
         }
 
         $entityGenerator = $this->getEntityGenerator();
         if ('annotation' === $format) {
             $entityGenerator->setGenerateAnnotations(true);
-            $entityCode = $entityGenerator->generateEntityClass($class);
+            $entityCode = $entityGenerator->generateEntityClass($class, $fields);
             $mappingPath = $mappingCode = false;
         } else {
             $cme = new ClassMetadataExporter();
@@ -115,7 +114,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
 
             $mappingCode = $exporter->exportClassMetadata($class);
             $entityGenerator->setGenerateAnnotations(false);
-            $entityCode = $entityGenerator->generateEntityClass($class);
+            $entityCode = $entityGenerator->generateEntityClass($class, $fields);
         }
 
         $this->filesystem->mkdir(dirname($entityPath));
@@ -132,7 +131,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         }
     }
 
-    public function generateEntityTranslation(BundleInterface $bundle, $entity, $format, array $fields, $withRepository)
+    public function generateEntityTranslation(BundleInterface $bundle, $entity, $format, array $entityFields, array $fields, $withRepository)
     {
         $entityTranslation = $entity . 'Translation';
 
@@ -179,7 +178,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $entityGenerator = $this->getEntityTranslationGenerator();
         if ('annotation' === $format) {
             $entityGenerator->setGenerateAnnotations(true);
-            $entityCode = $entityGenerator->generateEntityClass($class);
+            $entityCode = $entityGenerator->generateEntityClass($class, $fields);
             $mappingPath = $mappingCode = false;
         } else {
             $cme = new ClassMetadataExporter();
@@ -192,7 +191,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
 
             $mappingCode = $exporter->exportClassMetadata($class);
             $entityGenerator->setGenerateAnnotations(false);
-            $entityCode = $entityGenerator->generateEntityClass($class);
+            $entityCode = $entityGenerator->generateEntityClass($class, $fields);
         }
 
         $this->filesystem->mkdir(dirname($entityPath));

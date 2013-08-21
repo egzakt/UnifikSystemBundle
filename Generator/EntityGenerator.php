@@ -18,11 +18,10 @@ class EntityGenerator extends \Doctrine\ORM\Tools\EntityGenerator
             return \'New <entityName>\';
         }
 
-        if ($name = $this->translate()->getName()) {
+        if ($name = <nameFunction>) {
             return $name;
         }
 
-        // No translation found in the current locale
         return \'\';
     }
 ';
@@ -78,10 +77,11 @@ class EntityGenerator extends \Doctrine\ORM\Tools\EntityGenerator
      * Generate Entity Class
      *
      * @param \Doctrine\ORM\Mapping\ClassMetadataInfo $metadata Metadata Info
+     * @param array $fields Fields Info
      *
      * @return string
      */
-    public function generateEntityClass(ClassMetadataInfo $metadata)
+    public function generateEntityClass(ClassMetadataInfo $metadata, array $fields = array())
     {
         parent::setFieldVisibility('protected');
 
@@ -109,7 +109,19 @@ class EntityGenerator extends \Doctrine\ORM\Tools\EntityGenerator
             $routeNamePrefix = strtolower(str_replace('\\', '_', str_replace('Bundle', '', $bundleName[0]))) . '_backend';
             $routeEntityName = $routeNamePrefix . strtolower(str_replace('\\', '_', $bundleName[1]));
 
-            $code .= str_replace('<entityName>', $entityName, static::$_getToString);
+            // Track all the translation fields and check if it contains the fieldName 'name'
+            $containNameField = false;
+            foreach ($fields as $field) {
+                if (substr(strtolower($field['i18n']), 0, 1) == 'y') {
+                    $field['fieldName'] == 'name' ? $containNameField = true : null;
+                }
+            }
+
+            if ($containNameField) {
+                $code .= str_replace(array('<entityName>', '<nameFunction>'), array($entityName, '$this->translate()->getName()'), static::$_getToString);
+            } else {
+                $code .= str_replace(array('<entityName>', '<nameFunction>'), array($entityName, '$this->getEntityName()'), static::$_getToString);
+            }
 
             $code .= str_replace('<routeName>', $routeEntityName, static::$_getRouteBackendTemplate);
 
@@ -120,4 +132,5 @@ class EntityGenerator extends \Doctrine\ORM\Tools\EntityGenerator
 
         return $code;
     }
+
 }

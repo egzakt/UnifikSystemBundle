@@ -10,6 +10,7 @@ use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\Console\Input\InputInterface;
 use Sensio\Bundle\GeneratorBundle\Command\Helper\DialogHelper;
 use Symfony\Component\DependencyInjection\Container;
+use Sensio\Bundle\GeneratorBundle\Command\Validators;
 
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineEntityCommand as BaseGenerateEntityCommand;
 use Egzakt\SystemBundle\Generator\DoctrineEntityGenerator as EgzaktDoctrineEntityGenerator;
@@ -38,6 +39,38 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
             ->addOption('fields', null, InputOption::VALUE_REQUIRED, 'The fields to create with the new entity')
             ->addOption('format', null, InputOption::VALUE_REQUIRED, 'Use the format for configuration files (php, xml, yml, or annotation)', 'yml')
             ->addOption('with-repository', null, InputOption::VALUE_REQUIRED, 'Whether to generate the entity repository or not', 'yes');
+    }
+
+    /**
+     * @throws \InvalidArgumentException When the bundle doesn't end with Bundle (Example: "Bundle/MySampleBundle")
+     */
+    protected function execute(InputInterface $input, OutputInterface $output)
+    {
+        $dialog = $this->getDialogHelper();
+
+        if ($input->isInteractive()) {
+            if (!$dialog->askConfirmation($output, $dialog->getQuestion('Do you confirm generation', 'yes', '?'), true)) {
+                $output->writeln('<error>Command aborted</error>');
+
+                return 1;
+            }
+        }
+
+        $entity = Validators::validateEntityName($input->getOption('entity'));
+        list($bundle, $entity) = $this->parseShortcutNotation($entity);
+        $format = Validators::validateFormat($input->getOption('format'));
+        $fields = $this->parseFields($input->getOption('fields'));
+
+        $dialog->writeSection($output, 'Entity generation');
+
+        $bundle = $this->getContainer()->get('kernel')->getBundle($bundle);
+
+        $generator = $this->getGenerator();
+        $generator->generate($bundle, $entity, $format, array_values($fields), $input->getOption('with-repository'));
+
+        $output->writeln('Generating the entity code: <info>OK</info>');
+
+        $dialog->writeGeneratorSummary($output, array());
     }
 
     protected function interact(InputInterface $input, OutputInterface $output)

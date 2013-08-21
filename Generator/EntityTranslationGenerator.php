@@ -18,7 +18,7 @@ class EntityTranslationGenerator extends EntityGenerator
      *
      * @return string
      */
-    public function generateEntityClass(ClassMetadataInfo $metadata)
+    public function generateEntityClass(ClassMetadataInfo $metadata, array $fields = array())
     {
         parent::setFieldVisibility('protected');
 
