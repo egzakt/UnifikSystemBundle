@@ -29,15 +29,19 @@
                     {{ render(controller('EgzaktSystemBundle:Frontend/Navigation:LocaleSwitcher')) }}
                     {{ render(controller('EgzaktSystemBundle:Frontend/Navigation:ByCode', { code: 'secondary', attr: { id: 'secondary_navigation' } })) }}
 
-                    <div id="logo">
-                        <a href="{{ path('section_id_1') }}">{{ project_title }}</a>
-                    </div>
+                    {% block logo %}
+                        <div id="logo">
+                            <a href="{{ path('section_id_1') }}">{{ project_title }}</a>
+                        </div>
+                    {% endblock %}
                 </header>
 
                 {{ render(controller('EgzaktSystemBundle:Frontend/Navigation:ByCode', { code: 'primary', maxLevel: 1, attr: { id: 'primary_navigation'} })) }}
 
                 <div id="main" role="main">
-                    {{ render(controller('EgzaktSystemBundle:Frontend/Navigation:Breadcrumbs')) }}
+                    {% block breadcrumbs %}{{ render(controller('EgzaktSystemBundle:Frontend/Navigation:Breadcrumbs')) }}{% endblock %}
+
+                    {# TODO: sub-navigation #}
 
                     <div id="content">
                         {% block content %}{% endblock %}

@@ -85,7 +85,7 @@ class NavigationController extends BaseController
         $elementCurrent = $this->getCore()->getElement();
         $elements = $this->get('egzakt_system.breadcrumbs')->getElements();
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:breadcrumbs.html.twig', array(
+        return $this->render('EgzaktSystemBundle:Frontend/Navigation:breadcrumbs.html.twig', array(
             'elements' => $elements,
             'elementCurrent' => $elementCurrent
         ));

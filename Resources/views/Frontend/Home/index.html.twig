@@ -1,5 +1,11 @@
 {% extends 'EgzaktSystemBundle:Frontend:layout.html.twig' %}
 
+{% block logo %}
+    <h1 id="logo">{{ project_title }}</h1>
+{% endblock %}
+
+{% block breadcrumbs %}{% endblock %}
+
 {% block content %}
     {{ render(controller('EgzaktSystemBundle:Frontend/Text:DisplayTexts')) }}
 {% endblock %}

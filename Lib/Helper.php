@@ -35,11 +35,17 @@ class Helper
     {
         $parse = parse_url($url);
 
-        if (isset($parse['host']) && !in_array($parse['host'], $this->container->getParameter('project_domains'))) {
-            return true;
+        $trustedHostPatterns = $this->container->get('request')->getTrustedHosts();
+
+        if (count($trustedHostPatterns) > 0) {
+            foreach ($trustedHostPatterns as $pattern) {
+                if (preg_match($pattern, $parse['host'])) {
+                    return false;
+                }
+            }
         }
 
-        return false;
+        return true;
     }
 
     /**
