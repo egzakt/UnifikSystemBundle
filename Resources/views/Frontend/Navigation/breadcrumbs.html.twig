@@ -1,0 +1,18 @@
+{% if elements %}
+    <ul id="breadcrumbs">
+        <li>
+            <a href="{{ path('section_id_1') }}">{% trans %}Home{% endtrans %}</a>
+            <span>&raquo;</span>
+        </li>
+        {% for element in elements %}
+            <li>
+                {% if loop.last %}
+                    <strong>{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': element } %}</strong>
+                {% else %}
+                    <a href="{{ path(element.route, element.routeParams) }}">{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': element } %}</a>
+                    <span>&raquo;</span>
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
