@@ -66,7 +66,12 @@ class ControllerListener
             $applicationCore->init();
         }
 
-        $controller->init();
+        // Bypassing the controller default process when the init method return a response
+        if ($initResponse = $controller->init()) {
+            $event->setController(function() use ($initResponse) {
+                return $initResponse;
+            });
+        }
     }
 
     /**
