@@ -41,9 +41,8 @@ $(document).ready(function() {
     }
 
     $('a.print_link').click(function(e) {
-        e.preventDefault();
         window.print();
-        return false;
+        e.preventDefault();
     });
 });
 
