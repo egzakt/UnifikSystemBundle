@@ -1,11 +1,10 @@
-<script type="text/javascript">
+<script>
     var locale = '{{ app.request.locale }}';
 </script>
 
 {% javascripts
-    '@EgzaktSystemBundle/Resources/public/frontend/js/fonctions.js'
-    '@EgzaktSystemBundle/Resources/public/frontend/js/jquery.fancybox-1.3.4.pack.js'
+    '@EgzaktSystemBundle/Resources/public/frontend/js/main.js'
 %}
-<script type="text/javascript" src="{{ asset_url }}"></script>
+<script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
