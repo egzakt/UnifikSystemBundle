@@ -19,11 +19,6 @@ class Locale extends BaseEntity
     /**
      * @var string
      */
-    private $switchName;
-
-    /**
-     * @var string
-     */
     private $code;
 
     /**
@@ -54,6 +49,36 @@ class Locale extends BaseEntity
     }
 
     /**
+     * Get the backend route
+     *
+     * @param string $suffix
+     *
+     * @return string
+     */
+    public function getRouteBackend($suffix = 'edit')
+    {
+        return 'egzakt_system_backend_locale_' . $suffix;
+    }
+
+    /**
+     * Get params for the backend route
+     *
+     * @param array $params Additional parameters
+     *
+     * @return array
+     */
+    public function getRouteBackendParams($params = array())
+    {
+        $defaults = array(
+            'id' => $this->id ? $this->id : 0,
+        );
+
+        $params = array_merge($defaults, $params);
+
+        return $params;
+    }
+
+    /**
      * Set name
      *
      * @param string $name
@@ -74,30 +99,6 @@ class Locale extends BaseEntity
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set switchName
-     *
-     * @param string $switchName
-     *
-     * @return Locale
-     */
-    public function setSwitchName($switchName)
-    {
-        $this->switchName = $switchName;
-    
-        return $this;
-    }
-
-    /**
-     * Get switchName
-     *
-     * @return string 
-     */
-    public function getSwitchName()
-    {
-        return $this->switchName;
     }
 
     /**

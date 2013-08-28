@@ -27,7 +27,6 @@ class LoadLocaleData extends AbstractFixture implements OrderedFixtureInterface
         $localeFr = new Locale();
         $localeFr->setId(1);
         $localeFr->setName('Français');
-        $localeFr->setSwitchName('Aller en français');
         $localeFr->setCode('fr');
         $localeFr->setActive(true);
 
@@ -36,7 +35,6 @@ class LoadLocaleData extends AbstractFixture implements OrderedFixtureInterface
         $localeEn = new Locale();
         $localeEn->setId(2);
         $localeEn->setName('English');
-        $localeEn->setSwitchName('Switch to English');
         $localeEn->setCode('en');
         $localeEn->setActive(true);
 

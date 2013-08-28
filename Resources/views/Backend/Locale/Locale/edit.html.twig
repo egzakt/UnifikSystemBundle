@@ -1,0 +1,38 @@
+{% extends 'EgzaktSystemBundle:Backend/Locale:layout.html.twig' %}
+{% form_theme form 'EgzaktSystemBundle:Backend/Core:edit_fields.html.twig' %}
+
+{% block content_header %}
+    <h1>{{ locale|trans }}</h1>
+{% endblock %}
+
+{% block content_main %}
+
+    <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
+
+        {% block edit_actions %}
+            {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
+                'entity': locale,
+                'delete_route': path('egzakt_system_backend_locale_delete', { 'id': 0 }),
+                'cancel_route': path('egzakt_system_backend_locale')
+            } %}
+        {% endblock %}
+
+        <div id="fields_box">
+            <table class="fields" cellspacing="0">
+
+                {{ form_errors(form) }}
+
+                {{ form_row(form.active) }}
+                {{ form_row(form.name) }}
+                {{ form_row(form.code) }}
+
+                {{ form_row(form._token) }}
+
+            </table>
+        </div>
+
+        {{ block('edit_actions') }}
+
+    </form>
+
+{% endblock content_main %}

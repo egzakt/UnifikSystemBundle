@@ -10,10 +10,6 @@ Egzakt\SystemBundle\Entity\Locale:
       type: string
       length: 255
       nullable: true
-    switchName:
-      type: string
-      length: 255
-      nullable: true
     code:
       type: string
       length: 255
