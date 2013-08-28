@@ -1,7 +1,13 @@
 {% if locales and locales|length > 1 %}
-    <ul id="languages">
+    <select id="languages">
         {% for locale in locales %}
-            <li{% if (editLocale == locale.code) %} class="selected"{% endif %}><a href="?edit-locale={{ locale.code }}">{{ locale }}</a></li>
+            <option {% if editLocale == locale.code %}selected="selected"{% endif %} value="{{ locale.code }}">{{ locale }}</option>
         {% endfor %}
-    </ul>
+    </select>
+
+    <script>
+        $('#languages').change(function() {
+            window.location.href = window.location.href.replace(/[\?#].*|$/, "?edit-locale=" + $(this).val());
+        });
+    </script>
 {% endif %}

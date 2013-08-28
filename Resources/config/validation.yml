@@ -55,3 +55,10 @@ Egzakt\SystemBundle\Entity\RoleTranslation:
     properties:
         name:
             - NotBlank: ~
+
+Egzakt\SystemBundle\Entity\Locale:
+    properties:
+        name:
+            - NotBlank: ~
+        code:
+            - NotBlank: ~

@@ -118,3 +118,20 @@ egzakt_system_backend_section_edit:
 egzakt_system_backend_section_delete:
     pattern:  /sections/{sectionId}/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:delete" }
+
+# Locales
+egzakt_system_backend_locale:
+    pattern:  /locales
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:list" }
+
+egzakt_system_backend_locale_order:
+    pattern:  /locales/order
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:order" }
+
+egzakt_system_backend_locale_edit:
+    pattern:  /locales/{id}/edit
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:edit", id: 0 }
+
+egzakt_system_backend_locale_delete:
+    pattern:  /locales/{id}/delete
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:delete" }

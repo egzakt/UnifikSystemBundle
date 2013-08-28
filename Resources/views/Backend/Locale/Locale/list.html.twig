@@ -1,0 +1,75 @@
+{% extends 'EgzaktSystemBundle:Backend/Member:layout.html.twig' %}
+
+{% block content_header %}
+    <h1>{% trans %}Locales list{% endtrans %}</h1>
+{% endblock %}
+
+{% block content_main %}
+
+    <div id="list_actions_bar">
+        <a class="add" href="{{ path('egzakt_system_backend_locale_edit') }}">{% trans %}Add a locale{% endtrans %}</a>
+    </div>
+
+    <div class="list_box">
+        <table cellspacing="0" class="table-autosort">
+            <thead>
+            <tr>
+                <th class="name table-sortable:ignorecase">
+                    {% trans %}Name{% endtrans %}
+                </th>
+                <th class="table-sortable:ignorecase">
+                    {% trans %}Code{% endtrans %}
+                </th>
+                <th class="edit"></th>
+                <th class="delete"></th>
+            </tr>
+            <tr class="filters">
+                <th class="name">
+                    <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
+                </th>
+                <th>
+                    <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a code"|trans }}" />
+                </th>
+                <th>
+                    &nbsp;
+                </th>
+                <th>
+                    &nbsp;
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for locale in locales %}
+                <tr id="item_{{ locale.id }}">
+                    <td class="name{% if not locale.active %} inactive{% endif %}">
+                        <a href="{{ path(locale.route, locale.routeParams) }}">{{ locale }}</a>
+                    </td>
+                    <td>
+                        {{ locale.code }}
+                    </td>
+                    <td class="edit">
+                        {% if locale.isEditable %}
+                            <a href="{{ path(locale.route, locale.routeParams) }}" title="{% trans %}Edit{% endtrans %}">
+                                <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td class="delete">
+                        <a href="{{ path(locale.route('delete'), locale.routeParams) }}" rel="{{ path(locale.route('delete'), locale.routeParams({'message': true})) }}" title="{% trans %}Delete{% endtrans %}">
+                            <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                        </a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+        <div class="total">
+            <span class="sub-total"></span>
+            {% set count = locales|length %}
+            {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+        </div>
+    </div>
+
+{% endblock content_main %}
+
