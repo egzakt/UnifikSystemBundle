@@ -3,6 +3,7 @@
 namespace Egzakt\SystemBundle\Lib\Backend;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
+use Egzakt\SystemBundle\Entity\AppRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -175,7 +176,7 @@ class Core implements ApplicationCoreInterface
             $this->app = $this->getSection()->getApp();
             $method = 'the section entity';
         } else {
-            $this->app = $appRepo->findFirstOneExcept('backend');
+            $this->app = $appRepo->findFirstOneExcept(AppRepository::BACKEND_APP_ID);
             $method = 'first app entity in table (empty table?)';
         }
 

@@ -1,17 +1,23 @@
-{#{% if apps|length > 1 %}#}
+{% if apps|length > 1 or is_granted('ROLE_DEVELOPER') %}
     <div id="apps">
         <div class="padding">
             <h6>{% trans %}Application{% endtrans %}</h6>
             <ul>
                 {% for application in apps %}
                     <li>
-                        <a href="{{ path(application.route, application.routeParams) }}" {% if application.id == appCurrent.id %}class="selected"{% endif %}>
+                        <a href="{{ path('egzakt_system_backend_switch_managed_app', { appSlug: application.slug }) }}" {% if application.id == appCurrent.id %}class="selected"{% endif %}>
                             <span>{{ application|capitalize }}</span>
                         </a>
                     </li>
                 {% endfor %}
+
             </ul>
+            {% if is_granted('ROLE_DEVELOPER') %}
+                <a class="add" href="{{ path('egzakt_system_backend_application_edit') }}">
+                    +
+                </a>
+            {% endif %}
             <div style="clear:both;"></div>
         </div>
     </div>
-{#{% endif %}#}
+{% endif %}

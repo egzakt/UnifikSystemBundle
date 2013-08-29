@@ -49,10 +49,14 @@ Egzakt\SystemBundle\Entity\Section:
       joinColumn:
         name: parent_id
         referencedColumnName: id
-        onDelete:  cascade
+        onDelete: cascade
     app:
       targetEntity: Egzakt\SystemBundle\Entity\App
       inversedBy:  sections
+      joinColumn:
+        name: app_id
+        referencedColumnName: id
+        onDelete: cascade
   manyToMany:
     roles:
       targetEntity: Egzakt\SystemBundle\Entity\Role

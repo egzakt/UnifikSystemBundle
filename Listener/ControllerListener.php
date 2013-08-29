@@ -38,6 +38,7 @@ class ControllerListener
 
         $egzaktRequest = $request->get('_egzaktRequest');
         $applicationName = $egzaktRequest['appName'];
+        $applicationName = strtolower($applicationName);
 
         if (false == $applicationName) {
             return;
@@ -56,7 +57,7 @@ class ControllerListener
             throw new \Exception(get_class($controller) . ' must extends the Egzakt/SystemBundle/Lib/' . ucfirst($applicationName) . '/BaseController class.');
         }
 
-        $applicationName = strtolower($applicationName);
+
         $systemCore = $this->container->get('egzakt_system.core');
         $applicationCore = $this->container->get('egzakt_' . $applicationName . '.core');
         $systemCore->setApplicationCore($applicationCore);

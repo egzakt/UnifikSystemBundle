@@ -30,14 +30,15 @@ class LoadAppData extends AbstractFixture implements OrderedFixtureInterface, Co
 
         $appBackend = new App();
         $appBackend->setId(1);
-        $appBackend->setName('backend');
+        $appBackend->setName('Backend');
+        $appBackend->setPrefix('admin');
         $appBackend->setOrdering(1);
 
         $manager->persist($appBackend);
 
         $appFrontend = new App();
         $appFrontend->setId(2);
-        $appFrontend->setName('frontend');
+        $appFrontend->setName('Frontend');
         $appFrontend->setOrdering(2);
 
         $manager->persist($appFrontend);
