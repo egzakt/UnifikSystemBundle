@@ -58,4 +58,37 @@ abstract class BaseController extends Controller implements BaseControllerInterf
     {
         return $this->getDoctrine()->getManager();
     }
+
+    /**
+     * Registers a message for a given type.
+     *
+     * @param string       $type
+     * @param string|array $message
+     */
+    protected function setFlash($type, $message) {
+        $this->get('session')->getFlashBag()->set($type, $message);
+    }
+
+    /**
+     * Has flash messages for a given type?
+     *
+     * @param string $type
+     *
+     * @return boolean
+     */
+    protected function hasFlash($type) {
+        return $this->get('session')->getFlashBag()->has($type);
+    }
+
+    /**
+     * Gets and clears flash from the stack.
+     *
+     * @param string $type
+     * @param array  $default Default value if $type does not exist.
+     *
+     * @return array
+     */
+    protected function getFlash($type, array $default = array()) {
+        return $this->get('session')->getFlashBag()->get($type, $default);
+    }
 }

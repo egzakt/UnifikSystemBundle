@@ -44,7 +44,24 @@
                     {# TODO: sub-navigation #}
 
                     <div id="content">
-                        {% block content %}{% endblock %}
+                        {% block content %}
+                            {% block content_top %}
+                                <article>
+                                    <aside id="actions">
+                                        <a href="#" class="print_link">{% trans %}Print{% endtrans %}</a>
+                                    </aside>
+
+                                    <header id="section_header">
+                                        <h1 class="title_level1">{{ section }}</h1>
+                                    </header>
+                            {% endblock %}
+
+                            {% block content_main %}{% endblock %}
+
+                            {% block content_bottom %}
+                                </article>
+                            {% endblock %}
+                        {% endblock %}
                     </div>
                 </div>
 

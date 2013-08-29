@@ -1,3 +1,5 @@
-{% block og_image %}
-    <meta property="og:image" content="http://{{ app.request.host }}{{ asset('bundles/egzaktsystem/frontend/images/ul/graphics/logo.png') }}" />
+{% block og %}
+    {% block og_image %}
+        <meta property="og:image" content="http://{{ app.request.host }}{{ asset('bundles/egzaktsystem/frontend/images/ul/graphics/logo.png') }}" />
+    {% endblock %}
 {% endblock %}
