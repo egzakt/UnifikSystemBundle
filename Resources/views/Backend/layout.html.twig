@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}{{ render(controller('EgzaktSystemBundle:Backend/Navigation:PageTitle')) }}{% endblock %}</title>
-        {% block stylesheets %}{% include 'EgzaktSystemBundle:Backend/Core:stylesheets.html.twig' %}{% endblock %}
-        <link rel="icon" type="image/png" href="{{ asset('bundles/egzaktsystem/backend/images/icons/favicon.png') }}" />
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+        {% block head %}
+            <meta charset="UTF-8" />
+            <title>{% block title %}{{ render(controller('EgzaktSystemBundle:Backend/Navigation:PageTitle')) }}{% endblock %}</title>
+            {% block stylesheets %}{% include 'EgzaktSystemBundle:Backend/Core:stylesheets.html.twig' %}{% endblock %}
+            <link rel="icon" type="image/png" href="{{ asset('bundles/egzaktsystem/backend/images/icons/favicon.png') }}" />
+            {% block jquery %}
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+                <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+            {% endblock %}
+        {% endblock head %}
     </head>
     <body {% block body_attr '' %}>
         {% block body %}
