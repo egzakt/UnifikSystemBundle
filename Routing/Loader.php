@@ -79,7 +79,8 @@ class Loader extends BaseLoader
             'sectionId' => null,
             'appId' => 1,
             'appPrefix' => 'admin',
-            'appName' => 'backend'
+            'appName' => 'Backend',
+            'appSlug' => 'backend'
         );
 
         foreach ($collection->all() as $name => $route) {
@@ -148,6 +149,7 @@ class Loader extends BaseLoader
             'appId' => $mapping['app_id'],
             'appPrefix' => $mapping['app_prefix'],
             'appName' => $mapping['app_name'],
+            'appSlug' => $mapping['app_slug'],
             'sectionSlug' => $mapping['slug'],
             'sectionsPath' => $sectionsPath,
             'mappedRouteName' => $sourceName
@@ -248,7 +250,7 @@ class Loader extends BaseLoader
     protected function getMappingSqlQuery()
     {
         return '
-            SELECT m.target, s.id as section_id, s.parent_id, st.locale, st.slug, a.id as app_id, a.prefix as app_prefix, a.name as app_name, (
+            SELECT m.target, s.id as section_id, s.parent_id, st.locale, st.slug, a.id as app_id, a.prefix as app_prefix, a.name as app_name, a.slug as app_slug, (
                 SELECT COUNT(t.id) FROM text t
                 INNER JOIN text_translation tt ON tt.translatable_id = t.id
                 WHERE t.section_id = s.id

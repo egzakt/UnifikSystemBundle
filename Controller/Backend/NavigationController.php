@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend;
 
+use Egzakt\SystemBundle\Entity\AppRepository;
 use Egzakt\SystemBundle\Entity\NavigationRepository;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -115,7 +116,7 @@ class NavigationController extends BaseController
 
         // BC fix, previous version had a "backend" application that need to be removed
         foreach ($apps as $key => $app) {
-            if ($app->getName() == 'backend') {
+            if ($app->getId() == AppRepository::BACKEND_APP_ID) {
                 unset($apps[$key]);
             }
         }

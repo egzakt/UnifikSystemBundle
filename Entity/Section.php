@@ -360,7 +360,7 @@ class Section extends BaseEntity
     public function getRouteBackend()
     {
         foreach ($this->mappings as $mapping) {
-            if ($mapping->getType() == 'route' && $mapping->getApp()->getName() == 'backend') {
+            if ($mapping->getType() == 'route' && $mapping->getApp()->getId() == AppRepository::BACKEND_APP_ID) {
                 return $mapping->getTarget();
             }
         }

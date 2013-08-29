@@ -16,8 +16,8 @@ egzakt_system_backend_dashboard:
     pattern:  /
     defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:index" }
 
-egzakt_system_backend_app:
-    pattern:  /app/{appSlug}
+egzakt_system_backend_switch_managed_app:
+    pattern:  /managed-application/{appSlug}
     defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:index" }
 
 # Help
@@ -135,3 +135,16 @@ egzakt_system_backend_locale_edit:
 egzakt_system_backend_locale_delete:
     pattern:  /locales/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:delete" }
+    
+# Applications
+egzakt_system_backend_application:
+    pattern:  /applications
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:list" }
+
+egzakt_system_backend_application_edit:
+    pattern:  /applications/{applicationId}/edit
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:edit", applicationId: 0 }
+
+egzakt_system_backend_application_delete:
+    pattern:  /applications/{applicationId}/delete
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:delete" }    

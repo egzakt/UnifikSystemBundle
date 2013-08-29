@@ -55,10 +55,19 @@ Egzakt\SystemBundle\Entity\RoleTranslation:
     properties:
         name:
             - NotBlank: ~
-
+            
 Egzakt\SystemBundle\Entity\Locale:
     properties:
         name:
             - NotBlank: ~
         code:
             - NotBlank: ~
+                        
+Egzakt\SystemBundle\Entity\App:
+    properties:
+        name:
+            - NotBlank: ~
+        prefix:
+            - Regex: { pattern: "/^[a-zA-Z0-9-_]*$/"}
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: prefix, ignoreNull: false }

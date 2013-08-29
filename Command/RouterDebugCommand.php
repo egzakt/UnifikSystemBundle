@@ -69,8 +69,8 @@ EOF
                 if (isset($egzaktRequest['mappedRouteName'])) {
                     $maxMappingSource = max($maxMappingSource, strlen($egzaktRequest['mappedRouteName']));
                 }
-                if (isset($egzaktRequest['appName'])) {
-                    $maxApplication = max($maxApplication, strlen($egzaktRequest['appName']));
+                if (isset($egzaktRequest['appSlug'])) {
+                    $maxApplication = max($maxApplication, strlen($egzaktRequest['appSlug']));
                 }
             }
         }
@@ -84,16 +84,16 @@ EOF
             $scheme = $route->getSchemes() ? implode('|', $route->getSchemes()) : 'ANY';
             $host = '' !== $route->getHost() ? $route->getHost() : 'ANY';
             $mappingSource = '';
-            $appName = '';
+            $appSlug = '';
             if ($egzaktRequest = $route->getDefault('_egzaktRequest')) {
                 if (isset($egzaktRequest['mappedRouteName'])) {
                     $mappingSource = $egzaktRequest['mappedRouteName'];
                 }
-                if (isset($egzaktRequest['appName'])) {
-                    $appName = $egzaktRequest['appName'];
+                if (isset($egzaktRequest['appSlug'])) {
+                    $appSlug = $egzaktRequest['appSlug'];
                 }
             }
-            $output->write(sprintf($format,  $name, $method, $scheme, $host, $route->getPath(), '<fg=yellow>' . $appName . '</>', $mappingSource), OutputInterface::OUTPUT_RAW);
+            $output->write(sprintf($format,  $name, $method, $scheme, $host, $route->getPath(), '<fg=yellow>' . $appSlug . '</>', $mappingSource), OutputInterface::OUTPUT_RAW);
         }
     }
 

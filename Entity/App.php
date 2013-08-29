@@ -3,8 +3,8 @@
 namespace Egzakt\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping as ORM;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
 
@@ -34,14 +34,24 @@ class App extends BaseEntity
     protected $ordering;
 
     /**
+     * @var string $prefix
+     */
+    protected $prefix;
+
+    /**
      * @var array
      */
     protected $sections;
 
     /**
-     * @var string $prefix
+     * @var Collection
      */
-    protected $prefix;
+    protected $navigations;
+
+    /**
+     * @var Collection
+     */
+    protected $mappings;
 
     /**
      * Constructor
@@ -49,6 +59,8 @@ class App extends BaseEntity
     public function __construct()
     {
         $this->sections = new ArrayCollection();
+        $this->navigations = new ArrayCollection();
+        $this->mappings = new ArrayCollection();
     }
 
     /**
@@ -58,7 +70,11 @@ class App extends BaseEntity
      */
     public function __toString()
     {
-        return $this->name;
+        if ($this->id) {
+            return $this->name;
+        }
+
+        return 'New Application';
     }
 
     /**
@@ -104,11 +120,19 @@ class App extends BaseEntity
     /**
      * Get the default route to entity
      *
+     * @param string $suffix
+     *
      * @return string
      */
-    public function getRoute()
+    public function getRoute($suffix = 'edit')
     {
-        return 'egzakt_system_backend_app';
+        $route = 'egzakt_system_backend_application';
+
+        if ($suffix) {
+            $route .= '_' . $suffix;
+        }
+
+        return $route;
     }
 
     /**
@@ -120,7 +144,7 @@ class App extends BaseEntity
      */
     public function getRouteParams($params = array())
     {
-        $defaults = array('appSlug' => $this->getSlug());
+        $defaults = array('applicationId' => intval($this->id));
         $params = array_merge($defaults, $params);
 
         return $params;
@@ -217,25 +241,21 @@ class App extends BaseEntity
     /**
      * Remove sections
      *
-     * @param \Egzakt\SystemBundle\Entity\Section $sections
+     * @param Section $sections
      */
-    public function removeSection(\Egzakt\SystemBundle\Entity\Section $sections)
+    public function removeSection(Section $sections)
     {
         $this->sections->removeElement($sections);
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    protected $mappings;
-
 
     /**
      * Add mappings
      *
-     * @param \Egzakt\SystemBundle\Entity\Mapping $mappings
+     * @param Mapping $mappings
+     *
      * @return App
      */
-    public function addMapping(\Egzakt\SystemBundle\Entity\Mapping $mappings)
+    public function addMapping(Mapping $mappings)
     {
         $this->mappings[] = $mappings;
     
@@ -245,9 +265,9 @@ class App extends BaseEntity
     /**
      * Remove mappings
      *
-     * @param \Egzakt\SystemBundle\Entity\Mapping $mappings
+     * @param Mapping $mappings
      */
-    public function removeMapping(\Egzakt\SystemBundle\Entity\Mapping $mappings)
+    public function removeMapping(Mapping $mappings)
     {
         $this->mappings->removeElement($mappings);
     }
@@ -255,25 +275,21 @@ class App extends BaseEntity
     /**
      * Get mappings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getMappings()
     {
         return $this->mappings;
     }
-    /**
-     * @var \Doctrine\Common\Collections\Collection
-     */
-    protected $navigations;
-
 
     /**
      * Add navigations
      *
-     * @param \Egzakt\SystemBundle\Entity\Navigation $navigations
+     * @param Navigation $navigations
+     *
      * @return App
      */
-    public function addNavigation(\Egzakt\SystemBundle\Entity\Navigation $navigations)
+    public function addNavigation(Navigation $navigations)
     {
         $this->navigations[] = $navigations;
     
@@ -283,9 +299,9 @@ class App extends BaseEntity
     /**
      * Remove navigations
      *
-     * @param \Egzakt\SystemBundle\Entity\Navigation $navigations
+     * @param Navigation $navigations
      */
-    public function removeNavigation(\Egzakt\SystemBundle\Entity\Navigation $navigations)
+    public function removeNavigation(Navigation $navigations)
     {
         $this->navigations->removeElement($navigations);
     }
@@ -293,10 +309,36 @@ class App extends BaseEntity
     /**
      * Get navigations
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return Collection
      */
     public function getNavigations()
     {
         return $this->navigations;
+    }
+
+    /**
+     * List of methods to check before allowing deletion
+     *
+     * @return array
+     */
+    public function getDeleteRestrictions()
+    {
+        return array('isRestrictedApp');
+    }
+
+    /**
+     * Check if the current entity is a restricted app that is part of the system and should not be altered
+     *
+     * @return bool
+     */
+    public function isRestrictedApp()
+    {
+        $restrictedApps = array(AppRepository::FRONTEND_APP_ID, AppRepository::BACKEND_APP_ID);
+
+        foreach ($restrictedApps as $restrictedApp) {
+            if ($restrictedApp == $this->id) {
+                return true;
+            }
+        }
     }
 }
