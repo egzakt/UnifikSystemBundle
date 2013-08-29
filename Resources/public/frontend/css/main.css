@@ -48,12 +48,6 @@ form {
     margin: 0;
 }
 
-h1 {
-    font-size: 1.833em;
-    line-height: 1.2em;
-    margin: 0 0 15px 0;
-}
-
 h2 {
     font-size: 1.667em;
     line-height: 1.2em;
@@ -192,6 +186,12 @@ aside#actions a {
     margin-left: 10px;
 }
 
+#section_header .title_level1 {
+    font-size: 1.833em;
+    line-height: 1.2em;
+    margin: 0 0 15px 0;
+}
+
 
 /* LISTS
 --------------------------------------*/
@@ -218,6 +218,15 @@ time {
 
 .items_list .more {
     margin-top: 4px;
+}
+
+
+/* ITEM DETAIL
+--------------------------------------*/
+article.item .detail h1 {
+    font-size: 1.667em;
+    line-height: 1.2em;
+    margin: 0 0 5px 0;
 }
 
 
