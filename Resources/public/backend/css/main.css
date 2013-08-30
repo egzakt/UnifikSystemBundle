@@ -217,6 +217,10 @@ form {
     padding-right: 13px;
 }
 
+#login_bar ul.tools label {
+    color: #fff;
+}
+
 #login_bar ul.tools a {
     color: #fff;
     padding: 2px 0 2px 19px;
@@ -687,7 +691,6 @@ ul#bundles a.db.selected {
 /* LANGUAGES
 -----------------------------------------*/
 #languages {
-    float: right;
     font-size: 0.917em;
     line-height: 1.1em;
 }
