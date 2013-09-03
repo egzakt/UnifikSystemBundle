@@ -1,4 +1,5 @@
 {% if locales and locales|length > 1 %}
+    <label>{% trans %}Locale Content :{% endtrans %}</label>
     <select id="languages">
         {% for locale in locales %}
             <option {% if editLocale == locale.code %}selected="selected"{% endif %} value="{{ locale.code }}">{{ locale }}</option>

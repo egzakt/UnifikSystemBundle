@@ -10,6 +10,11 @@
 
 <ul class="tools">
     <li>
+        {% block locale_bar %}
+            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:LocaleBar')) }}
+        {% endblock %}
+    </li>
+    <li>
         <a href="{{ path('egzakt_system_backend_help') }}" id="help">{% trans %}Online help{% endtrans %}</a>
     </li>
     <li>
