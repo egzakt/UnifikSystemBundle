@@ -15,10 +15,10 @@ class NavigationController extends BaseController
 {
     public function sectionModuleBarAction($_masterRoute)
     {
-    $selected = (0 === strpos($_masterRoute, '{{ route_prefix }}'));
+        $selected = (0 === strpos($_masterRoute, '{{ route_prefix }}'));
 
-    return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity|replace({'\\': '/'}) ~ '/Navigation'}}:section_module_bar.html.twig', array(
-        'selected' => $selected,
-    ));
+        return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity|replace({'\\': '/'}) ~ '/Navigation'}}:section_module_bar.html.twig', array(
+            'selected' => $selected,
+        ));
     }
 }
