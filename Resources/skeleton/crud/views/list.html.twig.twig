@@ -1,0 +1,147 @@
+{{ "{% extends '" ~ bundle_name ~ ":" ~ application ~ "/" ~ entity ~ ":layout.html.twig' %}" -}}
+
+{%- set hidden_fields = ['id', 'locale', 'active', 'createdAt'] %}
+
+{{ '{% block content_header %}' }}
+    <h1>{{ "{% trans %}"}}{{ entity }}{{ "s List{% endtrans %}" }}</h1>
+{{ '{% endblock %}' }}
+
+{{ '{% block content_main %}' }}
+
+{% if 'ordering' in fields|keys %}
+    <script type="text/javascript">
+       var url_ordre = '{{ "{{ path('" ~ route_prefix ~ "_order') }}" }}';
+    </script>
+
+{% endif %}
+    <div id="list_actions_bar">
+       <a class="add" href="{{ "{{ path('" ~ route_prefix ~ "_edit') }}" }}">{{ "{% trans %}Add a "}}{{ entity }}{{ "{% endtrans %}" }}</a>
+    </div>
+
+    <div class="list_box">
+    <table cellspacing="0" class="table-autosort">
+        <thead>
+        <tr>
+        {%- for field, metadata in fields -%}
+        {%- if field not in hidden_fields %}
+
+        {% set css_class = "" %}
+
+        {%- if field == 'name' -%}
+        {% set css_class = "name" %}
+        {%- endif -%}
+
+        {%- if field == 'ordering' -%}
+        {% set css_class = "default_ordering  table-sortable:numeric" %}
+        {%- endif -%}
+
+        {%- if metadata.type == 'boolean' -%}
+        {% set css_class = css_class ~ " centered" %}
+        {%- endif -%}
+
+        {%- if metadata.type in ['date', 'datetime'] -%}
+        {% set css_class = css_class ~ " table-sortable:date" %}
+        {%- elseif metadata.type == 'string' -%}
+        {% set css_class = css_class ~ " table-sortable:ignorecase" %}
+        {%- endif -%}
+
+        <th{% if css_class != '' %} class="{{ css_class }}"{% endif %}>
+        {% if metadata.type in ['date', 'datetime'] -%}
+            {{ '{% trans %}' }}{{ field|replace({'At': ''})|capitalize }}{{ '{% endtrans %}' }}
+        {%- else -%}
+            {{ '{% trans %}' }}{{ field|capitalize }}{{ '{% endtrans %}' }}
+        {%- endif %}
+
+        </th>
+        {%- endif %}
+        {%- endfor %}
+
+        {% if 'ordering' in fields|keys -%}
+        <th colspan="2" class="switch_list_mode">
+        <a href="#"><img src="{{ '{{ asset("bundles/egzaktbackendcore/images/buttons/switch_list_mode_off.gif") }}' }}" width="20" height="20" alt="" /></a>
+        </th>
+        {%- else -%}
+        <th class="edit"></th>
+        <th class="delete"></th>
+        {% endif %}
+
+        </tr>
+        <tr class="filters">
+        {% for field, metadata in fields -%}
+        {% if field not in hidden_fields -%}
+        <th{% if field == 'name' %} class="name"{% elseif(field == 'ordering') %} class="default_ordering"{% endif %}>
+        {% if metadata.type == 'string' -%}
+        <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ '{{ "Search a ' }}{{ field }}{{ '"|trans }}' }}" />
+        {%- else -%}
+        &nbsp;
+        {%- endif %}
+
+        </th>
+        {% endif -%}
+        {% endfor -%}
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{ '{% for entity in entities %}' }}
+        <tr id="item_{{ '{{ entity.id }}' }}">
+        {%- for field, metadata in fields -%}
+        {%- if field not in hidden_fields -%}
+        {%- if field == 'name' %}
+
+        <td class="name{% if 'active' in fields|keys %}{{ '{% if not entity.active %} inactive{% endif %}' }}{% endif %}{% if 'featured' in fields|keys %}{{ '{% if entity.featured %} featured{% endif %}' }}{% endif %}">
+            <a href="{{ "{{ path(entity.route, entity.routeParams) }}" }}">{{ '{{ entity|raw }}' }}</a>
+        </td>
+        {%- elseif field == 'ordering' %}
+
+        <td class="default_ordering">
+            {{ '{{ entity.ordering }}' }}
+        </td>
+        {%- elseif metadata.type in ['date', 'datetime'] %}
+
+        <td>
+            {{ '{{ entity.' }}{{ field }}{{ "|date('Y-m-d') }}" }}
+        </td>
+        {%- elseif metadata.type in ['boolean'] %}
+
+        <td class="centered">
+            {{ "{% if entity." }}{{ field }}{{ " %}" }}
+             <img src="{{ "{{ asset('bundles/egzaktbackendcore/images/icons/tick.png') }}" }}" width="16" height="16" alt="yes">
+            {{ "{% endif %}" }}
+        </td>
+
+        {%- elseif field|lower not in hidden_fields %}
+
+        <td>
+            {{ '{{ entity.' ~ field ~ '|striptags }}' }}
+        </td>
+        {%- endif -%}
+        {%- endif %}
+        {% endfor %}
+
+        <td class="edit">
+            {{ "{% if entity.isEditable %}" }}
+            <a href="{{ "{{ path(entity.route, entity.routeParams) }}" }}" title="{{ '{% trans %}' }}Edit{{ '{% endtrans %}' }}">
+            <img src="{{ "{{ asset('bundles/egzaktbackendcore/images/buttons/edit.png') }}" }}" width="15" height="15" alt="" />
+            </a>
+            {{ "{% endif %}" }}
+        </td>
+        <td class="delete">
+            <a href="{{ "{{ path(entity.route('delete'), entity.routeParams) }}" }}" rel="{{ "{{ path(entity.route('delete'), entity.routeParams({'message': true})) }}" }}" title="{{ '{% trans %}' }}Delete{{ '{% endtrans %}' }}">
+            <img src="{{ "{{ asset('bundles/egzaktbackendcore/images/buttons/delete.png') }}" }}" width="12" height="15" alt="" />
+            </a>
+        </td>
+        </tr>
+        {{ '{% endfor %}' }}
+        </tbody>
+    </table>
+
+    <div class="total">
+        <span class="sub-total"></span>
+        {{ "{% set count = entities|length %}" }}
+        {{ "{% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}" }}
+    </div>
+    </div>
+
+{{ '{% endblock content_main %}' }}

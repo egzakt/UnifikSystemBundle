@@ -1,0 +1,67 @@
+{{ "{% extends '" ~ bundle_name ~ ":" ~ application ~ "/" ~ entity ~ ":layout.html.twig' %}" }}
+{{ "{% form_theme form 'EgzaktSystemBundle:" ~ application ~ "/Core:edit_fields.html.twig' %}" }}
+
+{{ '{% block content_header %}' }}
+    <h1>{{ '{{ entity|trans }}' }}</h1>
+{{ '{% endblock %}' }}
+
+{{ '{% block content_main %}' }}
+
+    <form novalidate="novalidate" action="{{ "{{ path(entity.route, entity.routeParams) }}" }}" method="post" {{ "{{ form_enctype(form) }}" }}>
+
+    {{ "{% block edit_actions %}" }}
+        {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
+        'entity': entity,
+        'delete_route': path('" ~ route_prefix ~ "_delete', { id: entity.id ?: 0 }),
+        'cancel_route': path('" ~ route_prefix ~ "')
+        } %}" }}
+    {{ "{% endblock %}" }}
+
+    <div id="fields_box">
+
+        {{ "{{ form_errors(form) }}" }}
+
+        <table class="fields" cellspacing="0">
+        {% if 'slug' in fields|keys -%}
+        {% if 'active' in fields|keys -%}
+
+        {{ '{{ form_row(form.active) }}' }}
+        {% endif %}
+
+        {% if 'name' in fields|keys -%}
+        {{ '{{ form_row(form.name) }}' }}
+        {% endif %}
+
+        {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
+        'link_name': 'SEO Informations',
+        'fields': [form_row(form.slug)]
+        } %}" }}
+        {% endif %}
+
+        {{ "{{ form_rest(form) }}" }}
+
+        {% if 'updatedAt' in fields|keys -%}
+        {{ "{% if entity.id %}" }}
+        <tr>
+        <th>
+            {{ '{% trans %}Last update {% endtrans %}' }} :
+        </th>
+        <td style="vertical-align:bottom">
+            {{ "{{ entity.updatedAt|localeDate('long', 'short') }}" }}
+        </td>
+        </tr>
+        {{ "{% endif %}" }}
+        {%- endif %}
+
+        </table>
+    </div>
+
+    {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
+        'entity': entity,
+        'delete_route': path('" ~ route_prefix ~ "_delete', { id: entity.id ?: 0 }),
+        'cancel_route': path('" ~ route_prefix ~ "')
+    } %}" }}
+
+    </form>
+
+{{ '{% endblock content_main %}' }}

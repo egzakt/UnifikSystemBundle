@@ -1,0 +1,61 @@
+
+    /**
+     * Displays a form to edit an existing {{ entity }} entity or create a new one.
+     *
+     * @param integer $id The id of the {{ entity }} to edit
+     * @param Request $request
+{% if 'annotation' == format %}
+     *
+     * @Route("/{id}/edit", name="{{ route_prefix }}_edit")
+     * @Template()
+{% endif %}
+     *
+     * @return RedirectResponse|Response
+     */
+    public function editAction($id, Request $request)
+    {
+        $entity = $this->getEm()->getRepository('{{ namespace|replace({'\\': ''}) ~ ':' ~ entity|replace({'\\': '/'}) }}')->find($id);
+
+        if (false == $entity) {
+
+            $entity = new {{ entity_class }}();
+            $entity->setContainer($this->container);
+
+            // Uncomment to connect the list with the current section
+            // $entity->setSection($section);
+        }
+
+        $this->getCore()->addNavigationElement($entity);
+
+        $form = $this->createForm(new {{ entity_class }}Type(), $entity);
+
+        if ('POST' == $request->getMethod()) {
+
+            $form->submit($request);
+
+            if ($form->isValid()) {
+
+            $this->getEm()->persist($entity);
+            $this->getEm()->flush();
+
+            $this->get('session')->setFlash('success', $this->get('translator')->trans(
+            '%entity% has been updated.',
+            array('%entity%' => $entity))
+            );
+
+            if ($request->request->has('save')) {
+
+            return $this->redirect($this->generateUrl('{{ route_prefix }}'));
+            }
+
+            return $this->redirect($this->generateUrl($entity->getRoute(), $entity->getRouteParams()));
+            } else {
+            $this->get('session')->setFlash('error', 'Some fields are invalid.');
+            }
+        }
+
+        return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity_class ~ '/' ~ entity|replace({'\\': '/'}) }}:edit.html.twig', array(
+            'entity' => $entity,
+            'form' => $form->createView()
+        ));
+    }
