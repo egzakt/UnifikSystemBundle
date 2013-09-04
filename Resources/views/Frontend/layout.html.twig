@@ -38,32 +38,41 @@
 
                 {{ render(controller('EgzaktSystemBundle:Frontend/Navigation:ByCode', { code: 'primary', maxLevel: 1, attr: { id: 'primary_navigation'} })) }}
 
-                <div id="main" role="main">
-                    {% block breadcrumbs %}{{ render(controller('EgzaktSystemBundle:Frontend/Navigation:Breadcrumbs')) }}{% endblock %}
+                {% block main %}
+                    <div id="main" role="main" class="clearfix">
 
-                    {# TODO: sub-navigation #}
-
-                    <div id="content">
-                        {% block content %}
-                            {% block content_top %}
-                                <article>
-                                    <aside id="actions">
-                                        <a href="#" class="print_link">{% trans %}Print{% endtrans %}</a>
-                                    </aside>
-
-                                    <header id="section_header">
-                                        <h1 class="title_level1">{{ section }}</h1>
-                                    </header>
+                        <div id="nav_col">
+                            {% block nav_col %}
+                                {# TODO: sub-navigation #}
                             {% endblock %}
+                        </div>
 
-                            {% block content_main %}{% endblock %}
+                        <div id="content_col">
+                            {% block breadcrumbs %}{{ render(controller('EgzaktSystemBundle:Frontend/Navigation:Breadcrumbs')) }}{% endblock %}
 
-                            {% block content_bottom %}
-                                </article>
+                            {% block content %}
+                                {% block content_top %}
+                                    <article>
+                                        <aside id="actions">
+                                            <a href="#" class="print_link">{% trans %}Print{% endtrans %}</a>
+                                        </aside>
+
+                                        <header id="section_header">
+                                            {% block section_header %}
+                                                <h1 class="title_level1">{{ section }}</h1>
+                                            {% endblock %}
+                                        </header>
+                                {% endblock %}
+
+                                {% block content_main %}{% endblock %}
+
+                                {% block content_bottom %}
+                                    </article>
+                                {% endblock %}
                             {% endblock %}
-                        {% endblock %}
+                        </div>
                     </div>
-                </div>
+                {% endblock %}
 
                 <footer id="site_footer">
                     {{ render(controller('EgzaktSystemBundle:Frontend/Navigation:ByCode', { code: 'footer', attr: { id: 'footer_navigation' } })) }}

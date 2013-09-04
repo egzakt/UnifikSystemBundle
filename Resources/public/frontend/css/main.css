@@ -110,6 +110,7 @@ h3 {
 
 /* NAVIGATIONS
 --------------------------------------*/
+/* Global navs */
 nav {
     padding: 5px 8px;
     margin: 20px 0;
@@ -135,36 +136,49 @@ nav a {
     text-decoration: none;
 }
 
-#sub_navigation {
-    float: left;
-    width: 164px;
-    margin-top:0;
-    padding:5px 8px 9px 8px;
+
+/* Aside navs */
+nav.aside_nav {
+    margin: 0 0 20px 0;
+    padding: 0;
+    font-size: 1em;
+    line-height: 1.4em;
+    border: 0;
+    background-color: transparent;
 }
 
-#sub_navigation li {
-    padding:4px 0;
-    border-bottom:1px solid #c0c0c0;
+nav.aside_nav .nav_title {
+    font-size: 1.167em;
+    line-height: 1.2em;
+    margin: 0 0 4px 0;
 }
 
-#sub_navigation li ul {
-    margin:5px 0 0 16px;
+nav.aside_nav ul {
+    list-style-type: circle;
 }
 
-#sub_navigation li ul li.last_item {
-    border:none;
+nav.aside_nav li {
+    float: none;
+    margin: 0 0 0 15px;
 }
 
 
-/* MAIN COLUMN ARCHITECTURE
+/* MAIN COLUMNS ARCHITECTURE
 --------------------------------------*/
-#main_col {
-    float: right;
-    width: 720px;
+#nav_col {
+    float: left;
+    width: 185px;
+    padding: 10px;
+    background-color: #fafafa;
 }
-#main_col.main_col_full {
-    float:none;
-    width:920px;
+
+#content_col {
+    float: right;
+    width: 775px;
+}
+#main.full #content_col {
+    float: none;
+    width: 100%;
 }
 
 ul#breadcrumbs {
@@ -186,21 +200,31 @@ aside#actions a {
     margin-left: 10px;
 }
 
+#section_header {
+    margin-bottom: 15px;
+}
+
 #section_header .title_level1 {
-    font-size: 1.833em;
+    font-size: 1.917em;
     line-height: 1.2em;
-    margin: 0 0 15px 0;
+    margin: 0 0 3px 0;
+}
+
+#section_header .title_level2 {
+    font-size: 1.583em;
+    line-height: 1.2em;
+    margin: 0 0 3px 0;
 }
 
 
 /* LISTS
 --------------------------------------*/
-.items_list li {
+.items_list > li {
     border: 1px solid #c0c0c0;
     padding: 10px;
     margin-bottom: 12px;
 }
-.items_list li:last-child {
+.items_list > li:last-child {
     margin-bottom: 0;
 }
 
@@ -220,6 +244,23 @@ time {
     margin-top: 4px;
 }
 
+ul.tags {
+    display: inline-block;
+}
+
+ul.tags li {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+ul.tags a {
+    display: inline-block;
+    padding: 1px 6px;
+    border-radius: 8px;
+    background-color: #EEEEEE;
+    text-decoration: none;
+}
+
 
 /* ITEM DETAIL
 --------------------------------------*/
@@ -227,6 +268,10 @@ article.item .detail h1 {
     font-size: 1.667em;
     line-height: 1.2em;
     margin: 0 0 5px 0;
+}
+
+article.item .detail .text {
+    margin-top: 10px;
 }
 
 
@@ -424,4 +469,19 @@ form .button {
     font-size: 0.75em;
     line-height: 1.2em;
     text-transform: uppercase;
+}
+
+
+/* MISC
+--------------------------------------*/
+.clearfix {
+    *zoom: 1;
+}
+.clearfix:before,
+.clearfix:after {
+    content: " ";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
 }
