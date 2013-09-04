@@ -50,7 +50,10 @@ class DoctrineEventListener
 
         if ($entity instanceof BaseTranslationEntity) {
             if (method_exists($entity, 'getTranslatable')) {
-                $entity->getTranslatable()->setUpdatedAt(new \DateTime());
+                $translatable = $entity->getTranslatable();
+                if ( method_exists($translatable, 'setUpdatedAt') ) {
+                    $entity->getTranslatable()->setUpdatedAt(new \DateTime());
+                }
             }
         }
     }
