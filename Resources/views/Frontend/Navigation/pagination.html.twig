@@ -14,16 +14,23 @@
             {% endif %}
 
             {% for page in pagesInRange %}
-                {% if page != current %}
+                {% if pageCount > pageRange and page == current %}
+                    <li class="select">
+                        <select>
+                            {% for i in 1..pageCount %}
+                                <option value="{{ path(route, query|merge({(pageParameterName): i})) }}"{% if i == page %} selected="selected"{% endif %}>{{ i }}</option>
+                            {% endfor %}
+                        </select>
+                    </li>
+                {% elseif page == current %}
+                    <li class="selected number">
+                        <strong>{{ page }}</strong>
+                    </li>
+                {% else %}
                     <li class="number">
                         <a href="{{ path(route, query|merge({(pageParameterName): page})) }}">{{ page }}</a>
                     </li>
-                {% else %}
-                    <li class="current number">
-                        <strong>{{ page }}</strong>
-                    </li>
                 {% endif %}
-
             {% endfor %}
 
             {% if next is defined %}
