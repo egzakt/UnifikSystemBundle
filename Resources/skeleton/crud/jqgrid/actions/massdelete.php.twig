@@ -1,0 +1,15 @@
+    public function massDeleteAction(Request $request)
+    {
+
+        if ( !$request->isXmlHttpRequest() ) {
+            throw new \Exception("This method can only be called in ajax-mode.");
+        }
+
+        $gridService = $this->get('jqgrid');
+
+        $gridService->massDelete($request);
+
+        return new Response( json_encode( array('success' => true)) );
+
+
+    }

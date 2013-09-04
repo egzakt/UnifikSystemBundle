@@ -1,0 +1,25 @@
+
+    /**
+     * Lists all {{ entity }} entities.
+     *
+     * @return Response
+     */
+    public function listAction(Request $request)
+    {
+
+        $gridService = $this->get('jqgrid');
+        $gridList = $gridService->createDataGrid( new {{ entity }}GridType(), array('url' => $this->generateUrl('{{ route_prefix }}'), 'locale' => $request->getLocale() ) );
+
+        if ( $request->isXmlHttpRequest() ) {
+            return new Response( $gridList->search( $request ) );
+        }
+
+        return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity_class ~ '/' ~ entity|replace({'\\': '/'}) }}:list.html.twig',
+                array(
+                    'grid' => $gridList->createView(),
+                    'section' => $this->getSection()
+                )
+        );
+
+    }
+

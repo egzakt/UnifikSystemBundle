@@ -1,0 +1,41 @@
+
+    /**
+     * Deletes a {{ entity }} entity.
+     *
+     * @param integer $id The id of the {{ entity }} to delete
+     *
+     * @throws NotFoundHttpException
+     *
+     * @return Response|RedirectResponse
+     */
+    public function deleteAction($id)
+    {
+        $entity = $this->getEm()->getRepository($this->getBundleName() . ':{{ entity }}')->find($id);
+
+        if (!$entity) {
+            throw $this->createNotFoundException('Unable to find {{ entity }} entity.');
+        }
+
+        if ($this->get('request')->get('message')) {
+            $template = $this->renderView('EgzaktBackendCoreBundle:Core:delete_message.html.twig', array(
+                'entity' => $entity,
+                'truncateLength' => $this->getSectionBundle()->getParam('breadcrumbs_truncate_length')
+            ));
+
+            return new Response(json_encode(array(
+                'template' => $template,
+                'isDeletable' => $entity->isDeletable()
+            )));
+        }
+
+        // Call the translator before we flush the entity so we can have the real __toString()
+        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+            '%entity% has been deleted.',
+            array('%entity%' => $entity))
+        );
+
+        $this->getEm()->remove($entity);
+        $this->getEm()->flush();
+
+        return $this->redirect($this->generateUrl($this->getBundleName(), array('section_id' => $this->getSection()->getId())));
+    }
