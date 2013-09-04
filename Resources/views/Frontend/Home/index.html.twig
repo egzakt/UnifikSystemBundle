@@ -4,8 +4,10 @@
     <h1 id="logo">{{ project_title }}</h1>
 {% endblock %}
 
-{% block breadcrumbs %}{% endblock %}
-
-{% block content %}
-    {{ render(controller('EgzaktSystemBundle:Frontend/Text:DisplayTexts')) }}
+{% block main %}
+    <div id="main" role="main" class="full">
+        <div id="content_col">
+            {{ render(controller('EgzaktSystemBundle:Frontend/Text:DisplayTexts')) }}
+        </div>
+    </div>
 {% endblock %}
