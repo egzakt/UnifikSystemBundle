@@ -1,0 +1,74 @@
+{{ "{% extends '" ~ bundle_name ~ ":" ~ application ~ "/" ~ entity ~ ":layout.html.twig' %}" -}}
+
+{{ '{% block content_header %}' }}
+    <h1>{{ "{% trans %}"}}{{ entity }}{{ "s List{% endtrans %}" }}</h1>
+{{ '{% endblock %}' }}
+
+{{ '{% block content_main %}' }}
+
+{{ "{% set idGrid = 'entityList' %}" }}
+
+{{ "{{ include('EgzaktJQGridBundle:JQGrid:headers.html.twig') }}" }}
+
+<div id="list_actions_bar" style="margin-bottom:10px;">
+    <div style="float:right">
+
+        {{ "{% set exportpath = path( '" ~ route_prefix ~ "_export') %} "}}
+
+        {{ "{% include 'EgzaktJQGridBundle:JQGrid:bulkSelector.html.twig' with { 'idGrid': idGrid, 'grid': grid,
+                'actions': {
+                    'export': {
+                        'url': exportpath,
+                        'fields': [ grid.model|keys|join(',') ],
+                        'format': [ 'csv', 'xml', 'json' ]
+                    }
+                }
+            }
+        %}" }}
+
+
+    </div>
+    <a class="add" href="{{ "{{ path('" ~ route_prefix ~ "_edit') }}" }}">{{ "{% trans %}Add a "}}{{ entity }}{{ "{% endtrans %}" }}</a>
+    <a id="massDelete" class="add" href="#">{{ "{% trans %}Delete selected rows{% endtrans %}" }}</a>
+ {{ '{% if grid.sort.active %}
+        <a id="toggleSort" class="job" href="#" style="float:right;">{% trans %}Enter reordering mode{% endtrans %}</a>
+     {% endif %}' }}
+</div>
+
+        {{ "{% include 'EgzaktJQGridBundle:JQGrid:jqgrid.html.twig' with { 'idGrid': idGrid, 'grid': grid,
+                'entityActions': {
+                    'edit': { 'url': '" ~ route_prefix ~ "_edit', 'args': { 'sectionId': section.id } },
+                    'delete': { 'url': '" ~ route_prefix ~ "_delete', 'args': { 'sectionId': section.id } },
+                }
+            }
+        %}" }}
+
+
+    <script type="text/javascript">
+
+        $(function() {
+
+            $("#massDelete").click(function(e) {
+                e.preventDefault();
+
+                var s = $("#{{'{{ idGrid }}'}}").jqGrid('getGridParam','selarrrow');
+
+                if ( s == '' )
+                    return false;
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ "{{ path('" ~ route_prefix ~ "_massdelete') }}" }}",
+                    data: {items: s, classname: "{{ "{{ grid.dataclass }}"}}"},
+                    success: function(data){
+                        $("#{{'{{ idGrid }}'}}").trigger("reloadGrid");
+                    }
+
+                });
+
+            });
+        });
+    </script>
+
+{{ '{% endblock content_main %}' }}
+

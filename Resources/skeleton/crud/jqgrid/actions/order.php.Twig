@@ -1,0 +1,25 @@
+    /**
+     * Re-order the grid.
+     * @return Response
+     * @throws \Exception
+     */
+    public function orderAction()
+    {
+
+        $request = $this->getRequest();
+
+        if ($request->isXmlHttpRequest()) {
+
+            $gridService = $this->get('jqgrid');
+
+            $type = new {{ entity }}GridType();
+
+            $gridList = $gridService->createDataGrid( $type, array('section' => $this->getSection()->getId() ) );
+
+
+            $response = $gridList->reOrder($request);
+            return new Response( json_encode($response) );
+        }
+
+        throw new \Exception("This method can only be called in ajax-mode.");
+    }

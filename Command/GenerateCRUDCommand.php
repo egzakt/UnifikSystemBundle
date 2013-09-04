@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Command;
 
+use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -41,6 +42,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
         $setDefinitionOptions = array(
             new InputOption('entity', '', InputOption::VALUE_REQUIRED, 'The entity class name to initialize (shortcut notation)'),
             new InputOption('route-prefix', '', InputOption::VALUE_REQUIRED, 'The route prefix'),
+            new InputOption('with-jqgrid', '', InputOption::VALUE_NONE, 'use if you want to generate a jqgrid array'),
         );
         $this->setName('egzakt:generate:crud')
             ->setDescription('Generates a CRUD based on an Egzakt entity')
@@ -83,7 +85,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
 
         // Generate the controller
         $generator = $this->getGenerator();
-        $generator->generate($bundle, $entity, $metadata[0], 'yml', $prefix, true, true, $this->application);
+        $generator->generate($bundle, $entity, $metadata[0], 'yml', $prefix, true, true, $this->application, $input->getOption('with-jqgrid'));
         $output->writeln('Generating the Controller code: <info>OK</info>');
 
         $errors = array();
@@ -104,6 +106,13 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
         // form
         $this->generateForm($bundle, $entity, $metadata, $translation);
         $output->writeln('Generating the Form code: <info>OK</info>');
+
+        // jqGrid
+        if ( $input->getOption('with-jqgrid') ) {
+            $command = $this->getApplication()->find('egzakt:jqgrid:generate');
+            $arguments = array('entity' => $input->getOption('entity'), 'command' => 'egzakt:jqgrid:generate');
+            $command->run( new ArrayInput($arguments), $output );
+        }
 
         $dialog->writeGeneratorSummary($output, $errors);
     }

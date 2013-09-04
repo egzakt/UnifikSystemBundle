@@ -1,0 +1,22 @@
+
+    /**
+     * Export entity
+     *
+     */
+    public function exportAction()
+    {
+
+        $request = $this->getRequest();
+        $gridService = $this->get('jqgrid');
+
+        $gridList = $gridService->createDataGrid( new {{ entity }}GridType(), array('url' => $this->generateUrl('{{ route_prefix }}'), 'locale' => $request->getLocale()) );
+
+        $now = new \DateTime();
+
+        try {
+            return $gridService->export($request, $gridList->getBuilder(), 'Export-'.$now->format('Y-m-d-H-i-s'));
+        } catch ( \Exception $e ) {
+            return new Response($e->getMessage(), 500);
+        }
+
+    }

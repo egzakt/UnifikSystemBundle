@@ -1,0 +1,43 @@
+<?php
+
+namespace {{ namespace }}\Controller\{{ application }}\{{ entity }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
+
+use Symfony\Component\HttpFoundation\Request;
+{% if 'order' in actions or 'delete' in actions %}
+use Symfony\Component\HttpFoundation\Response;
+{% endif %}
+
+use Egzakt\SystemBundle\Lib\{{ application }}\BaseController;
+use {{ namespace }}\Entity\{{ entity }};
+use {{ namespace }}\Form\Backend\{{ entity }}Type;
+
+use {{ namespace }}\Grid\{{ entity }}Type as {{ entity }}GridType;
+
+
+/**
+ * {{ entity_class }} Controller
+ */
+class {{ entity_class }}Controller extends BaseController
+{
+    {%- include 'crud/actions/init.php.twig' %}
+
+    {%- if 'list' in actions %}
+        {%- include 'crud/jqgrid/actions/list.php.twig' %}
+    {%- endif %}
+
+    {%- if 'order' in actions %}
+        {%- include 'crud/jqgrid/actions/order.php.twig' %}
+    {%- endif %}
+
+    {%- if 'edit' in actions %}
+        {%- include 'crud/actions/edit.php.twig' %}
+    {%- endif %}
+
+    {%- if 'delete' in actions %}
+        {%- include 'crud/actions/delete.php.twig' %}
+    {%- endif %}
+
+    {%- include 'crud/jqgrid/actions/export.php.twig' %}
+
+    {%- include 'crud/jqgrid/actions/massdelete.php.twig' %}
+}

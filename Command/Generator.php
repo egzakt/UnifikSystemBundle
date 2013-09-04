@@ -46,6 +46,9 @@ class Generator extends DoctrineCrudGenerator
     /* @var string */
     protected $application;
 
+    /** @var boolean */
+    protected $withjqgrid;
+
     /**
      * Constructor.
      *
@@ -71,10 +74,11 @@ class Generator extends DoctrineCrudGenerator
      * @param array             $needWriteActions   Wether or not to generate write actions
      * @param string            $forceOverwrite     Overwrite the files or not
      * @param string            $application        The current application context
+     * @param boolean           $withjqgrid         Check if we use jqgrid or not
      *
      * @throws \RuntimeException
      */
-    public function generate(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata, $format, $routePrefix, $needWriteActions, $forceOverwrite, $application = '')
+    public function generate(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata, $format, $routePrefix, $needWriteActions, $forceOverwrite, $application = '', $withjqgrid = false)
     {
         $this->routePrefix = $routePrefix;
         $this->actions = array('list', 'edit', 'delete');
@@ -96,6 +100,7 @@ class Generator extends DoctrineCrudGenerator
         $this->metadata = $metadata;
         $this->setFormat($format);
         $this->application = $application;
+        $this->withjqgrid = $withjqgrid;
 
         $this->generateControllerClass($forceOverwrite);
         $this->generateNavigationClass();
@@ -157,7 +162,11 @@ class Generator extends DoctrineCrudGenerator
             $this->format
         );
 
-        $this->renderFile('crud/config/routing.' . $this->format . '.twig', $target, array(
+        $filename = 'crud/';
+        $filename.= $this->withjqgrid ? 'jqgrid/' : '';
+        $filename.= 'config/routing.'.$this->format.'.twig';
+
+        $this->renderFile($filename, $target, array(
             'actions'       => $this->actions,
             'route_prefix'  => $this->routePrefix,
             'bundle'        => $this->bundle->getName(),
@@ -185,7 +194,11 @@ class Generator extends DoctrineCrudGenerator
             $entityClass
         );
 
-        $this->renderFile('crud/controller.php.twig', $target, array(
+        $filename = 'crud/';
+        $filename.= $this->withjqgrid ? 'jqgrid/' : '';
+        $filename.= 'controller.php.twig';
+
+        $this->renderFile($filename, $target, array(
             'actions'           => $this->actions,
             'route_prefix'      => $this->routePrefix,
             'bundle'            => $this->bundle->getName(),
@@ -292,7 +305,11 @@ class Generator extends DoctrineCrudGenerator
      */
     protected function generateIndexView($dir)
     {
-        $this->renderFile('crud/views/list.html.twig.twig', $dir . '/' . $this->entity . '/list.html.twig', array(
+        $filename = 'crud/';
+        $filename.= $this->withjqgrid ? 'jqgrid/' : '';
+        $filename.= 'views/list.html.twig.twig';
+
+        $this->renderFile($filename, $dir . '/' . $this->entity . '/list.html.twig', array(
             'entity'            => $this->entity,
             'fields'            => $this->metadata->fieldMappings,
             'bundle_name'       => $this->bundle->getName(),

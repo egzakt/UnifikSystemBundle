@@ -1,0 +1,35 @@
+{% if 'list' in actions %}
+{{ route_prefix }}:
+    pattern:  /{{ entity|lower }}/{sectionId}/
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:list" }
+
+{% endif %}
+{% if 'order' in actions %}
+{{ route_prefix }}_order:
+    pattern:  /{{ entity|lower }}/{sectionId}/order
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:order" }
+
+{% endif %}
+{% if 'edit' in actions %}
+{{ route_prefix }}_edit:
+    pattern:  /{{ entity|lower }}/{sectionId}/{id}/edit
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:edit", id: 0 }
+    options:
+        expose: true
+
+{% endif %}
+{% if 'delete' in actions %}
+{{ route_prefix }}_delete:
+    pattern:  /{{ entity|lower }}/{sectionId}/{id}/delete
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:delete" }
+    options:
+        expose: true
+{% endif %}
+
+{{ route_prefix }}_export:
+    pattern:  /{{ entity|lower }}/{sectionId}/export
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:export" }
+
+{{ route_prefix }}_massdelete:
+    pattern:  /{{ entity|lower }}/{sectionId}/massdelete
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:massdelete" }
