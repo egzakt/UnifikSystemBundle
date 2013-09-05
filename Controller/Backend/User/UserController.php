@@ -37,11 +37,6 @@ class UserController extends BaseController
 
         $this->createAndPushNavigationElement('Users', 'egzakt_system_backend_user');
 
-        // Check if the current User has the privileges
-        if (!$this->get('security.context')->isGranted('ROLE_BACKEND_ADMIN')) {
-            throw new AccessDeniedHttpException();
-        }
-
         $this->isDeveloper = $this->get('security.context')->isGranted('ROLE_DEVELOPER');
     }
 
