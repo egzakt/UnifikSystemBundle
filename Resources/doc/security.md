@@ -21,6 +21,8 @@ The CMS uses a voter to manage restrictions to the Sections of the applications.
 When creating or editing a role, you can decide which ``Sections`` will be managed by users having this role.
 The voter will then hide and block access to the ``Sections`` that are not managable by this role.
 
+Only roles beginning with ``ROLE_BACKEND_`` will be voted. Other roles will be ignored.
+
 *IMPORTANT*: This works only for ``Sections``, other bundles have to implement their own restriction logic.
 
 ## Impersonate a user
