@@ -3,6 +3,9 @@
         {% include 'EgzaktSystemBundle:Backend/Navigation:section_bar_level.html.twig' with { 'level': 2 } %}
     </ul>
 {% else %}
-    {% trans %}There is no section in this application{% endtrans %}<br />
-    <a href="{{ path('egzakt_system_backend_section_root_edit', { appSlug: managedApp.slug }) }}">{% trans %}Create a new section{% endtrans %}</a>
+    {% if is_granted('ROLE_BACKEND_ADMIN') %}
+        {% trans %}There is no section in this application{% endtrans %}
+        <br />
+        <a href="{{ path('egzakt_system_backend_section_root_edit', { appSlug: managedApp.slug }) }}">{% trans %}Create a new section{% endtrans %}</a>
+    {% endif %}
 {% endif %}
