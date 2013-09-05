@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
@@ -37,6 +38,11 @@ class SectionController extends BaseController
     public function init()
     {
         parent::init();
+
+        // Access restricted to ROLE_BACKEND_ADMIN
+        if (false === $this->get('security.context')->isGranted('ROLE_BACKEND_ADMIN')) {
+            throw new AccessDeniedHttpException('You don\'t have the privileges to view this page.');
+        }
 
         $this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
         $this->navigationRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation');
