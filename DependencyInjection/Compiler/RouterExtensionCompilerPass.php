@@ -20,6 +20,7 @@ class RouterExtensionCompilerPass implements CompilerPassInterface
 
         // i18n loader override
         $container->setParameter('jms_i18n_routing.loader.class', 'Egzakt\\SystemBundle\\Routing\\Loader');
+        $container->setParameter('jms_i18n_routing.route_exclusion_strategy.class', 'Egzakt\\SystemBundle\\Routing\\RouteExclusionStrategy');
         $container->findDefinition('jms_i18n_routing.loader')->addMethodCall('setDatabaseConnection', array(
             new Reference('database_connection')
         ));
