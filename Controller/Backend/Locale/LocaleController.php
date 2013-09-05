@@ -5,6 +5,7 @@ namespace Egzakt\SystemBundle\Controller\Backend\Locale;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
@@ -22,6 +23,11 @@ class LocaleController extends BaseController
     public function init()
     {
         parent::init();
+
+        // Access restricted to ROLE_BACKEND_ADMIN
+        if (false === $this->get('security.context')->isGranted('ROLE_BACKEND_ADMIN')) {
+            throw new AccessDeniedHttpException('You don\'t have the privileges to view this page.');
+        }
     }
 
     /**

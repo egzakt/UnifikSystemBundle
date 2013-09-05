@@ -94,6 +94,11 @@ class NavigationController extends BaseController
      */
     public function appModuleBarAction()
     {
+        // Access restricted to ROLE_BACKEND_ADMIN
+        if (false === $this->get('security.context')->isGranted('ROLE_BACKEND_ADMIN')) {
+            return new Response();
+        }
+
         $mappings = $this->mappingRepository->findBy(array('navigation' => NavigationRepository::APP_MODULE_BAR_ID), array('ordering' => 'ASC'));
 
         return $this->render('EgzaktSystemBundle:Backend/Navigation:app_module_bar.html.twig', array(
