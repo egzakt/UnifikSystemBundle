@@ -300,35 +300,43 @@ body.editor {
 --------------------------------------*/
 .pagination {
     margin-top: 20px;
-    text-align: center;
 }
 
 .pagination ul {
-    display: inline-block;
+    display: table;
+    margin: 0 auto;
     border: 1px solid #c0c0c0;
     border-right: 0;
 }
 
 .pagination li {
-	display: inline;
+	float: left;
 }
 
-.pagination li a,
-.pagination li strong {
-	float: left;
-	border-right: 1px solid #c0c0c0;
-	padding: 4px 9px;
+.pagination li.select {
+    height: 24px;
+    border-right: 1px solid #c0c0c0;
+    padding: 5px 9px 0 9px;
+}
+
+.pagination a,
+.pagination strong {
+    display: inline-block;
+    height: 24px;
+    border-right: 1px solid #c0c0c0;
+    padding: 5px 9px 0 9px;
 	text-decoration: none;
 	color: #321E00;
 }
 
-.pagination li a:hover {
+.pagination a:hover {
     background-color: #F6F6F6;
 }
 
-.pagination li strong {
-	background-color: yellow;
+.pagination select {
+    margin: 0;
 }
+
 
 /* FORM
 -----------------------------------------*/

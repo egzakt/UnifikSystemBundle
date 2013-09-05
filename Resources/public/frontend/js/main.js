@@ -44,6 +44,10 @@ $(document).ready(function() {
         window.print();
         e.preventDefault();
     });
+
+    $('.pagination select').change(function(){
+        window.location = $(this).val();
+    });
 });
 
 
