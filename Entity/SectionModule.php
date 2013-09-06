@@ -2,8 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * SectionModule
  */
@@ -34,11 +32,10 @@ class SectionModule
      */
     private $app;
 
-
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -48,20 +45,20 @@ class SectionModule
     /**
      * Set controller
      *
-     * @param string $controller
+     * @param  string        $controller
      * @return SectionModule
      */
     public function setController($controller)
     {
         $this->controller = $controller;
-    
+
         return $this;
     }
 
     /**
      * Get controller
      *
-     * @return string 
+     * @return string
      */
     public function getController()
     {
@@ -71,20 +68,20 @@ class SectionModule
     /**
      * Set ordering
      *
-     * @param integer $ordering
+     * @param  integer       $ordering
      * @return SectionModule
      */
     public function setOrdering($ordering)
     {
         $this->ordering = $ordering;
-    
+
         return $this;
     }
 
     /**
      * Get ordering
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrdering()
     {
@@ -94,20 +91,20 @@ class SectionModule
     /**
      * Set section
      *
-     * @param \Egzakt\SystemBundle\Entity\Section $section
+     * @param  \Egzakt\SystemBundle\Entity\Section $section
      * @return SectionModule
      */
     public function setSection(\Egzakt\SystemBundle\Entity\Section $section = null)
     {
         $this->section = $section;
-    
+
         return $this;
     }
 
     /**
      * Get section
      *
-     * @return \Egzakt\SystemBundle\Entity\Section 
+     * @return \Egzakt\SystemBundle\Entity\Section
      */
     public function getSection()
     {
@@ -117,20 +114,20 @@ class SectionModule
     /**
      * Set app
      *
-     * @param \Egzakt\SystemBundle\Entity\App $app
+     * @param  \Egzakt\SystemBundle\Entity\App $app
      * @return SectionModule
      */
     public function setApp(\Egzakt\SystemBundle\Entity\App $app = null)
     {
         $this->app = $app;
-    
+
         return $this;
     }
 
     /**
      * Get app
      *
-     * @return \Egzakt\SystemBundle\Entity\App 
+     * @return \Egzakt\SystemBundle\Entity\App
      */
     public function getApp()
     {
@@ -141,24 +138,23 @@ class SectionModule
      */
     private $navigation;
 
-
     /**
      * Set navigation
      *
-     * @param \Egzakt\SystemBundle\Entity\Navigation $navigation
+     * @param  \Egzakt\SystemBundle\Entity\Navigation $navigation
      * @return SectionModule
      */
     public function setNavigation(\Egzakt\SystemBundle\Entity\Navigation $navigation = null)
     {
         $this->navigation = $navigation;
-    
+
         return $this;
     }
 
     /**
      * Get navigation
      *
-     * @return \Egzakt\SystemBundle\Entity\Navigation 
+     * @return \Egzakt\SystemBundle\Entity\Navigation
      */
     public function getNavigation()
     {
@@ -169,24 +165,23 @@ class SectionModule
      */
     private $target;
 
-
     /**
      * Set target
      *
-     * @param string $target
+     * @param  string        $target
      * @return SectionModule
      */
     public function setTarget($target)
     {
         $this->target = $target;
-    
+
         return $this;
     }
 
     /**
      * Get target
      *
-     * @return string 
+     * @return string
      */
     public function getTarget()
     {
@@ -197,24 +192,23 @@ class SectionModule
      */
     private $type;
 
-
     /**
      * Set type
      *
-     * @param string $type
+     * @param  string        $type
      * @return SectionModule
      */
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {

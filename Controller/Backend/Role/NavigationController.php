@@ -52,7 +52,7 @@ class NavigationController extends BaseController
         $previousToken = null;
 
         // Loop through the Roles
-        foreach($securityContext->getToken()->getRoles() as $role) {
+        foreach ($securityContext->getToken()->getRoles() as $role) {
 
             // If it's a SwitchUserRole instance, we can get back the Original Token
             if ($role instanceof SwitchUserRole) {

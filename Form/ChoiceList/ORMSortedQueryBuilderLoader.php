@@ -12,8 +12,8 @@ use Egzakt\SystemBundle\Lib\TreeEntityOrderer;
 /**
  * Class ORMSortedQueryBuilderLoader
  */
-class ORMSortedQueryBuilderLoader extends ORMQueryBuilderLoader {
-
+class ORMSortedQueryBuilderLoader extends ORMQueryBuilderLoader
+{
     /**
      * Contains the query builder that builds the query for fetching the
      * entities
@@ -40,8 +40,8 @@ class ORMSortedQueryBuilderLoader extends ORMQueryBuilderLoader {
      * @param QueryBuilder|\Closure $queryBuilder
      * @param EntityManager         $manager
      * @param string                $class
-     * @param bool $automaticSorting
-     * @param TreeEntityOrderer $treeEntityOrderer
+     * @param bool                  $automaticSorting
+     * @param TreeEntityOrderer     $treeEntityOrderer
      *
      * @throws UnexpectedTypeException
      */

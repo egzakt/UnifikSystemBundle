@@ -5,8 +5,8 @@ namespace Egzakt\SystemBundle\Lib;
 /**
  * Class TreeEntityOrderer
  */
-class TreeEntityOrderer {
-
+class TreeEntityOrderer
+{
     /**
      * Sort Entities
      *
@@ -45,7 +45,7 @@ class TreeEntityOrderer {
         $flatTree = $this->flatenizeChildrens($tree, array());
 
         // Remove the childrens, otherwise the childrens must be a PersistentCollection
-        foreach($flatTree as $entity) {
+        foreach ($flatTree as $entity) {
             $entity->setChildren(null);
         }
 

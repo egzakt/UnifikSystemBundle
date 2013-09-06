@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Form\Backend;
 
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormBuilderInterface;
 
 use Egzakt\SystemBundle\Form\Backend\SectionType;
@@ -16,7 +15,7 @@ class RootSectionType extends SectionType
      * Build Form
      *
      * @param FormBuilderInterface $builder The Builder
-     * @param array $options Array of options
+     * @param array                $options Array of options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

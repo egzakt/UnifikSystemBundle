@@ -32,7 +32,6 @@ class NavigationItem implements NavigationItemInterface
      */
     protected $level;
 
-
     public function __construct()
     {
         $this->children = array();
@@ -112,7 +111,7 @@ class NavigationItem implements NavigationItemInterface
      */
     public function removeChildren($object)
     {
-        foreach($this->children as $key => $children) {
+        foreach ($this->children as $key => $children) {
             if ($children == $object) {
                 unset($this->children[$key]);
             }
@@ -164,7 +163,7 @@ class NavigationItem implements NavigationItemInterface
      *
      * @return bool
      */
-    function isSelected()
+    public function isSelected()
     {
         return $this->selected;
     }
@@ -174,7 +173,7 @@ class NavigationItem implements NavigationItemInterface
      *
      * @return integer
      */
-    function getLevel()
+    public function getLevel()
     {
         return $this->level;
     }
@@ -184,7 +183,7 @@ class NavigationItem implements NavigationItemInterface
      *
      * @param integer $level The Level
      */
-    function setLevel($level)
+    public function setLevel($level)
     {
         $this->level = $level;
     }

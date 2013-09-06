@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\ExecutionContext;
 
@@ -523,6 +522,7 @@ class Section extends BaseEntity
         if ($this->getParent()) {
             $return = $this->parent->getHierarchicalName() . " / " . $return;
         }
+
         return $return;
     }
 
@@ -621,13 +621,13 @@ class Section extends BaseEntity
     /**
      * Add translations
      *
-     * @param \Egzakt\SystemBundle\Entity\SectionTranslation $translations
+     * @param  \Egzakt\SystemBundle\Entity\SectionTranslation $translations
      * @return Section
      */
     public function addTranslation(\Egzakt\SystemBundle\Entity\SectionTranslation $translations)
     {
         $this->translations[] = $translations;
-    
+
         return $this;
     }
 
@@ -654,7 +654,7 @@ class Section extends BaseEntity
     /**
      * Add roles
      *
-     * @param \Egzakt\SystemBundle\Entity\Role $roles
+     * @param  \Egzakt\SystemBundle\Entity\Role $roles
      * @return Section
      */
     public function addRole(\Egzakt\SystemBundle\Entity\Role $roles)
@@ -717,13 +717,13 @@ class Section extends BaseEntity
     /**
      * Add mappings
      *
-     * @param \Egzakt\SystemBundle\Entity\Mapping $mappings
+     * @param  \Egzakt\SystemBundle\Entity\Mapping $mappings
      * @return Section
      */
     public function addMapping(\Egzakt\SystemBundle\Entity\Mapping $mappings)
     {
         $this->mappings[] = $mappings;
-    
+
         return $this;
     }
 
@@ -740,7 +740,7 @@ class Section extends BaseEntity
     /**
      * Get mappings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMappings()
     {

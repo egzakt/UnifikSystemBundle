@@ -108,6 +108,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
 
         if ($locale = $this->container->get('request')->getLocale()) {
             $this->locale = $locale;
+
             return $this->locale;
         }
 
@@ -138,7 +139,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
      * Returns the Query Builder or the results depending on the repository parameters
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder
-     * @param bool $singleResult
+     * @param bool                       $singleResult
      *
      * @return mixed
      */
@@ -208,8 +209,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
                     if (is_null($criteria[$column])) {
                         $dql .= 'ot.' . $column . ' IS NULL AND ';
                         unset($criteria[$column]);
-                    }
-                    else {
+                    } else {
                         $dql .= 'ot.' . $column . ' = :' . $column . ' AND ';
                     }
                 } else {
@@ -217,8 +217,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
                     if (is_null($criteria[$column])) {
                         $dql .= 'o.' . $column . ' IS NULL AND ';
                         unset($criteria[$column]);
-                    }
-                    else {
+                } else {
                         $dql .= 'o.' . $column . ' = :' . $column . ' AND ';
                     }
                 }
@@ -276,6 +275,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
             if ($this->_class->hasAssociation('translations') && $id) {
                 $criteria = array('id' => $id);
                 $query = $this->generateTranslationDql($criteria);
+
                 return $query->getSingleResult();
             } else {
                 return parent::find($id, $lockMode, $lockVersion);
@@ -298,6 +298,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
         if ($this->_class->hasAssociation('translations')) {
             // Join on Translation
             $query = $this->generateTranslationDql(array());
+
             return $query->getResult();
         } else {
             // Default
@@ -323,6 +324,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
         if ($this->_class->hasAssociation('translations')) {
             // Join on Translation
             $query = $this->generateTranslationDql($criteria, $orderBy, $limit, $offset);
+
             return $query->getResult();
         } else {
             // Default
@@ -346,6 +348,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
             if ($this->_class->hasAssociation('translations')) {
                 // Join on Translation
                 $query = $this->generateTranslationDql($criteria);
+
                 return $query->getSingleResult();
             } else {
                 // Default
@@ -359,7 +362,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
     /**
      * Adds support for magic finders.
      *
-     * @throws BadMethodCallException  If the method called is an invalid find* method
+     * @throws BadMethodCallException If the method called is an invalid find* method
      *                                 or no find* method at all and therefore an invalid
      *                                 method call.
      *
@@ -370,7 +373,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
         if (substr($method, 0, 6) == 'findBy') {
             $by = substr($method, 6, strlen($method));
             $method = 'findBy';
-        } else if (substr($method, 0, 9) == 'findOneBy') {
+    } elseif (substr($method, 0, 9) == 'findOneBy') {
             $by = substr($method, 9, strlen($method));
             $method = 'findOneBy';
         } else {
@@ -399,4 +402,3 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
         }
     }
 }
-

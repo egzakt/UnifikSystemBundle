@@ -2,8 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 use Egzakt\SystemBundle\Lib\BaseEntity;
 
 /**
@@ -61,14 +59,14 @@ class Mapping extends BaseEntity
     public function setType($type)
     {
         $this->type = $type;
-    
+
         return $this;
     }
 
     /**
      * Get type
      *
-     * @return string 
+     * @return string
      */
     public function getType()
     {
@@ -85,14 +83,14 @@ class Mapping extends BaseEntity
     public function setTarget($target)
     {
         $this->target = $target;
-    
+
         return $this;
     }
 
     /**
      * Get target
      *
-     * @return string 
+     * @return string
      */
     public function getTarget()
     {
@@ -109,14 +107,14 @@ class Mapping extends BaseEntity
     public function setOrdering($ordering)
     {
         $this->ordering = $ordering;
-    
+
         return $this;
     }
 
     /**
      * Get ordering
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrdering()
     {
@@ -126,13 +124,13 @@ class Mapping extends BaseEntity
     /**
      * Set section
      *
-     * @param Section $section
+     * @param  Section $section
      * @return Mapping
      */
     public function setSection(Section $section = null)
     {
         $this->section = $section;
-    
+
         return $this;
     }
 
@@ -149,20 +147,20 @@ class Mapping extends BaseEntity
     /**
      * Set app
      *
-     * @param \Egzakt\SystemBundle\Entity\App $app
+     * @param  \Egzakt\SystemBundle\Entity\App $app
      * @return Mapping
      */
     public function setApp(\Egzakt\SystemBundle\Entity\App $app = null)
     {
         $this->app = $app;
-    
+
         return $this;
     }
 
     /**
      * Get app
      *
-     * @return \Egzakt\SystemBundle\Entity\App 
+     * @return \Egzakt\SystemBundle\Entity\App
      */
     public function getApp()
     {
@@ -172,20 +170,20 @@ class Mapping extends BaseEntity
     /**
      * Set navigation
      *
-     * @param \Egzakt\SystemBundle\Entity\Navigation $navigation
+     * @param  \Egzakt\SystemBundle\Entity\Navigation $navigation
      * @return Mapping
      */
     public function setNavigation(\Egzakt\SystemBundle\Entity\Navigation $navigation = null)
     {
         $this->navigation = $navigation;
-    
+
         return $this;
     }
 
     /**
      * Get navigation
      *
-     * @return \Egzakt\SystemBundle\Entity\Navigation 
+     * @return \Egzakt\SystemBundle\Entity\Navigation
      */
     public function getNavigation()
     {

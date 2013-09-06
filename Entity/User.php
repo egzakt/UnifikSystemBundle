@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
@@ -280,7 +279,7 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     {
         $roles = array();
 
-        foreach($this->roles as $role) {
+        foreach ($this->roles as $role) {
             $roles[] = $role;
         }
 

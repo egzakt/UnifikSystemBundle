@@ -183,7 +183,8 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      * @param string $type
      * @param string $message
      */
-    protected function addFlash($type, $message) {
+    protected function addFlash($type, $message)
+    {
         $this->get('session')->getFlashBag()->add($type, $message);
     }
 }

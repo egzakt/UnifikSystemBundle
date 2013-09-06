@@ -57,7 +57,7 @@ class ResponseListener
     {
         $this->session = $session;
     }
-    
+
     /**
      * @param Request $request
      */

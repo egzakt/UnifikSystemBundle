@@ -12,8 +12,8 @@ use Symfony\Component\Security\Core\Role\RoleHierarchy;
 /**
  * Class CmsVoter
  */
-class CmsVoter implements VoterInterface {
-
+class CmsVoter implements VoterInterface
+{
     /**
      * @var ContainerAwareInterface
      *
@@ -59,8 +59,8 @@ class CmsVoter implements VoterInterface {
      * The default $attributes will be the roles required for the current URL
      *
      * @param TokenInterface $token
-     * @param object $object
-     * @param array $attributes
+     * @param object         $object
+     * @param array          $attributes
      *
      * @return int
      */
@@ -83,7 +83,7 @@ class CmsVoter implements VoterInterface {
 
             // ROLE_ADMIN has full access
             // Can't use ->isGranted because this method uses the Voters = (infinite loop)!
-            foreach($grantedRoles as $grantedRole) {
+            foreach ($grantedRoles as $grantedRole) {
                 if ($grantedRole->getRole() == 'ROLE_BACKEND_ADMIN') {
                     return VoterInterface::ACCESS_GRANTED;
                 }

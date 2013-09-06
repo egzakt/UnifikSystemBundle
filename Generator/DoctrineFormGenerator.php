@@ -36,8 +36,8 @@ class DoctrineFormGenerator extends BaseDoctrineFormGenerator
     /**
      * __construct
      *
-     * @param Filesystem    $filesystem     The File System
-     * @param string        $skeletonDir    The directory of the Skeleton
+     * @param Filesystem $filesystem  The File System
+     * @param string     $skeletonDir The directory of the Skeleton
      */
     public function __construct(Filesystem $filesystem)
     {
@@ -67,11 +67,11 @@ class DoctrineFormGenerator extends BaseDoctrineFormGenerator
     /**
      * Generates the entity form class if it does not exist.
      *
-     * @param BundleInterface       $bundle         The bundle in which to create the class
-     * @param string                $entity         The entity relative class name
-     * @param ClassMetadataInfo     $metadata       The entity metadata class
-     * @param string                $application    The application context
-     * @param array                 $translation    Array used for the translation Form
+     * @param BundleInterface   $bundle      The bundle in which to create the class
+     * @param string            $entity      The entity relative class name
+     * @param ClassMetadataInfo $metadata    The entity metadata class
+     * @param string            $application The application context
+     * @param array             $translation Array used for the translation Form
      *
      * @throws \RuntimeException
      */

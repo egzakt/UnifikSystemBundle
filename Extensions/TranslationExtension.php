@@ -77,6 +77,7 @@ class TranslationExtension extends \Twig_Extension
 
             if ($fallback = (string) $entity) {
                 $entity->setLocale($entityPreviousLocale);
+
                 return $fallback;
             }
         }

@@ -5,7 +5,6 @@ namespace Egzakt\SystemBundle\Controller\Backend\Section;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -69,7 +68,7 @@ class SectionController extends BaseController
      * Displays a form to edit an existing Text entity.
      *
      * @param Request $request
-     * @param integer $id The Section ID
+     * @param integer $id      The Section ID
      *
      * @return RedirectResponse|Response
      */
@@ -173,7 +172,7 @@ class SectionController extends BaseController
      * Deletes a Section entity.
      *
      * @param Request $request
-     * @param integer $id The ID of the Section to delete
+     * @param integer $id      The ID of the Section to delete
      *
      * @throws NotFoundHttpException
      *
@@ -211,7 +210,6 @@ class SectionController extends BaseController
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_section'));
     }
-
 
     /**
      * Set order on a Section entity.

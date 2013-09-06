@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Query\Expr;
 use Egzakt\SystemBundle\Lib\BaseEntityRepository;
 
 /**
@@ -226,7 +225,7 @@ class SectionRepository extends BaseEntityRepository
         $results = $queryBuilder->getQuery()->getScalarResult();
 
         $ids = array();
-        foreach($results as $section) {
+        foreach ($results as $section) {
             $ids[] = $section['id'];
         }
 

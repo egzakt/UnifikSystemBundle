@@ -5,7 +5,6 @@ namespace Egzakt\SystemBundle\Controller\Backend\Text;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Finder\Finder;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
@@ -64,7 +63,7 @@ class TextController extends BaseController
      * Displays a form to edit or create a Text entity.
      *
      * @param Request $request
-     * @param integer $id The ID
+     * @param integer $id      The ID
      *
      * @return RedirectResponse|Response
      */
@@ -126,7 +125,7 @@ class TextController extends BaseController
      * Delete a Text entity.
      *
      * @param Request $request
-     * @param int $id
+     * @param int     $id
      *
      * @return RedirectResponse|Response
      *
@@ -160,7 +159,6 @@ class TextController extends BaseController
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_text'));
     }
-
 
     /**
      * Set order on a Text entity.

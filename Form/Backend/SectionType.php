@@ -16,7 +16,7 @@ class SectionType extends AbstractType
      * Build Form
      *
      * @param FormBuilderInterface $builder The Builder
-     * @param array $options Array of options
+     * @param array                $options Array of options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {

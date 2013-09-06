@@ -2,9 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\ExecutionContext;
-
 use Egzakt\SystemBundle\Lib\BaseTranslationEntity;
 use Symfony\Component\Validator\ExecutionContextInterface;
 
@@ -185,7 +182,7 @@ class TextTranslation extends BaseTranslationEntity
      */
     public function isCollapsableValid(ExecutionContextInterface $context)
     {
-        if ($this->translatable->getCollapsable() && false == $this->getName())  {
+        if ($this->translatable->getCollapsable() && false == $this->getName()) {
             $context->addViolationAt('name', 'A collapsable text must have a name');
         }
     }

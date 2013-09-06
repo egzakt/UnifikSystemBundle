@@ -2,8 +2,6 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Text;
 
-use Symfony\Component\HttpFoundation\Response;
-
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Egzakt\SystemBundle\Entity\Text;
 

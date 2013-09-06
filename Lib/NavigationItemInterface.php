@@ -12,7 +12,7 @@ interface NavigationItemInterface
      *
      * @abstract
      */
-    function isSelected();
+    public function isSelected();
 
     /**
      * setSelected
@@ -21,28 +21,28 @@ interface NavigationItemInterface
      *
      * @abstract
      */
-    function setSelected($bool);
+    public function setSelected($bool);
 
     /**
      * Get Children
      *
      * @abstract
      */
-    function getChildren();
+    public function getChildren();
 
     /**
      * Has Children
      *
      * @abstract
      */
-    function hasChildren();
+    public function hasChildren();
 
     /**
      * Get Parent
      *
      * @abstract
      */
-    function getParent();
+    public function getParent();
 
     /**
      * Set Parent
@@ -51,14 +51,14 @@ interface NavigationItemInterface
      *
      * @abstract
      */
-    function setParent($parent);
+    public function setParent($parent);
 
     /**
      * Get Level
      *
      * @abstract
      */
-    function getLevel();
+    public function getLevel();
 
     /**
      * Set Level
@@ -67,14 +67,14 @@ interface NavigationItemInterface
      *
      * @abstract
      */
-    function setLevel($level);
+    public function setLevel($level);
 
     /**
      * Get Entity
      *
      * @abstract
      */
-    function getEntity();
+    public function getEntity();
 
     /**
      * Set Entity
@@ -83,5 +83,5 @@ interface NavigationItemInterface
      *
      * @abstract
      */
-    function setEntity($entity);
+    public function setEntity($entity);
 }

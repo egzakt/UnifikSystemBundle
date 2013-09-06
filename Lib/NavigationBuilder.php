@@ -124,7 +124,7 @@ class NavigationBuilder
      *
      * Wraps all navigation elements in a NavigationItem Wrapper Class
      *
-     * @param array $elements
+     * @param array          $elements
      * @param NavigationItem $parentElement
      *
      * @return array
@@ -133,7 +133,7 @@ class NavigationBuilder
     {
         $wrappedElements = array();
 
-        foreach($elements as $element) {
+        foreach ($elements as $element) {
             // Create the NavigationItem wrapper
             $wrappedElement = $this->buildNavigationItem($element);
 
@@ -180,7 +180,8 @@ class NavigationBuilder
      *
      * @return bool
      */
-    protected function isSectionElement($element) {
+    protected function isSectionElement($element)
+    {
         return ($element instanceof Section || strstr(get_class($element), 'EgzaktBackendSectionBundleEntitySectionProxy'));
     }
 

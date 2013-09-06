@@ -59,7 +59,7 @@ class UserController extends BaseController
     /**
      * Displays a form to edit an existing User entity.
      *
-     * @param integer $id The ID of the User to edit
+     * @param integer $id      The ID of the User to edit
      * @param Request $request The Request
      *
      * @return RedirectResponse|Response

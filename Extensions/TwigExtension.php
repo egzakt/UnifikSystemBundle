@@ -264,7 +264,7 @@ class TwigExtension extends \Twig_Extension
     {
         $indent = '';
 
-        for($i=2; $i <= $level; $i++) {
+        for ($i = 2; $i <= $level; $i++) {
             $indent .= '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
         }
 

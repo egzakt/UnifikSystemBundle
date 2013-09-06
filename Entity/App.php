@@ -4,7 +4,6 @@ namespace Egzakt\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\ORM\Mapping as ORM;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
 
@@ -258,7 +257,7 @@ class App extends BaseEntity
     public function addMapping(Mapping $mappings)
     {
         $this->mappings[] = $mappings;
-    
+
         return $this;
     }
 
@@ -292,7 +291,7 @@ class App extends BaseEntity
     public function addNavigation(Navigation $navigations)
     {
         $this->navigations[] = $navigations;
-    
+
         return $this;
     }
 

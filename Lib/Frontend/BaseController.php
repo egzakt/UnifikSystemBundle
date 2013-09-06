@@ -65,7 +65,8 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      * @param string       $type
      * @param string|array $message
      */
-    protected function setFlash($type, $message) {
+    protected function setFlash($type, $message)
+    {
         $this->get('session')->getFlashBag()->set($type, $message);
     }
 
@@ -76,7 +77,8 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      *
      * @return boolean
      */
-    protected function hasFlash($type) {
+    protected function hasFlash($type)
+    {
         return $this->get('session')->getFlashBag()->has($type);
     }
 
@@ -88,7 +90,8 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      *
      * @return array
      */
-    protected function getFlash($type, array $default = array()) {
+    protected function getFlash($type, array $default = array())
+    {
         return $this->get('session')->getFlashBag()->get($type, $default);
     }
 }

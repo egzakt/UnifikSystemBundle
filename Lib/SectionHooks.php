@@ -88,7 +88,7 @@ class SectionHooks
      */
     public function process($sections)
     {
-        foreach($this->getSectionHooks() as $sectionId => $sectionHook) {
+        foreach ($this->getSectionHooks() as $sectionId => $sectionHook) {
             // Find the section in our tree
             $section = $this->findSectionInTree($sectionId, $sections);
 
@@ -117,8 +117,7 @@ class SectionHooks
 
         if (array_key_exists($sectionId, $sectionHooks)) {
             return $sectionHooks[$sectionId];
-        }
-        else {
+        } else {
             return array();
         }
     }
@@ -142,8 +141,7 @@ class SectionHooks
             if ($sectionHook['arguments']) {
                 // Call a function with parameter(s)
                 $elements = call_user_func_array(array($this->getDoctrine()->getRepository($sectionHook['repository']), $method), $sectionHook['arguments']);
-            }
-            else {
+            } else {
                 // Call a function without parameter
                 $elements = call_user_func(array($this->getDoctrine()->getRepository($sectionHook['repository']), $method));
             }
@@ -151,7 +149,7 @@ class SectionHooks
 
         // Wrap the Section Hooks elements in a NavigationItem Wrapper Class
         $wrappedElements = array();
-        foreach($elements as $element) {
+        foreach ($elements as $element) {
             $wrappedElement = $this->container->get('egzakt_system.navigation_item');
             $wrappedElement->setEntity($element);
             $wrappedElements[] = $wrappedElement;
@@ -173,7 +171,7 @@ class SectionHooks
     public function findSectionInTree($sectionId, $elements)
     {
         // Loop through the elements (it's not necessary a Section object)
-        foreach($elements as $element) {
+        foreach ($elements as $element) {
             // Is it a Section|SectionProxy and does the ID match?
             if ($element->getEntity()->getId() == $sectionId && ($element->getEntity() instanceof Section || strstr(get_class($element->getEntity()), 'EgzaktBackendSectionBundleEntitySectionProxy'))) {
                 // Return this element

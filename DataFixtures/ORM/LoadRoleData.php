@@ -5,7 +5,6 @@ namespace Egzakt\Frontend\CoreBundle\DataFixtures\ORM;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
 use Egzakt\SystemBundle\Entity\Role;

@@ -22,7 +22,7 @@ class ControllerListener
     /**
      * On Kernel Controller
      *
-     * @param FilterControllerEvent $event
+     * @param  FilterControllerEvent $event
      * @throws \Exception
      */
     public function onKernelController(FilterControllerEvent $event)
@@ -56,7 +56,6 @@ class ControllerListener
         if (false == $controller instanceof BaseControllerInterface) {
             throw new \Exception(get_class($controller) . ' must extends the Egzakt/SystemBundle/Lib/' . ucfirst($applicationName) . '/BaseController class.');
         }
-
 
         $systemCore = $this->container->get('egzakt_system.core');
         $applicationCore = $this->container->get('egzakt_' . $applicationName . '.core');

@@ -16,36 +16,36 @@ interface ApplicationCoreInterface
      *
      * @abstract
      */
-    function init();
+    public function init();
 
     /**
      * Get the current section entity
      *
      * @return Section
      */
-    function getSection();
+    public function getSection();
 
     /**
      * @param NavigationElementInterface $element
      */
-    function addNavigationElement(NavigationElementInterface $element);
+    public function addNavigationElement(NavigationElementInterface $element);
 
     /**
      * @return NavigationElementInterface
      */
-    function getElement();
+    public function getElement();
 
     /**
      * The associated app entity
      *
      * @return App
      */
-    function getApp();
+    public function getApp();
 
     /**
      * The name that represent the application
      *
      * @return string
      */
-    function getAppName();
+    public function getAppName();
 }

@@ -15,7 +15,7 @@ class TextMainTranslationType extends AbstractType
      * Build Form
      *
      * @param FormBuilderInterface $builder The builder
-     * @param array $options Form options
+     * @param array                $options Form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -39,7 +39,7 @@ class TextMainTranslationType extends AbstractType
     /**
      * Set Default Options
      *
-     * @param array $options
+     * @param  array $options
      * @return array
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)

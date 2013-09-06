@@ -43,7 +43,7 @@ class MemberController extends BaseController
     /**
      * Displays a form to edit an existing member entity or create a new one.
      *
-     * @param integer $id The id of the Member to edit
+     * @param integer $id      The id of the Member to edit
      * @param Request $request
      *
      * @return RedirectResponse|Response
@@ -108,7 +108,7 @@ class MemberController extends BaseController
      * Delete a Member entity.
      *
      * @param Request $request
-     * @param int $id
+     * @param int     $id
      *
      * @return RedirectResponse|Response
      *

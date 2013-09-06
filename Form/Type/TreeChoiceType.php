@@ -4,7 +4,6 @@ namespace Egzakt\SystemBundle\Form\Type;
 
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormView;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\Options;
@@ -18,13 +17,12 @@ use Egzakt\SystemBundle\Lib\NavigationElementInterface;
 /**
  * Class TreeChoiceType
  */
-class TreeChoiceType extends AbstractType {
-
+class TreeChoiceType extends AbstractType
+{
     /**
      * @var TreeEntityOrderer
      */
     protected $treeEntityOrderer;
-
 
     /**
      * Constructor
@@ -129,7 +127,7 @@ class TreeChoiceType extends AbstractType {
         $entities = $view->vars['choices'];
 
         $levels = array();
-        foreach($entities as $id => $entity) {
+        foreach ($entities as $id => $entity) {
 
             if (!$entity->data instanceof NavigationElementInterface) {
                 throw new \Exception('Tree Choice elements must extend the NavigationElementInterface.');
@@ -161,7 +159,7 @@ class TreeChoiceType extends AbstractType {
 
         // For all childrens (FormView instances)
         // For example : 'sections' (root FormView) contains many checkboxes (children FormView)
-        foreach($view->children as $key => $childrenView) {
+        foreach ($view->children as $key => $childrenView) {
             if (array_key_exists($key, $entityChoiceList)) {
                 $entity = $entityChoiceList[$key];
 

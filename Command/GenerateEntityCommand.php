@@ -4,7 +4,6 @@ namespace Egzakt\SystemBundle\Command;
 
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\DBAL\Types\Type;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Component\Console\Input\InputInterface;
@@ -96,7 +95,7 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
             list($bundle, $entity) = $this->parseShortcutNotation($entity);
 
             // check reserved words
-            if ($this->getGenerator()->isReservedKeyword($entity)){
+            if ($this->getGenerator()->isReservedKeyword($entity)) {
                 $output->writeln(sprintf('<bg=red> "%s" is a reserved word</>.', $entity));
                 continue;
             }
@@ -239,7 +238,7 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
                 }
 
                 // check reserved words
-                if ($generator->isReservedKeyword($name)){
+                if ($generator->isReservedKeyword($name)) {
                     throw new \InvalidArgumentException(sprintf('Name "%s" is a reserved word.', $name));
                 }
 

@@ -2,8 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 use Egzakt\SystemBundle\Lib\BaseEntity;
 
 /**
@@ -81,20 +79,20 @@ class Locale extends BaseEntity
     /**
      * Set name
      *
-     * @param string $name
+     * @param  string $name
      * @return Locale
      */
     public function setName($name)
     {
         $this->name = $name;
-    
+
         return $this;
     }
 
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -111,14 +109,14 @@ class Locale extends BaseEntity
     public function setCode($code)
     {
         $this->code = $code;
-    
+
         return $this;
     }
 
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {
@@ -135,14 +133,14 @@ class Locale extends BaseEntity
     public function setOrdering($ordering)
     {
         $this->ordering = $ordering;
-    
+
         return $this;
     }
 
     /**
      * Get ordering
      *
-     * @return integer 
+     * @return integer
      */
     public function getOrdering()
     {
@@ -152,20 +150,20 @@ class Locale extends BaseEntity
     /**
      * Set active
      *
-     * @param boolean $active
+     * @param  boolean $active
      * @return Locale
      */
     public function setActive($active)
     {
         $this->active = $active;
-    
+
         return $this;
     }
 
     /**
      * Get active
      *
-     * @return boolean 
+     * @return boolean
      */
     public function getActive()
     {
