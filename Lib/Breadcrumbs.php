@@ -1,12 +1,17 @@
 <?php
 
 namespace Egzakt\SystemBundle\Lib;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Breadcrumbs
  */
 class Breadcrumbs
 {
+
+    /**
+     * @var ArrayCollection
+     */
     private $elements;
 
     /**
@@ -14,7 +19,7 @@ class Breadcrumbs
      */
     public function __construct()
     {
-        $this->elements = array();
+        $this->elements = new ArrayCollection();
     }
 
     /**
@@ -24,7 +29,7 @@ class Breadcrumbs
      */
     public function addElement($element)
     {
-        $this->elements[] = $element;
+        $this->getElements()->add($element);
     }
 
     /**
@@ -34,18 +39,13 @@ class Breadcrumbs
      */
     public function removeElement($element)
     {
-        foreach ($this->elements as $k => $existingElement) {
-            if ($element == $existingElement) {
-                unset($this->elements[$k]);
-                break;
-            }
-        }
+        $this->getElements()->removeElement($element);
     }
 
     /**
      * Gets an array of elements
      *
-     * @return array
+     * @return ArrayCollection
      */
     public function getElements()
     {
