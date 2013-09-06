@@ -2,8 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 use Egzakt\SystemBundle\Lib\BaseEntity;
 
 /**

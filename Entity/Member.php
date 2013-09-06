@@ -2,8 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-
-use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
@@ -428,7 +426,7 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
     }
 
     /**
-     * @param UserInterface $user
+     * @param  UserInterface $user
      * @return bool
      */
     public function equals(UserInterface $user)

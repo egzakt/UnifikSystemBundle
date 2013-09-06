@@ -11,7 +11,6 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Egzakt\SystemBundle\Entity\Role;
 use Egzakt\SystemBundle\Form\Backend\RoleType;
-use Egzakt\SystemBundle\Lib\NavigationElement;
 
 /**
  * Role Controller.

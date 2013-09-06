@@ -3,7 +3,6 @@
 namespace Egzakt\SystemBundle\Lib;
 
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Sluggable\Util\Urlizer;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 use Egzakt\SystemBundle\Lib\EntityInterface;
@@ -431,11 +430,13 @@ abstract class BaseEntity implements EntityInterface, NavigationElementInterface
             // In the Backend application, we want the editLocale
             if ($this->getSystemCore()->getCurrentAppName() == 'backend') {
                 $this->locale = $this->getCore()->getEditLocale();
+
                 return $this->locale;
             }
 
             if ($locale = $this->container->get('request')->getLocale()) {
                 $this->locale = $locale;
+
                 return $this->locale;
             }
 

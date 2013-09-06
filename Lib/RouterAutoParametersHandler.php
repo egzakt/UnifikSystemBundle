@@ -3,8 +3,6 @@
 namespace Egzakt\SystemBundle\Lib;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Kernel;
-use Symfony\Component\Finder\Finder;
 
 class RouterAutoParametersHandler
 {

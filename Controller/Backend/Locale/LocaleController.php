@@ -47,7 +47,7 @@ class LocaleController extends BaseController
     /**
      * Displays a form to edit an existing locale entity or create a new one.
      *
-     * @param integer $id The id of the Locale to edit
+     * @param integer $id      The id of the Locale to edit
      * @param Request $request
      *
      * @return RedirectResponse|Response
@@ -100,7 +100,7 @@ class LocaleController extends BaseController
      * Delete a Locale entity.
      *
      * @param Request $request
-     * @param int $id
+     * @param int     $id
      *
      * @return RedirectResponse|Response
      *

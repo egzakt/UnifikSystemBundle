@@ -2,8 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\EntityRepository;
-
 use Egzakt\SystemBundle\Lib\BaseEntityRepository;
 
 /**

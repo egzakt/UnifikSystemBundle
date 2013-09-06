@@ -94,9 +94,9 @@ class Loader extends BaseLoader
     }
 
     /**
-     * @param array $mapping
+     * @param array           $mapping
      * @param RouteCollection $collection
-     * @param string $name
+     * @param string          $name
      *
      * @return mixed
      *
@@ -180,6 +180,7 @@ class Loader extends BaseLoader
                 if ($mapping['parent_id']) {
                     return $this->computeParentSlugs($mapping['parent_id'], $locale) . '/' . $slug;
                 }
+
                 return $slug;
             }
         }

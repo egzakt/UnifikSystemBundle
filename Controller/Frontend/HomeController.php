@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Controller\Frontend;
 
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Egzakt\SystemBundle\Lib\Frontend\BaseController;

@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Extensions;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bridge\Twig\Extension\RoutingExtension as BaseRoutingExtension;
 

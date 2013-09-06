@@ -3,7 +3,6 @@
 namespace Egzakt\SystemBundle\Generator;
 
 use \Doctrine\ORM\Mapping\ClassMetadataInfo;
-use \Doctrine\Common\Util\Inflector;
 
 /**
  * Entity Generator
@@ -77,7 +76,7 @@ class EntityGenerator extends \Doctrine\ORM\Tools\EntityGenerator
      * Generate Entity Class
      *
      * @param \Doctrine\ORM\Mapping\ClassMetadataInfo $metadata Metadata Info
-     * @param array $fields Fields Info
+     * @param array                                   $fields   Fields Info
      *
      * @return string
      */

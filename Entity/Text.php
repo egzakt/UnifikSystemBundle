@@ -3,7 +3,6 @@
 namespace Egzakt\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Mapping as ORM;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
 
@@ -305,13 +304,13 @@ class Text extends BaseEntity
     /**
      * Add translations
      *
-     * @param \Egzakt\SystemBundle\Entity\TextTranslation $translations
+     * @param  \Egzakt\SystemBundle\Entity\TextTranslation $translations
      * @return Text
      */
     public function addTranslation(\Egzakt\SystemBundle\Entity\TextTranslation $translations)
     {
         $this->translations[] = $translations;
-    
+
         return $this;
     }
 

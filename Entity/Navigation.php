@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
@@ -118,17 +117,16 @@ class Navigation extends BaseEntity
      */
     private $mappings;
 
-
     /**
      * Add mappings
      *
-     * @param \Egzakt\SystemBundle\Entity\Mapping $mappings
+     * @param  \Egzakt\SystemBundle\Entity\Mapping $mappings
      * @return Navigation
      */
     public function addMapping(\Egzakt\SystemBundle\Entity\Mapping $mappings)
     {
         $this->mappings[] = $mappings;
-    
+
         return $this;
     }
 
@@ -145,7 +143,7 @@ class Navigation extends BaseEntity
     /**
      * Get mappings
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getMappings()
     {
@@ -156,24 +154,23 @@ class Navigation extends BaseEntity
      */
     private $app;
 
-
     /**
      * Set app
      *
-     * @param \Egzakt\SystemBundle\Entity\App $app
+     * @param  \Egzakt\SystemBundle\Entity\App $app
      * @return Navigation
      */
     public function setApp(\Egzakt\SystemBundle\Entity\App $app = null)
     {
         $this->app = $app;
-    
+
         return $this;
     }
 
     /**
      * Get app
      *
-     * @return \Egzakt\SystemBundle\Entity\App 
+     * @return \Egzakt\SystemBundle\Entity\App
      */
     public function getApp()
     {
@@ -184,24 +181,23 @@ class Navigation extends BaseEntity
      */
     private $code;
 
-
     /**
      * Set code
      *
-     * @param string $code
+     * @param  string     $code
      * @return Navigation
      */
     public function setCode($code)
     {
         $this->code = $code;
-    
+
         return $this;
     }
 
     /**
      * Get code
      *
-     * @return string 
+     * @return string
      */
     public function getCode()
     {

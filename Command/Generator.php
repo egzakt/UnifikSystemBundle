@@ -52,9 +52,9 @@ class Generator extends DoctrineCrudGenerator
     /**
      * Constructor.
      *
-     * @param Filesystem    $filesystem     A Filesystem instance
-     * @param string        $skeletonDir    Path to the skeleton directory
-     * @param string        $bundleName     The Name of the Bundle
+     * @param Filesystem $filesystem  A Filesystem instance
+     * @param string     $skeletonDir Path to the skeleton directory
+     * @param string     $bundleName  The Name of the Bundle
      */
     public function __construct(Filesystem $filesystem, $skeletonDir, $bundleName)
     {
@@ -66,15 +66,15 @@ class Generator extends DoctrineCrudGenerator
     /**
      * Generate the CRUD controller.
      *
-     * @param BundleInterface   $bundle             A bundle object
-     * @param string            $entity             The entity relative class name
-     * @param ClassMetadataInfo $metadata           The entity class metadata
-     * @param string            $format             The configuration format (xml, yaml, annotation)
-     * @param string            $routePrefix        The route name prefix
-     * @param array             $needWriteActions   Wether or not to generate write actions
-     * @param string            $forceOverwrite     Overwrite the files or not
-     * @param string            $application        The current application context
-     * @param boolean           $withjqgrid         Check if we use jqgrid or not
+     * @param BundleInterface   $bundle           A bundle object
+     * @param string            $entity           The entity relative class name
+     * @param ClassMetadataInfo $metadata         The entity class metadata
+     * @param string            $format           The configuration format (xml, yaml, annotation)
+     * @param string            $routePrefix      The route name prefix
+     * @param array             $needWriteActions Wether or not to generate write actions
+     * @param string            $forceOverwrite   Overwrite the files or not
+     * @param string            $application      The current application context
+     * @param boolean           $withjqgrid       Check if we use jqgrid or not
      *
      * @throws \RuntimeException
      */

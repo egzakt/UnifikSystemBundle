@@ -9,7 +9,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Finder\Finder;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
 use Egzakt\SystemBundle\Entity\Section;
@@ -71,7 +70,7 @@ class RootController extends BaseController
     /**
      * Displays a form to edit an existing Section entity or create a new one.
      *
-     * @param integer $id The id of the Section to edit
+     * @param integer $id      The id of the Section to edit
      * @param Request $request
      *
      * @return RedirectResponse|Response

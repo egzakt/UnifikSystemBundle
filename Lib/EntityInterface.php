@@ -12,14 +12,14 @@ interface EntityInterface
      *
      * @abstract
      */
-    function __toString();
+    public function __toString();
 
     /**
      * Get Route
      *
      * @abstract
      */
-    function getRoute();
+    public function getRoute();
 
     /**
      * Get Route Params
@@ -28,26 +28,26 @@ interface EntityInterface
      *
      * @abstract
      */
-    function getRouteParams($params = array());
+    public function getRouteParams($params = array());
 
     /**
      * Is Active
      *
      * @abstract
      */
-    function isActive();
+    public function isActive();
 
     /**
      * Is Editable
      *
      * @abstract
      */
-    function isEditable();
+    public function isEditable();
 
     /**
      * Is Deletable
      *
      * @abstract
      */
-    function isDeletable();
+    public function isDeletable();
 }

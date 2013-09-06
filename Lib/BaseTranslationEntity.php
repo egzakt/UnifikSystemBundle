@@ -2,8 +2,6 @@
 
 namespace Egzakt\SystemBundle\Lib;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * Egzakt Backend Base for Translation Entities
  */
@@ -41,6 +39,7 @@ abstract class BaseTranslationEntity
     {
         $className = get_class($this);
         $classNameTokens = explode('\\', $className);
+
         return array_pop($classNameTokens);
     }
 }

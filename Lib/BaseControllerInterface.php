@@ -12,12 +12,12 @@ interface BaseControllerInterface
      *
      * @abstract
      */
-    function init();
+    public function init();
 
     /**
      * Get Core
      *
      * @abstract
      */
-    function getCore();
+    public function getCore();
 }

@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Sluggable\Util\Urlizer;
 
 use Egzakt\SystemBundle\Lib\BaseTranslationEntity;

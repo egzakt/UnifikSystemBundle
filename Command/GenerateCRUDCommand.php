@@ -3,12 +3,10 @@
 namespace Egzakt\SystemBundle\Command;
 
 use Symfony\Component\Console\Input\ArrayInput;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
-use Doctrine\ORM\Mapping\MappingException;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Sensio\Bundle\GeneratorBundle\Command\Validators;
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand;
@@ -53,8 +51,8 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
     /**
      * Execute
      *
-     * @param InputInterface $input      The Input Interface
-     * @param OutputInterface $output     The Output Interface
+     * @param InputInterface  $input  The Input Interface
+     * @param OutputInterface $output The Output Interface
      *
      * @return int
      */
@@ -66,6 +64,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
         if ($input->isInteractive()) {
             if (!$dialog->askConfirmation($output, $dialog->getQuestion('Do you confirm generation', 'yes', '?'), true)) {
                 $output->writeln('<error>Command aborted</error>');
+
                 return 1;
             }
         }
@@ -120,8 +119,8 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
     /**
      * Interact
      *
-     * @param InputInterface $input      The Input Interface
-     * @param OutputInterface $output     The Output Interface
+     * @param InputInterface  $input  The Input Interface
+     * @param OutputInterface $output The Output Interface
      */
     public function interact(InputInterface $input, OutputInterface $output)
     {
@@ -196,7 +195,6 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
         return $this->generator;
     }
 
-
     protected function getSkeletonDirs(BundleInterface $bundle = null)
     {
         $skeletonDirs = array();
@@ -227,10 +225,10 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
     /**
      * Tries to generate forms if they don't exist yet and if we need write operations on entities.
      *
-     * @param BundleInterface $bundle         The bundle in which to create the class
-     * @param string $entity         The entity relative class name
-     * @param ClassMetadataInfo $metadata       The entity metadata class
-     * @param array $translation    array used for the translation Form
+     * @param BundleInterface   $bundle      The bundle in which to create the class
+     * @param string            $entity      The entity relative class name
+     * @param ClassMetadataInfo $metadata    The entity metadata class
+     * @param array             $translation array used for the translation Form
      */
     protected function generateForm($bundle, $entity, $metadata, $translation = array())
     {

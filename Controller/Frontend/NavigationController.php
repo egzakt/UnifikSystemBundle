@@ -37,11 +37,11 @@ class NavigationController extends BaseController
     /**
      * Render a navigation using the navigation code as the fetch criteria
      *
-     * @param string $code      The navigation code
-     * @param int $maxLevel     The level maximum limit, this is the rendering loop level limit, not the section entity level
-     * @param bool $exploded    When false only the currently selected tree path is displayed
-     * @param string $template  Force the template code to use
-     * @param array $attr       Array of attribure to add to the element (Ex. id="aaa" class="bbb")
+     * @param string $code     The navigation code
+     * @param int    $maxLevel The level maximum limit, this is the rendering loop level limit, not the section entity level
+     * @param bool   $exploded When false only the currently selected tree path is displayed
+     * @param string $template Force the template code to use
+     * @param array  $attr     Array of attribure to add to the element (Ex. id="aaa" class="bbb")
      *
      * @return Response
      *
@@ -65,6 +65,7 @@ class NavigationController extends BaseController
         $navigationBuilder->build();
 
         $elements = $navigationBuilder->getElements();
+
         return $this->render('EgzaktSystemBundle:Frontend/Navigation:by_code' . $template . '.html.twig', array(
             'code' => $code,
             'sections' => $elements,

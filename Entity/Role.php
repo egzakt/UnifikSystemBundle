@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 
@@ -150,7 +149,7 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     /**
      * Add sections
      *
-     * @param \Egzakt\SystemBundle\Entity\Section $sections
+     * @param  \Egzakt\SystemBundle\Entity\Section $sections
      * @return Role
      */
     public function addSection(\Egzakt\SystemBundle\Entity\Section $sections)
@@ -213,13 +212,13 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     /**
      * Add translations
      *
-     * @param \Egzakt\SystemBundle\Entity\RoleTranslation $translations
+     * @param  \Egzakt\SystemBundle\Entity\RoleTranslation $translations
      * @return Role
      */
     public function addTranslation(\Egzakt\SystemBundle\Entity\RoleTranslation $translations)
     {
         $this->translations[] = $translations;
-    
+
         return $this;
     }
 

@@ -12,7 +12,7 @@ class RoleType extends AbstractType
      * Build Form
      *
      * @param FormBuilderInterface $builder The builder
-     * @param array $options Form options
+     * @param array                $options Form options
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
