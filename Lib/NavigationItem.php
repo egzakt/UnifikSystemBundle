@@ -111,7 +111,7 @@ class NavigationItem implements NavigationItemInterface
      */
     public function removeChildren($object)
     {
-    foreach ($this->children as $key => $children) {
+        foreach ($this->children as $key => $children) {
             if ($children == $object) {
                 unset($this->children[$key]);
             }

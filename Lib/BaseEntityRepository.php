@@ -209,7 +209,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
                     if (is_null($criteria[$column])) {
                         $dql .= 'ot.' . $column . ' IS NULL AND ';
                         unset($criteria[$column]);
-	    } else {
+                    } else {
                         $dql .= 'ot.' . $column . ' = :' . $column . ' AND ';
                     }
                 } else {
@@ -217,7 +217,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
                     if (is_null($criteria[$column])) {
                         $dql .= 'o.' . $column . ' IS NULL AND ';
                         unset($criteria[$column]);
-	    } else {
+                } else {
                         $dql .= 'o.' . $column . ' = :' . $column . ' AND ';
                     }
                 }

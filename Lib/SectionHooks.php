@@ -88,7 +88,7 @@ class SectionHooks
      */
     public function process($sections)
     {
-    foreach ($this->getSectionHooks() as $sectionId => $sectionHook) {
+        foreach ($this->getSectionHooks() as $sectionId => $sectionHook) {
             // Find the section in our tree
             $section = $this->findSectionInTree($sectionId, $sections);
 

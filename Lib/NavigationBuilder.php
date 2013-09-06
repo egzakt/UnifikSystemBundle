@@ -133,7 +133,7 @@ class NavigationBuilder
     {
         $wrappedElements = array();
 
-    foreach ($elements as $element) {
+        foreach ($elements as $element) {
             // Create the NavigationItem wrapper
             $wrappedElement = $this->buildNavigationItem($element);
 

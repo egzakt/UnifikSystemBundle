@@ -74,7 +74,7 @@ class SectionFilter
             return $sections;
         }
 
-    foreach ($sections as $key => $section) {
+        foreach ($sections as $key => $section) {
 
             // Go to the deepest children
             if ($section->hasChildren()) {
@@ -138,7 +138,7 @@ class SectionFilter
         if ($token->isAuthenticated()) {
 
             $roles = array();
-	foreach ($token->getRoles() as $role) {
+            foreach ($token->getRoles() as $role) {
                 $roles[] = $role->getRole();
             }
 
