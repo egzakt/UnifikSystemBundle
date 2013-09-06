@@ -101,9 +101,14 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: onFlush }
 
+    egzakt_system.router_invalidator_factory:
+        class: Egzakt\SystemBundle\Lib\Factory\RouterInvalidatorFactory
+        arguments: [ @kernel ]
+
     egzakt_system.router_invalidator:
         class: %egzakt_system.router_invalidator.class%
-        arguments: [ @kernel ]
+        factory_class: egzakt_system.router_invalidator_factory
+        factory_method: create
 
     egzakt_system.router_auto_parameters_handler:
         class: %egzakt_system.router_auto_parameters_handler.class%
