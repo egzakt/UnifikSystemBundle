@@ -9,20 +9,17 @@ use Symfony\Component\DependencyInjection\Container;
  */
 class Helper
 {
-    /**
-     * @var Container
-     */
-    private $container;
 
     /**
-     * Set container
-     *
-     * @param Container $container
+     * @var array
      */
-    public function setContainer($container)
+    private $trustedHosts;
+
+    public function __construct($trustedHosts = array())
     {
-        $this->container = $container;
+        $this->trustedHosts = $trustedHosts;
     }
+
 
     /**
      * Determine if an url is external
@@ -35,17 +32,22 @@ class Helper
     {
         $parse = parse_url($url);
 
-        $trustedHostPatterns = $this->container->get('request')->getTrustedHosts();
-
-        if (count($trustedHostPatterns) > 0) {
-            foreach ($trustedHostPatterns as $pattern) {
-                if (preg_match($pattern, $parse['host'])) {
-                    return false;
-                }
+        foreach ( $this->getTrustedHosts() as $pattern ) {
+            if (preg_match($pattern, $parse['host'])) {
+                return false;
             }
         }
 
         return true;
+
+    }
+
+    /**
+     * @return array
+     */
+    protected function getTrustedHosts()
+    {
+        return $this->trustedHosts;
     }
 
     /**

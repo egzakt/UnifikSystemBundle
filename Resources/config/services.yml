@@ -53,8 +53,7 @@ services:
 
     egzakt_system.helper:
         class: %egzakt_system.helper.class%
-        calls:
-          - [ setContainer, [ @service_container ] ]
+        arguments: [ %kernel.trusted_hosts% ]
 
     egzakt_system.twig_extension:
         class: %egzakt_system.twig_extension.class%
