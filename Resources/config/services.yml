@@ -103,12 +103,12 @@ services:
 
     egzakt_system.router_invalidator_factory:
         class: Egzakt\SystemBundle\Lib\Factory\RouterInvalidatorFactory
-        arguments: [ @kernel ]
 
     egzakt_system.router_invalidator:
         class: %egzakt_system.router_invalidator.class%
-        factory_class: egzakt_system.router_invalidator_factory
+        factory_service: egzakt_system.router_invalidator_factory
         factory_method: create
+        arguments: [ @kernel ]
 
     egzakt_system.router_auto_parameters_handler:
         class: %egzakt_system.router_auto_parameters_handler.class%
