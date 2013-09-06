@@ -103,7 +103,7 @@ class SectionFilter
             $sectionParent = $section->getParent();
 
             // For each inaccessible parent, override it's route/routeParams with the children's one
-	while ($sectionParent && !$this->canAccess($sectionParent->getEntity())) {
+            while ($sectionParent && !$this->canAccess($sectionParent->getEntity())) {
                 $sectionParent->getEntity()->setRoute($route);
                 $sectionParent->getEntity()->setRouteParams($routeParams);
 
