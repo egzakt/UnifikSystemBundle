@@ -74,7 +74,7 @@ class SectionFilter
             return $sections;
         }
 
-	foreach ($sections as $key => $section) {
+    foreach ($sections as $key => $section) {
 
             // Go to the deepest children
             if ($section->hasChildren()) {
@@ -103,7 +103,7 @@ class SectionFilter
             $sectionParent = $section->getParent();
 
             // For each inaccessible parent, override it's route/routeParams with the children's one
-	    while ($sectionParent && !$this->canAccess($sectionParent->getEntity())) {
+	while ($sectionParent && !$this->canAccess($sectionParent->getEntity())) {
                 $sectionParent->getEntity()->setRoute($route);
                 $sectionParent->getEntity()->setRouteParams($routeParams);
 
@@ -138,7 +138,7 @@ class SectionFilter
         if ($token->isAuthenticated()) {
 
             $roles = array();
-	    foreach ($token->getRoles() as $role) {
+	foreach ($token->getRoles() as $role) {
                 $roles[] = $role->getRole();
             }
 

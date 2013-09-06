@@ -127,7 +127,7 @@ class TreeChoiceType extends AbstractType
         $entities = $view->vars['choices'];
 
         $levels = array();
-	foreach ($entities as $id => $entity) {
+    foreach ($entities as $id => $entity) {
 
             if (!$entity->data instanceof NavigationElementInterface) {
                 throw new \Exception('Tree Choice elements must extend the NavigationElementInterface.');
@@ -159,7 +159,7 @@ class TreeChoiceType extends AbstractType
 
         // For all childrens (FormView instances)
         // For example : 'sections' (root FormView) contains many checkboxes (children FormView)
-	foreach ($view->children as $key => $childrenView) {
+    foreach ($view->children as $key => $childrenView) {
             if (array_key_exists($key, $entityChoiceList)) {
                 $entity = $entityChoiceList[$key];
 

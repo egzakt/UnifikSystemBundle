@@ -225,7 +225,7 @@ class SectionRepository extends BaseEntityRepository
         $results = $queryBuilder->getQuery()->getScalarResult();
 
         $ids = array();
-	foreach ($results as $section) {
+    foreach ($results as $section) {
             $ids[] = $section['id'];
         }
 

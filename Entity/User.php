@@ -279,7 +279,7 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     {
         $roles = array();
 
-	foreach ($this->roles as $role) {
+    foreach ($this->roles as $role) {
             $roles[] = $role;
         }
 

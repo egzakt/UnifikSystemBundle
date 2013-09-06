@@ -182,7 +182,7 @@ class TextTranslation extends BaseTranslationEntity
      */
     public function isCollapsableValid(ExecutionContextInterface $context)
     {
-	if ($this->translatable->getCollapsable() && false == $this->getName()) {
+    if ($this->translatable->getCollapsable() && false == $this->getName()) {
             $context->addViolationAt('name', 'A collapsable text must have a name');
         }
     }

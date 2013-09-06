@@ -95,7 +95,7 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
             list($bundle, $entity) = $this->parseShortcutNotation($entity);
 
             // check reserved words
-	    if ($this->getGenerator()->isReservedKeyword($entity)) {
+            if ($this->getGenerator()->isReservedKeyword($entity)) {
                 $output->writeln(sprintf('<bg=red> "%s" is a reserved word</>.', $entity));
                 continue;
             }
@@ -238,7 +238,7 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
                 }
 
                 // check reserved words
-		if ($generator->isReservedKeyword($name)) {
+                if ($generator->isReservedKeyword($name)) {
                     throw new \InvalidArgumentException(sprintf('Name "%s" is a reserved word.', $name));
                 }
 
