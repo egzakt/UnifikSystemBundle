@@ -13,10 +13,11 @@ use Egzakt\SystemBundle\Lib\Helper;
  */
 class TwigExtension extends \Twig_Extension
 {
+
     /**
-     * @var Helper
+     * @var array
      */
-    private $helper;
+    private $trustedHosts;
 
     /**
      * @var String
@@ -28,6 +29,11 @@ class TwigExtension extends \Twig_Extension
      */
     protected $systemCore;
 
+    public function __construct($trustedHosts)
+    {
+        $this->trustedHosts = $trustedHosts;
+    }
+
     /**
      * @param mixed $systemCore
      */
@@ -36,15 +42,6 @@ class TwigExtension extends \Twig_Extension
         $this->systemCore = $systemCore;
     }
 
-    /**
-     * Set helper
-     *
-     * @param Helper $helper
-     */
-    public function setHelper($helper)
-    {
-        $this->helper = $helper;
-    }
 
     /**
      * Set the locale
@@ -107,7 +104,15 @@ class TwigExtension extends \Twig_Extension
      */
     public function isExternalUrl($url)
     {
-        return $this->helper->isExternalUrl($url);
+        $parse = parse_url($url);
+
+        foreach ( $this->getTrustedHosts() as $pattern ) {
+            if (preg_match($pattern, $parse['host'])) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -270,4 +275,13 @@ class TwigExtension extends \Twig_Extension
 
         return $indent;
     }
+
+    /**
+     * @return array
+     */
+    protected function getTrustedHosts()
+    {
+        return $this->trustedHosts;
+    }
+
 }
