@@ -51,17 +51,12 @@ services:
     egzakt_system.core:
         class: %egzakt_system.core.class%
 
-    egzakt_system.helper:
-        class: %egzakt_system.helper.class%
-        calls:
-          - [ setContainer, [ @service_container ] ]
-
     egzakt_system.twig_extension:
         class: %egzakt_system.twig_extension.class%
+        arguments: [ %kernel.trusted_hosts% ]
         tags:
           - { name: twig.extension }
         calls:
-          - [ setHelper, [ @egzakt_system.helper ] ]
           - [ setLocale, [ %locale% ] ]
           - [ setSystemCore, [ @egzakt_system.core ] ]
 
