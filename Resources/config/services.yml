@@ -96,6 +96,7 @@ services:
             - { name: doctrine.event_listener, event: prePersist }
             - { name: doctrine.event_listener, event: onFlush }
 
+
     egzakt_system.router_invalidator:
         class: %egzakt_system.router_invalidator.class%
         arguments: [ @kernel ]

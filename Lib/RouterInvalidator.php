@@ -10,12 +10,12 @@ class RouterInvalidator
     /**
      * @var Kernel
      */
-    protected $kernel;
+    private $kernel;
 
     /**
      * @param Kernel $kernel
      */
-    public function __construct($kernel)
+    public function __construct(Kernel $kernel)
     {
         $this->kernel = $kernel;
     }
@@ -25,11 +25,46 @@ class RouterInvalidator
      */
     public function invalidate()
     {
-        $finder = new Finder();
-        $cacheDir = $this->kernel->getCacheDir();
+        $regex = '/app' . $this->getKernel()->getEnvironment() . 'Url(Matcher|Generator)(.*)/i';
 
-        foreach ($finder->files()->name('/app' . $this->kernel->getEnvironment() . 'Url(Matcher|Generator)(.*)/i')->in($cacheDir) as $file) {
+        foreach ($this->getFiles($regex)->in($this->getKernel()->getCacheDir()) as $file) {
             unlink($file);
         }
     }
+
+    /**
+     * Return the kernel.
+     * @return Kernel
+     */
+    protected function getKernel()
+    {
+        return $this->kernel;
+    }
+
+    /**
+     * Return the cache directory.
+     * @return string
+     */
+    protected function getKernelCacheDir()
+    {
+        return $this->kernel->getCacheDir();
+    }
+
+    /**
+     * @param $regex
+     * @return Finder
+     */
+    protected function getFiles($regex)
+    {
+        return $this->getFinder()->files()->name($regex);
+    }
+
+    /**
+     * @return Finder
+     */
+    protected function getFinder()
+    {
+        return new Finder();
+    }
+
 }
