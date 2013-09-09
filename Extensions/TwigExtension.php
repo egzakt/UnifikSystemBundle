@@ -42,7 +42,6 @@ class TwigExtension extends \Twig_Extension
         $this->systemCore = $systemCore;
     }
 
-
     /**
      * Set the locale
      *

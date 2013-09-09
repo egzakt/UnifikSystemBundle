@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 interface DeletableListenerInterface
 {
     /**
-     * @param BaseEntity $entity
+     * @param  BaseEntity $entity
      * @return boolean
      */
     public function isDeletable(BaseEntity $entity);

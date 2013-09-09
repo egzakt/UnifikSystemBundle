@@ -40,8 +40,6 @@ class ControllerListener
         $applicationName = $egzaktRequest['appName'];
         $applicationName = strtolower($applicationName);
 
-
-
         if (false == $applicationName) {
             return;
         }

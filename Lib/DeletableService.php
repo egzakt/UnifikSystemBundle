@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Lib;
 
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
@@ -27,7 +26,6 @@ class DeletableService
      */
     private $entityManager;
 
-
     public function __construct(EntityManager $em)
     {
         $this->entityManager = $em;
@@ -36,12 +34,12 @@ class DeletableService
     }
 
     /**
-     * @param BaseEntity $entity
-     * @param bool $requestCheck
+     * @param  BaseEntity        $entity
+     * @param  bool              $requestCheck
      * @return DeletableResponse
      */
-    public function delete(BaseEntity $entity, $requestCheck = false) {
-
+    public function delete(BaseEntity $entity, $requestCheck = false)
+    {
         $repository = $this->getRepository(get_class($entity));
 
         if ($requestCheck) {
@@ -50,11 +48,13 @@ class DeletableService
             } else {
                 $output = $this->success('Entity can be deleted.');
             }
+
             return $output;
         }
 
         if ($this->isDeletable($entity)) {
             $repository->deleteAndFlush($entity);
+
             return $this->success('Entity has been deleted.');
         }
 
@@ -63,7 +63,7 @@ class DeletableService
     }
 
     /**
-     * @param BaseEntity $entity
+     * @param  BaseEntity $entity
      * @return bool
      */
     public function isDeletable(BaseEntity $entity)
@@ -77,6 +77,7 @@ class DeletableService
         foreach ($this->getListeners()->get($classname) as $listener) {
             if (!$listener->isDeletable($entity)) {
                 $this->setErrors($listener->getErrors());
+
                 return false;
             }
         }
