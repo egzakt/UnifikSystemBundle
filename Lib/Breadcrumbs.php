@@ -1,6 +1,7 @@
 <?php
 
 namespace Egzakt\SystemBundle\Lib;
+
 use Doctrine\Common\Collections\ArrayCollection;
 
 /**
