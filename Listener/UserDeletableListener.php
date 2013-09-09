@@ -25,7 +25,7 @@ class UserDeletableListener extends BaseDeletableListener
 
     public function isDeletable(BaseEntity $entity) {
 
-        if ( $this->getCurrentUser()->getId() == $entity->getId() ) {
+        if ($this->getCurrentUser()->getId() == $entity->getId()) {
             $this->addError('You can\'t delete yourself.');
         }
 

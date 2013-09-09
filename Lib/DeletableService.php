@@ -75,7 +75,7 @@ class DeletableService
         }
 
         foreach ($this->getListeners()->get($classname) as $listener) {
-            if ( !$listener->isDeletable($entity) ) {
+            if (!$listener->isDeletable($entity)) {
                 $this->setErrors($listener->getErrors());
                 return false;
             }

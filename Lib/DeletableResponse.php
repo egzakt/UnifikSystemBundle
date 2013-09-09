@@ -29,7 +29,7 @@ class DeletableResponse
     {
         $this->status = $status;
         $this->message = $message;
-        if ( null == $errors ) {
+        if (null == $errors) {
             $errors = new ArrayCollection();
         }
         $this->errors = $errors;
@@ -68,7 +68,7 @@ class DeletableResponse
           'status' => $this->getStatus(),
           'message' => $this->getMessage(),
         );
-        if ( $this->isFail() ) {
+        if ($this->isFail()) {
             $output['errors'] = $this->getErrors()->toArray();
         }
 
