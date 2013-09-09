@@ -26,6 +26,17 @@ parameters:
 
 services:
 
+    egzakt_system.deletable:
+        class: Egzakt\SystemBundle\Lib\DeletableService
+        arguments: [ @doctrine.orm.entity_manager ]
+
+    egazkt_system.deletable.listeners.users:
+        class: Egzakt\SystemBundle\Listener\UserDeletableListener
+        arguments: [ @security.context ]
+        tags:
+          - { name: egzakt_system.deletable, classname: Egzakt\SystemBundle\Entity\User }
+
+
     egzakt_system.kernel_controller_listener:
         class: %egzakt_system.kernel_controller_listener.class%
         tags:
