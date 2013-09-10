@@ -8,7 +8,7 @@ interface DeletableListenerInterface
 {
     /**
      * @param  Object  $entity
-     * @return boolean
+     * @return DeletableResult
      */
     public function isDeletable($entity);
 
