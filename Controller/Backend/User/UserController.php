@@ -14,8 +14,6 @@ use Egzakt\SystemBundle\Entity\User;
 use Egzakt\SystemBundle\Form\Backend\UserType;
 use Egzakt\SystemBundle\Entity\Role;
 
-use Egzakt\SystemBundle\Lib\DeletableService;
-
 /**
  * User controller.
  */
@@ -158,6 +156,7 @@ class UserController extends BaseController
                     'result' => $result
                 )
             );
+
             return new JsonResponse($output);
         }
 

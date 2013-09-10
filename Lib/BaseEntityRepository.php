@@ -408,7 +408,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
      * If the service anwser with an "success" status, we remove the entity and send the result with a "deleted" status.
      * Else we return the anwser of the service with the status "fail".
      *
-     * @param Object $entity
+     * @param  Object          $entity
      * @return DeletableResult
      */
     public function delete($entity)
@@ -441,12 +441,13 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
      * The entity is sent to our deletable service.
      * The service will return an object which can be "fail" or "deletable".
      *
-     * @param Object $entity
+     * @param  Object          $entity
      * @return DeletableResult
      */
     public function checkDeletable($entity)
     {
         $ds = $this->container->get('egzakt_system.deletable');
+
         return $ds->checkDeletable($entity);
     }
 }

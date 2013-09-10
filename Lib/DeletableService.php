@@ -18,7 +18,6 @@ class DeletableService
      */
     private $errors;
 
-
     public function __construct()
     {
         $this->listeners = new ArrayCollection();
@@ -114,6 +113,5 @@ class DeletableService
     {
         return $this->errors;
     }
-
 
 }
