@@ -50,7 +50,7 @@ class DeletableService
 
         if ($requestCheck) {
             if ($this->isDeletable($entity)) {
-                $output = $this->fail($this->getErrors());
+                $output = $this->fail();
             } else {
                 $output = $this->successDeletable();
             }
@@ -64,7 +64,7 @@ class DeletableService
             return $this->successDeleted();
         }
 
-        return $this->fail($this->getErrors());
+        return $this->fail();
 
     }
 
@@ -116,12 +116,11 @@ class DeletableService
     /**
      * Return a DeletableResult with a Fail status and errors list.
      *
-     * @param $errors
      * @return DeletableResult
      */
-    protected function fail($errors)
+    protected function fail()
     {
-        return new DeletableResult(DeletableResult::STATUS_FAIL, 'Entity can\'t be deleted.', $errors);
+        return new DeletableResult(DeletableResult::STATUS_FAIL, 'Entity can\'t be deleted.', $this->getErrors());
     }
 
     protected function successDeletable()
