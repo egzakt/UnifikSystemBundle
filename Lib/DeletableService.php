@@ -123,6 +123,11 @@ class DeletableService
         return new DeletableResult(DeletableResult::STATUS_FAIL, 'Entity can\'t be deleted.', $this->getErrors());
     }
 
+    /**
+     * Return a DeletableResult with a Deletable status.
+     *
+     * @return DeletableResult
+     */
     protected function successDeletable()
     {
         return new DeletableResult(DeletableResult::STATUS_DELETABLE, 'Entity can be deleted.');
