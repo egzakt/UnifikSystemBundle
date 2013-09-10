@@ -4,8 +4,6 @@ namespace Egzakt\SystemBundle\Lib;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
-use Egzakt\SystemBundle\Lib\BaseEntity;
 
 class DeletableService
 {
@@ -34,9 +32,17 @@ class DeletableService
     }
 
     /**
+     * Start a delete action for the entity passed in parameter.
+     * You can perform a check-only by passing "true" to the second parameter.
+     *
+     * First, the method check if the entity can be deleted by going through the listeners.
+     * If a single listener fail, then the entity can't be deleted.
+     *
+     * Return a result in an object form containing the status ( fail/success ).
+     *
      * @param  Object            $entity
      * @param  bool              $requestCheck
-     * @return DeletableResponse
+     * @return DeletableResult
      */
     public function delete($entity, $requestCheck = false)
     {
@@ -46,7 +52,7 @@ class DeletableService
             if ($this->isDeletable($entity)) {
                 $output = $this->fail($this->getErrors());
             } else {
-                $output = $this->success('Entity can be deleted.');
+                $output = $this->successDeletable();
             }
 
             return $output;
@@ -55,7 +61,7 @@ class DeletableService
         if ($this->isDeletable($entity)) {
             $repository->deleteAndFlush($entity);
 
-            return $this->success('Entity has been deleted.');
+            return $this->successDeleted();
         }
 
         return $this->fail($this->getErrors());
@@ -63,7 +69,11 @@ class DeletableService
     }
 
     /**
-     * @param  BaseEntity $entity
+     * Check if this entity can be deleted or not.
+     * We run through a list a listeners and if a listener fail, then the entity is not deletable.
+     * Listeners are attached to the service and bound to the entity class name.
+     *
+     * @param  Object $entity
      * @return bool
      */
     public function isDeletable($entity)
@@ -86,6 +96,9 @@ class DeletableService
     }
 
     /**
+     *
+     * Add a new listener.
+     *
      * @param DeletableListenerInterface $listener
      * @param $classname
      */
@@ -101,21 +114,30 @@ class DeletableService
     }
 
     /**
+     * Return a DeletableResult with a Fail status and errors list.
+     *
      * @param $errors
-     * @return DeletableResponse
+     * @return DeletableResult
      */
     protected function fail($errors)
     {
-        return new DeletableResult(DeletableResponse::STATUS_FAIL, 'Entity can\'t be deleted.', $errors);
+        return new DeletableResult(DeletableResult::STATUS_FAIL, 'Entity can\'t be deleted.', $errors);
     }
 
-    /**
-     * @param $message
-     * @return DeletableResponse
-     */
-    protected function success($message)
+    protected function successDeletable()
     {
-        return new DeletableResult(DeletableResponse::STATUS_SUCCESS, $message);
+        return new DeletableResult(DeletableResult::STATUS_DELETABLE, 'Entity can be deleted.');
+    }
+
+
+    /**
+     * Return a DeletableResult with a Deleted status.
+     *
+     * @return DeletableResult
+     */
+    protected function successDeleted()
+    {
+        return new DeletableResult(DeletableResult::STATUS_DELETED, 'Entity has been deleted.');
     }
 
     /**
