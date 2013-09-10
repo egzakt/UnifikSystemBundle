@@ -2,11 +2,11 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\User;
 
-use Doctrine\ORM\EntityNotFoundException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 use Egzakt\SystemBundle\Lib\Backend\BaseController;
@@ -143,7 +143,7 @@ class UserController extends BaseController
         $entity = $userRepo->find($id);
 
         if (null === $entity) {
-            throw new EntityNotFoundException();
+            throw new NotFoundHttpException();
         }
 
         $result = $userRepo->checkDeletable($entity);
@@ -178,7 +178,7 @@ class UserController extends BaseController
         $entity = $userRepo->find($id);
 
         if (null === $entity) {
-            throw new EntityNotFoundException();
+            throw new NotFoundHttpException();
         }
 
         $result = $userRepo->delete($entity);
