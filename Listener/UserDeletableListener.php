@@ -3,7 +3,6 @@
 namespace Egzakt\SystemBundle\Listener;
 
 use Egzakt\SystemBundle\Lib\BaseDeletableListener;
-use Egzakt\SystemBundle\Lib\BaseEntity;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class UserDeletableListener extends BaseDeletableListener

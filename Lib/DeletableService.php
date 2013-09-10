@@ -40,8 +40,8 @@ class DeletableService
      *
      * Return a result in an object form containing the status ( fail/success ).
      *
-     * @param  Object            $entity
-     * @param  bool              $requestCheck
+     * @param  Object          $entity
+     * @param  bool            $requestCheck
      * @return DeletableResult
      */
     public function delete($entity, $requestCheck = false)
@@ -130,7 +130,6 @@ class DeletableService
     {
         return new DeletableResult(DeletableResult::STATUS_DELETABLE, 'Entity can be deleted.');
     }
-
 
     /**
      * Return a DeletableResult with a Deleted status.
