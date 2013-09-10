@@ -34,11 +34,11 @@ class DeletableService
     }
 
     /**
-     * @param  BaseEntity        $entity
+     * @param  Object            $entity
      * @param  bool              $requestCheck
      * @return DeletableResponse
      */
-    public function delete(BaseEntity $entity, $requestCheck = false)
+    public function delete($entity, $requestCheck = false)
     {
         $repository = $this->getRepository(get_class($entity));
 
