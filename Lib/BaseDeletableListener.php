@@ -28,7 +28,7 @@ abstract class BaseDeletableListener implements DeletableListenerInterface
     /**
      * @inheritdoc
      */
-    abstract public function isDeletable(BaseEntity $entity);
+    abstract public function isDeletable($entity);
 
     /**
      * @inheritdoc

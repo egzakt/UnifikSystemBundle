@@ -152,10 +152,10 @@ class UserController extends BaseController
         $check = $request->query->has('check');
         $response = $service->delete($entity, $check);
 
-        if ( $response->isSuccess() ) {
-            $this->setSuccessFlash( $response->getMessage() );
+        if ($response->isSuccess()) {
+            $this->setSuccessFlash($response->getMessage());
         } else {
-            $this->setErrorFlash( $response->getErrors() );
+            $this->setErrorFlash($response->getErrors());
         }
 
         return $this->redirect(

@@ -66,7 +66,7 @@ class DeletableService
      * @param  BaseEntity $entity
      * @return bool
      */
-    public function isDeletable(BaseEntity $entity)
+    public function isDeletable($entity)
     {
         $classname = get_class($entity);
 
@@ -106,7 +106,7 @@ class DeletableService
      */
     protected function fail($errors)
     {
-        return new DeletableResponse(DeletableResponse::STATUS_FAIL, 'Entity can\'t be deleted.', $errors);
+        return new DeletableResult(DeletableResponse::STATUS_FAIL, 'Entity can\'t be deleted.', $errors);
     }
 
     /**
@@ -115,7 +115,7 @@ class DeletableService
      */
     protected function success($message)
     {
-        return new DeletableResponse(DeletableResponse::STATUS_SUCCESS, $message);
+        return new DeletableResult(DeletableResponse::STATUS_SUCCESS, $message);
     }
 
     /**
