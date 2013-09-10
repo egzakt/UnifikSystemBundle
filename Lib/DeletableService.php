@@ -30,7 +30,7 @@ class DeletableService
      * Listeners are attached to the service and bound to the entity class name.
      *
      * @param  Object $entity
-     * @return bool
+     * @return DeletableResult
      */
     public function checkDeletable($entity)
     {
