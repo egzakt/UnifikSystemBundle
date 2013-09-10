@@ -111,7 +111,7 @@ class DeletableService
     /**
      * Check is this entity can be deleted and return the result.
      *
-     * @param Object           $entity
+     * @param  Object          $entity
      * @return DeletableResult
      */
     protected function checkDelete($entity)
