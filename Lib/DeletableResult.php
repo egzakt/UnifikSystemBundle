@@ -4,7 +4,7 @@ namespace Egzakt\SystemBundle\Lib;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-class DeletableResponse
+class DeletableResult
 {
 
     /**
@@ -23,7 +23,8 @@ class DeletableResponse
     private $errors;
 
     const STATUS_FAIL = 'fail';
-    const STATUS_SUCCESS = 'success';
+    const STATUS_DELETABLE = 'deletable';
+    const STATUS_DELETED = 'deleted';
 
     public function __construct($status, $message, ArrayCollection $errors = null)
     {
@@ -80,7 +81,7 @@ class DeletableResponse
      */
     public function isSuccess()
     {
-        return $this->getStatus() == DeletableResponse::STATUS_SUCCESS;
+        return $this->getStatus() != DeletableResult::STATUS_FAIL;
     }
 
     /**
@@ -88,7 +89,7 @@ class DeletableResponse
      */
     public function isFail()
     {
-        return $this->getStatus() == DeletableResponse::STATUS_FAIL;
+        return $this->getStatus() == DeletableResult::STATUS_FAIL;
     }
 
 }
