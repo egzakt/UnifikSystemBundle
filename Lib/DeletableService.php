@@ -46,21 +46,19 @@ class DeletableService
      */
     public function delete($entity, $requestCheck = false)
     {
-        $repository = $this->getRepository(get_class($entity));
 
         if ($requestCheck) {
             if ($this->isDeletable($entity)) {
-                $output = $this->fail();
-            } else {
                 $output = $this->successDeletable();
+            } else {
+                $output = $this->fail();
             }
-
             return $output;
         }
 
         if ($this->isDeletable($entity)) {
-            $repository->deleteAndFlush($entity);
-
+            $this->entityManager->remove($entity);
+            $this->entityManager->flush();
             return $this->successDeleted();
         }
 
@@ -87,7 +85,6 @@ class DeletableService
         foreach ($this->getListeners()->get($classname) as $listener) {
             if (!$listener->isDeletable($entity)) {
                 $this->setErrors($listener->getErrors());
-
                 return false;
             }
         }
@@ -104,6 +101,7 @@ class DeletableService
      */
     public function addListener(DeletableListenerInterface $listener, $classname)
     {
+
         $listeners = $this->getListeners()->get($classname);
         if (null === $listeners) {
             $listeners = new ArrayCollection();

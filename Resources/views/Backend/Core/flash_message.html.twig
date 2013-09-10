@@ -9,7 +9,16 @@
 {% if app.session.flashbag.has('error') %}
     <div class="flash-error">
         {% for flashMessage in app.session.flashbag.get('error') %}
-            <p>{{ flashMessage|trans }}</p>
+            {% if flashMessage[0] is defined %}
+                <ul>
+                {% for message in flashMessage %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% else %}
+                <p>{{ flashMessage|trans }}</p>
+            {% endif %}
+
         {% endfor %}
     </div>
 {% endif %}

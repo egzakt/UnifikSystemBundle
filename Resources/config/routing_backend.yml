@@ -38,9 +38,17 @@ egzakt_system_backend_user_edit:
     pattern:  /users/{id}/edit
     defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:edit", id: 0 }
 
+egzakt_system_backend_user_delete_json:
+    pattern:  /users/{id}/delete
+    defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:jsonDelete" }
+    requirements: { _format: json, _method: POST }
+
 egzakt_system_backend_user_delete:
     pattern:  /users/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:delete" }
+    requirements: { _format: html }
+
+
 
 # Roles
 egzakt_system_backend_role:
@@ -54,6 +62,7 @@ egzakt_system_backend_role_edit:
 egzakt_system_backend_role_delete:
     pattern:  /roles/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Role/Role:delete" }
+
 
 # Members
 egzakt_system_backend_member:

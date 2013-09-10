@@ -2,6 +2,8 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\User;
 
+use Doctrine\ORM\EntityNotFoundException;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -136,39 +138,46 @@ class UserController extends BaseController
         ));
     }
 
-    public function jsonDelete($request, $id)
+    public function jsonDeleteAction(Request $request, $id)
     {
-        $deletableService = $this->getDeletableService();
-        $entity = $this->getUserRepository()->findOrThrow($id);
+        $deletableService = $this->get('egzakt_system.deletable');
+        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
 
-        return new JsonResponse($deletableService->delete($entity, $request->query->has('check'))->toArray());
+        if ( null === $entity ) {
+            throw new EntityNotFoundException();
+        }
+
+        $result = $deletableService->delete($entity, $request->query->has('check'));
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
+
+
+        return new JsonResponse($output);
     }
 
     public function deleteAction(Request $request, $id)
     {
-        $service = $this->getDeletableService();
-        $entity = $this->getUserRepository()->findOrThrow($id);
+        $service = $this->get('egzakt_system.deletable');
+        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
 
-        $check = $request->query->has('check');
-        $response = $service->delete($entity, $check);
-
-        if ($response->isSuccess()) {
-            $this->setSuccessFlash($response->getMessage());
-        } else {
-            $this->setErrorFlash($response->getErrors());
+        if ( null === $entity ) {
+            throw new EntityNotFoundException();
         }
 
-        return $this->redirect(
-            $this->generateUrl('egzakt_system_backend_user')
-        );
-    }
+        $result = $service->delete($entity, $request->query->has('check'));
 
-    /**
-     * @return DeletableService
-     */
-    protected function getDeletableService()
-    {
-        return $this->get('egzakt_system.deletable');
+        if ($result->isSuccess()) {
+            $this->addFlash('success', 'This user has been deleted.');
+        } else {
+            $this->addFlash('error', $result->getErrors());
+        }
+
+        return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
     }
 
 }
