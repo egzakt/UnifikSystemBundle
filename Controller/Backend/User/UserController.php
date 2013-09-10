@@ -174,7 +174,6 @@ class UserController extends BaseController
     {
 
         $userRepo = $this->getEm()->getRepository('EgzaktSystemBundle:User');
-
         $entity = $userRepo->find($id);
 
         if (null === $entity) {

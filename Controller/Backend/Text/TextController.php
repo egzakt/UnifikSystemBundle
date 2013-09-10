@@ -159,7 +159,7 @@ class TextController extends BaseController
     /**
      * Delete a Text entity.
      *
-     * @param int     $id
+     * @param int $id
      *
      * @return RedirectResponse|Response
      *

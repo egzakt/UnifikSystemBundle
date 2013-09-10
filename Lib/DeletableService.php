@@ -29,7 +29,7 @@ class DeletableService
      * We run through a list a listeners and if a listener fail, then the entity is not deletable.
      * Listeners are attached to the service and bound to the entity class name.
      *
-     * @param  Object $entity
+     * @param  Object          $entity
      * @return DeletableResult
      */
     public function checkDeletable($entity)
