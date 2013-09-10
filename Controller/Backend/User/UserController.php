@@ -138,10 +138,10 @@ class UserController extends BaseController
 
     public function jsonDelete($request, $id)
     {
-        $service = $this->getDeletableService();
+        $deletableService = $this->getDeletableService();
         $entity = $this->getUserRepository()->findOrThrow($id);
 
-        return new JsonResponse($service->delete($entity, $request->query->has('check'))->toArray());
+        return new JsonResponse($deletableService->delete($entity, $request->query->has('check'))->toArray());
     }
 
     public function deleteAction(Request $request, $id)
