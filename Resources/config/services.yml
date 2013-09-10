@@ -30,7 +30,6 @@ services:
 
     egzakt_system.deletable:
         class: %egzakt_system.deletable.class%
-        arguments: [ @doctrine.orm.entity_manager ]
 
     egazkt_system.deletable.listeners.users:
         class: %egzakt_system.deletable.listener.user.class%

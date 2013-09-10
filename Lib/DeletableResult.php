@@ -92,4 +92,9 @@ class DeletableResult
         return $this->getStatus() == DeletableResult::STATUS_FAIL;
     }
 
+    public function setDeleted()
+    {
+        $this->status = DeletableResult::STATUS_DELETED;
+    }
+
 }

@@ -138,45 +138,60 @@ class UserController extends BaseController
         ));
     }
 
-    public function jsonDeleteAction(Request $request, $id)
+    public function checkDeleteAction(Request $request, $id)
     {
-        $deletableService = $this->get('egzakt_system.deletable');
-        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
+
+        $userRepo = $this->getEm()->getRepository('EgzaktSystemBundle:User');
+        $entity = $userRepo->find($id);
 
         if (null === $entity) {
             throw new EntityNotFoundException();
         }
 
-        $result = $deletableService->delete($entity, $request->query->has('check'));
-        $output = $result->toArray();
-        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
-            array(
-                'entity' => $entity,
-                'result' => $result
-            )
-        );
+        $result = $userRepo->checkDeletable($entity);
 
-        return new JsonResponse($output);
-    }
-
-    public function deleteAction(Request $request, $id)
-    {
-        $service = $this->get('egzakt_system.deletable');
-        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
-
-        if (null === $entity) {
-            throw new EntityNotFoundException();
+        if ($request->isXmlHttpRequest()) {
+            $output = $result->toArray();
+            $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+                array(
+                    'entity' => $entity,
+                    'result' => $result
+                )
+            );
+            return new JsonResponse($output);
         }
-
-        $result = $service->delete($entity, $request->query->has('check'));
 
         if ($result->isSuccess()) {
-            $this->addFlash('success', 'This user has been deleted.');
+            $this->addFlash('success', 'This user can be deleted.');
         } else {
             $this->addFlash('error', $result->getErrors());
         }
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
+
+    }
+
+    public function deleteAction($id)
+    {
+
+        $userRepo = $this->getEm()->getRepository('EgzaktSystemBundle:User');
+
+        $entity = $userRepo->find($id);
+
+        if (null === $entity) {
+            throw new EntityNotFoundException();
+        }
+
+        $result = $userRepo->delete($entity);
+
+        if ($result->isSuccess()) {
+            $this->addFlash('success', 'This User has been deleted.');
+        } else {
+            $this->addFlash('error', $result->getErrors());
+        }
+
+        return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
+
     }
 
 }

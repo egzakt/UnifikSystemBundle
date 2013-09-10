@@ -401,4 +401,52 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
             throw ORMException::invalidFindByCall($this->_entityName, $fieldName, $method.$by);
         }
     }
+
+    /**
+     * Initiate a delete action for an entity.
+     * First, we check if the entity can be deleted by requesting the deletable service.
+     * If the service anwser with an "success" status, we remove the entity and send the result with a "deleted" status.
+     * Else we return the anwser of the service with the status "fail".
+     *
+     * @param Object $entity
+     * @return DeletableResult
+     */
+    public function delete($entity)
+    {
+        $result = $this->checkDeletable($entity);
+        if ( $result->isSuccess() ) {
+            $this->removeAndFlush($entity);
+            $result->setDeleted();
+        }
+
+        return $result;
+
+    }
+
+    /**
+     * Remove an entity and flush immediatly.
+     * @see Doctrine\ORM\EntityManager::remove
+     *
+     * @param Object $entity
+     */
+    public function removeAndFlush($entity)
+    {
+        $em = $this->getEntityManager();
+        $em->remove($entity);
+        $em->flush();
+    }
+
+    /**
+     * Check is an entity can be deleted.
+     * The entity is sent to our deletable service.
+     * The service will return an object which can be "fail" or "deletable".
+     *
+     * @param Object $entity
+     * @return DeletableResult
+     */
+    public function checkDeletable($entity)
+    {
+        $ds = $this->container->get('egzakt_system.deletable');
+        return $ds->checkDeletable($entity);
+    }
 }

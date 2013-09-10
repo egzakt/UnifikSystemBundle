@@ -3,7 +3,6 @@
 namespace Egzakt\SystemBundle\Lib;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\EntityManager;
 
 class DeletableService
 {
@@ -19,47 +18,11 @@ class DeletableService
      */
     private $errors;
 
-    /**
-     * @var EntityManager
-     */
-    private $entityManager;
 
-    public function __construct(EntityManager $em)
+    public function __construct()
     {
-        $this->entityManager = $em;
         $this->listeners = new ArrayCollection();
         $this->errors = new ArrayCollection();
-    }
-
-    /**
-     * Start a delete action for the entity passed in parameter.
-     * You can perform a check-only by passing "true" to the second parameter.
-     *
-     * First, the method check if the entity can be deleted by going through the listeners.
-     * If a single listener fail, then the entity can't be deleted.
-     *
-     * Return a result in an object form containing the status ( fail/success ).
-     *
-     * @param  Object          $entity
-     * @param  bool            $requestCheck
-     * @return DeletableResult
-     */
-    public function delete($entity, $requestCheck = false)
-    {
-
-        if ($requestCheck) {
-            return $this->checkDelete($entity);
-        }
-
-        if ($this->isDeletable($entity)) {
-            $this->entityManager->remove($entity);
-            $this->entityManager->flush();
-
-            return $this->successDeleted();
-        }
-
-        return $this->fail();
-
     }
 
     /**
@@ -70,23 +33,23 @@ class DeletableService
      * @param  Object $entity
      * @return bool
      */
-    public function isDeletable($entity)
+    public function checkDeletable($entity)
     {
         $classname = get_class($entity);
 
         if (!$this->getListeners()->containsKey($classname)) {
-            return true;
+            return $this->deletable();
         }
 
         foreach ($this->getListeners()->get($classname) as $listener) {
             if (!$listener->isDeletable($entity)) {
                 $this->setErrors($listener->getErrors());
 
-                return false;
+                return $this->fail();
             }
         }
 
-        return true;
+        return $this->deletable();
     }
 
     /**
@@ -109,17 +72,6 @@ class DeletableService
     }
 
     /**
-     * Check is this entity can be deleted and return the result.
-     *
-     * @param  Object          $entity
-     * @return DeletableResult
-     */
-    protected function checkDelete($entity)
-    {
-        return $this->isDeletable($entity) ? $this->successDeletable() : $this->fail();
-    }
-
-    /**
      * Return a DeletableResult with a Fail status and errors list.
      *
      * @return DeletableResult
@@ -134,19 +86,9 @@ class DeletableService
      *
      * @return DeletableResult
      */
-    protected function successDeletable()
+    protected function deletable()
     {
         return new DeletableResult(DeletableResult::STATUS_DELETABLE, 'Entity can be deleted.');
-    }
-
-    /**
-     * Return a DeletableResult with a Deleted status.
-     *
-     * @return DeletableResult
-     */
-    protected function successDeleted()
-    {
-        return new DeletableResult(DeletableResult::STATUS_DELETED, 'Entity has been deleted.');
     }
 
     /**
@@ -173,13 +115,5 @@ class DeletableService
         return $this->errors;
     }
 
-    /**
-     * @param $classname
-     * @return EntityRepository
-     */
-    protected function getRepository($classname)
-    {
-        return $this->entityManager->getRepository($classname);
-    }
 
 }
