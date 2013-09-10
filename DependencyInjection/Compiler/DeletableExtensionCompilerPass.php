@@ -18,7 +18,7 @@ class DeletableExtensionCompilerPass implements CompilerPassInterface
         $taggedServices = $container->findTaggedServiceIds('egzakt_system.deletable');
 
         foreach ($taggedServices as $id => $attributes) {
-            $definition->addMethodCall('addListener', array(new Reference($id), $attributes[0]['classname']));
+            $definition->addMethodCall('addListener', array(new Reference($id), $attributes[0]['entity']));
         }
 
     }

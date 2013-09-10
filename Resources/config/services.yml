@@ -23,18 +23,20 @@ parameters:
     egzakt_backend.core.class:                            Egzakt\SystemBundle\Lib\Backend\Core
     egzakt_backend.form.type.advanced_file.class:         Egzakt\SystemBundle\Form\Backend\AdvancedFileType
     egzakt_frontend.core.class:                           Egzakt\SystemBundle\Lib\Frontend\Core
+    egzakt_system.deletable.class:                        Egzakt\SystemBundle\Lib\DeletableService
+    egzakt_system.deletable.listener.user.class:          Egzakt\SystemBundle\Listener\UserDeletableListener
 
 services:
 
     egzakt_system.deletable:
-        class: Egzakt\SystemBundle\Lib\DeletableService
+        class: %egzakt_system.deletable.class%
         arguments: [ @doctrine.orm.entity_manager ]
 
     egazkt_system.deletable.listeners.users:
-        class: Egzakt\SystemBundle\Listener\UserDeletableListener
+        class: %egzakt_system.deletable.listener.user.class%
         arguments: [ @security.context ]
         tags:
-          - { name: egzakt_system.deletable, classname: Egzakt\SystemBundle\Entity\User }
+          - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\User }
 
 
     egzakt_system.kernel_controller_listener:
