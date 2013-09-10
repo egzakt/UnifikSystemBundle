@@ -30,7 +30,7 @@ class DeletableResult
     {
         $this->status = $status;
         $this->message = $message;
-        if (null == $errors) {
+        if (null === $errors) {
             $errors = new ArrayCollection();
         }
         $this->errors = $errors;
@@ -81,7 +81,7 @@ class DeletableResult
      */
     public function isSuccess()
     {
-        return $this->getStatus() != DeletableResult::STATUS_FAIL;
+        return $this->getStatus() !== DeletableResult::STATUS_FAIL;
     }
 
     /**
@@ -89,7 +89,7 @@ class DeletableResult
      */
     public function isFail()
     {
-        return $this->getStatus() == DeletableResult::STATUS_FAIL;
+        return $this->getStatus() === DeletableResult::STATUS_FAIL;
     }
 
     public function setDeleted()
