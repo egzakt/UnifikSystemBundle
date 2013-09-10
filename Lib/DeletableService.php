@@ -37,18 +37,18 @@ class DeletableService
         $classname = get_class($entity);
 
         if (!$this->getListeners()->containsKey($classname)) {
-            return $this->deletable();
+            return $this->createDeletableResult();
         }
 
         foreach ($this->getListeners()->get($classname) as $listener) {
             if (!$listener->isDeletable($entity)) {
                 $this->setErrors($listener->getErrors());
 
-                return $this->fail();
+                return $this->createFailResult();
             }
         }
 
-        return $this->deletable();
+        return $this->createDeletableResult();
     }
 
     /**
@@ -75,7 +75,7 @@ class DeletableService
      *
      * @return DeletableResult
      */
-    protected function fail()
+    protected function createFailResult()
     {
         return new DeletableResult(DeletableResult::STATUS_FAIL, 'Entity can\'t be deleted.', $this->getErrors());
     }
@@ -85,7 +85,7 @@ class DeletableService
      *
      * @return DeletableResult
      */
-    protected function deletable()
+    protected function createDeletableResult()
     {
         return new DeletableResult(DeletableResult::STATUS_DELETABLE, 'Entity can be deleted.');
     }
