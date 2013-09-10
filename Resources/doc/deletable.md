@@ -4,10 +4,7 @@ Deletable Service
 This service is a core functionality of this framework. It's intended to be used when you want to delete an entity from your application.
 In fact, it's working in the background, you will never call the service directly. But how does it work ?
 
-
-You have only one way to remove an entity from your controller :
- -> get the Doctrine EntityManager and call remove() on it.
-
+You have only one way to remove an entity from your controller : get the EntityManager and call remove() on it.
 
 But, what if we need to perform extra operations before deleting an entity ? What if we want to restrict the deletion of an entity with some conditions ?
 We can't.
@@ -15,24 +12,27 @@ We can't.
 And this is why this "Deletable Service" come from. With him, we will be able to perform any operation we want on our entity before deleting them.
 So, let's see how it will work :
 
+## Inside the controller
+
 In your controller, you will have to retrieve your EntityRepository. In the parent of this object, a new method has been added : delete().
 This is the method you will have to call. Simple ? Let's see a bit of code :
-
+```php
 <?php
 public function delete($id)
 {
-
     $repository = $this->getRepository('MyNameSpace:Entity');
     $entity = $repository->find($id);
     $result = $repository->delete($entity);
 }
 ?>
+```
 
 Yes, it's simple. First, get your entity by calling find().
 Then, call delete() and it's done.
 
-
 Ok, this was the easy part. Now, how do we add some restriction to our entity ? Let's say... I don't want my entity to be removed if we are in development.
+
+## How it works
 
 To get this result, we need to know how things work :
 Inside the repository :
@@ -45,10 +45,12 @@ Inside the service :
  - one by one, each listener will return a boolean if the entity pass all requirement.
  - if one listener fail, the error is return to the service.
 
+## Inside the listener
 
 Knowing that, it's time for us to create a listener and bind him to our service. To create it, we must implements Egzakt\SystemBundle\Lib\DeletableListener.
 Also, a base implementation already exists and you can subclass it : Egzakt\SystemBundle\BaseDeletableListener. We will do this :
 
+```php
 <?php
 class MyEntityListener extends BaseDeletableListener
 {
@@ -72,20 +74,23 @@ class MyEntityListener extends BaseDeletableListener
 
 }
 ?>
+```
 
 So, we just created our listener. Now it's time to bind it with our service. And because we use Symfony, we will use the DIC.
 The services.yml of our framework looks like this :
+```yml
     egzakt_system.deletable:
         class: %egzakt_system.deletable.class%
+```
 
 To add a listener, do something like :
-
+```yml
     mynamespacebundle.entitylistener:
         class: My\NamespaceBundle\Listener\MyEntityListener
         arguments: [ %kernel.environment% ]
         tags:
           - { name: egzakt_system.deletable, entity: My\NameSpaceBundle\Entity\Entity }
-
+```
 
 What you have to change :
  - service name
