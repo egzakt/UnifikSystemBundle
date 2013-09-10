@@ -170,7 +170,6 @@ class UserController extends BaseController
         }
 
         $result = $userRepo->delete($entity);
-
         if ($result->isSuccess()) {
             $this->addFlash('success', 'This User has been deleted.');
         } else {

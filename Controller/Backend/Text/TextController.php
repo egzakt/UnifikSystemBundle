@@ -165,7 +165,6 @@ class TextController extends BaseController
         }
 
         $result = $textRepo->delete($entity);
-
         if ($result->isSuccess()) {
             $this->addFlash('success', 'This Text has been deleted.');
             $this->get('egzakt_system.router_invalidator')->invalidate();
