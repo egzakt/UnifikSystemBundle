@@ -92,6 +92,10 @@ egzakt_system_backend_text_delete:
     pattern:  /texts/{sectionId}/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:delete" }
 
+egzakt_system_backend_text_delete_check:
+    pattern:  /texts/{sectionId}/{id}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:checkDelete" }
+
 # Sections (roots handling)
 egzakt_system_backend_section_root:
     pattern:  /sections/{appSlug}/root
