@@ -405,8 +405,8 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
     /**
      * Initiate a delete action for an entity.
      * First, we check if the entity can be deleted by requesting the deletable service.
-     * If the service anwser with an "success" status, we remove the entity and send the result with a "deleted" status.
-     * Else we return the anwser of the service with the status "fail".
+     * If the service answer with an "success" status, we remove the entity and send the result with a "deleted" status.
+     * Else we return the answer of the service with the status "fail".
      *
      * @param  Object          $entity
      * @return DeletableResult
