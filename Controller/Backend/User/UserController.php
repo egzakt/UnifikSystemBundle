@@ -173,8 +173,8 @@ class UserController extends BaseController
         if ($result->isSuccess()) {
             $this->addFlash('success', $this->get('translator')->trans(
                 '%entity% has been deleted.',
-                array('%entity%' => $entity != '' ? $entity : $entity->getEntityName()))
-            );
+                array('%entity%' => $entity)
+            ));
         } else {
             $this->addFlash('error', $result->getErrors());
         }
