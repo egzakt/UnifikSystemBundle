@@ -7,8 +7,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 interface DeletableListenerInterface
 {
     /**
+     * Check if this entity can be deleted.
      * @param  Object  $entity
-     * @return DeletableResult
+     * @return bool
      */
     public function isDeletable($entity);
 
