@@ -420,7 +420,6 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
         }
 
         return $result;
-
     }
 
     /**
