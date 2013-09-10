@@ -147,26 +147,15 @@ class UserController extends BaseController
         }
 
         $result = $userRepo->checkDeletable($entity);
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
 
-        if ($request->isXmlHttpRequest()) {
-            $output = $result->toArray();
-            $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
-                array(
-                    'entity' => $entity,
-                    'result' => $result
-                )
-            );
-
-            return new JsonResponse($output);
-        }
-
-        if ($result->isSuccess()) {
-            $this->addFlash('success', 'This user can be deleted.');
-        } else {
-            $this->addFlash('error', $result->getErrors());
-        }
-
-        return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
+        return new JsonResponse($output);
 
     }
 

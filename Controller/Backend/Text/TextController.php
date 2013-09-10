@@ -133,26 +133,15 @@ class TextController extends BaseController
         }
 
         $result = $textRepo->checkDeletable($entity);
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
 
-        if ($request->isXmlHttpRequest()) {
-            $output = $result->toArray();
-            $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
-                array(
-                    'entity' => $entity,
-                    'result' => $result
-                )
-            );
-
-            return new JsonResponse($output);
-        }
-
-        if ($result->isSuccess()) {
-            $this->addFlash('success', 'This text can be deleted.');
-        } else {
-            $this->addFlash('error', $result->getErrors());
-        }
-
-        return $this->redirect($this->generateUrl('egzakt_system_backend_text'));
+        return new JsonResponse($output);
 
     }
 
