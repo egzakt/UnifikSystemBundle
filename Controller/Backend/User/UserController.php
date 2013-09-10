@@ -136,6 +136,14 @@ class UserController extends BaseController
         ));
     }
 
+    /**
+     * Check if we can delete a user.
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     * @throws NotFoundHttpException
+     */
     public function checkDeleteAction(Request $request, $id)
     {
 
@@ -159,6 +167,13 @@ class UserController extends BaseController
 
     }
 
+    /**
+     * Delete a user.
+     *
+     * @param $id
+     * @return RedirectResponse
+     * @throws NotFoundHttpException
+     */
     public function deleteAction($id)
     {
 

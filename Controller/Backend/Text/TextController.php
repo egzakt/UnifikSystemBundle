@@ -122,6 +122,14 @@ class TextController extends BaseController
         ));
     }
 
+    /**
+     * Check if we can delete a Text.
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     * @throws NotFoundHttpException
+     */
     public function checkDeleteAction(Request $request, $id)
     {
 
@@ -146,12 +154,10 @@ class TextController extends BaseController
     }
 
     /**
-     * Delete a Text entity.
+     * Delete a Text.
      *
-     * @param int $id
-     *
-     * @return RedirectResponse|Response
-     *
+     * @param $id
+     * @return RedirectResponse
      * @throws NotFoundHttpException
      */
     public function deleteAction($id)
