@@ -53,12 +53,14 @@ class DeletableService
             } else {
                 $output = $this->fail();
             }
+
             return $output;
         }
 
         if ($this->isDeletable($entity)) {
             $this->entityManager->remove($entity);
             $this->entityManager->flush();
+
             return $this->successDeleted();
         }
 
@@ -85,6 +87,7 @@ class DeletableService
         foreach ($this->getListeners()->get($classname) as $listener) {
             if (!$listener->isDeletable($entity)) {
                 $this->setErrors($listener->getErrors());
+
                 return false;
             }
         }

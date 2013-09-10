@@ -143,7 +143,7 @@ class UserController extends BaseController
         $deletableService = $this->get('egzakt_system.deletable');
         $entity = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
 
-        if ( null === $entity ) {
+        if (null === $entity) {
             throw new EntityNotFoundException();
         }
 
@@ -156,7 +156,6 @@ class UserController extends BaseController
             )
         );
 
-
         return new JsonResponse($output);
     }
 
@@ -165,7 +164,7 @@ class UserController extends BaseController
         $service = $this->get('egzakt_system.deletable');
         $entity = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
 
-        if ( null === $entity ) {
+        if (null === $entity) {
             throw new EntityNotFoundException();
         }
 
