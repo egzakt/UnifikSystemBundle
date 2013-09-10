@@ -48,13 +48,7 @@ class DeletableService
     {
 
         if ($requestCheck) {
-            if ($this->isDeletable($entity)) {
-                $output = $this->successDeletable();
-            } else {
-                $output = $this->fail();
-            }
-
-            return $output;
+            return $this->checkDelete($entity);
         }
 
         if ($this->isDeletable($entity)) {
@@ -112,6 +106,17 @@ class DeletableService
         }
 
         $listeners->add($listener);
+    }
+
+    /**
+     * Check is this entity can be deleted and return the result.
+     *
+     * @param Object           $entity
+     * @return DeletableResult
+     */
+    protected function checkDelete($entity)
+    {
+        return $this->isDeletable($entity) ? $this->successDeletable() : $this->fail();
     }
 
     /**
