@@ -414,7 +414,7 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
     public function delete($entity)
     {
         $result = $this->checkDeletable($entity);
-        if ( $result->isSuccess() ) {
+        if ($result->isSuccess()) {
             $this->removeAndFlush($entity);
             $result->setDeleted();
         }
