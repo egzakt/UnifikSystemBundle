@@ -2,27 +2,17 @@
 
 namespace Egzakt\SystemBundle\Lib\Backend;
 
-use Doctrine\ORM\EntityManager;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Egzakt\SystemBundle\Lib\ApplicationController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-use Egzakt\SystemBundle\Entity\App;
-use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Lib\BaseControllerInterface;
 use Egzakt\SystemBundle\Lib\NavigationElement;
 
 /**
  * Base Controller for all Egzakt backend bundles
  */
-abstract class BaseController extends Controller implements BaseControllerInterface
+abstract class BaseController extends ApplicationController
 {
-    /**
-     * Init
-     */
-    public function init()
-    {
-        // base implementation
-    }
+
 
     /**
      * Return the core
@@ -38,7 +28,6 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      * Return the Backend Core.
      *
      * @deprecated Use getCore.
-     *
      * @return BackendCore
      */
     public function getBackendCore()
@@ -46,66 +35,16 @@ abstract class BaseController extends Controller implements BaseControllerInterf
         return $this->getCore();
     }
 
-    /**
-     * Return the system core
-     *
-     * @return Core
-     */
-    public function getSystemCore()
-    {
-        return $this->container->get('egzakt_system.core');
-    }
-
-    /**
-     * Get the Section entity
-     *
-     * @return Section
-     */
-    public function getSection()
-    {
-        return $this->getCore()->getSection();
-    }
 
     /**
      * Get the Bundle Name
-     *
+     * @deprecated
      * @return string
      */
     public function getBundleName()
     {
         trigger_error('getBundleName is deprecated.', E_USER_DEPRECATED);
-
         return $this->getCore()->getBundleName();
-    }
-
-    /**
-     * Get the current app entity
-     *
-     * @return App
-     */
-    public function getApp()
-    {
-        return $this->getCore()->getApp();
-    }
-
-    /**
-     * Get the current app name
-     *
-     * @return string
-     */
-    public function getCurrentAppName()
-    {
-        return $this->getSystemCore()->getCurrentAppName();
-    }
-
-    /**
-     * Get the Entity Manager
-     *
-     * @return EntityManager
-     */
-    public function getEm()
-    {
-        return $this->getDoctrine()->getManager();
     }
 
     /**
@@ -132,7 +71,6 @@ abstract class BaseController extends Controller implements BaseControllerInterf
      * Push a navigation element on top on the navigation element stack
      *
      * @param $element
-     *
      * @deprecated Use pushNavigationElement instead
      */
     protected function addNavigationElement($element)
@@ -177,14 +115,5 @@ abstract class BaseController extends Controller implements BaseControllerInterf
         );
     }
 
-    /**
-     * Adds a flash message for type.
-     *
-     * @param string $type
-     * @param string $message
-     */
-    protected function addFlash($type, $message)
-    {
-        $this->get('session')->getFlashBag()->add($type, $message);
-    }
+
 }
