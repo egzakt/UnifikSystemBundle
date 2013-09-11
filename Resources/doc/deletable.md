@@ -23,6 +23,11 @@ public function delete($id)
     $repository = $this->getRepository('MyNameSpace:Entity');
     $entity = $repository->find($id);
     $result = $repository->delete($entity);
+    
+    /*
+     * We have now :
+     * $result->isFail() / $result->isSuccess() / $result->getMessage() / $result->getErrors()
+     */
 }
 ?>
 ```
@@ -65,7 +70,7 @@ class MyEntityListener extends BaseDeletableListener
 
     public function isDeletable($entity)
     {
-        if ( $this->end == 'dev' ) {
+        if ('dev' === $this->env) {
             $this->addError('This entity can\'t be deleted in dev-mode.');
         }
 
@@ -103,3 +108,11 @@ Why do we need to specify the entity ? Because when the service will go through 
 By doing this, you don't need to check the class of $entity inside your listener. You will know exactly what kind of entity you will have.
 
 You can also register more than one listener for the same entity.
+
+## What if we want to bypass the service ?
+
+Because all repositories extends BaseEntityRepository, 2 new methods are added :
+ - delete(Object $entity)
+ - removeAndFlush(Object $entity)
+
+The first method will call the "Deletable Service" whereas the second one will not.
