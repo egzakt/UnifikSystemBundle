@@ -2,24 +2,17 @@
 
 namespace Egzakt\SystemBundle\Extensions;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Stopwatch\Section;
 use BCC\ExtraToolsBundle\Util\DateFormatter;
 
 use Egzakt\SystemBundle\Lib\Core;
-use Egzakt\SystemBundle\Lib\Helper;
 
 /**
  * Library of helper functions
  */
 class TwigExtension extends \Twig_Extension
 {
-    /**
-     * @var ContainerInterface
-     */
-    private $container;
-
     /**
      * @var Request
      */
@@ -34,18 +27,6 @@ class TwigExtension extends \Twig_Extension
      * @var Core
      */
     protected $systemCore;
-
-    /**
-     * @param ContainerInterface $container
-     */
-    public function setContainer($container)
-    {
-        $this->container = $container;
-
-        if ($container->isScopeActive('request')) {
-            $this->request = $container->get('request');
-        }
-    }
 
     /**
      * @param mixed $systemCore
@@ -63,6 +44,14 @@ class TwigExtension extends \Twig_Extension
     public function setLocale($locale)
     {
         $this->locale = $locale;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
     }
 
     /**
@@ -291,13 +280,4 @@ class TwigExtension extends \Twig_Extension
 
         return $indent;
     }
-
-    /**
-     * @return array
-     */
-    protected function getTrustedHosts()
-    {
-        return $this->trustedHosts;
-    }
-
 }

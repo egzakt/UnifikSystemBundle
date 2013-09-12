@@ -56,7 +56,7 @@ services:
         tags:
           - { name: twig.extension }
         calls:
-          - [ setContainer, [ @service_container ] ] # only used to fix the request scope widening problem
+          - [ setRequest, [ @request= ] ]
           - [ setLocale, [ %locale% ] ]
           - [ setSystemCore, [ @egzakt_system.core ] ]
 
