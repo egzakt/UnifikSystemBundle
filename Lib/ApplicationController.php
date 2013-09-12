@@ -179,18 +179,4 @@ abstract class ApplicationController extends Controller implements BaseControlle
         $this->pushNavigationElement($navigationElement);
     }
 
-    /**
-     * Gets a parameter.
-     *
-     * @param string $name The parameter name
-     *
-     * @return mixed  The parameter value
-     *
-     * @throws InvalidArgumentException if the parameter is not defined
-     */
-    protected function getParameter($name)
-    {
-        return $this->container->getParameter($name) ;
-    }
-
 }
