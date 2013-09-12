@@ -181,10 +181,13 @@ abstract class ApplicationController extends Controller implements BaseControlle
     }
 
     /**
-     * Return a parameter value provided by its name.
+     * Gets a parameter.
      *
-     * @param string $name
-     * @return mixed
+     * @param string $name The parameter name
+     *
+     * @return mixed  The parameter value
+     *
+     * @throws InvalidArgumentException if the parameter is not defined
      */
     protected function getParameter($name)
     {
