@@ -216,7 +216,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
             }
         }
 
-        $this->redirectTo($routeName, $routeArgs);
+        $this->redirectToRoute($routeName, $routeArgs);
     }
 
     /**
@@ -226,7 +226,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
      * @param array $args
      * @return RedirectResponse
      */
-    protected function redirectTo($routeName, $args = array())
+    protected function redirectToRoute($routeName, $args = array())
     {
         return $this->redirect($this->generateUrl($routeName, $args));
     }
