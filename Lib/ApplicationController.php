@@ -184,7 +184,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
      * Allow a redirection by passing a condition.
      * If the condition is true, the $ifTrue is used for redirection. Else it's $ifFalse.
      * $ifTrue or $ifFalse can be a string with the route name or an array containing the route name and params.
-     * Exemple :
+     * Example :
      *  $this->redirectIf($x == 1,
      *      array('egzakt_route_entity_action', array('id' => 1)),
      *      'egzakt_route_entity_default'
