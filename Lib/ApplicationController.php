@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 abstract class ApplicationController extends Controller implements BaseControllerInterface
 {
 
+    const FLASH_SUCCESS = 'success';
+    const FLASH_ERROR = 'error';
+
     /**
      * @inheritdoc
      */
@@ -103,7 +106,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
      */
     protected function addFlashSuccess($message)
     {
-        $this->addFlash('success', $message);
+        $this->addFlash(ApplicationController::FLASH_SUCCESS, $message);
     }
 
     /**
@@ -113,7 +116,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
      */
     protected function addFlashError($message)
     {
-        $this->addFlash('error', $message);
+        $this->addFlash(ApplicationController::FLASH_ERROR, $message);
     }
 
     /**
