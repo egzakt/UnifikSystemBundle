@@ -5,8 +5,6 @@ namespace Egzakt\SystemBundle\Lib\Backend;
 use Egzakt\SystemBundle\Lib\ApplicationController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-use Egzakt\SystemBundle\Lib\NavigationElement;
-
 /**
  * Base Controller for all Egzakt backend bundles
  */
