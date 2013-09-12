@@ -3,7 +3,6 @@
 namespace Egzakt\SystemBundle\Lib;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 use Egzakt\SystemBundle\Entity\Section;
 use Egzakt\SystemBundle\Entity\App;
