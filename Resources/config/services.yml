@@ -53,10 +53,10 @@ services:
 
     egzakt_system.twig_extension:
         class: %egzakt_system.twig_extension.class%
-        arguments: [ %kernel.trusted_hosts% ]
         tags:
           - { name: twig.extension }
         calls:
+          - [ setRequest, [ @request= ] ]
           - [ setLocale, [ %locale% ] ]
           - [ setSystemCore, [ @egzakt_system.core ] ]
 
