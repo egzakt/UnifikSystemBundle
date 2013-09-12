@@ -53,10 +53,10 @@ services:
 
     egzakt_system.twig_extension:
         class: %egzakt_system.twig_extension.class%
-        arguments: [ %kernel.trusted_hosts% ]
         tags:
           - { name: twig.extension }
         calls:
+          - [ setContainer, [ @service_container ] ] # only used to fix the request scope widening problem
           - [ setLocale, [ %locale% ] ]
           - [ setSystemCore, [ @egzakt_system.core ] ]
 

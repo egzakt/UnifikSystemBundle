@@ -2,6 +2,8 @@
 
 namespace Egzakt\SystemBundle\Extensions;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Stopwatch\Section;
 use BCC\ExtraToolsBundle\Util\DateFormatter;
 
@@ -13,11 +15,15 @@ use Egzakt\SystemBundle\Lib\Helper;
  */
 class TwigExtension extends \Twig_Extension
 {
+    /**
+     * @var ContainerInterface
+     */
+    private $container;
 
     /**
-     * @var array
+     * @var Request
      */
-    private $trustedHosts;
+    private $request;
 
     /**
      * @var String
@@ -29,9 +35,16 @@ class TwigExtension extends \Twig_Extension
      */
     protected $systemCore;
 
-    public function __construct($trustedHosts)
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer($container)
     {
-        $this->trustedHosts = $trustedHosts;
+        $this->container = $container;
+
+        if ($container->isScopeActive('request')) {
+            $this->request = $container->get('request');
+        }
     }
 
     /**
@@ -41,7 +54,6 @@ class TwigExtension extends \Twig_Extension
     {
         $this->systemCore = $systemCore;
     }
-
 
     /**
      * Set the locale
@@ -104,11 +116,15 @@ class TwigExtension extends \Twig_Extension
      */
     public function isExternalUrl($url)
     {
-        $parse = parse_url($url);
+        $trustedHostPatterns = $this->request->getTrustedHosts();
 
-        foreach ( $this->getTrustedHosts() as $pattern ) {
-            if (preg_match($pattern, $parse['host'])) {
-                return false;
+        if (count($trustedHostPatterns) > 0) {
+            $parse = parse_url($url);
+
+            foreach ($trustedHostPatterns as $pattern) {
+                if (preg_match($pattern, $parse['host'])) {
+                    return false;
+                }
             }
         }
 
