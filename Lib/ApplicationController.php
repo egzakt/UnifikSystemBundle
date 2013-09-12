@@ -181,70 +181,14 @@ abstract class ApplicationController extends Controller implements BaseControlle
     }
 
     /**
-     * Allow a redirection by passing a condition.
-     * If the condition is true, the $ifTrue is used for redirection. Else it's $ifFalse.
-     * $ifTrue or $ifFalse can be a string with the route name or an array containing the route name and params.
-     * Example :
-     *  $this->redirectIf($x == 1,
-     *      array('egzakt_route_entity_action', array('id' => 1)),
-     *      'egzakt_route_entity_default'
-     *  );
-     *
-     * @param bool $condition
-     * @param string|array $ifTrue
-     * @param string|array $ifFalse
-     * @return RedirectResponse
-     */
-    protected function redirectIf($condition, $ifTrue, $ifFalse)
-    {
-        $routeArgs = array();
-        $routeName = null;
-
-        if ($condition) {
-            if ( is_array($ifTrue) ) {
-                $routeName = $ifTrue[0];
-                $routeArgs = $ifTrue[1];
-            } else {
-                $routeName = $ifTrue;
-            }
-        } else {
-            if ( is_array($ifFalse) ) {
-                $routeName = $ifFalse[0];
-                $routeArgs = $ifFalse[1];
-            } else {
-                $routeName = $ifFalse;
-            }
-        }
-
-        $this->redirectToRoute($routeName, $routeArgs);
-    }
-
-    /**
-     * Return a redirect response.
-     *
-     * @param string $routeName
-     * @param array $args
-     * @return RedirectResponse
-     */
-    protected function redirectToRoute($routeName, $args = array())
-    {
-        return $this->redirect($this->generateUrl($routeName, $args));
-    }
-
-    /**
      * Return a parameter value provided by its name.
-     * If a parameter doesn't exist, return the default value.
      *
      * @param string $name
-     * @param mixed|null $default
-     * @return mixed|null
+     * @return mixed
      */
-    protected function getParameter($name, $default = null)
+    protected function getParameter($name)
     {
-        return
-            $this->container->hasParameter($name) ?
-            $this->container->getParameter($name) :
-            $default;
+        return $this->container->getParameter($name) ;
     }
 
 }
