@@ -4,18 +4,10 @@ Deletable Service
 This service is a core functionality of this framework. It's intended to be used when you want to delete an entity from your application.
 In fact, it's working in the background, you will never call the service directly. But how does it work ?
 
-You have only one way to remove an entity from your controller : get the EntityManager and call remove() on it.
-
-But, what if we need to perform extra operations before deleting an entity ? What if we want to restrict the deletion of an entity with some conditions ?
-We can't.
-
-And this is why this "Deletable Service" come from. With him, we will be able to perform any operation we want on our entity before deleting them.
-So, let's see how it will work :
-
 ## Inside the controller
 
 In your controller, you will have to retrieve your EntityRepository. In the parent of this object, a new method has been added : delete().
-This is the method you will have to call. Simple ? Let's see a bit of code :
+This is the method you will have to call. Let's see a bit of code :
 ```php
 <?php
 public function delete($id)
@@ -57,6 +49,9 @@ Also, a base implementation already exists and you can subclass it : Egzakt\Syst
 
 ```php
 <?php
+
+use Egzakt\SystemBundle\Lib\BaseDeletableListener
+
 class MyEntityListener extends BaseDeletableListener
 {
 
@@ -81,14 +76,14 @@ class MyEntityListener extends BaseDeletableListener
 ?>
 ```
 
-So, we just created our listener. Now it's time to bind it with our service. And because we use Symfony, we will use the DIC.
-The services.yml of our framework looks like this :
+So, we just created our listener. Now it's time to bind it with our service and we will do it with the Symfony DIC.
+The services.yml in /resources/config of this bundle looks like this :
 ```yml
     egzakt_system.deletable:
         class: %egzakt_system.deletable.class%
 ```
 
-To add a listener, do something like :
+To push a listener into this service, do something like that :
 ```yml
     mynamespacebundle.entitylistener:
         class: My\NamespaceBundle\Listener\MyEntityListener
@@ -104,10 +99,10 @@ What you have to change :
  - entity in tags.
 
 
-Why do we need to specify the entity ? Because when the service will go through each listener, it will cycle only to the listeners bound to the entity.
+Why do we need to specify the entity ? Because when the service will go through each listener, it will cycle only to the listeners bounded to the entity.
 By doing this, you don't need to check the class of $entity inside your listener. You will know exactly what kind of entity you will have.
 
-You can also register more than one listener for the same entity.
+You can also register more than one listener for the same entity if you want to have multiples checks on a same entity, or you can do all your checks in a single listener.
 
 ## What if we want to bypass the service ?
 
