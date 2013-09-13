@@ -2,7 +2,7 @@ Deletable Service
 =========================
 
 This service is a core functionality of this framework. It's intended to be used when you want to delete an entity from your application.
-In fact, it's working in the background, you will never call the service directly. But how does it work ?
+In fact, the process runs in the background, you will never call the service directly. But how does it work ?
 
 ## Inside the controller
 
@@ -32,6 +32,7 @@ Ok, this was the easy part. Now, how do we add some restriction to our entity ? 
 ## How it works
 
 To get this result, we need to know how things work :
+
 Inside the repository :
  - our delete() method call the "deletable service" and send a request to know if the entity is deletable or not.
  - if it's the case, the service will return a "deletable" status and the repository will delete it.
