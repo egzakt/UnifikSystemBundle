@@ -140,7 +140,7 @@ class TextController extends BaseController
             throw new NotFoundHttpException();
         }
 
-        $result = $textRepo->checkDeletable($entity);
+        $result = $this->checkDeletable($entity);
         $output = $result->toArray();
         $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
             array(
@@ -170,7 +170,7 @@ class TextController extends BaseController
             throw new NotFoundHttpException();
         }
 
-        $result = $textRepo->delete($entity);
+        $result = $this->checkDeletable($entity);
         if ($result->isSuccess()) {
             $this->addFlash('success', 'This Text has been deleted.');
             $this->get('egzakt_system.router_invalidator')->invalidate();

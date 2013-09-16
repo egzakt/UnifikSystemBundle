@@ -154,7 +154,7 @@ class UserController extends BaseController
             throw new NotFoundHttpException();
         }
 
-        $result = $userRepo->checkDeletable($entity);
+        $result = $this->checkDeletable($entity);
         $output = $result->toArray();
         $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
             array(
@@ -184,7 +184,7 @@ class UserController extends BaseController
             throw new NotFoundHttpException();
         }
 
-        $result = $userRepo->delete($entity);
+        $result = $this->checkDeletable($entity);
         if ($result->isSuccess()) {
             $this->addFlash('success', $this->get('translator')->trans(
                 '%entity% has been deleted.',
