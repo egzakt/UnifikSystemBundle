@@ -72,7 +72,6 @@ abstract class ApplicationController extends Controller implements BaseControlle
     /**
      * Get the Entity Manager
      *
-     * @deprecated
      * @return EntityManager
      */
     protected function getEm()
