@@ -2,22 +2,21 @@
 
 namespace Egzakt\SystemBundle\Extensions;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Stopwatch\Section;
 use BCC\ExtraToolsBundle\Util\DateFormatter;
 
 use Egzakt\SystemBundle\Lib\Core;
-use Egzakt\SystemBundle\Lib\Helper;
 
 /**
  * Library of helper functions
  */
 class TwigExtension extends \Twig_Extension
 {
-
     /**
-     * @var array
+     * @var Request
      */
-    private $trustedHosts;
+    private $request;
 
     /**
      * @var String
@@ -29,11 +28,6 @@ class TwigExtension extends \Twig_Extension
      */
     protected $systemCore;
 
-    public function __construct($trustedHosts)
-    {
-        $this->trustedHosts = $trustedHosts;
-    }
-
     /**
      * @param mixed $systemCore
      */
@@ -41,7 +35,6 @@ class TwigExtension extends \Twig_Extension
     {
         $this->systemCore = $systemCore;
     }
-
 
     /**
      * Set the locale
@@ -51,6 +44,14 @@ class TwigExtension extends \Twig_Extension
     public function setLocale($locale)
     {
         $this->locale = $locale;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
     }
 
     /**
@@ -104,11 +105,15 @@ class TwigExtension extends \Twig_Extension
      */
     public function isExternalUrl($url)
     {
-        $parse = parse_url($url);
+        $trustedHostPatterns = $this->request->getTrustedHosts();
 
-        foreach ( $this->getTrustedHosts() as $pattern ) {
-            if (preg_match($pattern, $parse['host'])) {
-                return false;
+        if (count($trustedHostPatterns) > 0) {
+            $parse = parse_url($url);
+
+            foreach ($trustedHostPatterns as $pattern) {
+                if (preg_match($pattern, $parse['host'])) {
+                    return false;
+                }
             }
         }
 
@@ -275,13 +280,4 @@ class TwigExtension extends \Twig_Extension
 
         return $indent;
     }
-
-    /**
-     * @return array
-     */
-    protected function getTrustedHosts()
-    {
-        return $this->trustedHosts;
-    }
-
 }
