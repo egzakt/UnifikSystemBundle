@@ -9,15 +9,7 @@ interface BaseControllerInterface
 {
     /**
      * Init
-     *
-     * @abstract
      */
     public function init();
 
-    /**
-     * Get Core
-     *
-     * @abstract
-     */
-    public function getCore();
 }
