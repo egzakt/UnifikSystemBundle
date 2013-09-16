@@ -172,6 +172,9 @@ class TextController extends BaseController
 
         $result = $this->checkDeletable($entity);
         if ($result->isSuccess()) {
+            $this->getEm()->remove($entity);
+            $this->getEm()->flush();
+
             $this->addFlash('success', 'This Text has been deleted.');
             $this->get('egzakt_system.router_invalidator')->invalidate();
         } else {
