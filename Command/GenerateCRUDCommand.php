@@ -94,7 +94,8 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
         if (isset($metadata[0]->associationMappings['translations'])) {
 
             $translationEntityClass = $metadata[0]->associationMappings['translations']['targetEntity'];
-            $entityTranslation = str_replace('\\', '', explode('\Entity', $translationEntityClass))[1];
+            $entityTranslation = str_replace('\\', '', explode('\Entity', $translationEntityClass));
+            $entityTranslation = $entityTranslation[1];
             $translationMetadata = $this->getEntityMetadata($translationEntityClass);
 
             $translation['entity'] = $entityTranslation;

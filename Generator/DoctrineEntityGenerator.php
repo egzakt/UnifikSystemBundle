@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Tools\EntityGenerator;
 use Doctrine\ORM\Tools\EntityRepositoryGenerator;
-use Doctrine\ORM\Tools\Export\ClassMetadataExporter;
+use Egzakt\SystemBundle\Tools\Export\ClassMetadataExporter;
 
 /**
  * Egzakt Backend Doctrine Entity Generator
@@ -45,11 +45,11 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $entityTranslationFields = array();
         foreach ($fields as $field) {
             if (substr(strtolower($field['i18n']), 0, 1) == 'y') { // Simulate all Yes combinations
+                unset($field['i18n']);
                 array_push($entityTranslationFields, $field);
-                unset($entityTranslationFields['i18n']);
             } else {
+                unset($field['i18n']);
                 array_push($entityFields, $field);
-                unset($entityFields['i18n']);
             }
         }
         $hasI18n = count($entityTranslationFields) > 0 ? true : false;
@@ -82,21 +82,20 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
                     'type' => 4,
                     'targetEntity' => $bundle->getNamespace() . '\Entity\\' . $entity . 'Translation',
                     'mappedBy' => 'translatable',
-                    'inversedBy' => null,
                     'fetch' => 'EAGER',
-                    'orphanRemoval' => false,
-                    'isCascadeRemove' => false,
                     'isCascadePersist' => true,
-                    'isCascadeRefresh' => false,
-                    'isCascadeMerge' => false,
-                    'isCascadeDetach' => false
                 )
             );
+        } else {
+            $class->mapField(array('fieldName' => 'active', 'type' => 'boolean', 'nullable' => true));
         }
 
         foreach ($entityFields as $field) {
             $class->mapField($field);
         }
+
+        $class->mapField(array('fieldName' => 'createdAt', 'type' => 'datetime', 'gedmo' => array('timestampable' => array('on' => 'create'))));
+        $class->mapField(array('fieldName' => 'updatedAt', 'type' => 'datetime', 'gedmo' => array('timestampable' => array('on' => 'update'))));
 
         $entityGenerator = $this->getEntityGenerator();
         if ('annotation' === $format) {
@@ -112,7 +111,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
                 throw new \RuntimeException(sprintf('Cannot generate entity when mapping "%s" already exists.', $mappingPath));
             }
 
-            $mappingCode = $exporter->exportClassMetadata($class);
+            $mappingCode = $exporter->exportClassMetadata($class, 2);
             $entityGenerator->setGenerateAnnotations(false);
             $entityCode = $entityGenerator->generateEntityClass($class, $fields);
         }
@@ -156,24 +155,19 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
                 'inversedBy' => 'translations',
                 'joinColumns' => array(
                     array(
-                        'name' => 'translatableId',
+                        'name' => 'translatable_id',
                         'referencedColumnName' => 'id',
                         'onDelete' => 'cascade'
                     )
                 ),
-                'mappedBy' => null,
-                'orphanRemoval' => false,
-                'isCascadeRemove' => false,
-                'isCascadePersist' => false,
-                'isCascadeRefresh' => false,
-                'isCascadeMerge' => false,
-                'isCascadeDetach' => false
             )
         );
 
         foreach ($entityFields as $field) {
             $class->mapField($field);
         }
+
+        $class->mapField(array('fieldName' => 'active', 'type' => 'boolean', 'nullable' => true));
 
         $entityGenerator = $this->getEntityTranslationGenerator();
         if ('annotation' === $format) {
@@ -189,7 +183,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
                 throw new \RuntimeException(sprintf('Cannot generate entity when mapping "%s" already exists.', $mappingPath));
             }
 
-            $mappingCode = $exporter->exportClassMetadata($class);
+            $mappingCode = $exporter->exportClassMetadata($class, 2);
             $entityGenerator->setGenerateAnnotations(false);
             $entityCode = $entityGenerator->generateEntityClass($class, $fields);
         }
