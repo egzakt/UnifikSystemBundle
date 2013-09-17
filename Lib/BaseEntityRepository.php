@@ -401,4 +401,5 @@ abstract class BaseEntityRepository extends EntityRepository implements Containe
             throw ORMException::invalidFindByCall($this->_entityName, $fieldName, $method.$by);
         }
     }
+
 }

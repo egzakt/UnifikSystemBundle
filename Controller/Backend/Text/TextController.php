@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Text;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -122,40 +123,63 @@ class TextController extends BaseController
     }
 
     /**
-     * Delete a Text entity.
+     * Check if we can delete a Text.
      *
      * @param Request $request
-     * @param int     $id
-     *
-     * @return RedirectResponse|Response
-     *
+     * @param $id
+     * @return JsonResponse
      * @throws NotFoundHttpException
      */
-    public function deleteAction(Request $request, $id)
+    public function checkDeleteAction(Request $request, $id)
     {
-        $text = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
 
-        if (!$text) {
-            throw $this->createNotFoundException('Unable to find a Text entity using id "' . $id . '".');
+        $textRepo = $this->getEm()->getRepository('EgzaktSystemBundle:Text');
+        $entity = $textRepo->find($id);
+
+        if (null === $entity) {
+            throw new NotFoundHttpException();
         }
 
-        if ($request->get('message')) {
-            $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
-                'entity' => $text
-            ));
+        $result = $this->checkDeletable($entity);
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
 
-            return new Response(json_encode(array(
-                'template' => $template,
-                'isDeletable' => $text->isDeletable()
-            )));
+        return new JsonResponse($output);
+
+    }
+
+    /**
+     * Delete a Text.
+     *
+     * @param $id
+     * @return RedirectResponse
+     * @throws NotFoundHttpException
+     */
+    public function deleteAction($id)
+    {
+
+        $textRepo = $this->getEm()->getRepository('EgzaktSystemBundle:Text');
+        $entity = $textRepo->find($id);
+
+        if (null === $entity) {
+            throw new NotFoundHttpException();
         }
 
-        $this->getEm()->remove($text);
-        $this->getEm()->flush();
+        $result = $this->checkDeletable($entity);
+        if ($result->isSuccess()) {
+            $this->getEm()->remove($entity);
+            $this->getEm()->flush();
 
-        $this->get('session')->getFlashBag()->add('success', 'The text has been deleted.');
-
-        $this->get('egzakt_system.router_invalidator')->invalidate();
+            $this->addFlash('success', 'This Text has been deleted.');
+            $this->get('egzakt_system.router_invalidator')->invalidate();
+        } else {
+            $this->addFlash('error', $result->getErrors());
+        }
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_text'));
     }

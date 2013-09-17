@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\User;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -136,52 +137,68 @@ class UserController extends BaseController
     }
 
     /**
-     * Deletes a User entity.
+     * Check if we can delete a user.
      *
      * @param Request $request
      * @param $id
-     * @return RedirectResponse|Response
+     * @return JsonResponse
      * @throws NotFoundHttpException
      */
-    public function deleteAction(Request $request, $id)
+    public function checkDeleteAction(Request $request, $id)
     {
-        $user = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
-        $connectedUser = $this->getUser();
 
-        if (!$user) {
-            throw $this->createNotFoundException('Unable to find User entity.');
+        $userRepo = $this->getEm()->getRepository('EgzaktSystemBundle:User');
+        $entity = $userRepo->find($id);
+
+        if (null === $entity) {
+            throw new NotFoundHttpException();
         }
 
-        if ($request->get('message')) {
+        $result = $this->checkDeletable($entity);
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
 
-            if ($connectedUser instanceof User && $connectedUser->getId() == $user->getId()) {
-                $isDeletable = false;
-                $template = $this->get('translator')->trans('You can\'t delete yourself.');
-            } else {
-                $isDeletable = $user->isDeletable();
-                $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
-                    'entity' => $user
-                ));
-            }
+        return new JsonResponse($output);
 
-            return new Response(json_encode(array(
-                'template' => $template,
-                'isDeletable' => $isDeletable
-            )));
+    }
+
+    /**
+     * Delete a user.
+     *
+     * @param $id
+     * @return RedirectResponse
+     * @throws NotFoundHttpException
+     */
+    public function deleteAction($id)
+    {
+
+        $userRepo = $this->getEm()->getRepository('EgzaktSystemBundle:User');
+        $entity = $userRepo->find($id);
+
+        if (null === $entity) {
+            throw new NotFoundHttpException();
         }
 
-        if ($connectedUser instanceof User && $connectedUser->getId() != $user->getId()) {
-
-            // Call the translator before we flush the entity so we can have the real __toString()
-            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-                '%entity% has been deleted.',
-                array('%entity%' => $user != '' ? $user : $user->getEntityName()))
-            );
-
-            $this->getEm()->remove($user);
+        $result = $this->checkDeletable($entity);
+        if ($result->isSuccess()) {
+            $this->getEm()->remove($entity);
             $this->getEm()->flush();
+
+            $this->addFlash('success', $this->get('translator')->trans(
+                '%entity% has been deleted.',
+                array('%entity%' => $entity)
+            ));
+        } else {
+            $this->addFlash('error', $result->getErrors());
         }
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
+
     }
+
 }

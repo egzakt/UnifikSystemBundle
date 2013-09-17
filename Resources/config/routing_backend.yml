@@ -38,6 +38,10 @@ egzakt_system_backend_user_edit:
     pattern:  /users/{id}/edit
     defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:edit", id: 0 }
 
+egzakt_system_backend_user_delete_check:
+    pattern:  /users/{id}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:checkDelete" }
+
 egzakt_system_backend_user_delete:
     pattern:  /users/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:delete" }
@@ -84,6 +88,10 @@ egzakt_system_backend_text_edit:
 egzakt_system_backend_text_delete:
     pattern:  /texts/{sectionId}/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:delete" }
+
+egzakt_system_backend_text_delete_check:
+    pattern:  /texts/{sectionId}/{id}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:checkDelete" }
 
 # Sections (roots handling)
 egzakt_system_backend_section_root:

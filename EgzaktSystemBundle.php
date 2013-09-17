@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle;
 
+use Egzakt\SystemBundle\DependencyInjection\Compiler\DeletableExtensionCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
@@ -14,5 +15,6 @@ class EgzaktSystemBundle extends Bundle
     {
         $container->addCompilerPass(new RouterExtensionCompilerPass());
         $container->addCompilerPass(new HttpKernelExtensionCompilerPass());
+        $container->addCompilerPass(new DeletableExtensionCompilerPass());
     }
 }

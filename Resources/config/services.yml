@@ -23,8 +23,19 @@ parameters:
     egzakt_backend.core.class:                            Egzakt\SystemBundle\Lib\Backend\Core
     egzakt_backend.form.type.advanced_file.class:         Egzakt\SystemBundle\Form\Backend\AdvancedFileType
     egzakt_frontend.core.class:                           Egzakt\SystemBundle\Lib\Frontend\Core
+    egzakt_system.deletable.class:                        Egzakt\SystemBundle\Lib\DeletableService
+    egzakt_system.deletable_user_listener.class:          Egzakt\SystemBundle\Listener\UserDeletableListener
 
 services:
+
+    egzakt_system.deletable:
+        class: %egzakt_system.deletable.class%
+
+    egazkt_system.deletable_user_listener:
+        class: %egzakt_system.deletable_user_listener.class%
+        arguments: [ @security.context ]
+        tags:
+          - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\User }
 
     egzakt_system.kernel_controller_listener:
         class: %egzakt_system.kernel_controller_listener.class%

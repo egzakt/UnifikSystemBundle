@@ -3,13 +3,13 @@
 <script type="text/javascript">
     $(function(){
         $('.list_box .delete a, .list_box a.delete').click(function(e){
-            if ($(this).attr('rel')) {
-                var linkObj = $(this);
 
+                var linkObj = $(this);
+                var url = $(this).attr('href') + '/check';
                 $.ajax({
-                    type: "GET",
+                    type: "POST",
                     dataType: 'json',
-                    url: $(this).attr('rel'),
+                    url: url,
                     beforeSend: function(){
                         $('#loading').show();
                     },
@@ -18,7 +18,7 @@
                         $('#loading').hide();
                         $('#delete_dialog').html(response.template);
 
-                        if (response.isDeletable) {
+                        if (response.status == 'deletable') {
                             $('#delete_dialog').dialog({
                                 modal: true,
                                 title: "{% trans %}Delete confirmation{% endtrans %}",
@@ -48,7 +48,7 @@
                 });
 
                 e.preventDefault();
-            }
+
         });
     });
 </script>

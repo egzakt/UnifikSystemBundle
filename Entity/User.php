@@ -84,6 +84,10 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     public function __toString()
     {
         if ($this->id) {
+            if (empty($this->firstname) && empty($this->lastname)) {
+                return $this->username;
+            }
+
             return $this->firstname . ' ' . $this->lastname;
         }
 

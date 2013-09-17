@@ -223,4 +223,18 @@ abstract class ApplicationController extends Controller implements BaseControlle
         $this->pushNavigationElement($navigationElement);
     }
 
+    /**
+     * Check is an entity can be deleted.
+     * The entity is sent to our deletable service.
+     * The service will return an object which can be "fail" or "deletable".
+     *
+     * @param  Object          $entity
+     * @return DeletableResult
+     */
+    protected function checkDeletable($entity)
+    {
+        $ds = $this->get('egzakt_system.deletable');
+        return $ds->checkDeletable($entity);
+    }
+
 }
