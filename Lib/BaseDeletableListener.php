@@ -38,6 +38,9 @@ abstract class BaseDeletableListener implements DeletableListenerInterface
      */
     public function getErrors()
     {
+        if (null === $this->errors) {
+            $this->errors = new ArrayCollection();
+        }
         return $this->errors;
     }
 
