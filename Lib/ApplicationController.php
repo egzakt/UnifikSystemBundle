@@ -90,9 +90,19 @@ abstract class ApplicationController extends Controller implements BaseControlle
         return $this->getDoctrine()->getRepository($name);
     }
 
+    /**
+     * Set a flash message for a given type.
+     *
+     * @param string $type
+     * @param string $message
+     */
+    protected function setFlash($type, $message)
+    {
+        $this->get('session')->getFlashBag()->set($type, $message);
+    }
 
     /**
-     * Adds a flash message for type.
+     * Add a flash message in the corresponding type array.
      *
      * @param string $type
      * @param string $message
@@ -103,7 +113,42 @@ abstract class ApplicationController extends Controller implements BaseControlle
     }
 
     /**
-     * Set a success message flash.
+     * Has flash messages for a given type?
+     *
+     * @param string $type
+     *
+     * @return boolean
+     */
+    protected function hasFlash($type)
+    {
+        return $this->get('session')->getFlashBag()->has($type);
+    }
+
+    /**
+     * Gets and clears flash from the stack.
+     *
+     * @param string $type
+     * @param array  $default Default value if $type does not exist.
+     *
+     * @return array
+     */
+    protected function getFlash($type, array $default = array())
+    {
+        return $this->get('session')->getFlashBag()->get($type, $default);
+    }
+
+    /**
+     * Set the success flash message.
+     *
+     * @param string $message
+     */
+    protected function setFlashSuccess($message)
+    {
+        $this->setFlash(ApplicationController::FLASH_SUCCESS, $message);
+    }
+
+    /**
+     * Add a flash message in the success array.
      *
      * @param string $message
      */
@@ -113,7 +158,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
     }
 
     /**
-     * Set an error message flash.
+     * Add a flash message in the error array.
      *
      * @param string $message
      */
