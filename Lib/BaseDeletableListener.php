@@ -22,6 +22,9 @@ abstract class BaseDeletableListener implements DeletableListenerInterface
      */
     protected function addError($message)
     {
+        if (null === $this->errors) {
+            $this->errors = new ArrayCollection();
+        }
         $this->errors->add($message);
     }
 

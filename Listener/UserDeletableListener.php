@@ -16,7 +16,6 @@ class UserDeletableListener extends BaseDeletableListener
 
     public function __construct(SecurityContextInterface $sci)
     {
-        parent::__construct();
         $this->security = $sci;
     }
 
