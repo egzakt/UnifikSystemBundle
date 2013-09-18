@@ -67,7 +67,7 @@ services:
         tags:
           - { name: twig.extension }
         calls:
-          - [ setRequest, [ @request= ] ]
+          - [ setRequest, [ @?request= ] ]
           - [ setLocale, [ %locale% ] ]
           - [ setSystemCore, [ @egzakt_system.core ] ]
 
