@@ -18,12 +18,12 @@
 
         if ($request->get('message')) {
             $template = $this->renderView('EgzaktSystemBundle:{{ application }}/Core:delete_message.html.twig', array(
-            'entity' => $entity
+                'entity' => $entity
             ));
 
             return new Response(json_encode(array(
-            'template' => $template,
-            'isDeletable' => $entity->isDeletable()
+                'template' => $template,
+                'isDeletable' => $entity->isDeletable()
             )));
         }
 

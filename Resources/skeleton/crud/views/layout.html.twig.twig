@@ -3,11 +3,11 @@
 {{ '{% block content %}' }}
 
     {{ '{% block content_header %}' }}
-    <h1>{{ '{{ section }}' }}</h1>
+        <h1>{{ '{{ section }}' }}</h1>
     {{ '{% endblock %}' }}
 
     {{ '{% block flash_message %}' }}
-    {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:flash_message.html.twig' %}" }}
+        {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:flash_message.html.twig' %}" }}
     {{ '{% endblock %}' }}
 
     {{ '{% block content_main %}' }}

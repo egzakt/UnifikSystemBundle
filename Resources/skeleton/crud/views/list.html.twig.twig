@@ -1,6 +1,6 @@
 {{ "{% extends '" ~ bundle_name ~ ":" ~ application ~ "/" ~ entity ~ ":layout.html.twig' %}" -}}
 
-{%- set hidden_fields = ['id', 'locale', 'active', 'createdAt'] %}
+{%- set hidden_fields = ['id', 'locale', 'active', 'featured', 'createdAt'] %}
 
 {{ '{% block content_header %}' }}
     <h1>{{ "{% trans %}"}}{{ entity }}{{ "s List{% endtrans %}" }}</h1>
@@ -22,53 +22,50 @@
         <table cellspacing="0" class="table-autosort">
             <thead>
                 <tr>
-                    {%- for field, metadata in fields -%}
-                    {%- if field not in hidden_fields %}
-
+                {%- for field, metadata in fields if field not in hidden_fields -%}
                     {% set css_class = "" %}
 
-                    {%- if field == 'name' -%}
-                        {% set css_class = "name" %}
+                    {%- if loop.first -%}
+                    {% set css_class = "name" %}
                     {%- endif -%}
 
                     {%- if field == 'ordering' -%}
-                        {% set css_class = "default_ordering  table-sortable:numeric" %}
+                    {% set css_class = "default_ordering  table-sortable:numeric" %}
                     {%- endif -%}
 
                     {%- if metadata.type == 'boolean' -%}
-                        {% set css_class = css_class ~ " centered" %}
+                    {% set css_class = css_class ~ " centered" %}
                     {%- endif -%}
 
                     {%- if metadata.type in ['date', 'datetime'] -%}
-                        {% set css_class = css_class ~ " table-sortable:date" %}
+                    {% set css_class = css_class ~ " table-sortable:date" %}
                     {%- elseif metadata.type == 'string' -%}
-                        {% set css_class = css_class ~ " table-sortable:ignorecase" %}
-                    {%- endif -%}
+                    {% set css_class = css_class ~ " table-sortable:ignorecase" %}
+                    {%- endif %}
 
                     <th{% if css_class != '' %} class="{{ css_class }}"{% endif %}>
                         {% if metadata.type in ['date', 'datetime'] -%}
-                            {{ '{% trans %}' }}{{ field|replace({'At': ''})|capitalize }}{{ '{% endtrans %}' }}
+                            {{ '{% trans %}' }}{{ field|replace({'_at': ''})|capitalize }}{{ '{% endtrans %}' }}
                         {%- else -%}
                             {{ '{% trans %}' }}{{ field|capitalize }}{{ '{% endtrans %}' }}
                         {%- endif %}
 
                     </th>
-                    {%- endif %}
-                    {%- endfor %}
+                {%- endfor %}
 
                     {% if 'ordering' in fields|keys -%}
                     <th colspan="2" class="switch_list_mode">
-                    <a href="#"><img src="{{ '{{ asset("bundles/egzaktbackendcore/images/buttons/switch_list_mode_off.gif") }}' }}" width="20" height="20" alt="" /></a>
+                    <a href="#"><img src="{{ '{{ asset("bundles/egzaktsystem/backend/images/buttons/switch_list_mode_off.gif") }}' }}" width="20" height="20" alt="" /></a>
                     </th>
                     {%- else -%}
                     <th class="edit"></th>
                     <th class="delete"></th>
                     {% endif %}
+
                 </tr>
                 <tr class="filters">
-                    {% for field, metadata in fields -%}
-                    {% if field not in hidden_fields -%}
-                    <th{% if field == 'name' %} class="name"{% elseif(field == 'ordering') %} class="default_ordering"{% endif %}>
+                    {% for field, metadata in fields if field not in hidden_fields -%}
+                    <th{% if loop.first %} class="name"{% elseif(field == 'ordering') %} class="default_ordering"{% endif %}>
                         {% if metadata.type == 'string' -%}
                         <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ '{{ "Search a ' }}{{ field }}{{ '"|trans }}' }}" />
                         {%- else -%}
@@ -76,63 +73,58 @@
                         {%- endif %}
 
                     </th>
-                    {% endif -%}
                     {% endfor -%}
                     <th>&nbsp;</th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
             <tbody>
-            {{ '{% for entity in entities %}' }}
-                <tr id="item_{{ '{{ entity.id }}' }}">
-                    {%- for field, metadata in fields -%}
-                    {%- if field not in hidden_fields -%}
-                    {%- if field == 'name' %}
+                {{ '{% for entity in entities %}' }}
+                    <tr id="item_{{ '{{ entity.id }}' }}">
+                        {%- for field, metadata in fields if field not in hidden_fields -%}
+                        {%- set class = ''-%}
 
-                    <td class="name{% if 'active' in fields|keys %}{{ '{% if not entity.active %} inactive{% endif %}' }}{% endif %}{% if 'featured' in fields|keys %}{{ '{% if entity.featured %} featured{% endif %}' }}{% endif %}">
-                        <a href="{{ "{{ path(entity.route, entity.routeParams) }}" }}">{{ '{{ entity|raw }}' }}</a>
-                    </td>
-                    {%- elseif field == 'ordering' %}
+                        {# General css class #}
+                        {%- if loop.first %}{% set class = class ~ ' name' %}{% endif -%}
+                        {%- if 'active' in fields|keys %}{% set class = class ~ ' {% if not entity.active %} inactive{% endif %}' %}{% endif -%}
+                        {%- if 'featured' in fields|keys %}{% set class = class ~ ' {% if entity.featured %} featured{% endif %}' %}{% endif -%}
 
-                    <td class="default_ordering">
-                        {{ '{{ entity.ordering }}' }}
-                    </td>
-                    {%- elseif metadata.type in ['date', 'datetime'] %}
+                        {# Specific entity type css class #}
+                        {%- if field == 'ordering' %}{% set class = class ~ ' default_ordering' %}{% endif -%}
+                        {%- if metadata.type in ['boolean'] %}{% set class = class ~ ' centered' %}{% endif -%}
 
-                    <td>
-                        {{ '{{ entity.' }}{{ field }}{{ "|date('Y-m-d') }}" }}
-                    </td>
-                    {%- elseif metadata.type in ['boolean'] %}
+                        {%- set render = '{{ entity.' ~ field ~ '|raw }}' -%}
+                        {%- if metadata.type in ['date', 'datetime'] %}{% set render = '{{ entity.' ~ field ~ "|date('Y-m-d') }}" -%}
+                        {%- elseif metadata.type in ['boolean'] %}
+                            {% set render =
+                                '{% if entity.' ~ field ~ ' %}
+                                <img src="{{ asset("bundles/egzaktsystem/backend/images/icons/tick.png") }}" width="16" height="16" alt="yes">
+                             {% endif %}' %}
+                        {% endif %}
 
-                    <td class="centered">
-                        {{ "{% if entity." }}{{ field }}{{ " %}" }}
-                         <img src="{{ "{{ asset('bundles/egzaktbackendcore/images/icons/tick.png') }}" }}" width="16" height="16" alt="yes">
-                        {{ "{% endif %}" }}
-                    </td>
+                        <td class="{{ class }}">
+                            {% if loop.first %}<a href="{{ "{{ path(entity.route, entity.routeParams) }}" }}">{% endif %}
 
-                    {%- elseif field|lower not in hidden_fields %}
+                            {{- render -}}
+                            {% if loop.first %}</a>{% endif %}
 
-                    <td>
-                        {{ '{{ entity.' ~ field ~ '|striptags }}' }}
-                    </td>
-                    {%- endif -%}
-                    {%- endif %}
-                    {% endfor %}
+                        </td>
+                        {%- endfor %}
 
-                    <td class="edit">
-                        {{ "{% if entity.isEditable %}" }}
-                            <a href="{{ "{{ path(entity.route, entity.routeParams) }}" }}" title="{{ '{% trans %}' }}Edit{{ '{% endtrans %}' }}">
-                                <img src="{{ "{{ asset('bundles/egzaktbackendcore/images/buttons/edit.png') }}" }}" width="15" height="15" alt="" />
+                        <td class="edit">
+                            {{ "{% if entity.isEditable %}" }}
+                                <a href="{{ "{{ path(entity.route, entity.routeParams) }}" }}" title="{{ '{% trans %}' }}Edit{{ '{% endtrans %}' }}">
+                                    <img src="{{ "{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" }}" width="15" height="15" alt="" />
+                                </a>
+                            {{ "{% endif %}" }}
+                        </td>
+                        <td class="delete">
+                            <a href="{{ "{{ path(entity.route('delete'), entity.routeParams) }}" }}" rel="{{ "{{ path(entity.route('delete'), entity.routeParams({'message': true})) }}" }}" title="{{ '{% trans %}' }}Delete{{ '{% endtrans %}' }}">
+                                <img src="{{ "{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" }}" width="12" height="15" alt="" />
                             </a>
-                        {{ "{% endif %}" }}
-                    </td>
-                    <td class="delete">
-                        <a href="{{ "{{ path(entity.route('delete'), entity.routeParams) }}" }}" rel="{{ "{{ path(entity.route('delete'), entity.routeParams({'message': true})) }}" }}" title="{{ '{% trans %}' }}Delete{{ '{% endtrans %}' }}">
-                            <img src="{{ "{{ asset('bundles/egzaktbackendcore/images/buttons/delete.png') }}" }}" width="12" height="15" alt="" />
-                        </a>
-                    </td>
-                </tr>
-            {{ '{% endfor %}' }}
+                        </td>
+                    </tr>
+                {{ '{% endfor %}' }}
             </tbody>
         </table>
 

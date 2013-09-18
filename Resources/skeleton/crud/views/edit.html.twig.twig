@@ -7,61 +7,76 @@
 
 {{ '{% block content_main %}' }}
 
-    <form novalidate="novalidate" action="{{ "{{ path(entity.route, entity.routeParams) }}" }}" method="post" {{ "{{ form_enctype(form) }}" }}>
+    {{ "{{ form_start(form) }}" }}
 
-    {{ "{% block edit_actions %}" }}
-        {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
-        'entity': entity,
-        'delete_route': path('" ~ route_prefix ~ "_delete', { id: entity.id ?: 0 }),
-        'cancel_route': path('" ~ route_prefix ~ "')
-        } %}" }}
-    {{ "{% endblock %}" }}
+        {{ "{% block edit_actions %}" }}
+            {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
+                'entity': entity,
+                'delete_route': path('" ~ route_prefix ~ "_delete', { id: entity.id ?: 0 }),
+                'cancel_route': path('" ~ route_prefix ~ "')
+            } %}" }}
+        {{ "{% endblock %}" }}
 
-    <div id="fields_box">
+        <div id="fields_box">
 
-        {{ "{{ form_errors(form) }}" }}
+            {{ "{{ form_errors(form) }}" }}
 
-        <table class="fields" cellspacing="0">
-        {% if 'slug' in fields|keys -%}
-        {% if 'active' in fields|keys -%}
+            <table class="fields" cellspacing="0">
+            {% if 'active' in fields|keys %}
 
-        {{ '{{ form_row(form.active) }}' }}
-        {% endif %}
+                {{ '{{ form_row(form.active) }}' }}
+            {% elseif 'active' in translation_fields|keys %}
 
-        {% if 'name' in fields|keys -%}
-        {{ '{{ form_row(form.name) }}' }}
-        {% endif %}
+                {{ '{{ form_row(form.translation.active) }}' }}
+            {%- endif -%}
 
-        {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
-        'link_name': 'SEO Informations',
-        'fields': [form_row(form.slug)]
-        } %}" }}
-        {% endif %}
+            {%- if 'name' in fields|keys %}
 
-        {{ "{{ form_rest(form) }}" }}
+                {{ '{{ form_row(form.name) }}' }}
+            {% elseif 'name' in translation_fields|keys %}
 
-        {% if 'updatedAt' in fields|keys -%}
-        {{ "{% if entity.id %}" }}
-        <tr>
-        <th>
-            {{ '{% trans %}Last update {% endtrans %}' }} :
-        </th>
-        <td style="vertical-align:bottom">
-            {{ "{{ entity.updatedAt|localeDate('long', 'short') }}" }}
-        </td>
-        </tr>
-        {{ "{% endif %}" }}
-        {%- endif %}
+                {{ '{{ form_row(form.translation.name) }}' }}
+            {% endif %}
 
-        </table>
-    </div>
+            {%- if 'slug' in fields|keys -%}
+            {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
+            'link_name': 'SEO Informations',
+            'fields': [form_row(form.slug)]
+            } %}" }}
+            {%- endif -%}
 
-    {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
-        'entity': entity,
-        'delete_route': path('" ~ route_prefix ~ "_delete', { id: entity.id ?: 0 }),
-        'cancel_route': path('" ~ route_prefix ~ "')
-    } %}" }}
+            {%- for field in fields -%}
+                {%- if field.fieldName not in ['id', 'active', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
 
-    </form>
+                {{ '{{ form_row(form.' ~ field.fieldName ~ ') }}' }}
+                {%- endif -%}
+            {%- endfor -%}
+            {%- for field in translation_fields -%}
+                {%- if field.fieldName not in ['id', 'active', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
+
+                {{ '{{ form_row(form.translation.' ~ field.fieldName ~ ') }}' }}
+                {%- endif -%}
+            {%- endfor %}
+
+                {{ "{{ form_rest(form) }}" }}
+                {% if 'updatedAt' in fields|keys -%}
+                {{ "{% if entity.id %}" }}
+                    <tr>
+                        <th>
+                            {{ '{% trans %}Last update {% endtrans %}' }} :
+                        </th>
+                        <td style="vertical-align:bottom">
+                            {{ "{{ entity.updatedAt|date }}" }}
+                        </td>
+                    </tr>
+                {{ "{% endif %}" }}
+                {%- endif %}
+
+            </table>
+        </div>
+
+        {{ "{{  block('edit_actions') }}" }}
+
+    {{ "{{ form_end(form) }}" }}
 
 {{ '{% endblock content_main %}' }}
