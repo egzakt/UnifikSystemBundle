@@ -1,8 +1,8 @@
 <tr class="collapsable_fields">
     <td colspan="2">
-        <a class="slide_link">{{ link_name|trans }}</a>
-        <div class="slide_block" style="display: none;">
-            <table class="fields" cellspacing="0">
+        <a href="#" class="slide_link">{{ link_name|trans }}</a>
+        <div class="slide_block">
+            <table class="fields">
                 {% for field in fields %}
                     {{ field|raw }}
                 {% endfor %}
@@ -10,9 +10,3 @@
         </div>
     </td>
 </tr>
-
-<script type="text/javascript">
-    $(function(){
-        $('.slide_block th.error').parents('.slide_block').show();
-    });
-</script>

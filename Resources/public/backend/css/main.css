@@ -1155,7 +1155,6 @@ form.with_tabs {
 }
 
 #fields_box h3 {
-    color: #333;
     font: 1.33em/1.2em Georgia, Times, serif;
     margin: 0 0 10px 0;
     color: #2882E6;
@@ -1164,10 +1163,11 @@ form.with_tabs {
 table.fields {
     border: 0;
     width: 100%;
+    border-collapse: collapse;
     border-bottom: 1px solid #B3B3B3;
 }
 
-table.fields th {
+table.fields > tbody > tr > th {
     padding: 6px 20px 6px 3px;
     font-size: 1.167em;
     line-height: 1.3em;
@@ -1177,16 +1177,16 @@ table.fields th {
     white-space: nowrap;
 }
 
-table.fields tr.translation th label {
-    color: #653DB8;
-}
-
 /* With child-selector to avoid overriding ckeditor */
 table.fields > tbody > tr > td {
     width: 80%;
     padding: 5px 0;
     border-top: 1px solid #B3B3B3;
     vertical-align: top;
+}
+
+table.fields tr.translation label {
+    color: #653DB8;
 }
 
 table.fields input,
@@ -1229,6 +1229,7 @@ table.fields input[type=radio] {
 table.fields input[type=text],
 table.fields input[type=url],
 table.fields input[type=email] {
+    display: block;
     width: 450px;
 }
 
@@ -1245,7 +1246,13 @@ table.fields input[type=password] {
     width: 150px;
 }
 
+table.fields input.permalink {
+    display: inline-block;
+    width: 250px;
+}
+
 table.fields input.calendar {
+    display: inline-block;
     width: 90px;
     text-align: right;
     background: #fff url(/bundles/egzaktsystem/backend/images/icons/calendar.gif) no-repeat 3px 3px;
@@ -1268,6 +1275,30 @@ table.fields .tree ul {
 table.fields .tree li {
     padding-bottom: 3px;
 }
+
+table.fields ul.inline_choices li {
+    display: inline-block;
+    margin-right: 12px;
+}
+table.fields ul.inline_choices li:last-child {
+    margin-right: 0;
+}
+
+button#copy_permalink {
+    display: inline-block;
+    width: 30px;
+    height: 24px;
+    position: relative;
+    top: 3px;
+    margin: 0 0 0 8px;
+    padding: 0;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #cbcbcb;
+    border-radius: 4px;
+    background-color: #efefef;
+}
+
 
 /* Collapsable Fields */
 tr.collapsable_fields > td {
@@ -1295,6 +1326,7 @@ tr.collapsable_fields a.slide_link.selected {
 }
 
 tr.collapsable_fields .slide_block {
+    display: none;
     padding: 0 10px 0 22px;
     background-color: #EFF5FD;
 }
@@ -1303,6 +1335,42 @@ tr.collapsable_fields table.fields tr:first-child th,
 tr.collapsable_fields table.fields tr:first-child td {
     border-top: 0;
 }
+
+
+/* Options */
+table.fields a.options_link {
+    display: inline-block;
+    padding-right: 11px;
+    margin-top: 12px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 0.833em;
+    line-height: 1.1em;
+    background: url(/bundles/egzaktsystem/backend/images/icons/bullet_arrow.png) no-repeat right 3px;
+}
+table.fields a.options_link.aside {
+    margin: 0 0 0 12px;
+}
+table.fields a.options_link.opened {
+    background-position: right -97px;
+}
+
+table.fields .options {
+    display: none;
+    margin-top: 4px;
+}
+
+table.fields .options th {
+    padding: 6px 18px 6px 0;
+    text-align: left;
+    vertical-align: top;
+}
+
+table.fields .options td {
+    vertical-align: top;
+}
+
 
 /* Files */
 .uploaded_file {
@@ -1318,6 +1386,7 @@ tr.collapsable_fields table.fields tr:first-child td {
     padding: 1px 0 0 20px;
     background: url(/bundles/egzaktsystem/backend/images/icons/exclamation.png) no-repeat 0 0;
 }
+
 
 /* Messages */
 #error_message {
@@ -1468,6 +1537,43 @@ span.cke_skin_kama {
     padding-left: 18px;
     margin-top: 8px;
 }
+
+/* jQuery UI Tooltip override */
+.ui-tooltip {
+    font-size: 0.917em;
+    line-height: 1.2em;
+    background: #fefec7;
+    border: 1px solid #d2d200 !important;
+    padding: 6px;
+    border-radius: 4px;
+    box-shadow: none;
+}
+
+.ui-tooltip:after,
+.ui-tooltip:before {
+	right: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+}
+.ui-tooltip:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-right-color: #d2d200;
+	border-width: 7px;
+	top: 50%;
+	margin-top: -7px;
+}
+.ui-tooltip:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-right-color: #fefec7;
+	border-width: 6px;
+	top: 50%;
+	margin-top: -6px;
+}
+
+
 
 /* MESSAGES
 -----------------------------------------*/
