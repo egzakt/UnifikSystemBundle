@@ -2,34 +2,26 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Gedmo\Sluggable\Util\Urlizer;
-
-use Egzakt\SystemBundle\Lib\BaseTranslationEntity;
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
 
 /**
  * SectionTranslation
  */
-class SectionTranslation extends BaseTranslationEntity
+class SectionTranslation
 {
+    use EgzaktORMBehaviors\Translatable\Translation;
+
+    use EgzaktORMBehaviors\Sluggable\Sluggable;
+
     /**
      * @var integer $id
      */
     private $id;
 
     /**
-     * @var string $locale
-     */
-    private $locale;
-
-    /**
      * @var string $name
      */
     private $name;
-
-    /**
-     * @var string $slug
-     */
-    private $slug;
 
     /**
      * @var string $pageTitle
@@ -47,38 +39,11 @@ class SectionTranslation extends BaseTranslationEntity
     private $active;
 
     /**
-     * @var Section
-     */
-    private $translatable;
-
-    /**
-     * Get id
-     *
-     * @return integer
+     * @return int
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set locale
-     *
-     * @param string $locale
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * Get locale
-     *
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->locale;
     }
 
     /**
@@ -99,26 +64,6 @@ class SectionTranslation extends BaseTranslationEntity
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = Urlizer::urlize($slug);
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 
     /**
@@ -182,22 +127,13 @@ class SectionTranslation extends BaseTranslationEntity
     }
 
     /**
-     * Set translatable
+     * Get Sluggable Fields
      *
-     * @param Section $translatable
+     * @return array
      */
-    public function setTranslatable(Section $translatable)
+    public function getSluggableFields()
     {
-        $this->translatable = $translatable;
+        return array('name');
     }
 
-    /**
-     * Get translatable
-     *
-     * @return Section
-     */
-    public function getTranslatable()
-    {
-        return $this->translatable;
-    }
 }

@@ -10,6 +10,11 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
 class Locale extends BaseEntity
 {
     /**
+     * @var integer
+     */
+    private $id;
+
+    /**
      * @var string
      */
     private $name;
@@ -28,6 +33,16 @@ class Locale extends BaseEntity
      * @var boolean
      */
     private $active;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return string

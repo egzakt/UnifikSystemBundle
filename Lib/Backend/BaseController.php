@@ -10,8 +10,6 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
  */
 abstract class BaseController extends ApplicationController
 {
-
-
     /**
      * Return the core
      *
@@ -20,6 +18,28 @@ abstract class BaseController extends ApplicationController
     public function getCore()
     {
         return $this->container->get('egzakt_backend.core');
+    }
+
+    /**
+     * Inits a new Entity with default values
+     *
+     * @TODO This method will be renamed to initTranslatableEntity once we get rid of the container.
+     *
+     * @param $entity
+     *
+     * @return mixed
+     */
+    protected function initEntity($entity)
+    {
+        // Set the Edit Locale on translatable entities
+        if (method_exists($entity, 'setCurrentLocale')) {
+            $entity->setCurrentLocale($this->container->get('egzakt_backend.core')->getEditLocale());
+        }
+
+        // @TODO Remove the container from entities
+        $entity->setContainer($this->container);
+
+        return $entity;
     }
 
     /**
@@ -33,6 +53,4 @@ abstract class BaseController extends ApplicationController
             $referenceType
         );
     }
-
-
 }

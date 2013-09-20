@@ -37,13 +37,3 @@ Egzakt\SystemBundle\Entity\Member:
     active:
       type: boolean
       nullable: true
-    createdAt:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: create
-    updatedAt:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: update

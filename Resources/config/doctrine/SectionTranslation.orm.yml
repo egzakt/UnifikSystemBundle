@@ -1,34 +1,15 @@
 Egzakt\SystemBundle\Entity\SectionTranslation:
   type: entity
-  indexes:
-    section_translation_idx:
-      columns: [locale, translatable_id]
-  uniqueConstraints:
-    section_translation_unique_idx:
-      columns: [locale, translatable_id]
   fields:
     id:
       type: integer
       id: true
       generator:
         strategy: AUTO
-    locale:
-      type: string
-      length: 5
     name:
       type: string
       length: 255
       nullable: true
-      gedmo:
-        - sluggable
-    slug:
-      type: string
-      length: 255
-      nullable: true
-      gedmo:
-        slug:
-          fields: [name]
-          separator: -
     pageTitle:
       type: string
       length: 255
@@ -39,11 +20,3 @@ Egzakt\SystemBundle\Entity\SectionTranslation:
     active:
       type: boolean
       nullable: true
-  manyToOne:
-    translatable:
-      targetEntity: Egzakt\SystemBundle\Entity\Section
-      inversedBy:  translations
-      joinColumn:
-        name: translatable_id
-        referencedColumnName: id
-        onDelete:  cascade

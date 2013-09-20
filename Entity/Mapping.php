@@ -10,34 +10,49 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
 class Mapping extends BaseEntity
 {
     /**
-     * @var string
+     * @var integer
      */
-    protected $type;
+    private $id;
 
     /**
      * @var string
      */
-    protected $target;
+    private $type;
+
+    /**
+     * @var string
+     */
+    private $target;
 
     /**
      * @var integer
      */
-    protected $ordering;
+    private $ordering;
 
     /**
      * @var Section
      */
-    protected $section;
+    private $section;
 
     /**
      * @var App
      */
-    protected $app;
+    private $app;
 
     /**
      * @var Navigation
      */
-    protected $navigation;
+    private $navigation;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * To string
@@ -189,4 +204,5 @@ class Mapping extends BaseEntity
     {
         return $this->navigation;
     }
+
 }

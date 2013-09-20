@@ -3,11 +3,9 @@
 namespace Egzakt\SystemBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
-use Doctrine\ORM\Event\OnFlushEventArgs;
 use Doctrine\ORM\NoResultException;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
-use Egzakt\SystemBundle\Lib\BaseTranslationEntity;
 
 /**
  * Doctrine Event Listener
@@ -47,47 +45,5 @@ class DoctrineEventListener
                 }
             }
         }
-
-        if ($entity instanceof BaseTranslationEntity) {
-            if (method_exists($entity, 'getTranslatable')) {
-                $translatable = $entity->getTranslatable();
-                if ( method_exists($translatable, 'setUpdatedAt') ) {
-                    $entity->getTranslatable()->setUpdatedAt(new \DateTime());
-                }
-            }
-        }
     }
-
-    /**
-     * On Flush
-     *
-     * Check if a translation entity is persisted
-     * If so, we update the translation's translatable entity updatedAt field with the current timestamp
-     *
-     * @param OnFlushEventArgs $eventArgs
-     */
-    public function onFlush(OnFlushEventArgs $eventArgs)
-    {
-        $em = $eventArgs->getEntityManager();
-        $unitOfWork = $em->getUnitOfWork();
-
-        foreach ($unitOfWork->getScheduledEntityUpdates() AS $entity) {
-            if ($entity instanceof BaseTranslationEntity) {
-                // Translation entity has a translatable property
-                if (method_exists($entity, 'getTranslatable')) {
-                    // Check if the translatable entity has an updatedAt property
-                    if (method_exists($entity->getTranslatable(), 'setUpdatedAt')) {
-                        // Create a new changeSets : array('updatedAt' => array(oldValue, newValue))
-                        $changeSets = array('updatedAt' => array($entity->getTranslatable()->getUpdatedAt(), new \DateTime()));
-
-                        // Apply the changeSets to this entity as Extra Update because
-                        // recomputing the changes on the entity will override the changes
-                        // made on this entity BEFORE the onFlush method (form values)
-                        $unitOfWork->scheduleExtraUpdate($entity->getTranslatable(), $changeSets);
-                    }
-                }
-            }
-        }
-    }
-
 }

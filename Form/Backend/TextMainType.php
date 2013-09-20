@@ -7,7 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Test Main Type
+ * Text Main Type
  */
 class TextMainType extends AbstractType
 {

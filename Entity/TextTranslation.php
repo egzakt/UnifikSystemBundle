@@ -2,48 +2,41 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Egzakt\SystemBundle\Lib\BaseTranslationEntity;
 use Symfony\Component\Validator\ExecutionContextInterface;
+
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
 
 /**
  * TextTranslation
  */
-class TextTranslation extends BaseTranslationEntity
+class TextTranslation
 {
+    use EgzaktORMBehaviors\Translatable\Translation;
+
     /**
      * @var integer $id
      */
-    protected $id;
-
-    /**
-     * @var string $locale
-     */
-    protected $locale;
+    private $id;
 
     /**
      * @var string $text
      */
-    protected $text;
+    private $text;
 
     /**
      * @var string $name
      */
-    protected $name;
+    private $name;
 
     /**
      * @var string $anchor
      */
-    protected $anchor;
+    private $anchor;
 
     /**
      * @var boolean $active
      */
-    protected $active;
-
-    /**
-     * @var Text
-     */
-    protected $translatable;
+    private $active;
 
     /**
      * Get id
@@ -53,26 +46,6 @@ class TextTranslation extends BaseTranslationEntity
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set locale
-     *
-     * @param string $locale
-     */
-    public function setLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-    /**
-     * Get locale
-     *
-     * @return string
-     */
-    public function getLocale()
-    {
-        return $this->locale;
     }
 
     /**
@@ -156,26 +129,6 @@ class TextTranslation extends BaseTranslationEntity
     }
 
     /**
-     * Set translatable
-     *
-     * @param Text $translatable
-     */
-    public function setTranslatable(Text $translatable)
-    {
-        $this->translatable = $translatable;
-    }
-
-    /**
-     * Get translatable
-     *
-     * @return Text
-     */
-    public function getTranslatable()
-    {
-        return $this->translatable;
-    }
-
-    /**
      * Validate the sub-fields of a collapsable text
      *
      * @param ExecutionContextInterface $context The Execution Context
@@ -186,4 +139,5 @@ class TextTranslation extends BaseTranslationEntity
             $context->addViolationAt('name', 'A collapsable text must have a name');
         }
     }
+
 }

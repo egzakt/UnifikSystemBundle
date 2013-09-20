@@ -2,13 +2,18 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Egzakt\SystemBundle\Lib\BaseEntityRepository;
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * SectionRepository
  */
-class SectionRepository extends BaseEntityRepository
+class SectionRepository extends EntityRepository implements ContainerAwareInterface
 {
+    use EgzaktORMBehaviors\Repository\TranslatableEntityRepository;
+
     /**
      * Find By Navigation From Tree
      *

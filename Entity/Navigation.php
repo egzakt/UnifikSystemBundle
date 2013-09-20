@@ -12,6 +12,11 @@ use Egzakt\SystemBundle\Lib\BaseEntity;
 class Navigation extends BaseEntity
 {
     /**
+     * @var integer
+     */
+    private $id;
+
+    /**
      * @var string $name
      */
     private $name;
@@ -25,6 +30,16 @@ class Navigation extends BaseEntity
      * @var ArrayCollection $sections
      */
     private $sections;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * Construct
@@ -203,4 +218,5 @@ class Navigation extends BaseEntity
     {
         return $this->code;
     }
+
 }

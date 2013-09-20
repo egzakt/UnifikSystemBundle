@@ -9,23 +9,8 @@ Egzakt\SystemBundle\Entity\Section:
     ordering:
       type: integer
       nullable: true
-    createdAt:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: create
-    updatedAt:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: update
   repositoryClass: Egzakt\SystemBundle\Entity\SectionRepository
   oneToMany:
-    translations:
-      targetEntity: Egzakt\SystemBundle\Entity\SectionTranslation
-      mappedBy: translatable
-      fetch: EAGER
-      cascade: [persist]
     children:
       targetEntity: Egzakt\SystemBundle\Entity\Section
       mappedBy: parent

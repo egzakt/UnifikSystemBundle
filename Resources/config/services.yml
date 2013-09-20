@@ -1,30 +1,30 @@
 parameters:
 
-    egzakt_system.kernel_controller_listener.class:       Egzakt\SystemBundle\Listener\ControllerListener
-    egzakt_system.kernel_response_listener.class:         Egzakt\SystemBundle\Listener\ResponseListener
-    egzakt_system.post_load_listener.class:               Egzakt\SystemBundle\Listener\PostLoadListener
-    egzakt_system.kernel_exception_listener.class:        Egzakt\SystemBundle\Listener\ExceptionListener
-    egzakt_system.core.class:                             Egzakt\SystemBundle\Lib\Core
-    egzakt_system.helper.class:                           Egzakt\SystemBundle\Lib\Helper
-    egzakt_system.twig_extension.class:                   Egzakt\SystemBundle\Extensions\TwigExtension
-    egzakt_system.twig_translation_extension.class:       Egzakt\SystemBundle\Extensions\TranslationExtension
-    egzakt_system.inspect_extension.class:                Egzakt\SystemBundle\Extensions\InspectExtension
-    egzakt_system.navigation_builder.class:               Egzakt\SystemBundle\Lib\NavigationBuilder
-    egzakt_system.navigation_item.class:                  Egzakt\SystemBundle\Lib\NavigationItem
-    egzakt_system.breadcrumbs.class:                      Egzakt\SystemBundle\Lib\Breadcrumbs
-    egzakt_system.page_title.class:                       Egzakt\SystemBundle\Lib\PageTitle
-    egzakt_system.router_invalidator.class:               Egzakt\SystemBundle\Lib\RouterInvalidator
-    egzakt_system.router_auto_parameters_handler.class:   Egzakt\SystemBundle\Lib\RouterAutoParametersHandler
-    egzakt_system.section_filter.class:                   Egzakt\SystemBundle\Lib\SectionFilter
-    egzakt_system.tree_entity_orderer.class:              Egzakt\SystemBundle\Lib\TreeEntityOrderer
-    egzakt_system.form.type.tree_choice.class:            Egzakt\SystemBundle\Form\Type\TreeChoiceType
-    egzakt_system.locale_switcher.class:                  Egzakt\SystemBundle\Lib\LocaleSwitcher
-    egzakt_backend.security.cms_voter.class:              Egzakt\SystemBundle\Lib\Backend\CmsVoter
-    egzakt_backend.core.class:                            Egzakt\SystemBundle\Lib\Backend\Core
-    egzakt_backend.form.type.advanced_file.class:         Egzakt\SystemBundle\Form\Backend\AdvancedFileType
-    egzakt_frontend.core.class:                           Egzakt\SystemBundle\Lib\Frontend\Core
-    egzakt_system.deletable.class:                        Egzakt\SystemBundle\Lib\DeletableService
-    egzakt_system.deletable_user_listener.class:          Egzakt\SystemBundle\Listener\UserDeletableListener
+    egzakt_system.kernel_controller_listener.class:             Egzakt\SystemBundle\Listener\ControllerListener
+    egzakt_system.kernel_response_listener.class:               Egzakt\SystemBundle\Listener\ResponseListener
+    egzakt_system.post_load_listener.class:                     Egzakt\SystemBundle\Listener\PostLoadListener
+    egzakt_system.kernel_exception_listener.class:              Egzakt\SystemBundle\Listener\ExceptionListener
+    egzakt_system.core.class:                                   Egzakt\SystemBundle\Lib\Core
+    egzakt_system.twig_extension.class:                         Egzakt\SystemBundle\Extensions\TwigExtension
+    egzakt_system.twig_translation_extension.class:             Egzakt\SystemBundle\Extensions\TranslationExtension
+    egzakt_system.inspect_extension.class:                      Egzakt\SystemBundle\Extensions\InspectExtension
+    egzakt_system.navigation_builder.class:                     Egzakt\SystemBundle\Lib\NavigationBuilder
+    egzakt_system.navigation_item.class:                        Egzakt\SystemBundle\Lib\NavigationItem
+    egzakt_system.breadcrumbs.class:                            Egzakt\SystemBundle\Lib\Breadcrumbs
+    egzakt_system.page_title.class:                             Egzakt\SystemBundle\Lib\PageTitle
+    egzakt_system.router_invalidator.class:                     Egzakt\SystemBundle\Lib\RouterInvalidator
+    egzakt_system.router_auto_parameters_handler.class:         Egzakt\SystemBundle\Lib\RouterAutoParametersHandler
+    egzakt_system.section_filter.class:                         Egzakt\SystemBundle\Lib\SectionFilter
+    egzakt_system.tree_entity_orderer.class:                    Egzakt\SystemBundle\Lib\TreeEntityOrderer
+    egzakt_system.form.type.tree_choice.class:                  Egzakt\SystemBundle\Form\Type\TreeChoiceType
+    egzakt_system.deletable.class:                              Egzakt\SystemBundle\Lib\DeletableService
+    egzakt_system.deletable_user_listener.class:                Egzakt\SystemBundle\Listener\UserDeletableListener
+    egzakt_system.locale_switcher.class:                        Egzakt\SystemBundle\Lib\LocaleSwitcher
+    egzakt_system.section_translation.sluggable.listener.class: Egzakt\SystemBundle\Lib\SectionTranslationSluggableListener
+    egzakt_backend.security.cms_voter.class:                    Egzakt\SystemBundle\Lib\Backend\CmsVoter
+    egzakt_backend.core.class:                                  Egzakt\SystemBundle\Lib\Backend\Core
+    egzakt_backend.form.type.advanced_file.class:               Egzakt\SystemBundle\Form\Backend\AdvancedFileType
+    egzakt_frontend.core.class:                                 Egzakt\SystemBundle\Lib\Frontend\Core
 
 services:
 
@@ -105,8 +105,6 @@ services:
         class: Egzakt\SystemBundle\Listener\DoctrineEventListener
         tags:
             - { name: doctrine.event_listener, event: prePersist }
-            - { name: doctrine.event_listener, event: onFlush }
-
 
     egzakt_system.router_invalidator:
         class: %egzakt_system.router_invalidator.class%
@@ -174,3 +172,8 @@ services:
         arguments: [@service_container]
         tags:
             - { name: security.voter }
+
+    egzakt_system.section_translation.sluggable.listener:
+        class: %egzakt_system.section_translation.sluggable.listener.class%
+        tags:
+            - { name: doctrine.event_subscriber, type: sluggable, entity: Egzakt\SystemBundle\Entity\SectionTranslation }

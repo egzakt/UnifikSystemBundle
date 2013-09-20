@@ -3,27 +3,24 @@
 namespace Egzakt\SystemBundle\Entity;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
 
 /**
  * SectionNavigation
  */
 class SectionNavigation extends BaseEntity
 {
+    use EgzaktORMBehaviors\Timestampable\Timestampable;
+
+    /**
+     * @var integer
+     */
+    private $id;
 
     /**
      * @var integer
      */
     private $ordering;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    private $updatedAt;
 
     /**
      * @var Section
@@ -34,6 +31,16 @@ class SectionNavigation extends BaseEntity
      * @var Navigation
      */
     private $navigation;
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return string
@@ -69,46 +76,6 @@ class SectionNavigation extends BaseEntity
     public function getOrdering()
     {
         return $this->ordering;
-    }
-
-    /**
-     * Set created at
-     *
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * Get created at
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updated_at
-     *
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * Get updated_at
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**
@@ -150,4 +117,5 @@ class SectionNavigation extends BaseEntity
     {
         return $this->navigation;
     }
+
 }

@@ -15,8 +15,3 @@ Egzakt\SystemBundle\Entity\Login:
       length: 16
     success:
       type: boolean
-    createdAt:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: create

@@ -6,16 +6,25 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\ExecutionContext;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
 
 /**
  * Section
  */
 class Section extends BaseEntity
 {
+    use EgzaktORMBehaviors\Translatable\Translatable;
+    use EgzaktORMBehaviors\Timestampable\Timestampable;
+
+    /**
+     * @var integer
+     */
+    private $id;
+
     /**
      * @var ArrayCollection
      */
-    protected $children;
+    private $children;
 
     /**
      * @var Section
@@ -25,52 +34,37 @@ class Section extends BaseEntity
     /**
      * @var string
      */
-    protected $app;
-
-    /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    protected $updatedAt;
+    private $app;
 
     /**
      * @var integer
      */
-    protected $ordering;
+    private $ordering;
 
     /**
      * @var array
      */
-    protected $routeParams;
+    private $routeParams;
 
     /**
      * @var array
      */
-    protected $sectionNavigations;
+    private $sectionNavigations;
 
     /**
      * @var array
      */
-    protected $texts;
-
-    /**
-     * @var SectionTranslation
-     */
-    protected $translations;
+    private $texts;
 
     /**
      * @var ArrayCollection
      */
-    protected $roles;
+    private $roles;
 
     /**
      * @var ArrayCollection
      */
-    protected $mappings;
+    private $mappings;
 
     /**
      * Construct
@@ -79,7 +73,6 @@ class Section extends BaseEntity
     public function __construct()
     {
         $this->children = new ArrayCollection();
-        $this->translations = new ArrayCollection();
         $this->roles = new ArrayCollection();
         $this->mappings = new ArrayCollection();
         $this->sectionNavigations = new ArrayCollection();
@@ -91,22 +84,12 @@ class Section extends BaseEntity
             return 'New section';
         }
 
-        if ($name = $this->translate()->getName()) {
+        if ($name = $this->getName()) {
             return $name;
         }
 
         // No translation found in the current locale
         return '';
-    }
-
-    /**
-     * Set id
-     *
-     * @param integer $id
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
     }
 
     /**
@@ -267,46 +250,6 @@ class Section extends BaseEntity
     public function addApp(App $app)
     {
         $this->app[] = $app;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**
@@ -492,26 +435,6 @@ class Section extends BaseEntity
     }
 
     /**
-     * Add translations
-     *
-     * @param SectionTranslation $translations
-     */
-    public function addSectionTranslation(SectionTranslation $translations)
-    {
-        $this->translations[] = $translations;
-    }
-
-    /**
-     * Get translations
-     *
-     * @return ArrayCollection
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-
-    /**
      * Returns the complete path of the section (Section / Sub-Section / Sub-sub-section ... )
      *
      * @return string
@@ -619,29 +542,6 @@ class Section extends BaseEntity
     }
 
     /**
-     * Add translations
-     *
-     * @param  \Egzakt\SystemBundle\Entity\SectionTranslation $translations
-     * @return Section
-     */
-    public function addTranslation(\Egzakt\SystemBundle\Entity\SectionTranslation $translations)
-    {
-        $this->translations[] = $translations;
-
-        return $this;
-    }
-
-    /**
-     * Remove translations
-     *
-     * @param \Egzakt\SystemBundle\Entity\SectionTranslation $translations
-     */
-    public function removeTranslation(\Egzakt\SystemBundle\Entity\SectionTranslation $translations)
-    {
-        $this->translations->removeElement($translations);
-    }
-
-    /**
      * Remove children
      *
      * @param \Egzakt\SystemBundle\Entity\Section $children
@@ -746,4 +646,5 @@ class Section extends BaseEntity
     {
         return $this->mappings;
     }
+
 }

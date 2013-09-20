@@ -6,43 +6,47 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 
 use Egzakt\SystemBundle\Entity\User;
-use Egzakt\SystemBundle\Entity\RoleTranslation;
 use Egzakt\SystemBundle\Lib\BaseEntity;
+
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
 
 /**
  * Role
  */
 class Role extends BaseEntity implements RoleInterface, \Serializable
 {
+    use EgzaktORMBehaviors\Translatable\Translatable;
+    use EgzaktORMBehaviors\Timestampable\Timestampable;
+
+    /**
+     * @var integer
+     */
+    private $id;
+
     /**
      * @var string $role
      */
-    protected $role;
-
-    /**
-     * @var \DateTime $createdAt
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime $updatedAt
-     */
-    protected $updatedAt;
+    private $role;
 
     /**
      * @var ArrayCollection
      */
-    protected $translations;
+    private $users;
 
     /**
      * @var ArrayCollection
      */
-    protected $users;
+    private $sections;
 
     /**
-     * @var ArrayCollection
+     * Get id
+     *
+     * @return integer
      */
-    protected $sections;
+    public function getId()
+    {
+        return $this->id;
+    }
 
     /**
      * @return string
@@ -53,7 +57,7 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
             return 'New role';
         }
 
-        if ($name = $this->name) {
+        if ($name = $this->getName()) {
             return $name;
         }
 
@@ -65,7 +69,6 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     {
         $this->users = new ArrayCollection();
         $this->sections = new ArrayCollection();
-        $this->translations = new ArrayCollection();
     }
 
     /**
@@ -84,46 +87,6 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     public function setRole($role)
     {
         $this->role = $role;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**
@@ -187,49 +150,6 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     public function getSections()
     {
         return $this->sections;
-    }
-
-    /**
-     * Add translations
-     *
-     * @param RoleTranslation $translations
-     */
-    public function addRoleTranslation(RoleTranslation $translations)
-    {
-        $this->translations[] = $translations;
-    }
-
-    /**
-     * Get translations
-     *
-     * @return ArrayCollection
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-
-    /**
-     * Add translations
-     *
-     * @param  \Egzakt\SystemBundle\Entity\RoleTranslation $translations
-     * @return Role
-     */
-    public function addTranslation(\Egzakt\SystemBundle\Entity\RoleTranslation $translations)
-    {
-        $this->translations[] = $translations;
-
-        return $this;
-    }
-
-    /**
-     * Remove translations
-     *
-     * @param \Egzakt\SystemBundle\Entity\RoleTranslation $translations
-     */
-    public function removeTranslation(\Egzakt\SystemBundle\Entity\RoleTranslation $translations)
-    {
-        $this->translations->removeElement($translations);
     }
 
     /**
@@ -319,5 +239,4 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
             $this->role
         ) = unserialize($serialized);
     }
-
 }

@@ -2,13 +2,18 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Egzakt\SystemBundle\Lib\BaseEntityRepository;
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * NavigationRepository
  */
-class NavigationRepository extends BaseEntityRepository
+class NavigationRepository extends EntityRepository implements ContainerAwareInterface
 {
+    use EgzaktORMBehaviors\Repository\TranslatableEntityRepository;
+
     const SECTION_BAR_ID = 1;
     const SECTION_MODULE_BAR_ID = 2;
     const GLOBAL_MODULE_BAR_ID = 3;

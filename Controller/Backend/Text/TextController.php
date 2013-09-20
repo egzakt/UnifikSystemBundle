@@ -75,8 +75,7 @@ class TextController extends BaseController
         $text = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
 
         if (false == $text) {
-            $text = new Text();
-            $text->setContainer($this->container);
+            $text = $this->initEntity(new Text());
             $text->setSection($section);
         }
 

@@ -1,20 +1,11 @@
 Egzakt\SystemBundle\Entity\TextTranslation:
   type: entity
-  indexes:
-    text_translation_idx:
-      columns: [locale, translatable_id]
-  uniqueConstraints:
-    text_translation_unique_idx:
-      columns: [locale, translatable_id]
   fields:
     id:
       type: integer
       id: true
       generator:
         strategy: AUTO
-    locale:
-      type: string
-      length: 5
     text:
       type: text
     name:
@@ -28,11 +19,3 @@ Egzakt\SystemBundle\Entity\TextTranslation:
     active:
       type: boolean
       nullable: true
-  manyToOne:
-    translatable:
-      targetEntity: Egzakt\SystemBundle\Entity\Text
-      inversedBy:  translations
-      joinColumn:
-        name: translatable_id
-        referencedColumnName: id
-        onDelete:  cascade

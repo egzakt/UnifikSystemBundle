@@ -84,8 +84,7 @@ class RoleController extends BaseController
         $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->find($id);
 
         if (!$entity) {
-            $entity = new Role();
-            $entity->setContainer($this->container);
+            $entity = $this->initEntity(new Role());
         }
 
         // Not editable

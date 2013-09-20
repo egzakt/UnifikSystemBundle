@@ -2,13 +2,18 @@
 
 namespace Egzakt\SystemBundle\Entity;
 
-use Egzakt\SystemBundle\Lib\BaseEntityRepository;
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 
 /**
  * App repository
  */
-class AppRepository extends BaseEntityRepository
+class AppRepository extends EntityRepository implements ContainerAwareInterface
 {
+    use EgzaktORMBehaviors\Repository\TranslatableEntityRepository;
+
     const BACKEND_APP_ID = 1;
     const FRONTEND_APP_ID = 2;
 

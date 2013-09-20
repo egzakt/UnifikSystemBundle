@@ -5,7 +5,7 @@ namespace Egzakt\SystemBundle\Form\Backend;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Egzakt\SystemBundle\Lib\BaseEntityRepository;
+use Doctrine\ORM\EntityRepository;
 
 /**
  * User Type
@@ -37,7 +37,7 @@ class UserType extends AbstractType
                 'expanded' => true,
                 'multiple' => true,
                 'label' => 'Roles',
-                'query_builder' => function(BaseEntityRepository $repo) use ($options) {
+                'query_builder' => function(EntityRepository $repo) use ($options) {
                     $repo->setReturnQueryBuilder(true);
 
                     if ($options['developer']) {

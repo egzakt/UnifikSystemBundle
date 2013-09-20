@@ -80,8 +80,7 @@ class RootController extends BaseController
         $entity = $this->sectionRepository->find($id);
 
         if (false == $entity) {
-            $entity = new Section();
-            $entity->setContainer($this->container);
+            $entity = $this->initEntity(new Section());
             $entity->setApp($this->getApp());
         }
 

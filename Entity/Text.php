@@ -5,56 +5,40 @@ namespace Egzakt\SystemBundle\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
 
 /**
  * Text
  */
 class Text extends BaseEntity
 {
+    use EgzaktORMBehaviors\Translatable\Translatable;
+    use EgzaktORMBehaviors\Timestampable\Timestampable;
+
     /**
      * @var integer $id
      */
-    protected $id;
+    private $id;
 
     /**
      * @var Section
      */
-    protected $section;
-
-    /**
-     * @var ArrayCollection
-     */
-    protected $translations;
+    private $section;
 
     /**
      * @var boolean $collapsable
      */
-    protected $collapsable;
+    private $collapsable;
 
     /**
      * @var boolean $static
      */
-    protected $static = false;
+    private $static = false;
 
     /**
      * @var integer $ordering
      */
-    protected $ordering;
-
-    /**
-     * @var \DateTime $createdAt
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime $updatedAt
-     */
-    protected $updatedAt;
-
-    public function __construct()
-    {
-        $this->translations = new ArrayCollection();
-    }
+    private $ordering;
 
     /**
      * Get id
@@ -134,46 +118,6 @@ class Text extends BaseEntity
     public function getOrdering()
     {
         return $this->ordering;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt Created At date/time
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt Updated At date/time
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**
@@ -272,26 +216,6 @@ class Text extends BaseEntity
     }
 
     /**
-     * Add translations
-     *
-     * @param TextTranslation $translations
-     */
-    public function addTextTranslation(TextTranslation $translations)
-    {
-        $this->translations[] = $translations;
-    }
-
-    /**
-     * Get translations
-     *
-     * @return ArrayCollection
-     */
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
-
-    /**
      * List of methods to check before allowing deletion
      *
      * @return array
@@ -301,26 +225,4 @@ class Text extends BaseEntity
         return array('isStatic');
     }
 
-    /**
-     * Add translations
-     *
-     * @param  \Egzakt\SystemBundle\Entity\TextTranslation $translations
-     * @return Text
-     */
-    public function addTranslation(\Egzakt\SystemBundle\Entity\TextTranslation $translations)
-    {
-        $this->translations[] = $translations;
-
-        return $this;
-    }
-
-    /**
-     * Remove translations
-     *
-     * @param \Egzakt\SystemBundle\Entity\TextTranslation $translations
-     */
-    public function removeTranslation(\Egzakt\SystemBundle\Entity\TextTranslation $translations)
-    {
-        $this->translations->removeElement($translations);
-    }
 }

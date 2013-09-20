@@ -80,8 +80,7 @@ class SectionController extends BaseController
         $entity = $this->sectionRepository->find($id);
 
         if (!$entity) {
-            $entity = new Section();
-            $entity->setContainer($this->container);
+            $entity = $this->initEntity(new Section());
             $entity->setParent($section);
             $entity->setApp($app);
         }

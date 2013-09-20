@@ -14,16 +14,6 @@ Egzakt\SystemBundle\Entity\Text:
     ordering:
       type: integer
       nullable: true
-    createdAt:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: create
-    updatedAt:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: update
   repositoryClass: Egzakt\SystemBundle\Entity\TextRepository
   manyToOne:
     section:
@@ -33,9 +23,3 @@ Egzakt\SystemBundle\Entity\Text:
         name: section_id
         referencedColumnName: id
         onDelete:  cascade
-  oneToMany:
-    translations:
-      targetEntity: Egzakt\SystemBundle\Entity\TextTranslation
-      mappedBy: translatable
-      fetch: EAGER
-      cascade: [persist]

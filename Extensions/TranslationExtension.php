@@ -57,7 +57,7 @@ class TranslationExtension extends \Twig_Extension
             return $entity;
         }
 
-        $entityPreviousLocale = $entity->getLocale();
+        $entityPreviousLocale = $entity->getCurrentLocale();
 
         if (false == $this->locales) {
             $this->locales = $this->doctrine->getManager()->getRepository('EgzaktSystemBundle:Locale')->findBy(
@@ -73,10 +73,10 @@ class TranslationExtension extends \Twig_Extension
                 continue;
             }
 
-            $entity->setLocale($locale->getCode());
+            $entity->setCurrentLocale($locale->getCode());
 
             if ($fallback = (string) $entity) {
-                $entity->setLocale($entityPreviousLocale);
+                $entity->setCurrentLocale($entityPreviousLocale);
 
                 return $fallback;
             }

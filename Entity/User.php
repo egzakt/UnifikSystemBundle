@@ -6,66 +6,59 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 use Egzakt\SystemBundle\Lib\BaseEntity;
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
 
 /**
  * User
  */
 class User extends BaseEntity implements AdvancedUserInterface, \Serializable
 {
+    use EgzaktORMBehaviors\Timestampable\Timestampable;
+
     /**
      * @var int
      */
-    protected $id;
+    private $id;
 
     /**
      * @var string
      */
-    protected $username;
+    private $username;
 
     /**
      * @var string
      */
-    protected $password;
+    private $password;
 
     /**
      * @var string
      */
-    protected $firstname;
+    private $firstname;
 
     /**
      * @var string
      */
-    protected $lastname;
+    private $lastname;
 
     /**
      * @var string
      */
-    protected $email;
+    private $email;
 
     /**
      * @var boolean
      */
-    protected $active;
-
-    /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    protected $updatedAt;
+    private $active;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
      */
-    protected $roles;
+    private $roles;
 
     /**
      * @var string $salt
      */
-    protected $salt;
+    private $salt;
 
     /**
      * Constructor
@@ -232,46 +225,6 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     public function getActive()
     {
         return $this->active;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**

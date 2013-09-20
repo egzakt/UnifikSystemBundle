@@ -9,16 +9,6 @@ Egzakt\SystemBundle\Entity\SectionNavigation:
     ordering:
       type: integer
       nullable: true
-    createdAt:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: create
-    updatedAt:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: update
   manyToOne:
     section:
       targetEntity: Egzakt\SystemBundle\Entity\Section
