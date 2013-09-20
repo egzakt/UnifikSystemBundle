@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Lib\Backend;
 
-use Egzakt\SystemBundle\Lib\Frontend\BaseController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
