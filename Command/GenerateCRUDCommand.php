@@ -3,10 +3,12 @@
 namespace Egzakt\SystemBundle\Command;
 
 use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
+use Doctrine\ORM\Mapping\MappingException;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Sensio\Bundle\GeneratorBundle\Command\Validators;
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand;
@@ -82,25 +84,26 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
 
         $bundle = $this->getContainer()->get('kernel')->getBundle($bundle);
 
-        // Generate the controller
-        $generator = $this->getGenerator();
-        $generator->generate($bundle, $entity, $metadata[0], 'yml', $prefix, true, true, $this->application, $input->getOption('with-jqgrid'));
-        $output->writeln('Generating the Controller code: <info>OK</info>');
-
-        $errors = array();
-
-        // Check if we create a Translation Form or not
+        // Check if we create a Translation or not
         $translation = array();
         if (isset($metadata[0]->associationMappings['translations'])) {
 
             $translationEntityClass = $metadata[0]->associationMappings['translations']['targetEntity'];
-            $entityTranslation = str_replace('\\', '', explode('\Entity', $translationEntityClass))[1];
+            $entityTranslation = str_replace('\\', '', explode('\Entity', $translationEntityClass));
+            $entityTranslation = $entityTranslation[1];
             $translationMetadata = $this->getEntityMetadata($translationEntityClass);
 
             $translation['entity'] = $entityTranslation;
             $translation['entityClass'] = $translationEntityClass;
             $translation['metadata'] = $translationMetadata[0];
         }
+
+        // Generate the controller
+        $generator = $this->getGenerator();
+        $generator->generate($bundle, $entity, $metadata[0], 'yml', $prefix, true, true, $this->application, $translation, $input->getOption('with-jqgrid'));
+        $output->writeln('Generating the Controller code: <info>OK</info>');
+
+        $errors = array();
 
         // form
         $this->generateForm($bundle, $entity, $metadata, $translation);

@@ -16,14 +16,14 @@
 
             foreach ($elements as $element) {
 
-            $element = explode('_', $element);
-            $entity = $repo->find($element[1]);
+                $element = explode('_', $element);
+                $entity = $repo->find($element[1]);
 
-            if ($entity) {
-            $entity->setOrdering(++$i);
-            $this->getEm()->persist($entity);
-            $this->getEm()->flush();
-            }
+                if ($entity) {
+                    $entity->setOrdering(++$i);
+                    $this->getEm()->persist($entity);
+                    $this->getEm()->flush();
+                }
             }
         }
 

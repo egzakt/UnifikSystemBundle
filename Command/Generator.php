@@ -46,6 +46,9 @@ class Generator extends DoctrineCrudGenerator
     /* @var string */
     protected $application;
 
+    /* @var array */
+    protected $translation;
+
     /** @var boolean */
     protected $withjqgrid;
 
@@ -78,7 +81,7 @@ class Generator extends DoctrineCrudGenerator
      *
      * @throws \RuntimeException
      */
-    public function generate(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata, $format, $routePrefix, $needWriteActions, $forceOverwrite, $application = '', $withjqgrid = false)
+    public function generate(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata, $format, $routePrefix, $needWriteActions, $forceOverwrite, $application = '', $translation = array(), $withjqgrid = false)
     {
         $this->routePrefix = $routePrefix;
         $this->actions = array('list', 'edit', 'delete');
@@ -100,6 +103,7 @@ class Generator extends DoctrineCrudGenerator
         $this->metadata = $metadata;
         $this->setFormat($format);
         $this->application = $application;
+        $this->translation = $translation;
         $this->withjqgrid = $withjqgrid;
 
         $this->generateControllerClass($forceOverwrite);
@@ -308,10 +312,18 @@ class Generator extends DoctrineCrudGenerator
         $filename = 'crud/';
         $filename.= $this->withjqgrid ? 'jqgrid/' : '';
         $filename.= 'views/list.html.twig.twig';
+        
+        $fields = array();
+        
+        if (count($this->translation['metadata']) > 0) {
+            $fields = array_merge($this->metadata->fieldMappings, $this->translation['metadata']->fieldMappings);
+        } else {
+            $fields[] = $this->metadata->fieldMappings;
+        }
 
         $this->renderFile($filename, $dir . '/' . $this->entity . '/list.html.twig', array(
             'entity'            => $this->entity,
-            'fields'            => $this->metadata->fieldMappings,
+            'fields'            => $fields,
             'bundle_name'       => $this->bundle->getName(),
             'actions'           => $this->actions,
             'record_actions'    => $this->getRecordActions(),
@@ -328,12 +340,13 @@ class Generator extends DoctrineCrudGenerator
     protected function generateEditView($dir)
     {
         $this->renderFile('crud/views/edit.html.twig.twig', $dir . '/' . $this->entity . '/edit.html.twig', array(
-            'route_prefix'      => $this->routePrefix,
-            'bundle_name'       => $this->bundle->getName(),
-            'entity'            => $this->entity,
-            'fields'            => $this->metadata->fieldMappings,
-            'actions'           => $this->actions,
-            'application'       => $this->application,
+            'route_prefix'          => $this->routePrefix,
+            'bundle_name'           => $this->bundle->getName(),
+            'entity'                => $this->entity,
+            'fields'                => $this->metadata->fieldMappings,
+            'actions'               => $this->actions,
+            'application'           => $this->application,
+            'translation_fields'    => (count($this->translation['metadata']) > 0) ? $this->translation['metadata']->fieldMappings : null
         ));
     }
 

@@ -12,6 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class {{ form_class }} extends AbstractType
 {
+
     /**
      * Build Form
      *
@@ -21,20 +22,25 @@ class {{ form_class }} extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-    {% if translation %}
-    ->add('translation', new {{ translation.entity }}Type())
-    {% endif %}
-    {%- for field in fields %}
+        {%- if translation %}
 
-        {% if field.fieldName in ['image', 'photo'] -%}
-        ->add('{{ field.fieldName }}', 'file', array('attr' => array('accept' => 'image/*', 'multiple' => 'multiple')))
-        {%- elseif field.fieldName in ['file'] -%}
-        ->add('{{ field.fieldName }}', 'file', array('attr' => array('multiple' => 'multiple')))
-        {%- elseif field.fieldName not in ['id', 'updatedAt', 'createdAt', 'ordering', 'locale'] -%}
-        ->add('{{ field.fieldName }}', null, array('label' => '{{ field.fieldName|replace({'At': ''})|capitalize }}'{% if field.type == 'text' %}, 'attr' => array('class' => 'ckeditor'){% endif %}{% if field.type in ['date'] %}, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd'{% endif %}))
+            ->add('translation', new {{ translation.entity }}Type())
         {%- endif -%}
+        {%- for field in fields -%}
 
-    {%- endfor -%};
+            {%- if field.fieldName in ['image', 'photo'] %}
+
+            ->add('{{ field.fieldName }}', 'file', array('attr' => array('accept' => 'image/*', 'multiple' => 'multiple')))
+            {%- elseif field.fieldName in ['file'] %}
+
+            ->add('{{ field.fieldName }}', 'file', array('attr' => array('multiple' => 'multiple')))
+            {%- elseif field.fieldName not in ['id', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
+
+            ->add('{{ field.fieldName }}', null, array('label' => '{{ field.fieldName|replace({'At': ''})|capitalize }}'{% if field.type == 'text' %}, 'attr' => array('class' => 'ckeditor'){% endif %}{% if field.type in ['date'] %}, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd'{% endif %}))
+            {%- endif -%}
+        {%- endfor -%};
+
+        ;
     }
 
     /**
