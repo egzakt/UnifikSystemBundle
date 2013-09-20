@@ -2,38 +2,48 @@
 
 namespace Egzakt\SystemBundle\Generator;
 
-use \Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Doctrine\ORM\Mapping\ClassMetadataInfo;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Egzakt\SystemBundle\Tools\EntityGenerator as BaseEntityGenerator;
 
 /**
  * EntityTranslation Generator
  */
-class EntityTranslationGenerator extends \Doctrine\ORM\Tools\EntityGenerator
+class EntityTranslationGenerator extends BaseEntityGenerator
 {
 
     /**
-     * Generate EntityTranslation Class
+     * Generate a PHP5 Doctrine 2 entity class from the given ClassMetadataInfo instance
      *
-     * @param \Doctrine\ORM\Mapping\ClassMetadataInfo $metadata Metadata Info
+     * @param ClassMetadataInfo     $metadata
+     * @param Bundle                $bundle
+     * @param string                $entity
+     * @param array                 $fields
      *
-     * @return string
+     * @return string $code
      */
-    public function generateEntityClass(ClassMetadataInfo $metadata, array $fields = array())
+    public function generateEntityClass(ClassMetadataInfo $metadata, $bundle = null, $entity = null, $fields = array())
     {
-        parent::setFieldVisibility('protected');
+        $target = sprintf('%s/Entity/%s.php', $bundle->getPath(), $entity);
 
-        $code = parent::generateEntityClass($metadata);
+        $this->setFieldVisibility('protected');
 
-        $shortClassName = explode('\\', $metadata->name);
-        $shortClassName = 'class ' . end($shortClassName);
+        $parts = explode('\\', $entity);
 
-        // Adding custom extends
-        $code = str_replace($shortClassName, $shortClassName . ' extends BaseTranslationEntity', $code);
+        $entityNamespace = implode('\\', $parts);
+        $namespace = $this->getNamespace($metadata);
+        $code = str_replace('<spaces>', $this->spaces, $this->generateEntityBody($metadata));
 
-        // Adding custom use statement
-        $useStatements = 'use Egzakt\SystemBundle\Lib\BaseTranslationEntity;';
-        $startString = 'use Doctrine\ORM\Mapping as ORM;';
-        $code = str_replace($startString, $startString . "\n\n" . $useStatements, $code);
+        $bundleName = explode('\Entity', $metadata->name);
+        $routePrefix = strtolower(str_replace('\\', '_', str_replace('Bundle', '', $bundleName[0]))) . '_backend';
+        $routeName = $routePrefix . strtolower(str_replace('\\', '_', $bundleName[1]));
 
-        return $code;
+        $this->renderFile('entity/EntityTranslation.php.twig', $target, array(
+            'entity_namespace' => $entityNamespace,
+            'namespace' => $namespace,
+            'route' => $routeName,
+            'entity' => $entity,
+            'code' => $code,
+        ));
     }
 }
