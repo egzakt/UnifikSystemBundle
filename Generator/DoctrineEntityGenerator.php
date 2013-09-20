@@ -56,7 +56,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
 
         $this->generateEntity($bundle, $entity, $format, $entityFields, $fields, $withRepository, $hasI18n);
         if ($hasI18n) {
-            $this->generateEntityTranslation($bundle, $entity, $format, $entityTranslationFields, $fields, $withRepository);
+            $this->generateEntityTranslation($bundle, $entity, $format, $entityTranslationFields, $fields);
         }
     }
 
@@ -97,10 +97,10 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $class->mapField(array('fieldName' => 'createdAt', 'type' => 'datetime', 'gedmo' => array('timestampable' => array('on' => 'create'))));
         $class->mapField(array('fieldName' => 'updatedAt', 'type' => 'datetime', 'gedmo' => array('timestampable' => array('on' => 'update'))));
 
-        $entityGenerator = $this->getEntityGenerator();
+        $entityGenerator = $this->getEntityGenerator($bundle);
         if ('annotation' === $format) {
             $entityGenerator->setGenerateAnnotations(true);
-            $entityCode = $entityGenerator->generateEntityClass($class, $fields);
+            $entityGenerator->generateEntityClass($class, $bundle, $entity, $fields);
             $mappingPath = $mappingCode = false;
         } else {
             $cme = new ClassMetadataExporter();
@@ -113,11 +113,8 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
 
             $mappingCode = $exporter->exportClassMetadata($class, 2);
             $entityGenerator->setGenerateAnnotations(false);
-            $entityCode = $entityGenerator->generateEntityClass($class, $fields);
+            $entityGenerator->generateEntityClass($class, $bundle, $entity, $fields);
         }
-
-        $this->filesystem->mkdir(dirname($entityPath));
-        file_put_contents($entityPath, $entityCode);
 
         if ($mappingPath) {
             $this->filesystem->mkdir(dirname($mappingPath));
@@ -130,7 +127,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         }
     }
 
-    public function generateEntityTranslation(BundleInterface $bundle, $entity, $format, array $entityFields, array $fields, $withRepository)
+    public function generateEntityTranslation(BundleInterface $bundle, $entity, $format, array $entityFields, array $fields)
     {
         $entityTranslation = $entity . 'Translation';
 
@@ -141,9 +138,6 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         }
 
         $class = new ClassMetadataInfo($entityClass);
-        if ($withRepository) {
-            $class->customRepositoryClassName = $entityClass.'Repository';
-        }
         $class->mapField(array('fieldName' => 'id', 'type' => 'integer', 'id' => true));
         $class->mapField(array('fieldName' => 'locale', 'type' => 'string', 'length' => 5));
         $class->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_AUTO);
@@ -172,7 +166,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $entityGenerator = $this->getEntityTranslationGenerator();
         if ('annotation' === $format) {
             $entityGenerator->setGenerateAnnotations(true);
-            $entityCode = $entityGenerator->generateEntityClass($class, $fields);
+            $entityGenerator->generateEntityClass($class, $bundle, $entityTranslation, $fields);
             $mappingPath = $mappingCode = false;
         } else {
             $cme = new ClassMetadataExporter();
@@ -185,20 +179,12 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
 
             $mappingCode = $exporter->exportClassMetadata($class, 2);
             $entityGenerator->setGenerateAnnotations(false);
-            $entityCode = $entityGenerator->generateEntityClass($class, $fields);
+            $entityGenerator->generateEntityClass($class, $bundle, $entityTranslation, $fields);
         }
-
-        $this->filesystem->mkdir(dirname($entityPath));
-        file_put_contents($entityPath, $entityCode);
 
         if ($mappingPath) {
             $this->filesystem->mkdir(dirname($mappingPath));
             file_put_contents($mappingPath, $mappingCode);
-        }
-
-        if ($withRepository) {
-            $path = $bundle->getPath().str_repeat('/..', substr_count(get_class($bundle), '\\'));
-            $this->getRepositoryGenerator()->writeEntityRepositoryClass($class->customRepositoryClassName, $path);
         }
     }
 
@@ -207,12 +193,22 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         return $this->registry->getConnection()->getDatabasePlatform()->getReservedKeywordsList()->isKeyword($keyword);
     }
 
+    protected function getSkeletonDirs()
+    {
+        $skeletonDirs = array();
+
+        $skeletonDirs[] = __DIR__ . '/../Resources/skeleton';
+        $skeletonDirs[] = __DIR__ . '/../Resources';
+
+        return $skeletonDirs;
+    }
+
     /**
      * Get Entity Generator
      *
      * @return \Egzakt\SystemBundle\Generator\EntityGenerator
      */
-    protected function getEntityGenerator()
+    protected function getEntityGenerator(BundleInterface $bundle = null)
     {
         $entityGenerator = new \Egzakt\SystemBundle\Generator\EntityGenerator();
         $entityGenerator->setGenerateAnnotations(false);
@@ -221,6 +217,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $entityGenerator->setUpdateEntityIfExists(true);
         $entityGenerator->setNumSpaces(4);
         $entityGenerator->setAnnotationPrefix('ORM\\');
+        $entityGenerator->setSkeletonDirs($this->getSkeletonDirs());
 
         return $entityGenerator;
     }
@@ -239,6 +236,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $entityGenerator->setUpdateEntityIfExists(true);
         $entityGenerator->setNumSpaces(4);
         $entityGenerator->setAnnotationPrefix('ORM\\');
+        $entityGenerator->setSkeletonDirs($this->getSkeletonDirs());
 
         return $entityGenerator;
     }

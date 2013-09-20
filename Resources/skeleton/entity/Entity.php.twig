@@ -1,0 +1,60 @@
+<?php
+
+namespace {{ namespace }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+use Egzakt\SystemBundle\Lib\BaseEntity;
+
+/**
+ * {{ entity }} Entity
+ */
+class {{ entity }} extends BaseEntity
+{
+
+    public function __toString()
+    {
+        if (false == $this->id) {
+            return 'New {{ entity }}';
+        }
+
+        if ($name = {{ name_function }}) {
+            return $name;
+        }
+
+        return '';
+    }
+
+    /**
+     * Get the backend route
+     *
+     * @param string $suffix
+     *
+     * @return string
+     */
+    public function getRouteBackend($suffix = 'edit')
+    {
+        return '{{ route ~ '_' }}' . $suffix;
+    }
+
+    /**
+     * Get params for the backend route
+     *
+     * @param array $params Additional parameters
+     *
+     * @return array
+     */
+    public function getRouteBackendParams($params = array())
+    {
+        $defaults = array(
+            'id' => $this->id ? $this->id : 0,
+        );
+
+        $params = array_merge($defaults, $params);
+
+        return $params;
+    }
+
+    {{ code }}
+}

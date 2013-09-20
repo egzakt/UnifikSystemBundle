@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+
+use Egzakt\SystemBundle\Lib\BaseTranslationEntity;
+
+/**
+ * {{ entity }} Entity
+ */
+class {{ entity }} extends BaseTranslationEntity
+{
+    {{ code }}
+}
