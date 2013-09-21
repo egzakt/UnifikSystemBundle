@@ -103,6 +103,8 @@ class Section extends BaseEntity
     }
 
     /**
+     * Set id
+     *
      * @param int $id
      */
     public function setId($id)
