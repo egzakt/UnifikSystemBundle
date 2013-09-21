@@ -49,6 +49,16 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     }
 
     /**
+     * Set id
+     *
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * @return string
      */
     public function __toString()

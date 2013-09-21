@@ -103,6 +103,16 @@ class Section extends BaseEntity
     }
 
     /**
+     * Set id
+     *
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * Add children
      *
      * @param Section $children The Children to add
