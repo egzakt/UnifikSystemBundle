@@ -42,6 +42,14 @@ class Navigation extends BaseEntity
     }
 
     /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
      * Construct
      */
     public function __construct()
