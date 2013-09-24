@@ -9,7 +9,7 @@ Egzakt\SystemBundle\Entity\SectionTranslation:
     name:
       type: string
       length: 255
-      nullable: true
+      nullable: false
     pageTitle:
       type: string
       length: 255
