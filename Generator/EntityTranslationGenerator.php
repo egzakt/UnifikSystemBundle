@@ -19,14 +19,13 @@ class EntityTranslationGenerator extends BaseEntityGenerator
      * @param Bundle                $bundle
      * @param string                $entity
      * @param array                 $fields
+     * @param bool                  $isSluggable
      *
      * @return string $code
      */
-    public function generateEntityClass(ClassMetadataInfo $metadata, $bundle = null, $entity = null, $fields = array())
+    public function generateEntityClass(ClassMetadataInfo $metadata, $bundle = null, $entity = null, $fields = array(), $isSluggable = false)
     {
         $target = sprintf('%s/Entity/%s.php', $bundle->getPath(), $entity);
-
-        $this->setFieldVisibility('protected');
 
         $parts = explode('\\', $entity);
 
@@ -38,12 +37,23 @@ class EntityTranslationGenerator extends BaseEntityGenerator
         $routePrefix = strtolower(str_replace('\\', '_', str_replace('Bundle', '', $bundleName[0]))) . '_backend';
         $routeName = $routePrefix . strtolower(str_replace('\\', '_', $bundleName[1]));
 
+        // Track all the translation fields and check if it contains the fieldName 'name'
+        // or a slug
+        $containNameField = false;
+        foreach ($fields as $field) {
+            if ($field['fieldName'] == 'name' && (substr(strtolower($field['i18n']), 0, 1) == 'y')) {
+                $containNameField = true;
+            }
+        }
+
         $this->renderFile('entity/EntityTranslation.php.twig', $target, array(
             'entity_namespace' => $entityNamespace,
             'namespace' => $namespace,
             'route' => $routeName,
             'entity' => $entity,
             'code' => $code,
+            'is_sluggable' => $isSluggable,
+            'sluggable_name' => $isSluggable && $containNameField
         ));
     }
 }

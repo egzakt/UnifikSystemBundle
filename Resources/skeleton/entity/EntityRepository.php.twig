@@ -1,0 +1,16 @@
+<?php
+
+namespace {{ namespace }};
+
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+
+/**
+ * {{ classname }}
+ */
+class {{ classname }} extends EntityRepository implements ContainerAwareInterface
+{
+    use EgzaktORMBehaviors\Repository\TranslatableEntityRepository;
+}

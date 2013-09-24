@@ -2,15 +2,35 @@
 
 namespace {{ namespace }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-
-use Egzakt\SystemBundle\Lib\BaseTranslationEntity;
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
 
 /**
  * {{ entity }} Entity
  */
-class {{ entity }} extends BaseTranslationEntity
+class {{ entity }}
 {
-    {{ code }}
+    use EgzaktORMBehaviors\Translatable\Translation;
+
+    {%- if is_sluggable %}
+
+    use EgzaktORMBehaviors\Sluggable\Sluggable;
+    {%- endif %}
+
+
+{{ code }}
+
+    {%- if sluggable_name %}
+
+
+    /**
+     * Get Sluggable Fields
+     *
+     * @return array
+     */
+    public function getSluggableFields()
+    {
+        return array('name');
+    }
+    {%- endif %}
+
 }

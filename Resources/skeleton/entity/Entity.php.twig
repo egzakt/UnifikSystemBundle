@@ -2,16 +2,29 @@
 
 namespace {{ namespace }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
 
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
-
 use Egzakt\SystemBundle\Lib\BaseEntity;
+use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
 
 /**
  * {{ entity }} Entity
  */
 class {{ entity }} extends BaseEntity
 {
+    {%- if is_timestampable %}
+
+    use EgzaktORMBehaviors\Timestampable\Timestampable;
+    {%- endif %}
+
+    {%- if is_sluggable %}
+
+    use EgzaktORMBehaviors\Sluggable\Sluggable;
+    {%- endif %}
+
+    {%- if has_i18n %}
+
+    use EgzaktORMBehaviors\Translatable\Translatable;
+    {%- endif %}
+
 
     public function __toString()
     {
@@ -56,5 +69,19 @@ class {{ entity }} extends BaseEntity
         return $params;
     }
 
-    {{ code }}
+{{ code }}
+
+    {%- if sluggable_name %}
+
+    /**
+     * Get Sluggable Fields
+     *
+     * @return array
+     */
+    public function getSluggableFields()
+    {
+        return array('name');
+    }
+    {%- endif %}
+
 }
