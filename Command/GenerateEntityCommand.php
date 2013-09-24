@@ -37,6 +37,7 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
             ->addOption('entity', null, InputOption::VALUE_REQUIRED, 'The entity class name to initialize (shortcut notation)')
             ->addOption('fields', null, InputOption::VALUE_REQUIRED, 'The fields to create with the new entity')
             ->addOption('format', null, InputOption::VALUE_REQUIRED, 'Use the format for configuration files (php, xml, yml, or annotation)', 'yml')
+            ->addOption('timestampable', null, InputOption::VALUE_REQUIRED, 'Whether the entity is timestampable or not', 'yes')
             ->addOption('with-repository', null, InputOption::VALUE_REQUIRED, 'Whether to generate the entity repository or not', 'yes');
     }
 
@@ -65,7 +66,7 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
         $bundle = $this->getContainer()->get('kernel')->getBundle($bundle);
 
         $generator = $this->getGenerator();
-        $generator->generate($bundle, $entity, $format, array_values($fields), $input->getOption('with-repository'));
+        $generator->__generate($bundle, $entity, $format, array_values($fields), $input->getOption('with-repository'), $input->getOption('timestampable'));
 
         $output->writeln('Generating the entity code: <info>OK</info>');
 
@@ -125,6 +126,9 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
 
         $format = $dialog->askAndValidate($output, $dialog->getQuestion('Configuration format (yml, xml, php, or annotation)', $input->getOption('format')), array('Sensio\Bundle\GeneratorBundle\Command\Validators', 'validateFormat'), false, $input->getOption('format'), $formats);
         $input->setOption('format', $format);
+
+        $timestampable = $dialog->askConfirmation($output, $dialog->getQuestion('Do you want this entity to be timestampable', $input->getOption('timestampable') ? 'yes' : 'no', '?'), $input->getOption('timestampable'));
+        $input->setOption('timestampable', $timestampable);
 
         // fields
         $input->setOption('fields', $this->addFields($input, $output, $dialog));

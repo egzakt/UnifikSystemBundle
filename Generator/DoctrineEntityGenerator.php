@@ -31,7 +31,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $this->registry = $registry;
     }
 
-    public function generate(BundleInterface $bundle, $entity, $format, array $fields, $withRepository)
+    public function __generate(BundleInterface $bundle, $entity, $format, array $fields, $withRepository, $timestampable)
     {
         // configure the bundle (needed if the bundle does not contain any Entities yet)
         $config = $this->registry->getManager(null)->getConfiguration();
@@ -43,24 +43,38 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         // Rebuild fields based on the i18n attribute
         $entityFields = array();
         $entityTranslationFields = array();
+        $isSluggable = false;
+        $isI18nSluggable = false;
         foreach ($fields as $field) {
             if (substr(strtolower($field['i18n']), 0, 1) == 'y') { // Simulate all Yes combinations
                 unset($field['i18n']);
-                array_push($entityTranslationFields, $field);
+
+                // Slug field won't be added to the ClassMetadata, it will be done with the Sluggable Trait
+                if ($field['fieldName'] == 'slug') {
+                    $isI18nSluggable = true;
+                } else {
+                    array_push($entityTranslationFields, $field);
+                }
             } else {
                 unset($field['i18n']);
-                array_push($entityFields, $field);
+
+                // Slug field won't be added to the ClassMetadata, it will be done with the Sluggable Trait
+                if ($field['fieldName'] == 'slug') {
+                    $isSluggable = true;
+                } else {
+                    array_push($entityFields, $field);
+                }
             }
         }
         $hasI18n = count($entityTranslationFields) > 0 ? true : false;
 
-        $this->generateEntity($bundle, $entity, $format, $entityFields, $fields, $withRepository, $hasI18n);
+        $this->generateEntity($bundle, $entity, $format, $entityFields, $fields, $withRepository, $hasI18n, $timestampable, $isSluggable);
         if ($hasI18n) {
-            $this->generateEntityTranslation($bundle, $entity, $format, $entityTranslationFields, $fields);
+            $this->generateEntityTranslation($bundle, $entity, $format, $entityTranslationFields, $fields, $isI18nSluggable);
         }
     }
 
-    public function generateEntity(BundleInterface $bundle, $entity, $format, array $entityFields, array $fields, $withRepository, $hasI18n)
+    public function generateEntity(BundleInterface $bundle, $entity, $format, array $entityFields, array $fields, $withRepository, $hasI18n, $isTimestampable, $isSluggable)
     {
         $entityClass = $this->registry->getAliasNamespace($bundle->getName()).'\\'.$entity;
         $entityPath = $bundle->getPath().'/Entity/'.str_replace('\\', '/', $entity).'.php';
@@ -75,18 +89,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $class->mapField(array('fieldName' => 'id', 'type' => 'integer', 'id' => true));
         $class->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_AUTO);
 
-        if ($hasI18n) {
-            $class->addInheritedAssociationMapping(
-                array(
-                    'fieldName' => 'translations',
-                    'type' => 4,
-                    'targetEntity' => $bundle->getNamespace() . '\Entity\\' . $entity . 'Translation',
-                    'mappedBy' => 'translatable',
-                    'fetch' => 'EAGER',
-                    'isCascadePersist' => true,
-                )
-            );
-        } else {
+        if (!$hasI18n) {
             $class->mapField(array('fieldName' => 'active', 'type' => 'boolean', 'nullable' => true));
         }
 
@@ -94,13 +97,10 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
             $class->mapField($field);
         }
 
-        $class->mapField(array('fieldName' => 'createdAt', 'type' => 'datetime', 'gedmo' => array('timestampable' => array('on' => 'create'))));
-        $class->mapField(array('fieldName' => 'updatedAt', 'type' => 'datetime', 'gedmo' => array('timestampable' => array('on' => 'update'))));
-
         $entityGenerator = $this->getEntityGenerator($bundle);
         if ('annotation' === $format) {
             $entityGenerator->setGenerateAnnotations(true);
-            $entityGenerator->generateEntityClass($class, $bundle, $entity, $fields);
+            $entityGenerator->generateEntityClass($class, $bundle, $entity, $fields, $hasI18n, $isTimestampable, $isSluggable);
             $mappingPath = $mappingCode = false;
         } else {
             $cme = new ClassMetadataExporter();
@@ -113,7 +113,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
 
             $mappingCode = $exporter->exportClassMetadata($class, 2);
             $entityGenerator->setGenerateAnnotations(false);
-            $entityGenerator->generateEntityClass($class, $bundle, $entity, $fields);
+            $entityGenerator->generateEntityClass($class, $bundle, $entity, $fields, $hasI18n, $isTimestampable, $isSluggable);
         }
 
         if ($mappingPath) {
@@ -127,7 +127,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         }
     }
 
-    public function generateEntityTranslation(BundleInterface $bundle, $entity, $format, array $entityFields, array $fields)
+    public function generateEntityTranslation(BundleInterface $bundle, $entity, $format, array $entityFields, array $fields, $isSluggable)
     {
         $entityTranslation = $entity . 'Translation';
 
@@ -139,23 +139,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
 
         $class = new ClassMetadataInfo($entityClass);
         $class->mapField(array('fieldName' => 'id', 'type' => 'integer', 'id' => true));
-        $class->mapField(array('fieldName' => 'locale', 'type' => 'string', 'length' => 5));
         $class->setIdGeneratorType(ClassMetadataInfo::GENERATOR_TYPE_AUTO);
-        $class->addInheritedAssociationMapping(
-            array(
-                'fieldName' => 'translatable',
-                'type' => 2,
-                'targetEntity' => $bundle->getNamespace() . '\Entity\\' . $entity,
-                'inversedBy' => 'translations',
-                'joinColumns' => array(
-                    array(
-                        'name' => 'translatable_id',
-                        'referencedColumnName' => 'id',
-                        'onDelete' => 'cascade'
-                    )
-                ),
-            )
-        );
 
         foreach ($entityFields as $field) {
             $class->mapField($field);
@@ -166,7 +150,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $entityGenerator = $this->getEntityTranslationGenerator();
         if ('annotation' === $format) {
             $entityGenerator->setGenerateAnnotations(true);
-            $entityGenerator->generateEntityClass($class, $bundle, $entityTranslation, $fields);
+            $entityGenerator->generateEntityClass($class, $bundle, $entityTranslation, $fields, $isSluggable);
             $mappingPath = $mappingCode = false;
         } else {
             $cme = new ClassMetadataExporter();
@@ -179,7 +163,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
 
             $mappingCode = $exporter->exportClassMetadata($class, 2);
             $entityGenerator->setGenerateAnnotations(false);
-            $entityGenerator->generateEntityClass($class, $bundle, $entityTranslation, $fields);
+            $entityGenerator->generateEntityClass($class, $bundle, $entityTranslation, $fields, $isSluggable);
         }
 
         if ($mappingPath) {
@@ -248,6 +232,9 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
      */
     protected function getRepositoryGenerator()
     {
-        return new \Egzakt\SystemBundle\Generator\EntityRepositoryGenerator();
+        $entityRepositoryGenerator = new \Egzakt\SystemBundle\Generator\EntityRepositoryGenerator();
+        $entityRepositoryGenerator->setSkeletonDirs($this->getSkeletonDirs());
+
+        return $entityRepositoryGenerator;
     }
 }

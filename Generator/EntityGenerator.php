@@ -18,14 +18,15 @@ class EntityGenerator extends BaseEntityGenerator
      * @param Bundle                $bundle
      * @param string                $entity
      * @param array                 $fields
+     * @param bool                  $hasI18n
+     * @param bool                  $isTimestampable
+     * @param bool                  $isSluggable
      *
      * @return string $code
      */
-    public function generateEntityClass(ClassMetadataInfo $metadata, $bundle = null, $entity = null, $fields = array())
+    public function generateEntityClass(ClassMetadataInfo $metadata, $bundle = null, $entity = null, $fields = array(), $hasI18n = false, $isTimestampable = false, $isSluggable = false)
     {
         $target = sprintf('%s/Entity/%s.php', $bundle->getPath(), $entity);
-
-        $this->setFieldVisibility('protected');
 
         $parts = explode('\\', $entity);
 
@@ -38,15 +39,21 @@ class EntityGenerator extends BaseEntityGenerator
         $routeName = $routePrefix . strtolower(str_replace('\\', '_', $bundleName[1]));
 
         // Track all the translation fields and check if it contains the fieldName 'name'
+        // and check if the name field is i18n
         $containNameField = false;
+        $nameIsI18n = false;
+
         foreach ($fields as $field) {
-            if (substr(strtolower($field['i18n']), 0, 1) == 'y') {
-                $field['fieldName'] == 'name' ? $containNameField = true : null;
+            if ($field['fieldName'] == 'name') {
+                $containNameField = true;
+                if (substr(strtolower($field['i18n']), 0, 1) == 'y') {
+                    $nameIsI18n = true;
+                }
             }
         }
 
         if ($containNameField) {
-            $functionName = '$this->translate()->getName()';
+            $functionName = '$this->getName()';
         } else {
             $functionName = '$this->getEntityName()';
         }
@@ -57,7 +64,11 @@ class EntityGenerator extends BaseEntityGenerator
             'route' => $routeName,
             'entity' => $entity,
             'code' => $code,
-            'name_function' => $functionName
+            'name_function' => $functionName,
+            'is_timestampable' => $isTimestampable,
+            'is_sluggable' => $isSluggable,
+            'sluggable_name' => !$nameIsI18n && $isSluggable,
+            'has_i18n' => $hasI18n
         ));
     }
 
