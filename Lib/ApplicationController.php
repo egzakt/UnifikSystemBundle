@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Lib;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use Egzakt\SystemBundle\Entity\Section;
@@ -83,7 +84,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
      * Return the repository of an entity.
      *
      * @param $name
-     * @return BaseEntityRepository
+     * @return EntityRepository
      */
     protected function getRepository($name)
     {
