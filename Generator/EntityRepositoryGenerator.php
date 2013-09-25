@@ -7,7 +7,15 @@ namespace Egzakt\SystemBundle\Generator;
  */
 class EntityRepositoryGenerator extends \Doctrine\ORM\Tools\EntityRepositoryGenerator
 {
+    /**
+     * @var string|array $skeletonDirs
+     */
     private $skeletonDirs;
+
+    /**
+     * @var bool $hasI18n
+     */
+    private $hasI18n;
 
     /**
      * Generate entity repository class
@@ -23,7 +31,8 @@ class EntityRepositoryGenerator extends \Doctrine\ORM\Tools\EntityRepositoryGene
 
         return $this->render('entity/EntityRepository.php.twig', array(
             'namespace' => $namespace,
-            'classname' => $className
+            'classname' => $className,
+            'has_i18n' => $this->hasI18n
         ));
     }
 
@@ -58,5 +67,15 @@ class EntityRepositoryGenerator extends \Doctrine\ORM\Tools\EntityRepositoryGene
     public function setSkeletonDirs($skeletonDirs)
     {
         $this->skeletonDirs = is_array($skeletonDirs) ? $skeletonDirs : array($skeletonDirs);
+    }
+
+    /**
+     * Will be used to include the Translatable trait or not.
+     *
+     * @param boolean $hasI18n
+     */
+    public function setHasI18n($hasI18n)
+    {
+        $this->hasI18n = $hasI18n;
     }
 }

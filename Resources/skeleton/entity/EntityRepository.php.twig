@@ -2,15 +2,19 @@
 
 namespace {{ namespace }};
 
+{% if has_i18n %}
 use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
-
-use Doctrine\ORM\EntityRepository;
-use Symfony\Component\DependencyInjection\ContainerAwareInterface;
+{% endif %}
+use Egzakt\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * {{ classname }}
  */
-class {{ classname }} extends EntityRepository implements ContainerAwareInterface
+class {{ classname }} extends BaseEntityRepository
 {
+    {%- if has_i18n %}
+
     use EgzaktORMBehaviors\Repository\TranslatableEntityRepository;
+    {%- endif %}
+
 }
