@@ -123,7 +123,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
 
         if ($withRepository) {
             $path = $bundle->getPath().str_repeat('/..', substr_count(get_class($bundle), '\\'));
-            $this->getRepositoryGenerator()->writeEntityRepositoryClass($class->customRepositoryClassName, $path);
+            $this->getRepositoryGenerator($hasI18n)->writeEntityRepositoryClass($class->customRepositoryClassName, $path);
         }
     }
 
@@ -228,12 +228,15 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
     /**
      * Get Repository Generator
      *
+     * @param bool $hasI18n
+     *
      * @return \Egzakt\SystemBundle\Generator\EntityRepositoryGenerator
      */
-    protected function getRepositoryGenerator()
+    protected function getRepositoryGenerator($hasI18n = false)
     {
         $entityRepositoryGenerator = new \Egzakt\SystemBundle\Generator\EntityRepositoryGenerator();
         $entityRepositoryGenerator->setSkeletonDirs($this->getSkeletonDirs());
+        $entityRepositoryGenerator->setHasI18n($hasI18n);
 
         return $entityRepositoryGenerator;
     }
