@@ -15,7 +15,7 @@
         {% if error %}
             <div id="error_message">
                 <ul>
-                    <li>{{ error.message }}</li>
+                    <li>{{ error.message|trans }}</li>
                 </ul>
             </div>
         {% endif %}

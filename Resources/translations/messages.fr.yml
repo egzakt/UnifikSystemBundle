@@ -1,3 +1,44 @@
+User: Utilisateur
+Password: Mot de passe
+Content Management System (CMS): Système de gestion de contenu (CMS)
+Sign In: Connexion
+Logout: Déconnexion
+Welcome: Bienvenue
+Access site: Accéder au site
+Online help: Aide en ligne
+Content Language: Langue du contenu
+Bad Credentials.: Utilisateur/mot de passe invalide.
+
+Developed by: Développé par
+
+Languages: Langues
+
+Sections List: Liste des sections
+Add a section: Ajouter une section
+Without navigation: Sans navigation
+New section: Nouvelle section
+Active: Actif
+Name: Nom
+SEO Informations: Informations SEO
+Parameters: Paramètres
+Slug: Code URL
+Page title: Titre de page
+Head code: Code d'entête
+Last update: Mise à jour
+
+Cancel: Annuler
+Save and continue: Enregistrer et continuer
+Save: Enregistrer
+Delete: Supprimer
+
+Some fields are invalid.: Des champs sont invalides.
+%entity% has been updated.: %entity% a été mis à jour.
+Are you sure you want to delete: Voulez-vous vraiment supprimer
+Are you sure you want to delete %name%?: Voulez-vous vraiment supprimer %name%?
+
+Go back to: Revenir à
+Exit impersonation: Quitter la personnification
+
 Add a user: Ajouter un utilisateur
 New User: Nouvel utilisateur
 Users: Utilisateurs
