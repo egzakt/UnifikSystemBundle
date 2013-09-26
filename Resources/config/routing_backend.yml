@@ -155,6 +155,10 @@ egzakt_system_backend_locale_edit:
 egzakt_system_backend_locale_delete:
     pattern:  /locales/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:delete" }
+
+egzakt_system_backend_locale_delete_check:
+    pattern:  /locales/{id}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:checkDelete" }
     
 # Applications
 egzakt_system_backend_application:
