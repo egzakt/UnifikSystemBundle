@@ -10,11 +10,17 @@ Content Language: Langue du contenu
 Bad Credentials.: Utilisateur/mot de passe invalide.
 
 Developed by: Développé par
-
 Languages: Langues
 
+Primary: Primaire
+Secondary: Secondaire
+Footer: Pied de page
+Nb. of subsections: Nombre de sous-sections
+Subsections list: Liste des sous-sections
 Sections List: Liste des sections
+Subsections: sous-sections
 Add a section: Ajouter une section
+Add a subsection: Ajouter une sous-section
 Without navigation: Sans navigation
 New section: Nouvelle section
 Active: Actif
@@ -25,14 +31,39 @@ Slug: Code URL
 Page title: Titre de page
 Head code: Code d'entête
 Last update: Mise à jour
+Search a name: Rechercher un nom
 
+Texts: Textes
+Add a text: Ajout un texte
+Texts list: Liste des textes
+Text list: Liste des textes
+New text: Nouveau texte
+Text: Texte
+Content: Contenu
+Collapsable: Déroulant
+Search a content: Recherche un contenu
+Main: Principaux
+Static block: Blocs statiques
+The Text has been updated.: Le texte a été mis à jour.
+The Text has been deleted.: Le texte a été supprimé.
+
+%entity% list: Liste des %entity%
+'{0} No results|{1} One result|]1,Inf] %count% results': '{0} Aucun résultat|{1} Un resultat|]1,Inf] %count% resultats'
+Click to sort: Cliquer pour ordonnancer
+'Filter: All': 'Filtre: Tous'
+Return to search mode: Retourner au mode recherche
+Switch to order mode. This will allow you to change the items order on the site: Passer au mode ordonnancement. Ceci vous permettra de modifier l'ordre des items sur le site
+
+Edit: Modifier
 Cancel: Annuler
 Save and continue: Enregistrer et continuer
 Save: Enregistrer
 Delete: Supprimer
+'cannot be deleted because of these restrictions:': 'ne peut être supprimé à cause des ces restrictions:'
 
 Some fields are invalid.: Des champs sont invalides.
 %entity% has been updated.: %entity% a été mis à jour.
+%entity% has been deleted.: %entity% a été supprimé.
 Are you sure you want to delete: Voulez-vous vraiment supprimer
 Are you sure you want to delete %name%?: Voulez-vous vraiment supprimer %name%?
 
