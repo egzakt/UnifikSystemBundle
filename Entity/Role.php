@@ -202,38 +202,6 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
         return $params;
     }
 
-    /**
-     * Is Deletable
-     *
-     * @return bool
-     */
-    public function isDeletable()
-    {
-        return !in_array($this->getRole(), array('ROLE_DEVELOPER', 'ROLE_BACKEND_ADMIN', 'ROLE_ADMIN'));
-    }
-
-    /**
-     * Not Deletable
-     *
-     * @return bool
-     *
-     * @TODO Remove this and refactor the getDeleteRestrictions functionnality
-     */
-    public function notDeletable()
-    {
-        return !$this->isDeletable();
-    }
-
-    /**
-     * List of methods to check before allowing deletion
-     *
-     * @return array
-     */
-    public function getDeleteRestrictions()
-    {
-        return array('notDeletable');
-    }
-
     public function serialize()
     {
         return serialize(array(

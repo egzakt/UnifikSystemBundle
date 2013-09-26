@@ -168,7 +168,6 @@ class SectionController extends BaseController
         ));
     }
 
-
     /**
      * Check if we can delete a Section.
      *

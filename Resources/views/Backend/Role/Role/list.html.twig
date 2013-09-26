@@ -1,9 +1,5 @@
 {% extends 'EgzaktSystemBundle:Backend/Role:layout.html.twig' %}
 
-{% block content_header %}
-    <h1>{% trans %}Roles{% endtrans %}</h1>
-{% endblock %}
-
 {% block content_main %}
 
     <div id="list_actions_bar">
@@ -47,7 +43,8 @@
         </table>
         <div class="total">
             <span class="sub-total"></span>
-            {{ roles|length }} {% trans %}result{% endtrans %}{{ roles|length > 1 ? 's' : '' }}
+            {% set count = roles|length %}
+            {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
         </div>
     </div>
 

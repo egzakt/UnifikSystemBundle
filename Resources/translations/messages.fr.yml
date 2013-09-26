@@ -55,6 +55,9 @@ Repeat: Confirmation du mot de passe
 Impersonate: Personnifier
 User list: Liste des utilisateurs
 
+Role list: Liste des rôles
+You can't delete this Role.: Vous ne pouvez pas supprimer ce rôle.
+
 %entity% list: Liste des %entity%
 '{0} No results|{1} One result|]1,Inf] %count% results': '{0} Aucun résultat|{1} Un resultat|]1,Inf] %count% resultats'
 Click to sort: Cliquer pour ordonnancer

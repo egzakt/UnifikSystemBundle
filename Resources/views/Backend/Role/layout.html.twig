@@ -2,7 +2,9 @@
 
 {% block content %}
 
-    <h1>{% trans %}Roles{% endtrans %}</h1>
+    {% block content_header %}
+        <h1>{% trans %}Role list{% endtrans %}</h1>
+    {% endblock  %}
 
     {% block flash_message %}
         {% include 'EgzaktSystemBundle:Backend/Core:flash_message.html.twig' %}

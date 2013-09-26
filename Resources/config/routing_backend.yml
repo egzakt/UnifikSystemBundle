@@ -59,6 +59,10 @@ egzakt_system_backend_role_delete:
     pattern:  /roles/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Role/Role:delete" }
 
+egzakt_system_backend_role_delete_check:
+    pattern:  /roles/{id}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Role/Role:checkDelete" }
+
 # Members
 egzakt_system_backend_member:
     pattern:  /members
