@@ -1372,6 +1372,18 @@ table.fields .options td {
 }
 
 
+/* Quick create */
+a.quick_create_link {
+    display: inline-block;
+    margin-top: 10px;
+    padding-left: 20px;
+    background: url(/bundles/egzaktsystem/backend/images/icons/add.png) no-repeat 0 0;
+}
+a.quick_create_link.aside {
+    margin: 0 0 0 12px;
+}
+
+
 /* Files */
 .uploaded_file {
     margin-bottom: 8px;
@@ -1509,14 +1521,14 @@ span.cke_skin_kama {
 
 #loading {
     display: none;
-    position: absolute;
+    position: fixed;
     width: 32px;
     height: 32px;
     left: 50%;
     top: 50%;
     margin-top: -16px;
     margin-left: -16px;
-    z-index: 1;
+    z-index: 200;
 }
 
 .select_all_wrapper {
