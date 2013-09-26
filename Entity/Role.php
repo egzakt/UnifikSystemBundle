@@ -202,6 +202,11 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
         return $params;
     }
 
+    /**
+     * Used to serialize the User in the Session
+     *
+     * @return string
+     */
     public function serialize()
     {
         return serialize(array(
@@ -210,6 +215,11 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
         ));
     }
 
+    /**
+     * Used to unserialize the User from the Session
+     *
+     * @param string $serialized
+     */
     public function unserialize($serialized)
     {
         list(

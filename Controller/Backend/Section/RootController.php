@@ -5,6 +5,8 @@ namespace Egzakt\SystemBundle\Controller\Backend\Section;
 use Egzakt\SystemBundle\Entity\Mapping;
 use Egzakt\SystemBundle\Entity\NavigationRepository;
 use Egzakt\SystemBundle\Entity\SectionRepository;
+use Egzakt\SystemBundle\Lib\DeletableResult;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -167,12 +169,43 @@ class RootController extends BaseController
     }
 
     /**
+     * Check if we can delete a Section.
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     * @throws NotFoundHttpException
+     */
+    public function checkDeleteAction(Request $request, $id)
+    {
+
+        $entity = $this->sectionRepository->find($id);
+
+        if (null === $entity) {
+            throw new NotFoundHttpException();
+        }
+
+        $result = $this->checkDeletable($entity);
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
+
+        return new JsonResponse($output);
+
+    }
+
+    /**
      * Deletes a RootSection entity.
      *
      * @param Request $request T
      *
      * @param integer $id The ID of the RootSection to delete
      *
+     * @throws \Exception
      * @throws NotFoundHttpException
      *
      * @return Response|RedirectResponse
@@ -185,15 +218,9 @@ class RootController extends BaseController
             throw $this->createNotFoundException('Unable to find Section entity.');
         }
 
-        if ($request->get('message')) {
-            $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
-                'entity' => $section
-            ));
-
-            return new Response(json_encode(array(
-                'template' => $template,
-                'isDeletable' => $section->isDeletable()
-            )));
+        // Don't delete some sections
+        if ($this->checkDeletable($section)->getStatus() != DeletableResult::STATUS_DELETABLE) {
+            throw new \Exception('You can\'t delete this section.');
         }
 
         // Call the translator before we flush the entity so we can have the real __toString()

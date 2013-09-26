@@ -8,18 +8,24 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class UserDeletableListener extends BaseDeletableListener
 {
-
     /**
      * @var SecurityContextInterface
      */
     private $security;
 
+    /**
+     * Constructor
+     *
+     * @param SecurityContextInterface $sci
+     */
     public function __construct(SecurityContextInterface $sci)
     {
         $this->security = $sci;
     }
 
     /**
+     * Get the current User from the Security Context
+     *
      * @return User
      */
     protected function getCurrentUser()
@@ -38,5 +44,4 @@ class UserDeletableListener extends BaseDeletableListener
 
         return $this->validate();
     }
-
 }
