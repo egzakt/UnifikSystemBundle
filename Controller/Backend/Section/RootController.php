@@ -218,21 +218,20 @@ class RootController extends BaseController
             throw $this->createNotFoundException('Unable to find Section entity.');
         }
 
-        // Don't delete some sections
-        if ($this->checkDeletable($section)->isFail()) {
-            throw new \Exception('You can\'t delete this section.');
+        $result = $this->checkDeletable($section);
+        if ($result->isSuccess()) {
+            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+                '%entity% has been deleted.',
+                array('%entity%' => $section->getName() != '' ? $section->getName() : $section->getEntityName()))
+            );
+
+            $this->getEm()->remove($section);
+            $this->getEm()->flush();
+
+            $this->get('egzakt_system.router_invalidator')->invalidate();
+        } else {
+            $this->addFlash('error', $result->getErrors());
         }
-
-        // Call the translator before we flush the entity so we can have the real __toString()
-        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-            '%entity% has been deleted.',
-            array('%entity%' => $section->getName() != '' ? $section->getName() : $section->getEntityName()))
-        );
-
-        $this->getEm()->remove($section);
-        $this->getEm()->flush();
-
-        $this->get('egzakt_system.router_invalidator')->invalidate();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));
     }

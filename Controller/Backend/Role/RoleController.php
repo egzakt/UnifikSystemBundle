@@ -187,19 +187,18 @@ class RoleController extends BaseController
             throw $this->createNotFoundException('Unable to find Role entity.');
         }
 
-        // Don't delete some roles
-        if ($this->checkDeletable($role)->isFail()) {
-            throw new \Exception('You can\'t delete this role.');
+        $result = $this->checkDeletable($role);
+        if ($result->isSuccess()) {
+            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+                '%entity% has been deleted.',
+                array('%entity%' => $role)
+            ));
+
+            $this->getEm()->remove($role);
+            $this->getEm()->flush();
+        } else {
+            $this->addFlash('error', $result->getErrors());
         }
-
-        // Call the translator before we flush the entity so we can have the real __toString()
-        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-            '%entity% has been deleted.',
-            array('%entity%' => $role))
-        );
-
-        $this->getEm()->remove($role);
-        $this->getEm()->flush();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_role'));
     }

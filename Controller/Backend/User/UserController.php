@@ -186,17 +186,19 @@ class UserController extends BaseController
         }
 
         // Don't delete some roles
-        if ($this->checkDeletable($entity)->isFail()) {
-            throw new \Exception('You can\'t delete this user.');
+        $result = $this->checkDeletable($entity);
+        if ($result->isSuccess()) {
+            $this->getEm()->remove($entity);
+            $this->getEm()->flush();
+
+            $this->addFlash('success', $this->get('translator')->trans(
+                '%entity% has been deleted.',
+                array('%entity%' => $entity)
+            ));
+            $this->get('egzakt_system.router_invalidator')->invalidate();
+        } else {
+            $this->addFlash('error', $result->getErrors());
         }
-
-        $this->getEm()->remove($entity);
-        $this->getEm()->flush();
-
-        $this->addFlash('success', $this->get('translator')->trans(
-            '%entity% has been deleted.',
-            array('%entity%' => $entity)
-        ));
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
 
