@@ -282,17 +282,78 @@ body.editor {
     margin: 0;
 }
 
-.editor .file {
-   	display:inline-block;
-	padding:2px 0 2px 22px;
+/* Headings */
+.editor	h2,
+.cke_panel_listItem h2 {
+    font-size: 1.333em;
+    line-height: 1.1em;
+    text-transform: uppercase;
+    margin: 0 0 10px 0;
 }
 
-.editor a.file_doc {
-	background:url(/bundles/egzaktfrontendcore/images/icons/doc.png) no-repeat 0 1px;
+.editor h3,
+.cke_panel_listItem h3 {
+    font-size: 1.417em;
+    line-height: 1.1em;
+    margin: 0 0 5px 0;
 }
 
-.editor a.file_pdf {
-	background:url(/bundles/egzaktfrontendcore/images/icons/pdf.png) no-repeat 0 1px;
+.editor h4,
+.cke_panel_listItem h4 {
+    font-size: 1.167em;
+    line-height: 1.2em;
+    margin: 0 0 5px 0;
+}
+
+
+/* Styles */
+.editor .colored,
+.cke_panel_listItem .colored {
+    color: #198ee0;
+}
+
+
+/* Box */
+.editor .tmpl_box {
+    padding: 12px;
+    background-color: #cde1fd;
+}
+
+
+/* Colored table */
+.editor .tmpl_colored_table table {
+    border-collapse: collapse;
+    border: 1px solid #000;
+}
+
+.editor .tmpl_colored_table thead th {
+    background-color: #cde1fd;
+    padding: 12px;
+    border: 1px solid #000;
+}
+
+.editor .tmpl_colored_table tbody td {
+    padding: 6px 12px;
+    border: 1px solid #000;
+    background-color: #fff;
+}
+.editor .tmpl_colored_table tbody tr:nth-child(odd) td {
+    background-color: #ecf5ff;
+}
+
+
+/* Files */
+.editor .tmpl_file {
+   	display: inline-block;
+	padding: 2px 0 2px 22px;
+}
+
+.editor a.tmpl_file.doc {
+	background:url(/bundles/egzaktsystem/frontend/images/ul/icons/doc.png) no-repeat 0 1px;
+}
+
+.editor a.tmpl_file.pdf {
+	background:url(/bundles/egzaktsystem/frontend/images/ul/icons/pdf.png) no-repeat 0 1px;
 }
 
 
