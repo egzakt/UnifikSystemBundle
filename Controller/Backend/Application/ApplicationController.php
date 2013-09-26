@@ -17,7 +17,8 @@ use Egzakt\SystemBundle\Lib\Backend\BaseController;
 /**
  * Application Controller
  */
-class ApplicationController extends BaseController
+class
+ApplicationController extends BaseController
 {
     /**
      * @var AppRepository
@@ -161,7 +162,7 @@ class ApplicationController extends BaseController
                 array('%entity%' => $application)
             ));
 
-            $this->getEm()->remove($locale);
+            $this->getEm()->remove($application);
             $this->getEm()->flush();
 
             $this->get('egzakt_system.router_invalidator')->invalidate();
