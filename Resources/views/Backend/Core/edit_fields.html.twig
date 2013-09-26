@@ -1,5 +1,38 @@
 {% extends 'form_table_layout.html.twig' %}
 
+{% block form_start %}
+{% spaceless %}
+    {% set method = method|upper %}
+    {% if method in ["GET", "POST"] %}
+        {% set form_method = method %}
+    {% else %}
+        {% set form_method = "POST" %}
+    {% endif %}
+    <form novalidate="novalidate" method="{{ form_method|lower }}" action="{{ action }}"{% for attrname, attrvalue in attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}{% if multipart %} enctype="multipart/form-data"{% endif %}>
+    {% if form_method != method %}
+        <input type="hidden" name="_method" value="{{ method }}" />
+    {% endif %}
+{% endspaceless %}
+{% endblock form_start %}
+
+{% block form_widget_compound %}
+{% spaceless %}
+    <div id="fields_box">
+        <table class="fields" {{ block('widget_container_attributes') }}>
+            {% if form.parent is empty and errors|length > 0 %}
+            <tr>
+                <td colspan="2">
+                    {{ form_errors(form) }}
+                </td>
+            </tr>
+            {% endif %}
+            {{ block('form_rows') }}
+            {{ form_rest(form) }}
+        </table>
+    </div>
+{% endspaceless %}
+{% endblock form_widget_compound %}
+
 {% block form_row %}
     <tr{% if '[translation]' in full_name %} class="translation"{% endif %}>
         <th{% if errors|length > 0 %} class="error"{% endif %}>
@@ -194,5 +227,13 @@
         {% endif %}
 
         <input type="file" {{ block('widget_attributes') }} />
+    {% endspaceless %}
+{% endblock %}
+
+{% block creatable_entity_widget %}
+    {% spaceless %}
+        {{ block('choice_widget') }}
+        <a href="{{ path(quick_create_route) }}" class="quick_create_link{% if not form.vars.expanded %} aside{% endif %}">{{ "Create a new " ~ entity_name|trans }}</a>
+        <div class="quick_create_container" data-input-id="{{ form.vars.id }}" data-input-name="{{ form.vars.full_name }}" data-input-type="{% if not form.vars.expanded %}select{% elseif form.vars.multiple %}checkbox{% else %}radio{% endif %}"></div>
     {% endspaceless %}
 {% endblock %}

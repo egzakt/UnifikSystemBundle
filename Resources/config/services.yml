@@ -21,6 +21,7 @@ parameters:
     egzakt_system.deletable_user_listener.class:                Egzakt\SystemBundle\Listener\UserDeletableListener
     egzakt_system.locale_switcher.class:                        Egzakt\SystemBundle\Lib\LocaleSwitcher
     egzakt_system.section_translation.sluggable.listener.class: Egzakt\SystemBundle\Lib\SectionTranslationSluggableListener
+    egzakt_system.form.type.creatable_entity.class:             Egzakt\SystemBundle\Form\Type\CreatableEntityType
     egzakt_backend.security.cms_voter.class:                    Egzakt\SystemBundle\Lib\Backend\CmsVoter
     egzakt_backend.core.class:                                  Egzakt\SystemBundle\Lib\Backend\Core
     egzakt_backend.form.type.advanced_file.class:               Egzakt\SystemBundle\Form\Backend\AdvancedFileType
@@ -118,6 +119,11 @@ services:
     egzakt_system.locale_switcher:
         class: %egzakt_system.locale_switcher.class%
         arguments: [@service_container]
+
+    egzakt_system.form.type.creatable_entity:
+        class: %egzakt_system.form.type.creatable_entity.class%
+        tags:
+            - { name: form.type, alias: creatable_entity }
 
     egzakt_backend.core:
         class:  %egzakt_backend.core.class%
