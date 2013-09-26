@@ -186,13 +186,14 @@ class UserController extends BaseController
 
         $result = $this->checkDeletable($entity);
         if ($result->isSuccess()) {
-            $this->getEm()->remove($entity);
-            $this->getEm()->flush();
 
             $this->addFlash('success', $this->get('translator')->trans(
                 '%entity% has been deleted.',
                 array('%entity%' => $entity)
             ));
+
+            $this->getEm()->remove($entity);
+            $this->getEm()->flush();
         } else {
             $this->addFlash('error', $result->getErrors());
         }

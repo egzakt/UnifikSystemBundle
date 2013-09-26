@@ -47,6 +47,14 @@ Static block: Blocs statiques
 The Text has been updated.: Le texte a été mis à jour.
 The Text has been deleted.: Le texte a été supprimé.
 
+Username: Utilisateur
+Firstname: Prénom
+Lastname: Nom
+Last updated: Mise à jour
+Repeat: Confirmation du mot de passe
+Impersonate: Personnifier
+User list: Liste des utilisateurs
+
 %entity% list: Liste des %entity%
 '{0} No results|{1} One result|]1,Inf] %count% results': '{0} Aucun résultat|{1} Un resultat|]1,Inf] %count% resultats'
 Click to sort: Cliquer pour ordonnancer
