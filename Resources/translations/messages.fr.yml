@@ -99,6 +99,14 @@ Add a language: Ajouter une langue
 Search a code: Recherche un code
 New locale: Nouvelle langue
 
+Prefix: Préfixe
+Search a prefix: Rechercher un préfixe
+Applications List: Liste des applications
+Add an application: Ajouter une application
+New Application: Nouvelle application
+The prefix is used at the start of every URL of the application: Le préfixe est utilisé au début de chaque URL de l'application
+This application can't be deleted.: Cette application ne peut être supprimée.
+
 Search a username: Rechercher un nom d'utilisateur
 Search a first name: Rechercher un prénom
 Search a last name: Rechercher un nom

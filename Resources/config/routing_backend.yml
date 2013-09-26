@@ -171,4 +171,8 @@ egzakt_system_backend_application_edit:
 
 egzakt_system_backend_application_delete:
     pattern:  /applications/{applicationId}/delete
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:delete" }    
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:delete" }
+
+egzakt_system_backend_application_delete_check:
+    pattern:  /applications/{applicationId}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:checkDelete" }

@@ -21,6 +21,7 @@ parameters:
     egzakt_system.deletable_user_listener.class:                Egzakt\SystemBundle\Listener\UserDeletableListener
     egzakt_system.deletable_role_listener.class:                Egzakt\SystemBundle\Listener\RoleDeletableListener
     egzakt_system.deletable_section_listener.class:             Egzakt\SystemBundle\Listener\SectionDeletableListener
+    egzakt_system.deletable_app_listener.class:                 Egzakt\SystemBundle\Listener\AppDeletableListener
     egzakt_system.locale_switcher.class:                        Egzakt\SystemBundle\Lib\LocaleSwitcher
     egzakt_system.section_translation.sluggable.listener.class: Egzakt\SystemBundle\Lib\SectionTranslationSluggableListener
     egzakt_backend.security.cms_voter.class:                    Egzakt\SystemBundle\Lib\Backend\CmsVoter
@@ -48,6 +49,11 @@ services:
         class: %egzakt_system.deletable_section_listener.class%
         tags:
           - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\Section }
+
+    egazkt_system.deletable_app_listener:
+        class: %egzakt_system.deletable_app_listener.class%
+        tags:
+          - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\App }
 
     egzakt_system.kernel_controller_listener:
         class: %egzakt_system.kernel_controller_listener.class%
