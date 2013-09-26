@@ -188,7 +188,7 @@ class RoleController extends BaseController
         }
 
         // Don't delete some roles
-        if ($this->checkDeletable($role)->getStatus() != DeletableResult::STATUS_DELETABLE) {
+        if ($this->checkDeletable($role)->isFail()) {
             throw new \Exception('You can\'t delete this role.');
         }
 

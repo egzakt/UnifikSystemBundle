@@ -219,7 +219,7 @@ class RootController extends BaseController
         }
 
         // Don't delete some sections
-        if ($this->checkDeletable($section)->getStatus() != DeletableResult::STATUS_DELETABLE) {
+        if ($this->checkDeletable($section)->isFail()) {
             throw new \Exception('You can\'t delete this section.');
         }
 

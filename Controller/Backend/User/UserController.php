@@ -168,15 +168,16 @@ class UserController extends BaseController
     }
 
     /**
-     * Delete a user.
+     * Delete a user
      *
      * @param $id
      * @return RedirectResponse
-     * @throws NotFoundHttpException
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @throws \Exception
      */
     public function deleteAction($id)
     {
-
         $userRepo = $this->getEm()->getRepository('EgzaktSystemBundle:User');
         $entity = $userRepo->find($id);
 
@@ -184,22 +185,20 @@ class UserController extends BaseController
             throw new NotFoundHttpException();
         }
 
-        $result = $this->checkDeletable($entity);
-        if ($result->isSuccess()) {
-
-            $this->addFlash('success', $this->get('translator')->trans(
-                '%entity% has been deleted.',
-                array('%entity%' => $entity)
-            ));
-
-            $this->getEm()->remove($entity);
-            $this->getEm()->flush();
-        } else {
-            $this->addFlash('error', $result->getErrors());
+        // Don't delete some roles
+        if ($this->checkDeletable($entity)->isFail()) {
+            throw new \Exception('You can\'t delete this user.');
         }
+
+        $this->getEm()->remove($entity);
+        $this->getEm()->flush();
+
+        $this->addFlash('success', $this->get('translator')->trans(
+            '%entity% has been deleted.',
+            array('%entity%' => $entity)
+        ));
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
 
     }
-
 }
