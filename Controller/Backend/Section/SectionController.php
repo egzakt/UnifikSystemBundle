@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Section;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -165,6 +166,37 @@ class SectionController extends BaseController
             'entity' => $entity,
             'form' => $form->createView()
         ));
+    }
+
+
+    /**
+     * Check if we can delete a Section.
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     * @throws NotFoundHttpException
+     */
+    public function checkDeleteAction(Request $request, $id)
+    {
+
+        $entity = $this->sectionRepository->find($id);
+
+        if (null === $entity) {
+            throw new NotFoundHttpException();
+        }
+
+        $result = $this->checkDeletable($entity);
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
+
+        return new JsonResponse($output);
+
     }
 
     /**

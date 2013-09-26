@@ -127,6 +127,10 @@ egzakt_system_backend_section_delete:
     pattern:  /sections/{sectionId}/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:delete" }
 
+egzakt_system_backend_section_delete_check:
+    pattern:  /sections/{sectionId}/{id}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:checkDelete" }
+
 # Locales
 egzakt_system_backend_locale:
     pattern:  /locales
