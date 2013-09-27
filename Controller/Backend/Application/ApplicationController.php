@@ -87,8 +87,8 @@ ApplicationController extends BaseController
 
                 $this->get('egzakt_system.router_invalidator')->invalidate();
 
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-                    '%entity% has been updated.',
+                $this->addFlashSuccess($this->get('translator')->trans(
+                    '%entity% has been saved.',
                     array('%entity%' => $entity))
                 );
 
@@ -98,7 +98,7 @@ ApplicationController extends BaseController
 
                 return $this->redirect($this->generateUrl($entity->getRoute(), $entity->getRouteParams()));
             } else {
-                $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
+                $this->addFlashError('Some fields are invalid.');
             }
         }
 
@@ -109,12 +109,14 @@ ApplicationController extends BaseController
     }
 
     /**
-     * Check if we can delete a Locale.
+     * Check if we can delete an Application.
      *
      * @param Request $request
-     * @param $id
+     * @param $applicationId
+     *
      * @return JsonResponse
-     * @throws NotFoundHttpException
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function checkDeleteAction(Request $request, $applicationId)
     {
@@ -157,7 +159,7 @@ ApplicationController extends BaseController
 
         $result = $this->checkDeletable($application);
         if ($result->isSuccess()) {
-            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+            $this->addFlashSuccess($this->get('translator')->trans(
                 '%entity% has been deleted.',
                 array('%entity%' => $application)
             ));
@@ -167,7 +169,7 @@ ApplicationController extends BaseController
 
             $this->get('egzakt_system.router_invalidator')->invalidate();
         } else {
-            $this->addFlash('error', $result->getErrors());
+            $this->addFlashError($result->getErrors());
         }
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_application'));

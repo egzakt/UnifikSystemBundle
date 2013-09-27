@@ -146,10 +146,7 @@ class SectionController extends BaseController
 
                 $this->get('egzakt_system.router_invalidator')->invalidate();
 
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-                    '%entity% has been updated.',
-                    array('%entity%' => $entity))
-                );
+                $this->addFlashSuccess($this->get('translator')->trans('%entity% has been saved.', array('%entity%' => $entity)));
 
                 if ($request->get('save')) {
                     return $this->redirect($this->generateUrl('egzakt_system_backend_section'));
@@ -159,7 +156,7 @@ class SectionController extends BaseController
                     'id' => $entity->getId() ?: 0
                 )));
             } else {
-                $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
+                $this->addFlashError('Some fields are invalid.');
             }
         }
 
@@ -220,7 +217,7 @@ class SectionController extends BaseController
 
         $result = $this->checkDeletable($section);
         if ($result->isSuccess()) {
-            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+            $this->addFlashSuccess($this->get('translator')->trans(
                 '%entity% has been deleted.',
                 array('%entity%' => $section->getName() != '' ? $section->getName() : $section->getEntityName()))
             );
@@ -230,7 +227,7 @@ class SectionController extends BaseController
 
             $this->get('egzakt_system.router_invalidator')->invalidate();
         } else {
-            $this->addFlash('error', $result->getErrors());
+            $this->addFlashError($result->getErrors());
         }
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_section'));
