@@ -76,6 +76,7 @@ CKEDITOR.plugins.add('wordcount', {
         }
 
         function updateCounter(editorInstance) {
+
             var wordCount = 0,
                 charCount = 0,
                 normalizedText,
@@ -90,6 +91,8 @@ CKEDITOR.plugins.add('wordcount', {
 
                     normalizedText = strip(normalizedText);
                 }
+
+                normalizedText = normalizedText.trim();
 
                 if (config.showCharCount) {
                     charCount = config.countHTML ? text.length : normalizedText.length;
@@ -163,9 +166,11 @@ CKEDITOR.plugins.add('wordcount', {
             }
             updateCounter(event.editor);
         }, editor, null, 100);
-        editor.on('key', function (event) {
-            updateCounter(event.editor);
-        }, editor, null, 100);
+        editor.on( 'contentDom', function(event) {
+            event.editor.document.on( 'keyup', function( evt ) {
+                updateCounter(editor);
+            }, editor, null, 100  );
+        }, editor, null, 100 );
         editor.on('afterPaste', function (event) {
             updateCounter(event.editor);
         }, editor, null, 100);
