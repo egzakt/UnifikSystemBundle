@@ -11,7 +11,6 @@ Bad Credentials.: Utilisateur/mot de passe invalide.
 
 Developed by: Développé par
 Languages: Langues
-
 Primary: Primaire
 Secondary: Secondaire
 Footer: Pied de page
@@ -24,14 +23,22 @@ Add a subsection: Ajouter une sous-section
 Without navigation: Sans navigation
 New section: Nouvelle section
 Active: Actif
+Featured: Vedette
 Name: Nom
+Title: Titre
+Metadata: Méta-données
 SEO Informations: Informations SEO
 Parameters: Paramètres
+Permalink: Permalien
+Copy url to clipboard: Copier l'url dans le presse-papier
+Copied!: Copié!
 Slug: Code URL
 Page title: Titre de page
 Head code: Code d'entête
+Updated At: Mise à jour
 Last update: Mise à jour
 Search a name: Rechercher un nom
+Search a title: Rechercher un titre
 This section has one or more subsections.: Cette section possède une ou plusieurs sous-sections.
 
 Texts: Textes
@@ -78,6 +85,7 @@ Some fields are invalid.: Des champs sont invalides.
 %entity% has been deleted.: %entity% a été supprimé.
 Are you sure you want to delete: Voulez-vous vraiment supprimer
 Are you sure you want to delete %name%?: Voulez-vous vraiment supprimer %name%?
+Delete confirmation: Confirmation de la suppression
 
 Go back to: Revenir à
 Exit impersonation: Quitter la personnification

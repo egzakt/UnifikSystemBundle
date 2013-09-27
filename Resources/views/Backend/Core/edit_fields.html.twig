@@ -238,3 +238,10 @@
         <div class="quick_create_container" data-input-id="{{ form.vars.id }}" data-input-name="{{ form.vars.full_name }}" data-input-type="{% if not form.vars.expanded %}select{% elseif form.vars.multiple %}checkbox{% else %}radio{% endif %}"></div>
     {% endspaceless %}
 {% endblock %}
+
+{% block widget_container_attributes %}
+{% spaceless %}
+    {% if id is not empty %}id="{{ id }}" {% endif %}
+    {% for attrname, attrvalue in attr %}{% if attrname in ['placeholder', 'title'] %}{{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}" {% else %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endfor %}
+{% endspaceless %}
+{% endblock widget_container_attributes %}
