@@ -19,7 +19,7 @@
     {% for navigation in navigations %}
         {% if navigation.sections|length %}
             <div class="list_box">
-                <h2>{{ navigation|capitalize }}</h2>
+                <h2>{{ navigation|capitalize|trans }}</h2>
 
                 {% include 'EgzaktSystemBundle:Backend/Section/Root:list_table.html.twig' with {
                     'entities': navigation.sections,
