@@ -219,6 +219,7 @@ form {
 
 #login_bar ul.tools label {
     color: #fff;
+    padding-right: 5px;
 }
 
 #login_bar ul.tools a {

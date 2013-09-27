@@ -1,5 +1,9 @@
 {% extends 'EgzaktSystemBundle:Backend/User:layout.html.twig' %}
 
+{% block content_header %}
+    <h1>{% trans %}User list{% endtrans %}</h1>
+{% endblock %}
+
 {% block content_main %}
 
     <div id="list_actions_bar">
@@ -68,7 +72,8 @@
             </table>
             <div class="total">
                 <span class="sub-total"></span>
-                {{ role.users|length }} {% trans %}result{% endtrans %}{{ role.users|length > 1 ? 's' : '' }}
+                {% set count = role.users|length %}
+                {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
             </div>
         </div>
     {% endfor %}

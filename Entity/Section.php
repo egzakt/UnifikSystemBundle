@@ -263,16 +263,6 @@ class Section extends BaseEntity
     }
 
     /**
-     * List of methods to check before allowing deletion
-     *
-     * @return array
-     */
-    public function getDeleteRestrictions()
-    {
-        return array('getChildren');
-    }
-
-    /**
      * getLevel
      *
      * @return integer

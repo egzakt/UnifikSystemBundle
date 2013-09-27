@@ -2,6 +2,8 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Role;
 
+use Egzakt\SystemBundle\Lib\DeletableResult;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -138,6 +140,35 @@ class RoleController extends BaseController
     }
 
     /**
+     * Check if we can delete a Role.
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     * @throws NotFoundHttpException
+     */
+    public function checkDeleteAction(Request $request, $id)
+    {
+        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->find($id);
+
+        if (null === $entity) {
+            throw new NotFoundHttpException();
+        }
+
+        $result = $this->checkDeletable($entity);
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
+
+        return new JsonResponse($output);
+
+    }
+
+    /**
      * Deletes a Role entity
      *
      * @param $id
@@ -156,32 +187,18 @@ class RoleController extends BaseController
             throw $this->createNotFoundException('Unable to find Role entity.');
         }
 
-        if ($this->get('request')->get('message')) {
-
-            $isDeletable = $role->isDeletable();
-            $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
-                'entity' => $role
+        $result = $this->checkDeletable($role);
+        if ($result->isSuccess()) {
+            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+                '%entity% has been deleted.',
+                array('%entity%' => $role)
             ));
 
-            return new Response(json_encode(array(
-                'template' => $template,
-                'isDeletable' => $isDeletable
-            )));
+            $this->getEm()->remove($role);
+            $this->getEm()->flush();
+        } else {
+            $this->addFlash('error', $result->getErrors());
         }
-
-        // Don't delete some roles
-        if (!$role->isDeletable()) {
-            throw new \Exception('You can\'t delete this role.');
-        }
-
-        // Call the translator before we flush the entity so we can have the real __toString()
-        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-            '%entity% has been deleted.',
-            array('%entity%' => $role))
-        );
-
-        $this->getEm()->remove($role);
-        $this->getEm()->flush();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_role'));
     }

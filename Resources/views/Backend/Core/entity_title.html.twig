@@ -1,5 +1,5 @@
 {% spaceless %}
     {% if entity == '' %}<em>{% endif %}
-    {{ entity|transTitle|striptags|truncate(truncateLength|default(100))|raw }}
+    {{ entity|transTitle|striptags|truncate(truncateLength|default(100))|raw|trans }}
     {% if entity == '' %}</em>{% endif %}
 {% endspaceless %}

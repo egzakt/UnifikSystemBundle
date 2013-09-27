@@ -12,7 +12,7 @@
             {% if flashMessage[0] is defined %}
                 <ul>
                 {% for message in flashMessage %}
-                    <li>{{ message }}</li>
+                    <li>{{ message|trans }}</li>
                 {% endfor %}
                 </ul>
             {% else %}

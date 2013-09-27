@@ -19,6 +19,9 @@ parameters:
     egzakt_system.form.type.tree_choice.class:                  Egzakt\SystemBundle\Form\Type\TreeChoiceType
     egzakt_system.deletable.class:                              Egzakt\SystemBundle\Lib\DeletableService
     egzakt_system.deletable_user_listener.class:                Egzakt\SystemBundle\Listener\UserDeletableListener
+    egzakt_system.deletable_role_listener.class:                Egzakt\SystemBundle\Listener\RoleDeletableListener
+    egzakt_system.deletable_section_listener.class:             Egzakt\SystemBundle\Listener\SectionDeletableListener
+    egzakt_system.deletable_app_listener.class:                 Egzakt\SystemBundle\Listener\AppDeletableListener
     egzakt_system.locale_switcher.class:                        Egzakt\SystemBundle\Lib\LocaleSwitcher
     egzakt_system.section_translation.sluggable.listener.class: Egzakt\SystemBundle\Lib\SectionTranslationSluggableListener
     egzakt_system.form.type.creatable_entity.class:             Egzakt\SystemBundle\Form\Type\CreatableEntityType
@@ -37,6 +40,21 @@ services:
         arguments: [ @security.context ]
         tags:
           - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\User }
+
+    egazkt_system.deletable_role_listener:
+        class: %egzakt_system.deletable_role_listener.class%
+        tags:
+          - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\Role }
+
+    egazkt_system.deletable_section_listener:
+        class: %egzakt_system.deletable_section_listener.class%
+        tags:
+          - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\Section }
+
+    egazkt_system.deletable_app_listener:
+        class: %egzakt_system.deletable_app_listener.class%
+        tags:
+          - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\App }
 
     egzakt_system.kernel_controller_listener:
         class: %egzakt_system.kernel_controller_listener.class%

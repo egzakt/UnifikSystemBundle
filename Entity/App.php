@@ -329,30 +329,4 @@ class App extends BaseEntity
     {
         return $this->navigations;
     }
-
-    /**
-     * List of methods to check before allowing deletion
-     *
-     * @return array
-     */
-    public function getDeleteRestrictions()
-    {
-        return array('isRestrictedApp');
-    }
-
-    /**
-     * Check if the current entity is a restricted app that is part of the system and should not be altered
-     *
-     * @return bool
-     */
-    public function isRestrictedApp()
-    {
-        $restrictedApps = array(AppRepository::FRONTEND_APP_ID, AppRepository::BACKEND_APP_ID);
-
-        foreach ($restrictedApps as $restrictedApp) {
-            if ($restrictedApp == $this->id) {
-                return true;
-            }
-        }
-    }
 }

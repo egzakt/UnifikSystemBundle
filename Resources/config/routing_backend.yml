@@ -59,6 +59,10 @@ egzakt_system_backend_role_delete:
     pattern:  /roles/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Role/Role:delete" }
 
+egzakt_system_backend_role_delete_check:
+    pattern:  /roles/{id}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Role/Role:checkDelete" }
+
 # Members
 egzakt_system_backend_member:
     pattern:  /members
@@ -110,6 +114,10 @@ egzakt_system_backend_section_root_delete:
     pattern:  /sections/{appSlug}/root/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:delete" }
 
+egzakt_system_backend_section_root_delete_check:
+    pattern:  /sections/{appSlug}/root/{id}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:checkDelete" }
+
 # Sections
 egzakt_system_backend_section:
     pattern:  /sections/{sectionId}
@@ -127,6 +135,10 @@ egzakt_system_backend_section_delete:
     pattern:  /sections/{sectionId}/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:delete" }
 
+egzakt_system_backend_section_delete_check:
+    pattern:  /sections/{sectionId}/{id}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:checkDelete" }
+
 # Locales
 egzakt_system_backend_locale:
     pattern:  /locales
@@ -143,6 +155,10 @@ egzakt_system_backend_locale_edit:
 egzakt_system_backend_locale_delete:
     pattern:  /locales/{id}/delete
     defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:delete" }
+
+egzakt_system_backend_locale_delete_check:
+    pattern:  /locales/{id}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:checkDelete" }
     
 # Applications
 egzakt_system_backend_application:
@@ -155,4 +171,8 @@ egzakt_system_backend_application_edit:
 
 egzakt_system_backend_application_delete:
     pattern:  /applications/{applicationId}/delete
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:delete" }    
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:delete" }
+
+egzakt_system_backend_application_delete_check:
+    pattern:  /applications/{applicationId}/delete/check
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:checkDelete" }

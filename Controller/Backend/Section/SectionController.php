@@ -2,6 +2,8 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Section;
 
+use Egzakt\SystemBundle\Lib\DeletableResult;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -168,11 +170,42 @@ class SectionController extends BaseController
     }
 
     /**
+     * Check if we can delete a Section.
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     * @throws NotFoundHttpException
+     */
+    public function checkDeleteAction(Request $request, $id)
+    {
+
+        $entity = $this->sectionRepository->find($id);
+
+        if (null === $entity) {
+            throw new NotFoundHttpException();
+        }
+
+        $result = $this->checkDeletable($entity);
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
+
+        return new JsonResponse($output);
+
+    }
+
+    /**
      * Deletes a Section entity.
      *
      * @param Request $request
      * @param integer $id      The ID of the Section to delete
      *
+     * @throws \Exception
      * @throws NotFoundHttpException
      *
      * @return Response|RedirectResponse
@@ -185,27 +218,20 @@ class SectionController extends BaseController
             throw $this->createNotFoundException('Unable to find Section entity.');
         }
 
-        if ($request->get('message')) {
-            $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
-                'entity' => $section
-            ));
+        $result = $this->checkDeletable($section);
+        if ($result->isSuccess()) {
+            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+                '%entity% has been deleted.',
+                array('%entity%' => $section->getName() != '' ? $section->getName() : $section->getEntityName()))
+            );
 
-            return new Response(json_encode(array(
-                'template' => $template,
-                'isDeletable' => $section->isDeletable()
-            )));
+            $this->getEm()->remove($section);
+            $this->getEm()->flush();
+
+            $this->get('egzakt_system.router_invalidator')->invalidate();
+        } else {
+            $this->addFlash('error', $result->getErrors());
         }
-
-        // Call the translator before we flush the entity so we can have the real __toString()
-        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-            '%entity% has been deleted.',
-            array('%entity%' => $section->getName() != '' ? $section->getName() : $section->getEntityName()))
-        );
-
-        $this->getEm()->remove($section);
-        $this->getEm()->flush();
-
-        $this->get('egzakt_system.router_invalidator')->invalidate();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_section'));
     }

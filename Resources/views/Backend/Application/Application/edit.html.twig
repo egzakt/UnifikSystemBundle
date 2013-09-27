@@ -7,7 +7,7 @@
 
 {% block content_main %}
 
-    {{ form_start(form) }}
+    {{ form_start(form, { attr: { novalidate: 'novalidate' } }) }}
 
         {% block edit_actions %}
             {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {

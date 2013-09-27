@@ -86,7 +86,8 @@
         </table>
         <div class="total">
             <span class="sub-total"></span>
-            {{ entities|length }} {% trans %}result{% endtrans %}{{ entities|length > 1 ? 's' : '' }}
+            {% set count = entities|length %}
+            {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
         </div>
     </div>
 

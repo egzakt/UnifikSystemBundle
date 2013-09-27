@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Application;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -16,7 +17,8 @@ use Egzakt\SystemBundle\Lib\Backend\BaseController;
 /**
  * Application Controller
  */
-class ApplicationController extends BaseController
+class
+ApplicationController extends BaseController
 {
     /**
      * @var AppRepository
@@ -107,6 +109,35 @@ class ApplicationController extends BaseController
     }
 
     /**
+     * Check if we can delete a Locale.
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     * @throws NotFoundHttpException
+     */
+    public function checkDeleteAction(Request $request, $applicationId)
+    {
+        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:App')->find($applicationId);
+
+        if (null === $entity) {
+            throw new NotFoundHttpException();
+        }
+
+        $result = $this->checkDeletable($entity);
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
+
+        return new JsonResponse($output);
+
+    }
+
+    /**
      * Deletes a App entity.
      *
      * @param Request $request
@@ -124,25 +155,20 @@ class ApplicationController extends BaseController
             throw $this->createNotFoundException('Unable to find the App entity.');
         }
 
-        if ($request->get('message')) {
-            $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
-                'entity' => $application
+        $result = $this->checkDeletable($application);
+        if ($result->isSuccess()) {
+            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+                '%entity% has been deleted.',
+                array('%entity%' => $application)
             ));
 
-            return new Response(json_encode(array(
-                'template' => $template,
-                'isDeletable' => $application->isDeletable()
-            )));
+            $this->getEm()->remove($application);
+            $this->getEm()->flush();
+
+            $this->get('egzakt_system.router_invalidator')->invalidate();
+        } else {
+            $this->addFlash('error', $result->getErrors());
         }
-
-        $this->addFlash('success', $this->get('translator')->trans('%entity% has been deleted.', array(
-            '%entity%' => $application
-        )));
-
-        $this->getEm()->remove($application);
-        $this->getEm()->flush();
-
-        $this->get('egzakt_system.router_invalidator')->invalidate();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_application'));
     }

@@ -101,7 +101,7 @@ class TextController extends BaseController
 
                 $this->get('egzakt_system.router_invalidator')->invalidate();
 
-                $this->get('session')->getFlashBag()->add('success', 'The text has been updated.');
+                $this->get('session')->getFlashBag()->add('success', 'The Text has been updated.');
 
                 if ($request->request->has('save')) {
                     return $this->redirect($this->generateUrl('egzakt_system_backend_text'));
@@ -174,7 +174,7 @@ class TextController extends BaseController
             $this->getEm()->remove($entity);
             $this->getEm()->flush();
 
-            $this->addFlash('success', 'This Text has been deleted.');
+            $this->addFlash('success', 'The Text has been deleted.');
             $this->get('egzakt_system.router_invalidator')->invalidate();
         } else {
             $this->addFlash('error', $result->getErrors());

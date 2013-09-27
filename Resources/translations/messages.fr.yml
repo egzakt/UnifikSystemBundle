@@ -1,3 +1,87 @@
+User: Utilisateur
+Password: Mot de passe
+Content Management System (CMS): Système de gestion de contenu (CMS)
+Sign In: Connexion
+Logout: Déconnexion
+Welcome: Bienvenue
+Access site: Accéder au site
+Online help: Aide en ligne
+Content Language: Langue du contenu
+Bad Credentials.: Utilisateur/mot de passe invalide.
+
+Developed by: Développé par
+Languages: Langues
+
+Primary: Primaire
+Secondary: Secondaire
+Footer: Pied de page
+Nb. of subsections: Nombre de sous-sections
+Subsections list: Liste des sous-sections
+Sections List: Liste des sections
+Subsections: sous-sections
+Add a section: Ajouter une section
+Add a subsection: Ajouter une sous-section
+Without navigation: Sans navigation
+New section: Nouvelle section
+Active: Actif
+Name: Nom
+SEO Informations: Informations SEO
+Parameters: Paramètres
+Slug: Code URL
+Page title: Titre de page
+Head code: Code d'entête
+Last update: Mise à jour
+Search a name: Rechercher un nom
+This section has one or more subsections.: Cette section possède une ou plusieurs sous-sections.
+
+Texts: Textes
+Add a text: Ajout un texte
+Texts list: Liste des textes
+Text list: Liste des textes
+New text: Nouveau texte
+Text: Texte
+Content: Contenu
+Collapsable: Déroulant
+Search a content: Recherche un contenu
+Main: Principaux
+Static block: Blocs statiques
+The Text has been updated.: Le texte a été mis à jour.
+The Text has been deleted.: Le texte a été supprimé.
+
+Username: Utilisateur
+Firstname: Prénom
+Lastname: Nom
+Last updated: Mise à jour
+Repeat: Confirmation du mot de passe
+Impersonate: Personnifier
+User list: Liste des utilisateurs
+
+Role list: Liste des rôles
+You can't delete this Role.: Vous ne pouvez pas supprimer ce rôle.
+
+%entity% list: Liste des %entity%
+'{0} No results|{1} One result|]1,Inf] %count% results': '{0} Aucun résultat|{1} Un résultat|]1,Inf] %count% résultats'
+Click to sort: Cliquer pour ordonnancer
+'Filter: All': 'Filtre: Tous'
+Return to search mode: Retourner au mode recherche
+Switch to order mode. This will allow you to change the items order on the site: Passer au mode ordonnancement. Ceci vous permettra de modifier l'ordre des items sur le site
+
+Edit: Modifier
+Cancel: Annuler
+Save and continue: Enregistrer et continuer
+Save: Enregistrer
+Delete: Supprimer
+'cannot be deleted because of these restrictions:': 'ne peut être supprimé à cause des ces restrictions:'
+
+Some fields are invalid.: Des champs sont invalides.
+%entity% has been updated.: %entity% a été mis à jour.
+%entity% has been deleted.: %entity% a été supprimé.
+Are you sure you want to delete: Voulez-vous vraiment supprimer
+Are you sure you want to delete %name%?: Voulez-vous vraiment supprimer %name%?
+
+Go back to: Revenir à
+Exit impersonation: Quitter la personnification
+
 Add a user: Ajouter un utilisateur
 New User: Nouvel utilisateur
 Users: Utilisateurs
@@ -10,6 +94,19 @@ Add a Role: Ajouter un rôle
 Rolefullname: Nom complet
 New Role: Nouveau rôle
 
+Language list: Liste des langues
+Add a language: Ajouter une langue
+Search a code: Recherche un code
+New locale: Nouvelle langue
+
+Prefix: Préfixe
+Search a prefix: Rechercher un préfixe
+Applications List: Liste des applications
+Add an application: Ajouter une application
+New Application: Nouvelle application
+The prefix is used at the start of every URL of the application: Le préfixe est utilisé au début de chaque URL de l'application
+This application can't be deleted.: Cette application ne peut être supprimée.
+
 Search a username: Rechercher un nom d'utilisateur
 Search a first name: Rechercher un prénom
 Search a last name: Rechercher un nom
@@ -19,3 +116,5 @@ Confirm the password: Confirmer le mot de passe
 You can't delete yourself.: Vous ne pouvez vous supprimer.
 
 notDeleteable: Ce rôle ne peut pas être supprimé
+
+Notice: Avertissement

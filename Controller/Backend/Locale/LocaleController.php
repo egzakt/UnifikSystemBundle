@@ -2,6 +2,7 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Locale;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -97,6 +98,35 @@ class LocaleController extends BaseController
     }
 
     /**
+     * Check if we can delete a Locale.
+     *
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     * @throws NotFoundHttpException
+     */
+    public function checkDeleteAction(Request $request, $id)
+    {
+        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Locale')->find($id);
+
+        if (null === $entity) {
+            throw new NotFoundHttpException();
+        }
+
+        $result = $this->checkDeletable($entity);
+        $output = $result->toArray();
+        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
+            array(
+                'entity' => $entity,
+                'result' => $result
+            )
+        );
+
+        return new JsonResponse($output);
+
+    }
+
+    /**
      * Delete a Locale entity.
      *
      * @param Request $request
@@ -114,25 +144,18 @@ class LocaleController extends BaseController
             throw $this->createNotFoundException('Unable to find a locale entity using id "' . $id . '".');
         }
 
-        if ($request->get('message')) {
-            $template = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig', array(
-                'entity' => $locale
+        $result = $this->checkDeletable($locale);
+        if ($result->isSuccess()) {
+            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+                '%entity% has been deleted.',
+                array('%entity%' => $locale)
             ));
 
-            return new Response(json_encode(array(
-                'template' => $template,
-                'isDeletable' => $locale->isDeletable()
-            )));
+            $this->getEm()->remove($locale);
+            $this->getEm()->flush();
+        } else {
+            $this->addFlash('error', $result->getErrors());
         }
-
-        // Call the translator before we flush the entity so we can have the real __toString()
-        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-            '%entity% has been deleted.',
-            array('%entity%' => $locale != '' ? $locale : $locale->getEntityName()))
-        );
-
-        $this->getEm()->remove($locale);
-        $this->getEm()->flush();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_locale'));
     }
