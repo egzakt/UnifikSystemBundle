@@ -1,4 +1,5 @@
 $(function(){
+    var quickCreateLink = null;
     var quickCreateContainer = null;
     var quickCreateField = null;
 
@@ -10,7 +11,6 @@ $(function(){
         buttons: {
             "Create": function() {
 
-                quickCreateContainer = $(this);
                 formObj = quickCreateContainer.children('form');
 
                 // Post the form
@@ -79,20 +79,26 @@ $(function(){
         close: function() {
             quickCreateContainer.dialog("destroy"); // to take the div out of the dialog and put it back to its original place
             quickCreateContainer.html('');
+
+            // Put the container back to its original place
+            quickCreateContainer.insertAfter(quickCreateLink);
         }
     };
 
     // Trigger dialog
     $('a.quick_create_link').click(function(e){
 
-        var link = $(this);
-        quickCreateContainer = link.next();
-        quickCreateField = link.prev();
+        quickCreateLink = $(this);
+        quickCreateContainer = quickCreateLink.next();
+        quickCreateField = quickCreateLink.prev();
+
+        // Temporarily move the container out of the form (to prevent nested forms issues)
+        quickCreateContainer.appendTo($('body'));
 
         // Call the quick create controller
         $.ajax({
             type: "GET",
-            url: link.attr('href'),
+            url: quickCreateLink.attr('href'),
             dataType: 'json',
             beforeSend: function(){
                 $('#loading').show();
@@ -110,7 +116,7 @@ $(function(){
         .always(function(){
             $('#loading').hide();
             quickCreateContainer.dialog(quickCreateDialogOptions);
-            quickCreateContainer.dialog({ title: link.text() });
+            quickCreateContainer.dialog({ title: quickCreateLink.text() });
         });
 
         e.preventDefault();
