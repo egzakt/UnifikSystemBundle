@@ -2,8 +2,6 @@
 
 namespace Egzakt\SystemBundle\Listener;
 
-use Symfony\Component\Security\Core\SecurityContextInterface;
-
 use Egzakt\SystemBundle\Entity\AppRepository;
 use Egzakt\SystemBundle\Lib\BaseDeletableListener;
 

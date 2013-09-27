@@ -3,7 +3,6 @@
 namespace Egzakt\SystemBundle\Listener;
 
 use Egzakt\SystemBundle\Lib\BaseDeletableListener;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class SectionDeletableListener extends BaseDeletableListener
 {

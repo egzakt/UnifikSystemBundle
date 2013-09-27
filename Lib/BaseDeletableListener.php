@@ -6,12 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 abstract class BaseDeletableListener implements DeletableListenerInterface
 {
-
     /**
      * @var ArrayCollection
      */
     private $errors;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $this->errors = new ArrayCollection();
@@ -51,5 +53,4 @@ abstract class BaseDeletableListener implements DeletableListenerInterface
     {
         return $this->getErrors()->isEmpty();
     }
-
 }
