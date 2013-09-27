@@ -10,7 +10,6 @@ $(function(){
         buttons: {
             "Create": function() {
 
-                quickCreateContainer = $(this);
                 formObj = quickCreateContainer.children('form');
 
                 // Post the form
