@@ -6,7 +6,7 @@
                 {% for application in apps %}
                     <li>
                         <a href="{{ path('egzakt_system_backend_switch_managed_app', { appSlug: application.slug }) }}" {% if application.id == appCurrent.id %}class="selected"{% endif %}>
-                            <span>{{ application|capitalize }}</span>
+                            <span>{{ application|capitalize|trans }}</span>
                         </a>
                     </li>
                 {% endfor %}

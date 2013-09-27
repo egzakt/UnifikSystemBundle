@@ -81,6 +81,7 @@ Are you sure you want to delete %name%?: Voulez-vous vraiment supprimer %name%?
 
 Go back to: Revenir à
 Exit impersonation: Quitter la personnification
+Frontend: Site
 
 Add a user: Ajouter un utilisateur
 New User: Nouvel utilisateur
@@ -114,7 +115,5 @@ Search a last name: Rechercher un nom
 Leave empty if you do not want to modify.<br />8 characters minimum.: Laisser vide pour ne pas modifier.<br /> 8 caractères minimum.
 Confirm the password: Confirmer le mot de passe
 You can't delete yourself.: Vous ne pouvez vous supprimer.
-
-notDeleteable: Ce rôle ne peut pas être supprimé
 
 Notice: Avertissement
