@@ -45,7 +45,7 @@ Collapsable: Déroulant
 Search a content: Recherche un contenu
 Main: Principaux
 Static block: Blocs statiques
-The Text has been updated.: Le texte a été mis à jour.
+The Text has been saved.: Le texte a été enregistré.
 The Text has been deleted.: Le texte a été supprimé.
 
 Username: Utilisateur
@@ -74,7 +74,7 @@ Delete: Supprimer
 'cannot be deleted because of these restrictions:': 'ne peut être supprimé à cause des ces restrictions:'
 
 Some fields are invalid.: Des champs sont invalides.
-%entity% has been updated.: %entity% a été mis à jour.
+%entity% has been saved.: %entity% a été enregistré.
 %entity% has been deleted.: %entity% a été supprimé.
 Are you sure you want to delete: Voulez-vous vraiment supprimer
 Are you sure you want to delete %name%?: Voulez-vous vraiment supprimer %name%?

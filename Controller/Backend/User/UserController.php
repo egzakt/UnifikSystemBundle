@@ -113,8 +113,8 @@ class UserController extends BaseController
                 $this->getEm()->persist($user);
                 $this->getEm()->flush();
 
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-                    '%entity% has been updated.',
+                $this->addFlashSuccess($this->get('translator')->trans(
+                    '%entity% has been saved.',
                     array('%entity%' => $user))
                 );
 
@@ -126,7 +126,7 @@ class UserController extends BaseController
                     'id' => $user->getId()
                 )));
             } else {
-                $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
+                $this->addFlashError('Some fields are invalid.');
             }
         }
 
@@ -191,13 +191,13 @@ class UserController extends BaseController
             $this->getEm()->remove($entity);
             $this->getEm()->flush();
 
-            $this->addFlash('success', $this->get('translator')->trans(
+            $this->addFlashSuccess($this->get('translator')->trans(
                 '%entity% has been deleted.',
                 array('%entity%' => $entity)
             ));
             $this->get('egzakt_system.router_invalidator')->invalidate();
         } else {
-            $this->addFlash('error', $result->getErrors());
+            $this->addFlashError($result->getErrors());
         }
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_user'));

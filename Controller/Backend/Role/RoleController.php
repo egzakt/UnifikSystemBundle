@@ -113,8 +113,8 @@ class RoleController extends BaseController
                 $this->getEm()->persist($entity);
                 $this->getEm()->flush();
 
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-                    '%entity% has been updated.',
+                $this->addFlashSuccess($this->get('translator')->trans(
+                    '%entity% has been saved.',
                     array('%entity%' => $entity))
                 );
 
@@ -126,7 +126,7 @@ class RoleController extends BaseController
                     'id' => $entity->getId() ? : 0
                 )));
             } else {
-                $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
+                $this->addFlashError('Some fields are invalid.');
             }
         }
 
@@ -189,7 +189,7 @@ class RoleController extends BaseController
 
         $result = $this->checkDeletable($role);
         if ($result->isSuccess()) {
-            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+            $this->addFlashSuccess($this->get('translator')->trans(
                 '%entity% has been deleted.',
                 array('%entity%' => $role)
             ));
@@ -197,7 +197,7 @@ class RoleController extends BaseController
             $this->getEm()->remove($role);
             $this->getEm()->flush();
         } else {
-            $this->addFlash('error', $result->getErrors());
+            $this->addFlashError($result->getErrors());
         }
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_role'));

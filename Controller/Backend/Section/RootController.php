@@ -143,8 +143,8 @@ class RootController extends BaseController
                 $this->getEm()->flush();
                 $this->get('egzakt_system.router_invalidator')->invalidate();
 
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-                    '%entity% has been updated.',
+                $this->addFlashSuccess($this->get('translator')->trans(
+                    '%entity% has been saved.',
                     array('%entity%' => $entity))
                 );
 
@@ -157,7 +157,7 @@ class RootController extends BaseController
                     'appSlug' => $this->getApp()->getSlug()
                 )));
             } else {
-                $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
+                $this->addFlashError('Some fields are invalid.');
             }
         }
 
@@ -220,7 +220,7 @@ class RootController extends BaseController
 
         $result = $this->checkDeletable($section);
         if ($result->isSuccess()) {
-            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+            $this->addFlashSuccess($this->get('translator')->trans(
                 '%entity% has been deleted.',
                 array('%entity%' => $section->getName() != '' ? $section->getName() : $section->getEntityName()))
             );
@@ -230,7 +230,7 @@ class RootController extends BaseController
 
             $this->get('egzakt_system.router_invalidator')->invalidate();
         } else {
-            $this->addFlash('error', $result->getErrors());
+            $this->addFlashError($result->getErrors());
         }
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));

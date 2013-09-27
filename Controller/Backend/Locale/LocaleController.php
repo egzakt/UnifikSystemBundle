@@ -76,8 +76,8 @@ class LocaleController extends BaseController
                 $this->getEm()->persist($locale);
                 $this->getEm()->flush();
 
-                $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-                    '%entity% has been updated.',
+                $this->addFlashSuccess($this->get('translator')->trans(
+                    '%entity% has been saved.',
                     array('%entity%' => $locale))
                 );
 
@@ -87,7 +87,7 @@ class LocaleController extends BaseController
 
                 return $this->redirect($this->generateUrl($locale->getRoute(), $locale->getRouteParams()));
             } else {
-                $this->get('session')->getFlashBag()->add('error', 'Some fields are invalid.');
+                $this->addFlashError('Some fields are invalid.');
             }
         }
 
@@ -146,7 +146,7 @@ class LocaleController extends BaseController
 
         $result = $this->checkDeletable($locale);
         if ($result->isSuccess()) {
-            $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
+            $this->addFlashSuccess($this->get('translator')->trans(
                 '%entity% has been deleted.',
                 array('%entity%' => $locale)
             ));
@@ -154,7 +154,7 @@ class LocaleController extends BaseController
             $this->getEm()->remove($locale);
             $this->getEm()->flush();
         } else {
-            $this->addFlash('error', $result->getErrors());
+            $this->addFlashError($result->getErrors());
         }
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_locale'));
