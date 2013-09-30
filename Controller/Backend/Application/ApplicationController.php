@@ -7,18 +7,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+use Egzakt\SystemBundle\Lib\Backend\BackendController;
 use Egzakt\SystemBundle\Entity\App;
 use Egzakt\SystemBundle\Entity\AppRepository;
 use Egzakt\SystemBundle\Form\Backend\ApplicationType;
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
 
 /**
  * Application Controller
  */
-class
-ApplicationController extends BaseController
+class ApplicationController extends BackendController
 {
     /**
      * @var AppRepository
@@ -115,28 +113,13 @@ ApplicationController extends BaseController
      * @param $applicationId
      *
      * @return JsonResponse
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      */
     public function checkDeleteAction(Request $request, $applicationId)
     {
-        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:App')->find($applicationId);
-
-        if (null === $entity) {
-            throw new NotFoundHttpException();
-        }
-
-        $result = $this->checkDeletable($entity);
-        $output = $result->toArray();
-        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
-            array(
-                'entity' => $entity,
-                'result' => $result
-            )
-        );
+        $application = $this->appRepository->find($applicationId);
+        $output = $this->checkDeleteEntity($application);
 
         return new JsonResponse($output);
-
     }
 
     /**
@@ -145,32 +128,13 @@ ApplicationController extends BaseController
      * @param Request $request
      * @param integer $applicationId
      *
-     * @throws NotFoundHttpException
-     *
-     * @return Response|RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $applicationId)
     {
         $application = $this->appRepository->find($applicationId);
-
-        if (!$application) {
-            throw $this->createNotFoundException('Unable to find the App entity.');
-        }
-
-        $result = $this->checkDeletable($application);
-        if ($result->isSuccess()) {
-            $this->addFlashSuccess($this->get('translator')->trans(
-                '%entity% has been deleted.',
-                array('%entity%' => $application)
-            ));
-
-            $this->getEm()->remove($application);
-            $this->getEm()->flush();
-
-            $this->get('egzakt_system.router_invalidator')->invalidate();
-        } else {
-            $this->addFlashError($result->getErrors());
-        }
+        $this->deleteEntity($application);
+        $this->get('egzakt_system.router_invalidator')->invalidate();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_application'));
     }
