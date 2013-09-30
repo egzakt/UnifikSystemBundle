@@ -149,7 +149,6 @@ class UserController extends BackendController
         $output = $this->checkDeleteEntity($user);
 
         return new JsonResponse($output);
-
     }
 
     /**
@@ -165,6 +164,5 @@ class UserController extends BackendController
         $this->deleteEntity($user);
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
-
     }
 }
