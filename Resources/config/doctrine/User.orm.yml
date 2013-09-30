@@ -31,6 +31,10 @@ Egzakt\SystemBundle\Entity\User:
       type: string
       length: 32
       nullable: true
+    locale:
+      type: string
+      length: 5
+      nullable: true
     createdAt:
       type: datetime
       gedmo:

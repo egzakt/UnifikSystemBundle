@@ -46,7 +46,13 @@ class UserType extends AbstractType
                         return $repo->findAllExcept(array('ROLE_DEVELOPER', 'ROLE_BACKEND_ACCESS'));
                     }
                 }
-            ));
+            ))
+            ->add('locale', 'choice', array(
+                'required' => false,
+                'label' => 'Language',
+                'choices' => $this->getSupportedBackendLanguages()
+            ))
+        ;
     }
 
     /**
@@ -57,6 +63,19 @@ class UserType extends AbstractType
     public function getName()
     {
         return 'user';
+    }
+
+    /**
+     * Get the currently supported languages of the backend application
+     *
+     * @return array
+     */
+    protected function getSupportedBackendLanguages()
+    {
+        return array(
+            'en' => 'English',
+            'fr' => 'French'
+        );
     }
 
     /**

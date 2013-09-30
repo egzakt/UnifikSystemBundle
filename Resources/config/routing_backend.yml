@@ -1,7 +1,7 @@
 # Security
 egzakt_system_backend_login:
     pattern:  /login
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Security:login" }
+    defaults: { _controller: "EgzaktSystemBundle:Backend/Security:login", _locale: %locale% } # force default locale
 
 egzakt_system_backend_login_check:
     pattern:  /login-check
