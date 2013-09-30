@@ -192,6 +192,7 @@ class SectionController extends BackendController
     {
         $section = $this->sectionRepository->find($id);
         $this->deleteEntity($section);
+        $this->get('egzakt_system.router_invalidator')->invalidate();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_section'));
     }

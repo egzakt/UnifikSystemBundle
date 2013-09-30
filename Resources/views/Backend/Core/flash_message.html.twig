@@ -1,7 +1,7 @@
 {% if app.session.flashbag.has('success') %}
     <div class="flash-success">
         {% for flashMessage in app.session.flashbag.get('success') %}
-            <p>{{ flashMessage|trans }}</p>
+            <p>{{ flashMessage|trans|striptags }}</p>
         {% endfor %}
     </div>
 {% endif %}
@@ -12,11 +12,11 @@
             {% if flashMessage[0] is defined %}
                 <ul>
                 {% for message in flashMessage %}
-                    <li>{{ message|trans }}</li>
+                    <li>{{ message|trans|striptags }}</li>
                 {% endfor %}
                 </ul>
             {% else %}
-                <p>{{ flashMessage|trans }}</p>
+                <p>{{ flashMessage|trans|striptags }}</p>
             {% endif %}
 
         {% endfor %}
