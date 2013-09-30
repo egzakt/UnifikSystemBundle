@@ -9,14 +9,14 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
+use Egzakt\SystemBundle\Lib\Backend\BackendController;
 use Egzakt\SystemBundle\Entity\Locale;
 use Egzakt\SystemBundle\Form\Backend\LocaleType;
 
 /**
  * Locale Controller
  */
-class LocaleController extends BaseController
+class LocaleController extends BackendController
 {
     /**
      * Init
@@ -102,28 +102,15 @@ class LocaleController extends BaseController
      *
      * @param Request $request
      * @param $id
+     *
      * @return JsonResponse
-     * @throws NotFoundHttpException
      */
     public function checkDeleteAction(Request $request, $id)
     {
-        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Locale')->find($id);
-
-        if (null === $entity) {
-            throw new NotFoundHttpException();
-        }
-
-        $result = $this->checkDeletable($entity);
-        $output = $result->toArray();
-        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
-            array(
-                'entity' => $entity,
-                'result' => $result
-            )
-        );
+        $locale = $this->getEm()->getRepository('EgzaktSystemBundle:Locale')->find($id);
+        $output = $this->checkDeleteEntity($locale);
 
         return new JsonResponse($output);
-
     }
 
     /**
@@ -132,30 +119,12 @@ class LocaleController extends BaseController
      * @param Request $request
      * @param int     $id
      *
-     * @return RedirectResponse|Response
-     *
-     * @throws NotFoundHttpException
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
         $locale = $this->getEm()->getRepository('EgzaktSystemBundle:Locale')->find($id);
-
-        if (!$locale) {
-            throw $this->createNotFoundException('Unable to find a locale entity using id "' . $id . '".');
-        }
-
-        $result = $this->checkDeletable($locale);
-        if ($result->isSuccess()) {
-            $this->addFlashSuccess($this->get('translator')->trans(
-                '%entity% has been deleted.',
-                array('%entity%' => $locale)
-            ));
-
-            $this->getEm()->remove($locale);
-            $this->getEm()->flush();
-        } else {
-            $this->addFlashError($result->getErrors());
-        }
+        $this->deleteEntity($locale);
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_locale'));
     }

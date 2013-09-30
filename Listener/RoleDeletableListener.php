@@ -15,6 +15,10 @@ class RoleDeletableListener extends BaseDeletableListener
             $this->addError('You can\'t delete this Role.');
         }
 
+        if (count($entity->getUsers()) > 0) {
+            $this->addError('This role has one or more users.');
+        }
+
         return $this->validate();
     }
 }

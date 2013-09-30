@@ -2,15 +2,13 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Section;
 
-use Egzakt\SystemBundle\Lib\DeletableResult;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
+use Egzakt\SystemBundle\Lib\Backend\BackendController;
 use Egzakt\SystemBundle\Entity\Mapping;
 use Egzakt\SystemBundle\Entity\NavigationRepository;
 use Egzakt\SystemBundle\Entity\Section;
@@ -21,7 +19,7 @@ use Egzakt\SystemBundle\Form\Backend\SectionType;
  * Section controller.
  *
  */
-class SectionController extends BaseController
+class SectionController extends BackendController
 {
     /**
      * @var SectionRepository
@@ -171,29 +169,15 @@ class SectionController extends BaseController
      *
      * @param Request $request
      * @param $id
+     *
      * @return JsonResponse
-     * @throws NotFoundHttpException
      */
     public function checkDeleteAction(Request $request, $id)
     {
-
-        $entity = $this->sectionRepository->find($id);
-
-        if (null === $entity) {
-            throw new NotFoundHttpException();
-        }
-
-        $result = $this->checkDeletable($entity);
-        $output = $result->toArray();
-        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
-            array(
-                'entity' => $entity,
-                'result' => $result
-            )
-        );
+        $section = $this->sectionRepository->find($id);
+        $output = $this->checkDeleteEntity($section);
 
         return new JsonResponse($output);
-
     }
 
     /**
@@ -202,33 +186,13 @@ class SectionController extends BaseController
      * @param Request $request
      * @param integer $id      The ID of the Section to delete
      *
-     * @throws \Exception
-     * @throws NotFoundHttpException
-     *
-     * @return Response|RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
         $section = $this->sectionRepository->find($id);
-
-        if (!$section) {
-            throw $this->createNotFoundException('Unable to find Section entity.');
-        }
-
-        $result = $this->checkDeletable($section);
-        if ($result->isSuccess()) {
-            $this->addFlashSuccess($this->get('translator')->trans(
-                '%entity% has been deleted.',
-                array('%entity%' => $section->getName() != '' ? $section->getName() : $section->getEntityName()))
-            );
-
-            $this->getEm()->remove($section);
-            $this->getEm()->flush();
-
-            $this->get('egzakt_system.router_invalidator')->invalidate();
-        } else {
-            $this->addFlashError($result->getErrors());
-        }
+        $this->deleteEntity($section);
+        $this->get('egzakt_system.router_invalidator')->invalidate();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_section'));
     }
@@ -242,26 +206,8 @@ class SectionController extends BaseController
      */
     public function orderAction(Request $request)
     {
-        if ($this->getRequest()->isXmlHttpRequest()) {
-
-            $i = 0;
-            $elements = explode(';', trim($request->get('elements'), ';'));
-
-            foreach ($elements as $element) {
-
-                $element = explode('_', $element);
-                $entity = $this->sectionRepository->find($element[1]);
-
-                if ($entity) {
-                    $entity->setOrdering(++$i);
-                    $this->getEm()->persist($entity);
-                }
-
-                $this->getEm()->flush();
-            }
-
-            $this->get('egzakt_system.router_invalidator')->invalidate();
-        }
+        $this->orderEntities($request, $this->sectionRepository);
+        $this->get('egzakt_system.router_invalidator')->invalidate();
 
         return new Response('');
     }

@@ -40,7 +40,7 @@ Updated At: Mise à jour
 Last update: Mise à jour
 Search a name: Rechercher un nom
 Search a title: Rechercher un titre
-This section has one or more subsections.: Cette section possède une ou plusieurs sous-sections.
+This section has one or more subsections.: Cette section a des sous-sections qui lui sont reliées.
 
 Texts: Textes
 Add a text: Ajout un texte
@@ -64,8 +64,10 @@ Repeat: Confirmation du mot de passe
 Impersonate: Personnifier
 User list: Liste des utilisateurs
 
+New role: Nouveau rôle
 Role list: Liste des rôles
 You can't delete this Role.: Vous ne pouvez pas supprimer ce rôle.
+This role has one or more users.: Ce rôle a des utilisateurs qui lui sont reliés.
 
 %entity% list: Liste des %entity%
 '{0} No results|{1} One result|]1,Inf] %count% results': '{0} Aucun résultat|{1} Un résultat|]1,Inf] %count% résultats'

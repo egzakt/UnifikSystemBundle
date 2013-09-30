@@ -6,10 +6,9 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
+use Egzakt\SystemBundle\Lib\Backend\BackendController;
 use Egzakt\SystemBundle\Entity\User;
 use Egzakt\SystemBundle\Form\Backend\UserType;
 use Egzakt\SystemBundle\Entity\Role;
@@ -17,7 +16,7 @@ use Egzakt\SystemBundle\Entity\Role;
 /**
  * User controller.
  */
-class UserController extends BaseController
+class UserController extends BackendController
 {
     /**
      * @var bool
@@ -146,66 +145,29 @@ class UserController extends BaseController
      *
      * @param Request $request
      * @param $id
+     *
      * @return JsonResponse
-     * @throws NotFoundHttpException
      */
     public function checkDeleteAction(Request $request, $id)
     {
-
-        $userRepo = $this->getEm()->getRepository('EgzaktSystemBundle:User');
-        $entity = $userRepo->find($id);
-
-        if (null === $entity) {
-            throw new NotFoundHttpException();
-        }
-
-        $result = $this->checkDeletable($entity);
-        $output = $result->toArray();
-        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
-            array(
-                'entity' => $entity,
-                'result' => $result
-            )
-        );
+        $user = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
+        $output = $this->checkDeleteEntity($user);
 
         return new JsonResponse($output);
-
     }
 
     /**
      * Delete a user
      *
      * @param $id
-     * @return RedirectResponse
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @throws \Exception
+     * @return RedirectResponse
      */
     public function deleteAction($id)
     {
-        $userRepo = $this->getEm()->getRepository('EgzaktSystemBundle:User');
-        $entity = $userRepo->find($id);
-
-        if (null === $entity) {
-            throw new NotFoundHttpException();
-        }
-
-        // Don't delete some roles
-        $result = $this->checkDeletable($entity);
-        if ($result->isSuccess()) {
-            $this->getEm()->remove($entity);
-            $this->getEm()->flush();
-
-            $this->addFlashSuccess($this->get('translator')->trans(
-                '%entity% has been deleted.',
-                array('%entity%' => $entity)
-            ));
-            $this->get('egzakt_system.router_invalidator')->invalidate();
-        } else {
-            $this->addFlashError($result->getErrors());
-        }
+        $user = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
+        $this->deleteEntity($user);
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
-
     }
 }

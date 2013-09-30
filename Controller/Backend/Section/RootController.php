@@ -2,24 +2,23 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Section;
 
-use Egzakt\SystemBundle\Entity\Mapping;
-use Egzakt\SystemBundle\Entity\NavigationRepository;
-use Egzakt\SystemBundle\Entity\SectionRepository;
-use Egzakt\SystemBundle\Lib\DeletableResult;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
+use Egzakt\SystemBundle\Entity\AppRepository;
+use Egzakt\SystemBundle\Entity\Mapping;
+use Egzakt\SystemBundle\Entity\NavigationRepository;
+use Egzakt\SystemBundle\Entity\SectionRepository;
+use Egzakt\SystemBundle\Lib\Backend\BackendController;
 use Egzakt\SystemBundle\Entity\Section;
 use Egzakt\SystemBundle\Form\Backend\RootSectionType;
 
 /**
  * RootSection Controller
  */
-class RootController extends BaseController
+class RootController extends BackendController
 {
     /**
      * @var NavigationRepository
@@ -173,65 +172,29 @@ class RootController extends BaseController
      *
      * @param Request $request
      * @param $id
+     *
      * @return JsonResponse
-     * @throws NotFoundHttpException
      */
     public function checkDeleteAction(Request $request, $id)
     {
-
-        $entity = $this->sectionRepository->find($id);
-
-        if (null === $entity) {
-            throw new NotFoundHttpException();
-        }
-
-        $result = $this->checkDeletable($entity);
-        $output = $result->toArray();
-        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
-            array(
-                'entity' => $entity,
-                'result' => $result
-            )
-        );
+        $section = $this->sectionRepository->find($id);
+        $output = $this->checkDeleteEntity($section);
 
         return new JsonResponse($output);
-
     }
 
     /**
-     * Deletes a RootSection entity.
+     * Deletes a Root Section entity.
      *
-     * @param Request $request T
+     * @param Request $request
+     * @param integer $id      The ID of the Section to delete
      *
-     * @param integer $id The ID of the RootSection to delete
-     *
-     * @throws \Exception
-     * @throws NotFoundHttpException
-     *
-     * @return Response|RedirectResponse
+     * @return RedirectResponse
      */
     public function deleteAction(Request $request, $id)
     {
         $section = $this->sectionRepository->find($id);
-
-        if (!$section) {
-            throw $this->createNotFoundException('Unable to find Section entity.');
-        }
-
-        $result = $this->checkDeletable($section);
-        if ($result->isSuccess()) {
-            $this->addFlashSuccess($this->get('translator')->trans(
-                '%entity% has been deleted.',
-                array('%entity%' => $section->getName() != '' ? $section->getName() : $section->getEntityName()))
-            );
-
-            $this->getEm()->remove($section);
-            $this->getEm()->flush();
-
-            $this->get('egzakt_system.router_invalidator')->invalidate();
-        } else {
-            $this->addFlashError($result->getErrors());
-        }
+        $this->deleteEntity($section);
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));
     }
@@ -269,5 +232,4 @@ class RootController extends BaseController
 
         return new Response('');
     }
-
 }

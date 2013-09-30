@@ -8,7 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
+use Egzakt\SystemBundle\Lib\Backend\BackendController;
 use Egzakt\SystemBundle\Entity\Text;
 use Egzakt\SystemBundle\Form\Backend\TextMainType;
 use Egzakt\SystemBundle\Form\Backend\TextStaticType;
@@ -18,7 +18,7 @@ use Egzakt\SystemBundle\Form\Backend\TextStaticType;
  *
  * @throws NotFoundHttpException
  */
-class TextController extends BaseController
+class TextController extends BackendController
 {
     /**
      * Init
@@ -126,27 +126,13 @@ class TextController extends BaseController
      *
      * @param Request $request
      * @param $id
+     *
      * @return JsonResponse
-     * @throws NotFoundHttpException
      */
     public function checkDeleteAction(Request $request, $id)
     {
-
-        $textRepo = $this->getEm()->getRepository('EgzaktSystemBundle:Text');
-        $entity = $textRepo->find($id);
-
-        if (null === $entity) {
-            throw new NotFoundHttpException();
-        }
-
-        $result = $this->checkDeletable($entity);
-        $output = $result->toArray();
-        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
-            array(
-                'entity' => $entity,
-                'result' => $result
-            )
-        );
+        $text = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
+        $output = $this->checkDeleteEntity($text);
 
         return new JsonResponse($output);
 
@@ -161,24 +147,9 @@ class TextController extends BaseController
      */
     public function deleteAction($id)
     {
-
-        $textRepo = $this->getEm()->getRepository('EgzaktSystemBundle:Text');
-        $entity = $textRepo->find($id);
-
-        if (null === $entity) {
-            throw new NotFoundHttpException();
-        }
-
-        $result = $this->checkDeletable($entity);
-        if ($result->isSuccess()) {
-            $this->getEm()->remove($entity);
-            $this->getEm()->flush();
-
-            $this->addFlashSuccess('The Text has been deleted.');
-            $this->get('egzakt_system.router_invalidator')->invalidate();
-        } else {
-            $this->addFlashError($result->getErrors());
-        }
+        $text = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
+        $this->deleteEntity($text);
+        $this->get('egzakt_system.router_invalidator')->invalidate();
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_text'));
     }
@@ -186,29 +157,15 @@ class TextController extends BaseController
     /**
      * Set order on a Text entity.
      *
+     * @param Request $request
+     *
      * @return Response
      */
-    public function orderAction()
+    public function orderAction(Request $request)
     {
-        if ($this->getRequest()->isXmlHttpRequest()) {
-
-            $i = 0;
-            $elements = explode(';', trim($this->getRequest()->request->get('elements'), ';'));
-
-            foreach ($elements as $element) {
-
-                $element = explode('_', $element);
-                $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($element[1]);
-
-                if ($entity) {
-                    $entity->setOrdering(++$i);
-                    $this->getEm()->persist($entity);
-                    $this->getEm()->flush();
-                }
-            }
-
-            $this->get('egzakt_system.router_invalidator')->invalidate();
-        }
+        $textRepo = $this->getEm()->getRepository('EgzaktSystemBundle:Text');
+        $this->orderEntities($request, $textRepo);
+        $this->get('egzakt_system.router_invalidator')->invalidate();
 
         return new Response('');
     }
