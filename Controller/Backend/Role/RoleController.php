@@ -2,7 +2,6 @@
 
 namespace Egzakt\SystemBundle\Controller\Backend\Role;
 
-use Egzakt\SystemBundle\Lib\DeletableResult;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -10,14 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
+use Egzakt\SystemBundle\Lib\Backend\BackendController;
 use Egzakt\SystemBundle\Entity\Role;
 use Egzakt\SystemBundle\Form\Backend\RoleType;
 
 /**
  * Role Controller.
  */
-class RoleController extends BaseController
+class RoleController extends BackendController
 {
 
     /**
@@ -144,28 +143,15 @@ class RoleController extends BaseController
      *
      * @param Request $request
      * @param $id
+     *
      * @return JsonResponse
-     * @throws NotFoundHttpException
      */
     public function checkDeleteAction(Request $request, $id)
     {
-        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->find($id);
-
-        if (null === $entity) {
-            throw new NotFoundHttpException();
-        }
-
-        $result = $this->checkDeletable($entity);
-        $output = $result->toArray();
-        $output['template'] = $this->renderView('EgzaktSystemBundle:Backend/Core:delete_message.html.twig',
-            array(
-                'entity' => $entity,
-                'result' => $result
-            )
-        );
+        $role = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->find($id);
+        $output = $this->checkDeleteEntity($role);
 
         return new JsonResponse($output);
-
     }
 
     /**
@@ -173,32 +159,12 @@ class RoleController extends BaseController
      *
      * @param $id
      *
-     * @return RedirectResponse|Response
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     *
-     * @throws \Exception
+     * @return RedirectResponse
      */
     public function deleteAction($id)
     {
         $role = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->find($id);
-
-        if (!$role) {
-            throw $this->createNotFoundException('Unable to find Role entity.');
-        }
-
-        $result = $this->checkDeletable($role);
-        if ($result->isSuccess()) {
-            $this->addFlashSuccess($this->get('translator')->trans(
-                '%entity% has been deleted.',
-                array('%entity%' => $role)
-            ));
-
-            $this->getEm()->remove($role);
-            $this->getEm()->flush();
-        } else {
-            $this->addFlashError($result->getErrors());
-        }
+        $this->deleteEntity($role);
 
         return $this->redirect($this->generateUrl('egzakt_system_backend_role'));
     }

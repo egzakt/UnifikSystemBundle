@@ -63,8 +63,10 @@ Repeat: Confirmation du mot de passe
 Impersonate: Personnifier
 User list: Liste des utilisateurs
 
+New role: Nouveau rôle
 Role list: Liste des rôles
 You can't delete this Role.: Vous ne pouvez pas supprimer ce rôle.
+This role has one or more users.: Ce rôle possède un ou plusieurs utilisateurs.
 
 %entity% list: Liste des %entity%
 '{0} No results|{1} One result|]1,Inf] %count% results': '{0} Aucun résultat|{1} Un résultat|]1,Inf] %count% résultats'

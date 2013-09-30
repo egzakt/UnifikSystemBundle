@@ -188,14 +188,14 @@ class UserController extends BaseController
         // Don't delete some roles
         $result = $this->checkDeletable($entity);
         if ($result->isSuccess()) {
-            $this->getEm()->remove($entity);
-            $this->getEm()->flush();
 
             $this->addFlashSuccess($this->get('translator')->trans(
                 '%entity% has been deleted.',
                 array('%entity%' => $entity)
             ));
-            $this->get('egzakt_system.router_invalidator')->invalidate();
+
+            $this->getEm()->remove($entity);
+            $this->getEm()->flush();
         } else {
             $this->addFlashError($result->getErrors());
         }
