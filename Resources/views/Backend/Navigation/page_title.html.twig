@@ -1,8 +1,9 @@
-{% block title %}
-{% spaceless %}
-    {% for element in elements %}
-        {{ element|transTitle|striptags|truncate(100)|raw }} -
-    {% endfor %}
+{% block title -%}
+    {%- for element in elements -%}
+        {% set entityTitle = element|transTitle|striptags|truncate(100)|raw %}
+        {%- if (element.id is defined and element.id is null) or element.id is not defined -%}
+            {% set entityTitle = entityTitle|trans %}
+        {%- endif -%}
+        {{ entityTitle }} - {% endfor -%}
     {{ project_title|trans }}
-{% endspaceless %}
 {%- endblock -%}
