@@ -1,5 +1,9 @@
 {% spaceless %}
     {% if entity == '' %}<em>{% endif %}
-    {{ entity|transTitle|striptags|truncate(truncateLength|default(100))|raw|trans }}
+    {% set entityTitle = entity|transTitle|striptags|truncate(truncateLength|default(100))|raw %}
+    {% if entity.id is defined and entity.id is null %}
+        {% set entityTitle = entityTitle|trans %}
+    {% endif %}
+    {{ entityTitle }}
     {% if entity == '' %}</em>{% endif %}
 {% endspaceless %}
