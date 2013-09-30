@@ -110,6 +110,11 @@ class UserController extends BaseController
 
                 $user->setPassword($encodedPassword);
 
+                // Forcing the selected locale by the user
+                if ($locale = $user->getLocale()) {
+                    $request->setLocale($locale);
+                }
+
                 $this->getEm()->persist($user);
                 $this->getEm()->flush();
 

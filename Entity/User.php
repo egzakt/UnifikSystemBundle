@@ -61,6 +61,13 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     private $salt;
 
     /**
+     * This is the preferred locale of the user
+     *
+     * @var string
+     */
+    private $locale;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -315,6 +322,22 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
     public function setSalt($salt)
     {
         $this->salt = $salt;
+    }
+
+    /**
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+        $this->locale = $locale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale()
+    {
+        return $this->locale;
     }
 
     /**
