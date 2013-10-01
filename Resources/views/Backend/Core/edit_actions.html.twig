@@ -6,7 +6,7 @@
             <span>|</span>
         </li>
         <li>
-            <a href="{% if delete_route is defined %}{{ delete_route }}{% else %}{{ path( entity.getRouteBackend('delete'), entity.getRouteBackendParams() ) }}{% endif %}" onclick="return confirm('{% block delete_confirm_message %}{% trans with {'%name%': entity|trans|striptags|truncate(80, true)|escape('js')} %}Are you sure you want to delete %name%?{% endtrans %}{% endblock %}');">
+            <a href="{% if delete_route is defined %}{{ delete_route }}{% else %}{{ path( entity.getRouteBackend('delete'), entity.getRouteBackendParams() ) }}{% endif %}" rel="{% if delete_message_route is defined %}{{ delete_message_route }}{% else %}{{ path( entity.getRouteBackend('delete'), entity.getRouteBackendParams({ 'message': true }) ) }}{% endif %}" class="delete">
                 {% trans %}Delete{% endtrans %}
             </a>
             {% endif %}

@@ -12,7 +12,7 @@
         {% block edit_actions %}
             {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'entity': locale,
-                'delete_route': path('egzakt_system_backend_locale_delete', { 'id': 0 }),
+                'delete_route': path('egzakt_system_backend_locale_delete', { 'id': locale.id }),
                 'cancel_route': path('egzakt_system_backend_locale')
             } %}
         {% endblock %}

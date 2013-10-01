@@ -13,6 +13,7 @@
             {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'entity': user,
                 'delete_route': path('egzakt_system_backend_user_delete', { 'id': user.id ? user.id : 0 }),
+                'delete_message_route': path('egzakt_system_backend_user_delete', { 'id': user.id ? user.id : 0, 'message': true }),
                 'cancel_route': path('egzakt_system_backend_user')
             } %}
         {% endblock %}

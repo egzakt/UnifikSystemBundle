@@ -12,6 +12,7 @@
         {% block edit_actions %}
             {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'delete_route': path(entity.route('delete'), entity.routeParams),
+                'delete_message_route': path(entity.route('delete'), entity.routeParams({ 'message': true })),
                 'cancel_route': path('egzakt_system_backend_application')
             } %}
         {% endblock %}
