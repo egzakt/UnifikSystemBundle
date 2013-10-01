@@ -184,7 +184,7 @@ class Text extends BaseEntity
      */
     public function getRouteBackend($action = 'edit')
     {
-        return 'EgzaktBackendTextBundle_' . $action;
+        return 'egzakt_system_backend_text_' . $action;
     }
 
     /**
