@@ -2,30 +2,14 @@
     /**
      * Set the order of {{ entity }} entities.
      *
+     * @param Request $request
+     *
      * @return Response
      */
-    public function orderAction()
+    public function orderAction(Request $request)
     {
-        if ($this->getRequest()->isXmlHttpRequest()) {
-
-            $i = 0;
-
-            $repo = $this->getEm()->getRepository('{{ namespace|replace({'\\': ''}) ~ ':' ~ entity|replace({'\\': '/'}) }}');
-
-            $elements = explode(';', trim($this->getRequest()->request->get('elements'), ';'));
-
-            foreach ($elements as $element) {
-
-                $element = explode('_', $element);
-                $entity = $repo->find($element[1]);
-
-                if ($entity) {
-                    $entity->setOrdering(++$i);
-                    $this->getEm()->persist($entity);
-                    $this->getEm()->flush();
-                }
-            }
-        }
+        $this->orderEntities($request, $this->{{ entity_var }}Repository);
 
         return new Response('');
     }
+

@@ -21,4 +21,8 @@
     pattern:  /{{ entity|lower }}/{sectionId}/{id}/delete
     defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:delete" }
 
+{{ route_prefix }}_delete_check:
+    pattern:  /{{ entity|lower }}/{sectionId}/{id}/delete/check
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:checkDelete" }
+
 {% endif %}

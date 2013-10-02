@@ -207,6 +207,7 @@ class Generator extends DoctrineCrudGenerator
             'route_prefix'      => $this->routePrefix,
             'bundle'            => $this->bundle->getName(),
             'entity'            => $this->entity,
+            'entity_var'        => strtolower(substr($this->entity, 0, 1)) . substr($this->entity, 1),
             'entity_class'      => $entityClass,
             'namespace'         => $this->bundle->getNamespace(),
             'entity_namespace'  => $entityNamespace,
