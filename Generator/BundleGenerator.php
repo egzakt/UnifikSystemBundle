@@ -50,6 +50,7 @@ class BundleGenerator extends Generator
             $this->renderFile('bundle/services.xml.twig', $dir.'/Resources/config/services.xml', $parameters);
         } else {
             $this->renderFile('bundle/services.'.$format.'.twig', $dir.'/Resources/config/services.'.$format, $parameters);
+            $this->filesystem->touch($dir.'/Resources/config/validation.yml');
         }
 
         if ('annotation' != $format) {
@@ -60,7 +61,7 @@ class BundleGenerator extends Generator
         if ($structure) {
             $this->filesystem->mkdir($dir.'/Resources/translations');
             $this->filesystem->touch($dir.'/Resources/translations/messages.fr.yml');
-            $this->filesystem->touch($dir.'/Resources/translations/messages.en.yml');
+            $this->filesystem->touch($dir.'/Resources/translations/validators.fr.yml');
             $this->filesystem->mkdir($dir.'/Resources/public/css');
             $this->filesystem->mkdir($dir.'/Resources/public/images');
             $this->filesystem->mkdir($dir.'/Resources/public/js');
