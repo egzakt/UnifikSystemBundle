@@ -115,10 +115,10 @@ EOT
         $runner($this->updateKernel($dialog, $input, $output, $this->getContainer()->get('kernel'), $namespace, $bundle));
 
         // routing backend
-        $runner($this->_updateRouting($dialog, $input, $output, $bundle, $format, '/admin/[insert-prefix-here]', 'backend'));
+        $runner($this->_updateRouting($dialog, $input, $output, $bundle, $format, 'backend'));
 
         // routing frontend
-        $runner($this->_updateRouting($dialog, $input, $output, $bundle, $format, null, 'frontend'));
+        $runner($this->_updateRouting($dialog, $input, $output, $bundle, $format, 'frontend'));
 
         $dialog->writeGeneratorSummary($output, $errors);
     }
@@ -256,16 +256,20 @@ EOT
      * @param OutputInterface $output
      * @param $bundle
      * @param $format
-     * @param $prefix
      * @param $app
      *
      * @return array
      */
-    protected function _updateRouting(DialogHelper $dialog, InputInterface $input, OutputInterface $output, $bundle, $format, $prefix = null, $app)
+    protected function _updateRouting(DialogHelper $dialog, InputInterface $input, OutputInterface $output, $bundle, $format, $app)
     {
         $auto = true;
         if ($input->isInteractive()) {
             $auto = $dialog->askConfirmation($output, $dialog->getQuestion('Confirm automatic update of the Routing for the ' . $app . ' app', 'yes', '?'), true);
+        }
+
+        $prefix = null;
+        if ($input->isInteractive()) {
+            $prefix = $dialog->ask($output, $dialog->getQuestion('Prefix for the ' . $app . ' app ' . ($app == 'backend' ? '(ex: /admin/news)' : '(leave blank for none)'), null), null);
         }
 
         $output->write('Importing the bundle routing resource: ');
