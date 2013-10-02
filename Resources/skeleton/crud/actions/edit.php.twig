@@ -2,7 +2,7 @@
     /**
      * Displays a form to edit an existing {{ entity }} entity or create a new one.
      *
-     * @param integer $id The id of the {{ entity }} to edit
+     * @param integer ${{ entity_var }}Id The id of the {{ entity }} to edit
      * @param Request $request
 {% if 'annotation' == format %}
      *
@@ -12,16 +12,12 @@
      *
      * @return RedirectResponse|Response
      */
-    public function editAction($id, Request $request)
+    public function editAction(${{ entity_var }}Id, Request $request)
     {
-        ${{ entity_var }} = $this->{{ entity_var }}Repository->find($id);
+        ${{ entity_var }} = $this->{{ entity_var }}Repository->find(${{ entity_var }}Id);
 
         if (false == ${{ entity_var }}) {
-
             ${{ entity_var }} = $this->initEntity(new {{ entity_class }}());
-
-            // Uncomment to connect the list with the current section
-            // ${{ entity_var }}->setSection($section);
         }
 
         $this->getCore()->addNavigationElement(${{ entity_var }});
@@ -50,7 +46,7 @@
         }
 
         return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity_class ~ '/' ~ entity|replace({'\\': '/'}) }}:edit.html.twig', array(
-            '{{ entity_var }}' => ${{ entity_var }},
+            '{{ twig_entity_var }}' => ${{ entity_var }},
             'form' => $form->createView()
         ));
     }

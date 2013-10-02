@@ -2,6 +2,7 @@
 
 namespace Flexy\SystemBundle\Command;
 
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
@@ -74,9 +75,10 @@ class Generator extends DoctrineCrudGenerator
      * @param ClassMetadataInfo $metadata         The entity class metadata
      * @param string            $format           The configuration format (xml, yaml, annotation)
      * @param string            $routePrefix      The route name prefix
-     * @param array             $needWriteActions Wether or not to generate write actions
+     * @param boolean           $needWriteActions Wether or not to generate write actions
      * @param string            $forceOverwrite   Overwrite the files or not
      * @param string            $application      The current application context
+     * @param array             $translation      The translation
      * @param boolean           $withjqgrid       Check if we use jqgrid or not
      *
      * @throws \RuntimeException
@@ -175,6 +177,7 @@ class Generator extends DoctrineCrudGenerator
             'route_prefix'  => $this->routePrefix,
             'bundle'        => $this->bundle->getName(),
             'entity'        => $this->entity,
+            'entity_var'    => $this->getEntityVar(),
             'application'   => $this->application,
         ));
     }
@@ -207,7 +210,8 @@ class Generator extends DoctrineCrudGenerator
             'route_prefix'      => $this->routePrefix,
             'bundle'            => $this->bundle->getName(),
             'entity'            => $this->entity,
-            'entity_var'        => strtolower(substr($this->entity, 0, 1)) . substr($this->entity, 1),
+            'entity_var'        => $this->getEntityVar(),
+            'twig_entity_var'   => $this->getTwigEntityVar(),
             'entity_class'      => $entityClass,
             'namespace'         => $this->bundle->getNamespace(),
             'entity_namespace'  => $entityNamespace,
@@ -324,6 +328,7 @@ class Generator extends DoctrineCrudGenerator
 
         $this->renderFile($filename, $dir . '/' . $this->entity . '/list.html.twig', array(
             'entity'            => $this->entity,
+            'twig_entity_var'       => $this->getTwigEntityVar(),
             'fields'            => $fields,
             'bundle_name'       => $this->bundle->getName(),
             'actions'           => $this->actions,
@@ -344,6 +349,8 @@ class Generator extends DoctrineCrudGenerator
             'route_prefix'          => $this->routePrefix,
             'bundle_name'           => $this->bundle->getName(),
             'entity'                => $this->entity,
+            'entity_var'            => $this->getEntityVar(),
+            'twig_entity_var'       => $this->getTwigEntityVar(),
             'fields'                => $this->metadata->fieldMappings,
             'actions'               => $this->actions,
             'application'           => $this->application,
@@ -361,5 +368,25 @@ class Generator extends DoctrineCrudGenerator
         return array_filter($this->actions, function ($item) {
             return in_array($item, array('show', 'edit', 'delete'));
         });
+    }
+
+    /**
+     * Return the camelcase entity var name
+     *
+     * @return string
+     */
+    protected function getEntityVar()
+    {
+        return lcfirst(Container::camelize($this->entity));
+    }
+
+    /**
+     * Return the twig entity var name
+     *
+     * @return string
+     */
+    protected function getTwigEntityVar()
+    {
+        return Container::underscore($this->getEntityVar());
     }
 }

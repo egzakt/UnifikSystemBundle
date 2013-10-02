@@ -3,13 +3,13 @@
      * Deletes a {{ entity }} entity.
      *
      * @param Request $request
-     * @param integer $id      The ID of the {{ entity }} to delete
+     * @param integer ${{ entity_var }}Id      The ID of the {{ entity }} to delete
      *
      * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, ${{ entity_var }}Id)
     {
-        ${{ entity_var }} = $this->{{ entity_var }}Repository->find($id);
+        ${{ entity_var }} = $this->{{ entity_var }}Repository->find(${{ entity_var }}Id);
         $this->deleteEntity(${{ entity_var }});
 
         return $this->redirect($this->generateUrl('{{ route_prefix }}'));
