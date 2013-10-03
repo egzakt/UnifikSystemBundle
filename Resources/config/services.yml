@@ -30,6 +30,7 @@ parameters:
     flexy_backend.form.type.advanced_file.class:               Flexy\SystemBundle\Form\Backend\AdvancedFileType
     flexy_backend.login_listener.class:                        Flexy\SystemBundle\Listener\LoginBackendListener
     flexy_frontend.core.class:                                 Flexy\SystemBundle\Lib\Frontend\Core
+    flexy_system.translation_editor_loader.class:              Flexy\SystemBundle\Translation\TranslationEditorLoader
 
 services:
 
@@ -207,3 +208,9 @@ services:
         class: %flexy_system.section_translation.sluggable.listener.class%
         tags:
             - { name: doctrine.event_subscriber, type: sluggable, entity: Flexy\SystemBundle\Entity\SectionTranslation }
+
+    flexy_system.translation.translator_editor_loader:
+        class: %flexy_system.translation_editor_loader.class%
+        arguments: [@doctrine.orm.entity_manager, %kernel.root_dir%]
+        tags:
+            - { name: translation.loader, alias: db }
