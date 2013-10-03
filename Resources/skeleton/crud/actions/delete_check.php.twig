@@ -9,7 +9,7 @@
      */
     public function checkDeleteAction(Request $request, ${{ entity_var }}Id)
     {
-        ${{ entity_var }} = $this->sectionRepository->find(${{ entity_var }}Id);
+        ${{ entity_var }} = $this->{{ entity_var }}Repository->find(${{ entity_var }}Id);
         $output = $this->checkDeleteEntity(${{ entity_var }});
 
         return new JsonResponse($output);

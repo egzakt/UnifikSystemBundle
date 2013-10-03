@@ -4,13 +4,13 @@ namespace Flexy\SystemBundle\Generator;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\DBAL\Types\Type;
+use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 use Flexy\SystemBundle\Tools\EntityGenerator as BaseEntityGenerator;
 
 class EntityGenerator extends BaseEntityGenerator
 {
-
     /**
      * Generate a PHP5 Doctrine 2 entity class from the given ClassMetadataInfo instance
      *
@@ -59,6 +59,7 @@ class EntityGenerator extends BaseEntityGenerator
             'namespace' => $namespace,
             'route' => $routeName,
             'entity' => $entity,
+            'entity_var' => $this->getEntityVar($entity),
             'code' => $code,
             'name_function' => $functionName,
             'is_timestampable' => $isTimestampable,
@@ -68,4 +69,15 @@ class EntityGenerator extends BaseEntityGenerator
         ));
     }
 
+    /**
+     * Return the camelcase entity var name
+     *
+     * @param mixed $entity
+     *
+     * @return string
+     */
+    protected function getEntityVar($entity)
+    {
+        return lcfirst(Container::camelize($entity));
+    }
 }
