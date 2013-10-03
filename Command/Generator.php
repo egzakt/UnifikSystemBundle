@@ -172,7 +172,7 @@ class Generator extends DoctrineCrudGenerator
         $filename.= $this->withjqgrid ? 'jqgrid/' : '';
         $filename.= 'config/routing.'.$this->format.'.twig';
 
-        $this->renderFile($filename, $target, array(
+        $content = $this->render($filename, array(
             'actions'       => $this->actions,
             'route_prefix'  => $this->routePrefix,
             'bundle'        => $this->bundle->getName(),
@@ -180,6 +180,18 @@ class Generator extends DoctrineCrudGenerator
             'entity_var'    => $this->getEntityVar(),
             'application'   => $this->application,
         ));
+
+        if (file_exists($target)) {
+            $current = file_get_contents($target);
+        }
+
+        $content = $current . $content;
+
+        if (false === file_put_contents($target, $content)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**
