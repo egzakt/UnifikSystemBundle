@@ -89,10 +89,6 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
             }
         }
 
-        if ($isSluggable) {
-            $notNullableFields[] = 'slug';
-        }
-
         if ($notNullableFields) {
             $this->addEntityValidationConstraint($bundle->getNamespace().'\\Entity\\' . $entity, $notNullableFields, $format, $bundle);
         }
@@ -103,10 +99,6 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
             if (isset($field['nullable']) && !$field['nullable']) {
                 $notNullableFields[] = $field['fieldName'];
             }
-        }
-
-        if ($isI18nSluggable) {
-            $notNullableFields[] = 'slug';
         }
 
         if ($notNullableFields) {

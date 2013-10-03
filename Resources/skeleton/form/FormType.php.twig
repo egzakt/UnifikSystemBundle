@@ -35,7 +35,7 @@ class {{ form_class }} extends AbstractType
             ->add('{{ field.fieldName }}', 'file', array('attr' => array('multiple' => 'multiple')))
             {%- elseif field.fieldName not in ['id', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
 
-            ->add('{{ field.fieldName }}', {% if field.type == 'text' %}'ckeditor'{% else %}null{% endif %}, array('label' => '{{ field.fieldName|replace({'At': ''})|capitalize }}'{% if field.type == 'text' and 'intro' in field.fieldName %}, 'toolbar' => array('document', 'basicstyles', 'links'), 'width' => 500, 'height' => 120{% endif %}{% if field.type in ['date'] %}, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd'{% endif %}))
+            ->add('{{ field.fieldName }}', {% if field.type == 'text' %}'ckeditor'{% else %}null{% endif %}, array('label' => '{{ field.fieldName|replace({'At': ''})|capitalize }}'{% if field.type == 'text' and 'intro' in field.fieldName %}, 'toolbar' => array('document', 'basicstyles', 'links'), 'width' => 500, 'height' => 120{% endif %}{% if field.type in ['date'] %}, 'widget' => 'single_text', 'format' => 'yyyy-MM-dd'{% endif %}{% if field.nullable is defined and not field.nullable %}, 'required' => true{% endif %}))
             {%- endif -%}
         {%- endfor -%};
         ;
