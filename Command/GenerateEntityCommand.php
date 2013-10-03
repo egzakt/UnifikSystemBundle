@@ -73,6 +73,12 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
         $dialog->writeGeneratorSummary($output, array());
     }
 
+    /**
+     * Interact
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
         $dialog = $this->getDialogHelper();
@@ -149,6 +155,13 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
         ));
     }
 
+    /**
+     * Parse the entity fields
+     *
+     * @param $input
+     *
+     * @return array
+     */
     private function parseFields($input)
     {
         if (is_array($input)) {
@@ -172,6 +185,15 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
         return $fields;
     }
 
+    /**
+     * Add the entity fields
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @param DialogHelper $dialog
+     *
+     * @return array
+     */
     private function addFields(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
     {
         $fields = $this->parseFields($input->getOption('fields'));
@@ -282,19 +304,29 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
     }
 
     /**
-     * Get Generator
+     * Get Entity Generator
      *
-     * @return \Flexy\SystemBundle\Generator\DoctrineEntityGenerator
+     * @param BundleInterface $bundle
+     *
+     * @return FlexyDoctrineEntityGenerator
      */
     public function getGenerator(BundleInterface $bundle = null)
     {
         if (null === $this->generator) {
             $this->generator = new FlexyDoctrineEntityGenerator($this->getContainer()->get('filesystem'), $this->getContainer()->get('doctrine'));
+            $this->generator->setSkeletonDirs($this->getSkeletonDirs());
         }
 
         return $this->generator;
     }
 
+    /**
+     * Get the list of Skeleton Directories
+     *
+     * @param BundleInterface $bundle
+     *
+     * @return array
+     */
     protected function getSkeletonDirs(BundleInterface $bundle = null)
     {
         $skeletonDirs = array();

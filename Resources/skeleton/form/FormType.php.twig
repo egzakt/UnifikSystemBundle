@@ -60,6 +60,11 @@ class {{ form_class }} extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => '{{ namespace }}\Entity\{{ entity }}',
+            {%- if translation %}
+
+            'cascade_validation' => true
+            {%- endif %}
+
         ));
     }
 }
