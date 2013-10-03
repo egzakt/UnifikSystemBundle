@@ -178,7 +178,7 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
         $output->writeln(array(
             '',
             'Instead of starting with a blank entity, you can add some fields now.',
-            'Note that the primary key will be added automatically (named <comment>id</comment>).',
+            'Note that the primary key will be added automatically (named <comment>id</comment>) as well as the <comment>active</comment> field.',
             '',
         ));
         $output->write('<info>Available types:</info> ');
