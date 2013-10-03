@@ -184,6 +184,11 @@ class Generator extends DoctrineCrudGenerator
         $current = '';
         if (file_exists($target)) {
             $current = file_get_contents($target);
+
+            // Check if the route exists in the current file
+            if (false !== strpos($current, $this->routePrefix . ':')) {
+                return false;
+            }
         }
 
         $content = $current . $content;
