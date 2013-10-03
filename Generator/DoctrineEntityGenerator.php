@@ -43,7 +43,6 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         // Rebuild fields based on the i18n attribute
         $entityFields = array();
         $entityTranslationFields = array();
-        $nameEntityNamespace = false;
         $isSluggable = false;
         $isI18nSluggable = false;
         foreach ($fields as $field) {
@@ -55,8 +54,6 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
                 if ($field['fieldName'] == 'slug') {
                     $isI18nSluggable = true;
                     $push = false;
-                } elseif ($field['fieldName'] == 'name') {
-                    $nameEntityNamespace = $bundle->getNamespace().'\\Entity\\' . $entity . 'Translation';
                 }
 
                 if ($push) {
@@ -70,8 +67,6 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
                 if ($field['fieldName'] == 'slug') {
                     $isSluggable = true;
                     $push = false;
-                } elseif ($field['fieldName'] == 'name') {
-                    $nameEntityNamespace = $bundle->getNamespace().'\\Entity\\' . $entity;
                 }
 
                 if ($push) {
@@ -86,9 +81,36 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
             $this->generateEntityTranslation($bundle, $entity, $format, $entityTranslationFields, $fields, $isI18nSluggable);
         }
 
-        // Name field? Add it to the validation.yml file
-        if ($nameEntityNamespace) {
-            $this->addEntityValidationConstraint($nameEntityNamespace, 'name', $format, $bundle);
+        // Entity not nullable fields? Add it to the validation.yml file
+        $notNullableFields = [];
+        foreach($entityFields as $field) {
+            if (isset($field['nullable']) && !$field['nullable']) {
+                $notNullableFields[] = $field['fieldName'];
+            }
+        }
+
+        if ($isSluggable) {
+            $notNullableFields[] = 'slug';
+        }
+
+        if ($notNullableFields) {
+            $this->addEntityValidationConstraint($bundle->getNamespace().'\\Entity\\' . $entity, $notNullableFields, $format, $bundle);
+        }
+
+        // Entity not nullable fields? Add it to the validation.yml file
+        $notNullableFields = [];
+        foreach($entityTranslationFields as $field) {
+            if (isset($field['nullable']) && !$field['nullable']) {
+                $notNullableFields[] = $field['fieldName'];
+            }
+        }
+
+        if ($isI18nSluggable) {
+            $notNullableFields[] = 'slug';
+        }
+
+        if ($notNullableFields) {
+            $this->addEntityValidationConstraint($bundle->getNamespace().'\\Entity\\' . $entity . 'Translation', $notNullableFields, $format, $bundle);
         }
     }
 
@@ -96,13 +118,13 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
      * Add a validation constraint to the validation.yml file
      *
      * @param $entityNamespace
-     * @param $field
+     * @param $fields
      * @param $format
      * @param $bundle
      *
      * @return boolean
      */
-    protected function addEntityValidationConstraint($entityNamespace, $field, $format, $bundle)
+    protected function addEntityValidationConstraint($entityNamespace, $fields, $format, $bundle)
     {
         if (!in_array($format, ['yml', 'xml'])) {
             return false;
@@ -135,7 +157,7 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $content = $this->render(sprintf('entity/validation.%s.twig', $format), array(
             'render_header' => $renderHeader,
             'namespace' => $entityNamespace,
-            'field' => $field
+            'fields' => $fields
         ));
 
         $content = $current . $content;

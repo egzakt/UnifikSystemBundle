@@ -6,9 +6,11 @@
 {% endif %}
 
     <class name="{{ namespace }}">
+        {%- for field in fields  %}
         <property name="{{ field }}">
             <constraint name="NotBlank" />
         </property>
+        {%- endfor %}
     </class>
 {% if render_header %}
 </constraint-mapping>

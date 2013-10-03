@@ -255,6 +255,14 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
             return $isI18n;
         };
 
+        $isNullableValidator = function ($isNullable) {
+            if (!in_array($isNullable, array('Yes', 'No', 'yes', 'no', 'Y', 'N', 'y', 'n'))) {
+                throw new \InvalidArgumentException(sprintf('Invalid answer (Yes/No) "%s".', $isNullable));
+            }
+
+            return (substr(strtolower($isNullable), 0, 1) == 'y') ? true : false;
+        };
+
         while (true) {
             $output->writeln('');
             $generator = $this->getGenerator();
@@ -296,6 +304,10 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
             }
 
             $data['i18n'] = $dialog->askAndValidate($output, $dialog->getQuestion('Field is i18n', 'no'), $i18nValidator, false, 'no');
+
+            if ($columnName != 'slug') {
+                $data['nullable'] = $dialog->askAndValidate($output, $dialog->getQuestion('Field is nullable', 'no'), $isNullableValidator, false, 'no');
+            }
 
             $fields[$columnName] = $data;
         }
