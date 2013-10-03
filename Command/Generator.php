@@ -181,6 +181,7 @@ class Generator extends DoctrineCrudGenerator
             'application'   => $this->application,
         ));
 
+        $current = '';
         if (file_exists($target)) {
             $current = file_get_contents($target);
         }
