@@ -1,9 +1,9 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
 /**
- * Egzakt Backend Base for Translation Entities
+ * Flexy Backend Base for Translation Entities
  */
 abstract class BaseTranslationEntity
 {

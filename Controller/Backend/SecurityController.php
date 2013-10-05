@@ -1,13 +1,13 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend;
+namespace Flexy\SystemBundle\Controller\Backend;
 
 use Symfony\Component\Security\Core\SecurityContext;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 
-use Egzakt\SystemBundle\Entity\Login;
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
+use Flexy\SystemBundle\Entity\Login;
+use Flexy\SystemBundle\Lib\Backend\BaseController;
 
 /**
  * Security Controller
@@ -41,7 +41,7 @@ class SecurityController extends BaseController
             $this->logLoginAttempt($lastUsername);
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/Security:login.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Security:login.html.twig', array(
             'last_username' => $lastUsername,
             'error' => $error,
         ));

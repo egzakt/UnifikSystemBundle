@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Egzakt\SystemBundle\Generator;
+namespace Flexy\SystemBundle\Generator;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;

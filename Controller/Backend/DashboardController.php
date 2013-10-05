@@ -1,10 +1,10 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend;
+namespace Flexy\SystemBundle\Controller\Backend;
 
 use Symfony\Component\HttpFoundation\Response;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
+use Flexy\SystemBundle\Lib\Backend\BaseController;
 
 /**
  * Dashboard controller
@@ -18,7 +18,7 @@ class DashboardController extends BaseController
      */
     public function indexAction()
     {
-        return $this->render('EgzaktSystemBundle:Backend/Dashboard:index.html.twig');
+        return $this->render('FlexySystemBundle:Backend/Dashboard:index.html.twig');
     }
 
     /**
@@ -28,7 +28,7 @@ class DashboardController extends BaseController
      */
     public function helpAction()
     {
-        return $this->render('EgzaktSystemBundle:Backend/Dashboard:help.html.twig');
+        return $this->render('FlexySystemBundle:Backend/Dashboard:help.html.twig');
     }
 
     /**
@@ -40,7 +40,7 @@ class DashboardController extends BaseController
      */
     public function helpDetailAction($itemId)
     {
-        return $this->render('EgzaktSystemBundle:Backend/Dashboard:help.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Dashboard:help.html.twig', array(
             'itemId' => $itemId
         ));
     }

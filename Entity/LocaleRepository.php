@@ -1,8 +1,8 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
-use Egzakt\SystemBundle\Lib\BaseEntityRepository;
+use Flexy\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * LocaleRepository
@@ -22,7 +22,7 @@ class LocaleRepository extends BaseEntityRepository
     public function findAllExcept($localeCode)
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT l FROM EgzaktSystemBundle:Locale l
+            'SELECT l FROM FlexySystemBundle:Locale l
             WHERE l.code != :code
             AND l.active = :active
             ORDER BY l.ordering'

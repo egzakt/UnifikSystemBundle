@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Command;
+namespace Flexy\SystemBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Command\RouterDebugCommand as BaseRouterDebug
 /**
  * A console command for retrieving information about routes
  *
- * This Egzakt version display addional informations about route mapping
+ * This Flexy version display addional informations about route mapping
  */
 class RouterDebugCommand extends BaseRouterDebugCommand
 {
@@ -22,7 +22,7 @@ class RouterDebugCommand extends BaseRouterDebugCommand
     protected function configure()
     {
         $this
-            ->setName('egzakt:router:debug')
+            ->setName('flexy:router:debug')
             ->setDefinition(array(
                 new InputArgument('name', InputArgument::OPTIONAL, 'A route name')
             ))
@@ -65,12 +65,12 @@ EOF
             $maxHost = max($maxHost, strlen($host));
             $maxPath = max($maxPath, strlen($route->getPattern()));
 
-            if ($egzaktRequest = $route->getDefault('_egzaktRequest')) {
-                if (isset($egzaktRequest['mappedRouteName'])) {
-                    $maxMappingSource = max($maxMappingSource, strlen($egzaktRequest['mappedRouteName']));
+            if ($flexyRequest = $route->getDefault('_flexyRequest')) {
+                if (isset($flexyRequest['mappedRouteName'])) {
+                    $maxMappingSource = max($maxMappingSource, strlen($flexyRequest['mappedRouteName']));
                 }
-                if (isset($egzaktRequest['appSlug'])) {
-                    $maxApplication = max($maxApplication, strlen($egzaktRequest['appSlug']));
+                if (isset($flexyRequest['appSlug'])) {
+                    $maxApplication = max($maxApplication, strlen($flexyRequest['appSlug']));
                 }
             }
         }
@@ -85,12 +85,12 @@ EOF
             $host = '' !== $route->getHost() ? $route->getHost() : 'ANY';
             $mappingSource = '';
             $appSlug = '';
-            if ($egzaktRequest = $route->getDefault('_egzaktRequest')) {
-                if (isset($egzaktRequest['mappedRouteName'])) {
-                    $mappingSource = $egzaktRequest['mappedRouteName'];
+            if ($flexyRequest = $route->getDefault('_flexyRequest')) {
+                if (isset($flexyRequest['mappedRouteName'])) {
+                    $mappingSource = $flexyRequest['mappedRouteName'];
                 }
-                if (isset($egzaktRequest['appSlug'])) {
-                    $appSlug = $egzaktRequest['appSlug'];
+                if (isset($flexyRequest['appSlug'])) {
+                    $appSlug = $flexyRequest['appSlug'];
                 }
             }
             $output->write(sprintf($format,  $name, $method, $scheme, $host, $route->getPath(), '<fg=yellow>' . $appSlug . '</>', $mappingSource), OutputInterface::OUTPUT_RAW);

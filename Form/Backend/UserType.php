@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Form\Backend;
+namespace Flexy\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,7 +33,7 @@ class UserType extends AbstractType
             ->add('lastname')
             ->add('email')
             ->add('userRoles', 'entity', array(
-                'class' => 'EgzaktSystemBundle:Role',
+                'class' => 'FlexySystemBundle:Role',
                 'expanded' => true,
                 'multiple' => true,
                 'label' => 'Roles',
@@ -86,7 +86,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Egzakt\SystemBundle\Entity\User',
+            'data_class' => 'Flexy\SystemBundle\Entity\User',
             'self_edit' => false,
             'developer' => false,
             'error_mapping' => array('roles' => 'userRoles')

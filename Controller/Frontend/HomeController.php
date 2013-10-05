@@ -1,10 +1,10 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Frontend;
+namespace Flexy\SystemBundle\Controller\Frontend;
 
 use Symfony\Component\HttpFoundation\Response;
 
-use Egzakt\SystemBundle\Lib\Frontend\BaseController;
+use Flexy\SystemBundle\Lib\Frontend\BaseController;
 
 /**
  * Home Controller
@@ -18,6 +18,6 @@ class HomeController extends BaseController
      */
     public function indexAction()
     {
-        return $this->render('EgzaktSystemBundle:Frontend/Home:index.html.twig');
+        return $this->render('FlexySystemBundle:Frontend/Home:index.html.twig');
     }
 }

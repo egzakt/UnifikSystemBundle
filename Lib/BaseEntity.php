@@ -1,15 +1,15 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Egzakt\SystemBundle\Lib\EntityInterface;
-use Egzakt\SystemBundle\Lib\NavigationElementInterface;
+use Flexy\SystemBundle\Lib\EntityInterface;
+use Flexy\SystemBundle\Lib\NavigationElementInterface;
 
 /**
- * Egzakt Backend Base for Entities
+ * Flexy Backend Base for Entities
  */
 abstract class BaseEntity implements EntityInterface, NavigationElementInterface
 {
@@ -200,21 +200,21 @@ abstract class BaseEntity implements EntityInterface, NavigationElementInterface
     /**
      * Gets the System Core
      *
-     * @return \Egzakt\System\CoreBundle\Lib\Core
+     * @return \Flexy\System\CoreBundle\Lib\Core
      */
     protected function getSystemCore()
     {
-        return $this->container->get('egzakt_system.core');
+        return $this->container->get('flexy_system.core');
     }
 
     /**
      * Gets the current application core
      *
-     * @return \Egzakt\Backend\CoreBundle\Lib\Core
+     * @return \Flexy\Backend\CoreBundle\Lib\Core
      */
     public function getCore()
     {
-        return $this->container->get('egzakt_' . $this->getSystemCore()->getCurrentAppName() . '.core');
+        return $this->container->get('flexy_' . $this->getSystemCore()->getCurrentAppName() . '.core');
     }
 
     /**

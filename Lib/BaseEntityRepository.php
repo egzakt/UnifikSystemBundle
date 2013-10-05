@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -10,7 +10,7 @@ use Doctrine\ORM\ORMException;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Egzakt Backend Base for Entities
+ * Flexy Backend Base for Entities
  */
 abstract class BaseEntityRepository extends EntityRepository implements ContainerAwareInterface
 {

@@ -8,14 +8,14 @@
 
 {{ "{% set idGrid = 'entityList' %}" }}
 
-{{ "{{ include('EgzaktJQGridBundle:JQGrid:headers.html.twig') }}" }}
+{{ "{{ include('FlexyJQGridBundle:JQGrid:headers.html.twig') }}" }}
 
 <div id="list_actions_bar" style="margin-bottom:10px;">
     <div style="float:right">
 
         {{ "{% set exportpath = path( '" ~ route_prefix ~ "_export') %} "}}
 
-        {{ "{% include 'EgzaktJQGridBundle:JQGrid:bulkSelector.html.twig' with { 'idGrid': idGrid, 'grid': grid,
+        {{ "{% include 'FlexyJQGridBundle:JQGrid:bulkSelector.html.twig' with { 'idGrid': idGrid, 'grid': grid,
                 'actions': {
                     'export': {
                         'url': exportpath,
@@ -35,7 +35,7 @@
      {% endif %}' }}
 </div>
 
-        {{ "{% include 'EgzaktJQGridBundle:JQGrid:jqgrid.html.twig' with { 'idGrid': idGrid, 'grid': grid,
+        {{ "{% include 'FlexyJQGridBundle:JQGrid:jqgrid.html.twig' with { 'idGrid': idGrid, 'grid': grid,
                 'entityActions': {
                     'edit': { 'url': '" ~ route_prefix ~ "_edit', 'args': { 'sectionId': section.id } },
                     'delete': { 'url': '" ~ route_prefix ~ "_delete', 'args': { 'sectionId': section.id } },

@@ -1,5 +1,5 @@
 {{ "{% extends '" ~ bundle_name ~ ":" ~ application ~ "/" ~ entity ~ ":layout.html.twig' %}" }}
-{{ "{% form_theme form 'EgzaktSystemBundle:" ~ application ~ "/Core:edit_fields.html.twig' %}" }}
+{{ "{% form_theme form 'FlexySystemBundle:" ~ application ~ "/Core:edit_fields.html.twig' %}" }}
 
 {{ '{% block content_header %}' }}
     <h1>{{ '{{ entity|trans }}' }}</h1>
@@ -10,7 +10,7 @@
     {{ "{{ form_start(form) }}" }}
 
         {{ "{% block edit_actions %}" }}
-            {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
+            {{ "{% include 'FlexySystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
                 'entity': entity,
                 'delete_route': path('" ~ route_prefix ~ "_delete', { id: entity.id ?: 0 }),
                 'cancel_route': path('" ~ route_prefix ~ "')
@@ -39,7 +39,7 @@
             {% endif %}
 
             {%- if 'slug' in fields|keys -%}
-            {{ "{% include 'EgzaktSystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
+            {{ "{% include 'FlexySystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
             'link_name': 'SEO Informations',
             'fields': [form_row(form.slug)]
             } %}" }}

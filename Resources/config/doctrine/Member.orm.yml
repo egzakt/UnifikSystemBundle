@@ -1,6 +1,6 @@
-Egzakt\SystemBundle\Entity\Member:
+Flexy\SystemBundle\Entity\Member:
   type: entity
-  repositoryClass: Egzakt\SystemBundle\Entity\MemberRepository
+  repositoryClass: Flexy\SystemBundle\Entity\MemberRepository
   fields:
     id:
       type: integer

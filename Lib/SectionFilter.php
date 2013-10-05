@@ -1,8 +1,8 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
-use Egzakt\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Entity\Section;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Doctrine\ORM\EntityManager;
 
@@ -143,7 +143,7 @@ class SectionFilter
             }
 
             // Find the Sections for the User's Roles
-            $this->allowedSectionIds = $this->entityManager->getRepository('EgzaktSystemBundle:Section')->findHavingRoles($roles);
+            $this->allowedSectionIds = $this->entityManager->getRepository('FlexySystemBundle:Section')->findHavingRoles($roles);
         }
 
         return $this->allowedSectionIds;

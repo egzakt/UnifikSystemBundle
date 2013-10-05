@@ -1,8 +1,8 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
+use Flexy\SystemBundle\Lib\BaseEntity;
 
 /**
  * Navigation Element

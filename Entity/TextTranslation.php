@@ -1,17 +1,17 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Symfony\Component\Validator\ExecutionContextInterface;
 
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * TextTranslation
  */
 class TextTranslation
 {
-    use EgzaktORMBehaviors\Translatable\Translation;
+    use FlexyORMBehaviors\Translatable\Translation;
 
     /**
      * @var integer $id

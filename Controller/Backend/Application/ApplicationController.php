@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend\Application;
+namespace Flexy\SystemBundle\Controller\Backend\Application;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,10 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BackendController;
-use Egzakt\SystemBundle\Entity\App;
-use Egzakt\SystemBundle\Entity\AppRepository;
-use Egzakt\SystemBundle\Form\Backend\ApplicationType;
+use Flexy\SystemBundle\Lib\Backend\BackendController;
+use Flexy\SystemBundle\Entity\App;
+use Flexy\SystemBundle\Entity\AppRepository;
+use Flexy\SystemBundle\Form\Backend\ApplicationType;
 
 /**
  * Application Controller
@@ -34,9 +34,9 @@ class ApplicationController extends BackendController
 
         parent::init();
 
-        $this->createAndPushNavigationElement('Applications', 'egzakt_system_backend_application');
+        $this->createAndPushNavigationElement('Applications', 'flexy_system_backend_application');
 
-        $this->appRepository = $this->getEm()->getRepository('EgzaktSystemBundle:App');
+        $this->appRepository = $this->getEm()->getRepository('FlexySystemBundle:App');
     }
 
     /**
@@ -48,7 +48,7 @@ class ApplicationController extends BackendController
     {
         $applications = $this->appRepository->findAllExcept(AppRepository::BACKEND_APP_ID);
 
-        return $this->render('EgzaktSystemBundle:Backend/Application/Application:list.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Application/Application:list.html.twig', array(
             'applications' => $applications
         ));
     }
@@ -83,7 +83,7 @@ class ApplicationController extends BackendController
                 $this->getEm()->persist($entity);
                 $this->getEm()->flush();
 
-                $this->get('egzakt_system.router_invalidator')->invalidate();
+                $this->get('flexy_system.router_invalidator')->invalidate();
 
                 $this->addFlashSuccess($this->get('translator')->trans(
                     '%entity% has been saved.',
@@ -91,7 +91,7 @@ class ApplicationController extends BackendController
                 );
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('egzakt_system_backend_application'));
+                    return $this->redirect($this->generateUrl('flexy_system_backend_application'));
                 }
 
                 return $this->redirect($this->generateUrl($entity->getRoute(), $entity->getRouteParams()));
@@ -100,7 +100,7 @@ class ApplicationController extends BackendController
             }
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/Application/Application:edit.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Application/Application:edit.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView()
         ));
@@ -134,8 +134,8 @@ class ApplicationController extends BackendController
     {
         $application = $this->appRepository->find($applicationId);
         $this->deleteEntity($application);
-        $this->get('egzakt_system.router_invalidator')->invalidate();
+        $this->get('flexy_system.router_invalidator')->invalidate();
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_application'));
+        return $this->redirect($this->generateUrl('flexy_system_backend_application'));
     }
 }

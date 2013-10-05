@@ -1,14 +1,14 @@
 <?php
 
-namespace Egzakt\Frontend\CoreBundle\DataFixtures\ORM;
+namespace Flexy\Frontend\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
-use Egzakt\SystemBundle\Entity\Role;
-use Egzakt\SystemBundle\Entity\RoleTranslation;
+use Flexy\SystemBundle\Entity\Role;
+use Flexy\SystemBundle\Entity\RoleTranslation;
 
 class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -19,7 +19,7 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $metadata = $manager->getClassMetaData('Egzakt\\SystemBundle\\Entity\\Role');
+        $metadata = $manager->getClassMetaData('Flexy\\SystemBundle\\Entity\\Role');
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $role = new Role();

@@ -1,7 +1,7 @@
-egzakt_system_frontend_home:
+flexy_system_frontend_home:
     pattern:  /
-    defaults: { _controller: "EgzaktSystemBundle:Frontend/Home:index" }
+    defaults: { _controller: "FlexySystemBundle:Frontend/Home:index" }
 
-egzakt_system_frontend_text:
+flexy_system_frontend_text:
     pattern:  /{sectionsPath}
-    defaults: { _controller: "EgzaktSystemBundle:Frontend/Text:index" }
+    defaults: { _controller: "FlexySystemBundle:Frontend/Text:index" }

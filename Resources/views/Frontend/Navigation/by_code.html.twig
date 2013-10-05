@@ -1,7 +1,7 @@
 {% if sections %}
     <nav{% if attr|length %}{% for attribute, value in attr %} {{ attribute }}="{{ value }}"{% endfor %}{% endif %}>
         <ul class="level_1">
-            {% include 'EgzaktSystemBundle:Frontend/Navigation:by_code_level.html.twig' with { 'sections' : sections, 'level': 1, 'maxLevel' : maxLevel } %}
+            {% include 'FlexySystemBundle:Frontend/Navigation:by_code_level.html.twig' with { 'sections' : sections, 'level': 1, 'maxLevel' : maxLevel } %}
         </ul>
     </nav>
 {% endif %}

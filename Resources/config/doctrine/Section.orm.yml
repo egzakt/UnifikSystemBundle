@@ -1,4 +1,4 @@
-Egzakt\SystemBundle\Entity\Section:
+Flexy\SystemBundle\Entity\Section:
   type: entity
   fields:
     id:
@@ -9,34 +9,34 @@ Egzakt\SystemBundle\Entity\Section:
     ordering:
       type: integer
       nullable: true
-  repositoryClass: Egzakt\SystemBundle\Entity\SectionRepository
+  repositoryClass: Flexy\SystemBundle\Entity\SectionRepository
   oneToMany:
     children:
-      targetEntity: Egzakt\SystemBundle\Entity\Section
+      targetEntity: Flexy\SystemBundle\Entity\Section
       mappedBy: parent
       orderBy: { ordering: ASC }
     texts:
-      targetEntity: Egzakt\SystemBundle\Entity\Text
+      targetEntity: Flexy\SystemBundle\Entity\Text
       mappedBy: section
     sectionNavigations:
-      targetEntity: Egzakt\SystemBundle\Entity\SectionNavigation
+      targetEntity: Flexy\SystemBundle\Entity\SectionNavigation
       mappedBy: section
       cascade: [persist]
       orphanRemoval: true
     mappings:
-      targetEntity: Egzakt\SystemBundle\Entity\Mapping
+      targetEntity: Flexy\SystemBundle\Entity\Mapping
       mappedBy: section
       cascade: [persist]
   manyToOne:
     parent:
-      targetEntity: Egzakt\SystemBundle\Entity\Section
+      targetEntity: Flexy\SystemBundle\Entity\Section
       inversedBy: children
       joinColumn:
         name: parent_id
         referencedColumnName: id
         onDelete: cascade
     app:
-      targetEntity: Egzakt\SystemBundle\Entity\App
+      targetEntity: Flexy\SystemBundle\Entity\App
       inversedBy:  sections
       joinColumn:
         name: app_id
@@ -44,5 +44,5 @@ Egzakt\SystemBundle\Entity\Section:
         onDelete: cascade
   manyToMany:
     roles:
-      targetEntity: Egzakt\SystemBundle\Entity\Role
+      targetEntity: Flexy\SystemBundle\Entity\Role
       mappedBy: sections

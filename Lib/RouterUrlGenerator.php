@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
 use Symfony\Component\Routing\Generator\UrlGenerator as BaseUrlGenerator;
 

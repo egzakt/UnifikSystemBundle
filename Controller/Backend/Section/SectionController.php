@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend\Section;
+namespace Flexy\SystemBundle\Controller\Backend\Section;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,12 +8,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BackendController;
-use Egzakt\SystemBundle\Entity\Mapping;
-use Egzakt\SystemBundle\Entity\NavigationRepository;
-use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Entity\SectionRepository;
-use Egzakt\SystemBundle\Form\Backend\SectionType;
+use Flexy\SystemBundle\Lib\Backend\BackendController;
+use Flexy\SystemBundle\Entity\Mapping;
+use Flexy\SystemBundle\Entity\NavigationRepository;
+use Flexy\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Entity\SectionRepository;
+use Flexy\SystemBundle\Form\Backend\SectionType;
 
 /**
  * Section controller.
@@ -43,8 +43,8 @@ class SectionController extends BackendController
             throw new AccessDeniedHttpException('You don\'t have the privileges to view this page.');
         }
 
-        $this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
-        $this->navigationRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation');
+        $this->sectionRepository = $this->getEm()->getRepository('FlexySystemBundle:Section');
+        $this->navigationRepository = $this->getEm()->getRepository('FlexySystemBundle:Navigation');
     }
 
     /**
@@ -59,7 +59,7 @@ class SectionController extends BackendController
             array('ordering' => 'ASC')
         );
 
-        return $this->render('EgzaktSystemBundle:Backend/Section/Section:list.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Section/Section:list.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -102,13 +102,13 @@ class SectionController extends BackendController
 
                     $sectionModuleBar = $this->navigationRepository->find(NavigationRepository::SECTION_MODULE_BAR_ID);
 
-                    $app = $this->getEm()->getRepository('EgzaktSystemBundle:App')->findOneByName('backend');
+                    $app = $this->getEm()->getRepository('FlexySystemBundle:App')->findOneByName('backend');
 
                     $mapping = new Mapping();
                     $mapping->setSection($entity);
                     $mapping->setApp($app);
                     $mapping->setType('route');
-                    $mapping->setTarget('egzakt_system_backend_text');
+                    $mapping->setTarget('flexy_system_backend_text');
 
                     $entity->addMapping($mapping);
 
@@ -117,7 +117,7 @@ class SectionController extends BackendController
                     $mapping->setApp($app);
                     $mapping->setNavigation($sectionModuleBar);
                     $mapping->setType('render');
-                    $mapping->setTarget('EgzaktSystemBundle:Backend/Text/Navigation:SectionModuleBar');
+                    $mapping->setTarget('FlexySystemBundle:Backend/Text/Navigation:SectionModuleBar');
 
                     $entity->addMapping($mapping);
 
@@ -126,7 +126,7 @@ class SectionController extends BackendController
                     $mapping->setApp($app);
                     $mapping->setNavigation($sectionModuleBar);
                     $mapping->setType('render');
-                    $mapping->setTarget('EgzaktSystemBundle:Backend/Section/Navigation:SectionModuleBar');
+                    $mapping->setTarget('FlexySystemBundle:Backend/Section/Navigation:SectionModuleBar');
 
                     $entity->addMapping($mapping);
 
@@ -135,22 +135,22 @@ class SectionController extends BackendController
                     $mapping->setSection($entity);
                     $mapping->setApp($this->getApp());
                     $mapping->setType('route');
-                    $mapping->setTarget('egzakt_system_frontend_text');
+                    $mapping->setTarget('flexy_system_frontend_text');
 
                     $entity->addMapping($mapping);
                 }
 
                 $this->getEm()->flush();
 
-                $this->get('egzakt_system.router_invalidator')->invalidate();
+                $this->get('flexy_system.router_invalidator')->invalidate();
 
                 $this->addFlashSuccess($this->get('translator')->trans('%entity% has been saved.', array('%entity%' => $entity)));
 
                 if ($request->get('save')) {
-                    return $this->redirect($this->generateUrl('egzakt_system_backend_section'));
+                    return $this->redirect($this->generateUrl('flexy_system_backend_section'));
                 }
 
-                return $this->redirect($this->generateUrl('egzakt_system_backend_section_edit', array(
+                return $this->redirect($this->generateUrl('flexy_system_backend_section_edit', array(
                     'id' => $entity->getId() ?: 0
                 )));
             } else {
@@ -158,7 +158,7 @@ class SectionController extends BackendController
             }
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/Section/Section:edit.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Section/Section:edit.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView()
         ));
@@ -192,9 +192,9 @@ class SectionController extends BackendController
     {
         $section = $this->sectionRepository->find($id);
         $this->deleteEntity($section);
-        $this->get('egzakt_system.router_invalidator')->invalidate();
+        $this->get('flexy_system.router_invalidator')->invalidate();
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_section'));
+        return $this->redirect($this->generateUrl('flexy_system_backend_section'));
     }
 
     /**
@@ -207,7 +207,7 @@ class SectionController extends BackendController
     public function orderAction(Request $request)
     {
         $this->orderEntities($request, $this->sectionRepository);
-        $this->get('egzakt_system.router_invalidator')->invalidate();
+        $this->get('flexy_system.router_invalidator')->invalidate();
 
         return new Response('');
     }

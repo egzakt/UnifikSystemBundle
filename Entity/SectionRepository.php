@@ -1,16 +1,16 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
-use Egzakt\SystemBundle\Lib\BaseEntityRepository;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Flexy\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * SectionRepository
  */
 class SectionRepository extends BaseEntityRepository
 {
-    use EgzaktORMBehaviors\Repository\TranslatableEntityRepository;
+    use FlexyORMBehaviors\Repository\TranslatableEntityRepository;
 
     /**
      * Find By Navigation From Tree
@@ -53,7 +53,7 @@ class SectionRepository extends BaseEntityRepository
     public function findAllFromTree(array $criteria = null, array $orderBy = null)
     {
         $dql = 'SELECT s, t, sn, n, b, p
-                FROM EgzaktSystemBundle:Section s
+                FROM FlexySystemBundle:Section s
                 LEFT JOIN s.sectionNavigations sn
                 LEFT JOIN sn.navigation n
                 LEFT JOIN sb.bundle b

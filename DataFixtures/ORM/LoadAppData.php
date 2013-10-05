@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\Frontend\CoreBundle\DataFixtures\ORM;
+namespace Flexy\Frontend\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
-use Egzakt\SystemBundle\Entity\App;
+use Flexy\SystemBundle\Entity\App;
 
 class LoadAppData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -25,7 +25,7 @@ class LoadAppData extends AbstractFixture implements OrderedFixtureInterface, Co
      */
     public function load(ObjectManager $manager)
     {
-        $metadata = $manager->getClassMetaData('Egzakt\\SystemBundle\\Entity\\App');
+        $metadata = $manager->getClassMetaData('Flexy\\SystemBundle\\Entity\\App');
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $appBackend = new App();

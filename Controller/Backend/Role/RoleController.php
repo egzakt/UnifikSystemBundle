@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend\Role;
+namespace Flexy\SystemBundle\Controller\Backend\Role;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BackendController;
-use Egzakt\SystemBundle\Entity\Role;
-use Egzakt\SystemBundle\Form\Backend\RoleType;
+use Flexy\SystemBundle\Lib\Backend\BackendController;
+use Flexy\SystemBundle\Entity\Role;
+use Flexy\SystemBundle\Form\Backend\RoleType;
 
 /**
  * Role Controller.
@@ -46,7 +46,7 @@ class RoleController extends BackendController
             throw new AccessDeniedHttpException();
         }
 
-        $this->createAndPushNavigationElement('Roles', 'egzakt_system_backend_role');
+        $this->createAndPushNavigationElement('Roles', 'flexy_system_backend_role');
 
         // Add/remove some behaviors if Admin
         $this->isAdmin = $this->get('security.context')->isGranted('ROLE_BACKEND_ADMIN');
@@ -62,12 +62,12 @@ class RoleController extends BackendController
     public function indexAction()
     {
         if (!$this->isDeveloper) {
-            $roles = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->findAllExcept(array('ROLE_DEVELOPER', 'ROLE_BACKEND_ACCESS'));
+            $roles = $this->getEm()->getRepository('FlexySystemBundle:Role')->findAllExcept(array('ROLE_DEVELOPER', 'ROLE_BACKEND_ACCESS'));
         } else {
-            $roles = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->findAllExcept('ROLE_BACKEND_ACCESS');
+            $roles = $this->getEm()->getRepository('FlexySystemBundle:Role')->findAllExcept('ROLE_BACKEND_ACCESS');
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/Role/Role:list.html.twig', array('roles' => $roles));
+        return $this->render('FlexySystemBundle:Backend/Role/Role:list.html.twig', array('roles' => $roles));
     }
 
     /**
@@ -82,7 +82,7 @@ class RoleController extends BackendController
      */
     public function editAction($id, Request $request)
     {
-        $entity = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->find($id);
+        $entity = $this->getEm()->getRepository('FlexySystemBundle:Role')->find($id);
 
         if (!$entity) {
             $entity = $this->initEntity(new Role());
@@ -118,10 +118,10 @@ class RoleController extends BackendController
                 );
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('egzakt_system_backend_role'));
+                    return $this->redirect($this->generateUrl('flexy_system_backend_role'));
                 }
 
-                return $this->redirect($this->generateUrl('egzakt_system_backend_role_edit', array(
+                return $this->redirect($this->generateUrl('flexy_system_backend_role_edit', array(
                     'id' => $entity->getId() ? : 0
                 )));
             } else {
@@ -130,7 +130,7 @@ class RoleController extends BackendController
         }
 
         return $this->render(
-            'EgzaktSystemBundle:Backend/Role/Role:edit.html.twig',
+            'FlexySystemBundle:Backend/Role/Role:edit.html.twig',
             array(
                 'entity' => $entity,
                 'form' => $form->createView()
@@ -148,7 +148,7 @@ class RoleController extends BackendController
      */
     public function checkDeleteAction(Request $request, $id)
     {
-        $role = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->find($id);
+        $role = $this->getEm()->getRepository('FlexySystemBundle:Role')->find($id);
         $output = $this->checkDeleteEntity($role);
 
         return new JsonResponse($output);
@@ -163,9 +163,9 @@ class RoleController extends BackendController
      */
     public function deleteAction($id)
     {
-        $role = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->find($id);
+        $role = $this->getEm()->getRepository('FlexySystemBundle:Role')->find($id);
         $this->deleteEntity($role);
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_role'));
+        return $this->redirect($this->generateUrl('flexy_system_backend_role'));
     }
 }

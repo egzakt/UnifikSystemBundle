@@ -1,4 +1,4 @@
-{% extends 'EgzaktSystemBundle:Backend/Text:layout.html.twig' %}
+{% extends 'FlexySystemBundle:Backend/Text:layout.html.twig' %}
 
 {% block content_header %}
     <h1>{% trans %}Texts list{% endtrans %}</h1>
@@ -7,22 +7,22 @@
 {% block content_main %}
 
     <script type="text/javascript">
-        var url_ordre = '{{ path('egzakt_system_backend_text_order') }}';
+        var url_ordre = '{{ path('flexy_system_backend_text_order') }}';
     </script>
 
     <div id="list_actions_bar">
-        <a class="add" href="{{ path('egzakt_system_backend_text_edit') }}">{% trans %}Add a text{% endtrans %}</a>
+        <a class="add" href="{{ path('flexy_system_backend_text_edit') }}">{% trans %}Add a text{% endtrans %}</a>
     </div>
 
     <div class="list_box">
         <h2>{% trans %}Main{% endtrans %}</h2>
-        {% include 'EgzaktSystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: mainEntities } %}
+        {% include 'FlexySystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: mainEntities } %}
     </div>
 
     {% if staticEntities %}
         <div class="list_box">
             <h2>{% trans %}Static block{% endtrans %}</h2>
-            {% include 'EgzaktSystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: staticEntities } %}
+            {% include 'FlexySystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: staticEntities } %}
         </div>
     {% endif %}
 

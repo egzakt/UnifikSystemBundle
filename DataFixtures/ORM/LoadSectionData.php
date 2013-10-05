@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\Frontend\CoreBundle\DataFixtures\ORM;
+namespace Flexy\Frontend\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -9,8 +9,8 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Entity\SectionTranslation;
+use Flexy\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Entity\SectionTranslation;
 
 class LoadSectionData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -26,7 +26,7 @@ class LoadSectionData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $metadata = $manager->getClassMetaData('Egzakt\\SystemBundle\\Entity\\Section');
+        $metadata = $manager->getClassMetaData('Flexy\\SystemBundle\\Entity\\Section');
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $sectionHome = new Section();

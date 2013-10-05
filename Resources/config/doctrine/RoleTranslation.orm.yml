@@ -1,4 +1,4 @@
-Egzakt\SystemBundle\Entity\RoleTranslation:
+Flexy\SystemBundle\Entity\RoleTranslation:
   type: entity
   fields:
     id:

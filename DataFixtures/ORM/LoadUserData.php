@@ -1,12 +1,12 @@
 <?php
 
-namespace Egzakt\Frontend\CoreBundle\DataFixtures\ORM;
+namespace Flexy\Frontend\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Egzakt\SystemBundle\Entity\User;
+use Flexy\SystemBundle\Entity\User;
 
 class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -24,7 +24,7 @@ class LoadUserData extends AbstractFixture implements OrderedFixtureInterface
         $defaultAdminUser->setUsername('admin');
         $defaultAdminUser->setFirstname('Default');
         $defaultAdminUser->setLastname('Administrator');
-        $defaultAdminUser->setEmail('default_admin@egzakt.com');
+        $defaultAdminUser->setEmail('default_admin@flexy.com');
         $defaultAdminUser->setPassword('TZSRXoum67+V6PvYhqFNmgx5oHOHKugq9XJCNSGvKZcWstRb5GUNNsZVzFGjiZzZRBIyNBIeoaqVlEOkobH2ig==');
         $defaultAdminUser->setSalt('cbf87f6dffe73a37bf3da648c196c3b5');
         $defaultAdminUser->setActive(true);

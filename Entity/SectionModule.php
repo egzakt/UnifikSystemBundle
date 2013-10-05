@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 /**
  * SectionModule
@@ -23,12 +23,12 @@ class SectionModule
     private $ordering;
 
     /**
-     * @var \Egzakt\SystemBundle\Entity\Section
+     * @var \Flexy\SystemBundle\Entity\Section
      */
     private $section;
 
     /**
-     * @var \Egzakt\SystemBundle\Entity\App
+     * @var \Flexy\SystemBundle\Entity\App
      */
     private $app;
 
@@ -91,10 +91,10 @@ class SectionModule
     /**
      * Set section
      *
-     * @param  \Egzakt\SystemBundle\Entity\Section $section
+     * @param  \Flexy\SystemBundle\Entity\Section $section
      * @return SectionModule
      */
-    public function setSection(\Egzakt\SystemBundle\Entity\Section $section = null)
+    public function setSection(\Flexy\SystemBundle\Entity\Section $section = null)
     {
         $this->section = $section;
 
@@ -104,7 +104,7 @@ class SectionModule
     /**
      * Get section
      *
-     * @return \Egzakt\SystemBundle\Entity\Section
+     * @return \Flexy\SystemBundle\Entity\Section
      */
     public function getSection()
     {
@@ -114,10 +114,10 @@ class SectionModule
     /**
      * Set app
      *
-     * @param  \Egzakt\SystemBundle\Entity\App $app
+     * @param  \Flexy\SystemBundle\Entity\App $app
      * @return SectionModule
      */
-    public function setApp(\Egzakt\SystemBundle\Entity\App $app = null)
+    public function setApp(\Flexy\SystemBundle\Entity\App $app = null)
     {
         $this->app = $app;
 
@@ -127,24 +127,24 @@ class SectionModule
     /**
      * Get app
      *
-     * @return \Egzakt\SystemBundle\Entity\App
+     * @return \Flexy\SystemBundle\Entity\App
      */
     public function getApp()
     {
         return $this->app;
     }
     /**
-     * @var \Egzakt\SystemBundle\Entity\Navigation
+     * @var \Flexy\SystemBundle\Entity\Navigation
      */
     private $navigation;
 
     /**
      * Set navigation
      *
-     * @param  \Egzakt\SystemBundle\Entity\Navigation $navigation
+     * @param  \Flexy\SystemBundle\Entity\Navigation $navigation
      * @return SectionModule
      */
-    public function setNavigation(\Egzakt\SystemBundle\Entity\Navigation $navigation = null)
+    public function setNavigation(\Flexy\SystemBundle\Entity\Navigation $navigation = null)
     {
         $this->navigation = $navigation;
 
@@ -154,7 +154,7 @@ class SectionModule
     /**
      * Get navigation
      *
-     * @return \Egzakt\SystemBundle\Entity\Navigation
+     * @return \Flexy\SystemBundle\Entity\Navigation
      */
     public function getNavigation()
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Listener;
+namespace Flexy\SystemBundle\Listener;
 
 use Symfony\Bundle\TwigBundle\Debug\TimedTwigEngine;
 use Symfony\Component\HttpFoundation\Response;
@@ -40,14 +40,14 @@ class ExceptionListener
 
         if ($exception instanceof NotFoundHttpException) {
 
-            $response = $this->templating->renderResponse('EgzaktSystemBundle:Frontend/Exception:404.html.twig');
+            $response = $this->templating->renderResponse('FlexySystemBundle:Frontend/Exception:404.html.twig');
             $response->setStatusCode(404);
 
             $event->setResponse($response);
 
         } elseif ($exception instanceof AccessDeniedHttpException) {
 
-            $response = $this->templating->renderResponse('EgzaktSystemBundle:Frontend/Exception:403.html.twig');
+            $response = $this->templating->renderResponse('FlexySystemBundle:Frontend/Exception:403.html.twig');
             $response->setStatusCode(403);
 
             $event->setResponse($response);

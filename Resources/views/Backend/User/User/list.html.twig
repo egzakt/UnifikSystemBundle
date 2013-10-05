@@ -1,4 +1,4 @@
-{% extends 'EgzaktSystemBundle:Backend/User:layout.html.twig' %}
+{% extends 'FlexySystemBundle:Backend/User:layout.html.twig' %}
 
 {% block content_header %}
     <h1>{% trans %}User list{% endtrans %}</h1>
@@ -7,12 +7,12 @@
 {% block content_main %}
 
     <div id="list_actions_bar">
-        <a class="add" href="{{ path('egzakt_system_backend_user_edit') }}">{% trans %}Add a user{% endtrans %}</a>
+        <a class="add" href="{{ path('flexy_system_backend_user_edit') }}">{% trans %}Add a user{% endtrans %}</a>
     </div>
 
     {% for role in roles %}
         <div class="list_box">
-            <h2>{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': role } %}</h2>
+            <h2>{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': role } %}</h2>
             <table cellspacing="0" class="table-autosort">
                 <thead>
                 <tr>
@@ -50,20 +50,20 @@
                 {% for entity in role.users %}
                     <tr id="item_{{ entity.id }}">
                         <td class="name {{ entity.active ? '' : ' inactive' }}">
-                            <a href="{{ path('egzakt_system_backend_user_edit', { 'id': entity.id }) }}">{{ entity.username }}</a>
+                            <a href="{{ path('flexy_system_backend_user_edit', { 'id': entity.id }) }}">{{ entity.username }}</a>
                         </td>
                         <td>{{ entity.firstname }}</td>
                         <td>{{ entity.lastname }}</td>
                         <td>{{ entity.updatedat|date('Y-m-d') }}</td>
-                        {% include 'EgzaktSystemBundle:Backend/User/User:switch_user.html.twig' with { role: role, user: entity } %}
+                        {% include 'FlexySystemBundle:Backend/User/User:switch_user.html.twig' with { role: role, user: entity } %}
                         <td class="edit">
-                            <a href="{{ path('egzakt_system_backend_user_edit', { 'id': entity.id }) }}" title="Modifier">
-                                <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+                            <a href="{{ path('flexy_system_backend_user_edit', { 'id': entity.id }) }}" title="Modifier">
+                                <img src="{{ asset('bundles/flexysystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
                             </a>
                         </td>
                         <td class="delete">
-                            <a href="{{ path('egzakt_system_backend_user_delete', { 'id': entity.id }) }}" title="{% trans %}Delete{% endtrans %}">
-                                <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                            <a href="{{ path('flexy_system_backend_user_delete', { 'id': entity.id }) }}" title="{% trans %}Delete{% endtrans %}">
+                                <img src="{{ asset('bundles/flexysystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
                             </a>
                         </td>
                     </tr>

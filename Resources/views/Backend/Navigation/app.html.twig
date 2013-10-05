@@ -5,7 +5,7 @@
             <ul>
                 {% for application in apps %}
                     <li>
-                        <a href="{{ path('egzakt_system_backend_switch_managed_app', { appSlug: application.slug }) }}" {% if application.id == appCurrent.id %}class="selected"{% endif %}>
+                        <a href="{{ path('flexy_system_backend_switch_managed_app', { appSlug: application.slug }) }}" {% if application.id == appCurrent.id %}class="selected"{% endif %}>
                             <span>{{ application|capitalize|trans }}</span>
                         </a>
                     </li>
@@ -13,7 +13,7 @@
 
             </ul>
             {% if is_granted('ROLE_DEVELOPER') %}
-                <a class="add" href="{{ path('egzakt_system_backend_application_edit') }}">
+                <a class="add" href="{{ path('flexy_system_backend_application_edit') }}">
                     +
                 </a>
             {% endif %}

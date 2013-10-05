@@ -3,11 +3,11 @@
         {% if section.entity.route %}
             <li class="{% if section.hasChildren %}with_sublevel {% endif %}{% if section.selected %}open selected{% endif %}">
                 <a href="{{ path(section.entity.route, section.entity.routeParams) }}">
-                   {% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': section.entity } %}
+                   {% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': section.entity } %}
                 </a>
                 {% if section.selected and section.hasChildren %}
                     <ul class="level_{{ level }}">
-                        {% include 'EgzaktSystemBundle:Backend/Navigation:section_bar_level.html.twig' with { 'sections': section.children, 'level': level + 1 } %}
+                        {% include 'FlexySystemBundle:Backend/Navigation:section_bar_level.html.twig' with { 'sections': section.children, 'level': level + 1 } %}
                     </ul>
                 {% endif %}
             </li>

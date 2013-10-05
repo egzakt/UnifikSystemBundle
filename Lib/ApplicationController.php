@@ -1,12 +1,12 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Entity\App;
+use Flexy\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Entity\App;
 
 use Doctrine\ORM\EntityManager;
 
@@ -36,7 +36,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
      */
     protected function getSystemCore()
     {
-        return $this->get('egzakt_system.core');
+        return $this->get('flexy_system.core');
     }
 
     /**
@@ -234,7 +234,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
      */
     protected function checkDeletable($entity)
     {
-        $ds = $this->get('egzakt_system.deletable');
+        $ds = $this->get('flexy_system.deletable');
         return $ds->checkDeletable($entity);
     }
 

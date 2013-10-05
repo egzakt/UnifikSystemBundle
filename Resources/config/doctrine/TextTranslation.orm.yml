@@ -1,4 +1,4 @@
-Egzakt\SystemBundle\Entity\TextTranslation:
+Flexy\SystemBundle\Entity\TextTranslation:
   type: entity
   fields:
     id:

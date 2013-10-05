@@ -1,20 +1,20 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\ExecutionContext;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\SystemBundle\Lib\BaseEntity;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * Section
  */
 class Section extends BaseEntity
 {
-    use EgzaktORMBehaviors\Translatable\Translatable;
-    use EgzaktORMBehaviors\Timestampable\Timestampable;
+    use FlexyORMBehaviors\Translatable\Translatable;
+    use FlexyORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer
@@ -544,9 +544,9 @@ class Section extends BaseEntity
     /**
      * Remove children
      *
-     * @param \Egzakt\SystemBundle\Entity\Section $children
+     * @param \Flexy\SystemBundle\Entity\Section $children
      */
-    public function removeChildren(\Egzakt\SystemBundle\Entity\Section $children)
+    public function removeChildren(\Flexy\SystemBundle\Entity\Section $children)
     {
         $this->children->removeElement($children);
     }
@@ -554,10 +554,10 @@ class Section extends BaseEntity
     /**
      * Add roles
      *
-     * @param  \Egzakt\SystemBundle\Entity\Role $roles
+     * @param  \Flexy\SystemBundle\Entity\Role $roles
      * @return Section
      */
-    public function addRole(\Egzakt\SystemBundle\Entity\Role $roles)
+    public function addRole(\Flexy\SystemBundle\Entity\Role $roles)
     {
         $this->roles[] = $roles;
 
@@ -577,9 +577,9 @@ class Section extends BaseEntity
     /**
      * Remove roles
      *
-     * @param \Egzakt\SystemBundle\Entity\Role $roles
+     * @param \Flexy\SystemBundle\Entity\Role $roles
      */
-    public function removeRole(\Egzakt\SystemBundle\Entity\Role $roles)
+    public function removeRole(\Flexy\SystemBundle\Entity\Role $roles)
     {
         $this->roles->removeElement($roles);
     }
@@ -597,9 +597,9 @@ class Section extends BaseEntity
     /**
      * Remove texts
      *
-     * @param \Egzakt\SystemBundle\Entity\Text $texts
+     * @param \Flexy\SystemBundle\Entity\Text $texts
      */
-    public function removeText(\Egzakt\SystemBundle\Entity\Text $texts)
+    public function removeText(\Flexy\SystemBundle\Entity\Text $texts)
     {
         $this->texts->removeElement($texts);
     }
@@ -607,9 +607,9 @@ class Section extends BaseEntity
     /**
      * Remove sectionNavigations
      *
-     * @param \Egzakt\SystemBundle\Entity\SectionNavigation $sectionNavigations
+     * @param \Flexy\SystemBundle\Entity\SectionNavigation $sectionNavigations
      */
-    public function removeSectionNavigation(\Egzakt\SystemBundle\Entity\SectionNavigation $sectionNavigations)
+    public function removeSectionNavigation(\Flexy\SystemBundle\Entity\SectionNavigation $sectionNavigations)
     {
         $this->sectionNavigations->removeElement($sectionNavigations);
     }
@@ -617,10 +617,10 @@ class Section extends BaseEntity
     /**
      * Add mappings
      *
-     * @param  \Egzakt\SystemBundle\Entity\Mapping $mappings
+     * @param  \Flexy\SystemBundle\Entity\Mapping $mappings
      * @return Section
      */
-    public function addMapping(\Egzakt\SystemBundle\Entity\Mapping $mappings)
+    public function addMapping(\Flexy\SystemBundle\Entity\Mapping $mappings)
     {
         $this->mappings[] = $mappings;
 
@@ -630,9 +630,9 @@ class Section extends BaseEntity
     /**
      * Remove mappings
      *
-     * @param \Egzakt\SystemBundle\Entity\Mapping $mappings
+     * @param \Flexy\SystemBundle\Entity\Mapping $mappings
      */
-    public function removeMapping(\Egzakt\SystemBundle\Entity\Mapping $mappings)
+    public function removeMapping(\Flexy\SystemBundle\Entity\Mapping $mappings)
     {
         $this->mappings->removeElement($mappings);
     }

@@ -17,7 +17,7 @@
         }
 
         if ($this->get('request')->get('message')) {
-            $template = $this->renderView('EgzaktBackendCoreBundle:Core:delete_message.html.twig', array(
+            $template = $this->renderView('FlexyBackendCoreBundle:Core:delete_message.html.twig', array(
                 'entity' => $entity,
                 'truncateLength' => $this->getSectionBundle()->getParam('breadcrumbs_truncate_length')
             ));

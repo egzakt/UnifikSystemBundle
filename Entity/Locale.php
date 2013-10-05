@@ -1,8 +1,8 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
+use Flexy\SystemBundle\Lib\BaseEntity;
 
 /**
  * Locale
@@ -80,7 +80,7 @@ class Locale extends BaseEntity
      */
     public function getRouteBackend($suffix = 'edit')
     {
-        return 'egzakt_system_backend_locale_' . $suffix;
+        return 'flexy_system_backend_locale_' . $suffix;
     }
 
     /**

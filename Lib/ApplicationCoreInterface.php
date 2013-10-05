@@ -1,10 +1,10 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
-use Egzakt\SystemBundle\Entity\App;
-use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Lib\NavigationElementInterface;
+use Flexy\SystemBundle\Entity\App;
+use Flexy\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Lib\NavigationElementInterface;
 
 /**
  * Base Controller Interface

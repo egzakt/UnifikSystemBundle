@@ -2,18 +2,18 @@
 
 namespace {{ namespace }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
 
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * {{ entity }} Entity
  */
 class {{ entity }}
 {
-    use EgzaktORMBehaviors\Translatable\Translation;
+    use FlexyORMBehaviors\Translatable\Translation;
 
     {%- if is_sluggable %}
 
-    use EgzaktORMBehaviors\Sluggable\Sluggable;
+    use FlexyORMBehaviors\Sluggable\Sluggable;
     {%- endif %}
 
 

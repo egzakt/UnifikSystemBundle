@@ -3,9 +3,9 @@
 namespace {{ namespace }};
 
 {% if has_i18n %}
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 {% endif %}
-use Egzakt\SystemBundle\Lib\BaseEntityRepository;
+use Flexy\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * {{ classname }}
@@ -14,7 +14,7 @@ class {{ classname }} extends BaseEntityRepository
 {
     {%- if has_i18n %}
 
-    use EgzaktORMBehaviors\Repository\TranslatableEntityRepository;
+    use FlexyORMBehaviors\Repository\TranslatableEntityRepository;
     {%- endif %}
 
 }

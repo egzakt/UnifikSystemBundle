@@ -1,6 +1,6 @@
-Egzakt\SystemBundle\Entity\App:
+Flexy\SystemBundle\Entity\App:
   type: entity
-  repositoryClass: Egzakt\SystemBundle\Entity\AppRepository
+  repositoryClass: Flexy\SystemBundle\Entity\AppRepository
   fields:
     id:
       type: integer
@@ -27,11 +27,11 @@ Egzakt\SystemBundle\Entity\App:
           separator: -
   oneToMany:
     sections:
-      targetEntity: Egzakt\SystemBundle\Entity\Section
+      targetEntity: Flexy\SystemBundle\Entity\Section
       mappedBy: app
     mappings:
-      targetEntity: Egzakt\SystemBundle\Entity\Mapping
+      targetEntity: Flexy\SystemBundle\Entity\Mapping
       mappedBy: app
     navigations:
-      targetEntity: Egzakt\SystemBundle\Entity\Navigation
+      targetEntity: Flexy\SystemBundle\Entity\Navigation
       mappedBy: app

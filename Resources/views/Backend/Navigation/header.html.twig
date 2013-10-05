@@ -1,9 +1,9 @@
 <div id="welcome">
     <div id="login_name">
         <span>{% trans %}Welcome{% endtrans %},</span> <strong>{{ app.user.username }}</strong>
-        {{ render(controller('EgzaktSystemBundle:Backend/Role/Navigation:impersonatingBar')) }}
+        {{ render(controller('FlexySystemBundle:Backend/Role/Navigation:impersonatingBar')) }}
     </div>
-    <form action="{{ path('egzakt_system_backend_logout') }}">
+    <form action="{{ path('flexy_system_backend_logout') }}">
         <input type="submit" name="btn_deconnexion" class="btn_deconnexion" value="{% trans %}Logout{% endtrans %}"/>
     </form>
 </div>
@@ -11,11 +11,11 @@
 <ul class="tools">
     <li>
         {% block locale_bar %}
-            {{ render(controller('EgzaktSystemBundle:Backend/Navigation:LocaleBar')) }}
+            {{ render(controller('FlexySystemBundle:Backend/Navigation:LocaleBar')) }}
         {% endblock %}
     </li>
     <li>
-        <a href="{{ path('egzakt_system_backend_help') }}" id="help">{% trans %}Online help{% endtrans %}</a>
+        <a href="{{ path('flexy_system_backend_help') }}" id="help">{% trans %}Online help{% endtrans %}</a>
     </li>
     <li>
         <a href="/" id="view_site" target="_blank">{% trans %}Access site{% endtrans %}</a>

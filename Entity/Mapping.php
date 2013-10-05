@@ -1,8 +1,8 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
+use Flexy\SystemBundle\Lib\BaseEntity;
 
 /**
  * Mapping
@@ -162,10 +162,10 @@ class Mapping extends BaseEntity
     /**
      * Set app
      *
-     * @param  \Egzakt\SystemBundle\Entity\App $app
+     * @param  \Flexy\SystemBundle\Entity\App $app
      * @return Mapping
      */
-    public function setApp(\Egzakt\SystemBundle\Entity\App $app = null)
+    public function setApp(\Flexy\SystemBundle\Entity\App $app = null)
     {
         $this->app = $app;
 
@@ -175,7 +175,7 @@ class Mapping extends BaseEntity
     /**
      * Get app
      *
-     * @return \Egzakt\SystemBundle\Entity\App
+     * @return \Flexy\SystemBundle\Entity\App
      */
     public function getApp()
     {
@@ -185,10 +185,10 @@ class Mapping extends BaseEntity
     /**
      * Set navigation
      *
-     * @param  \Egzakt\SystemBundle\Entity\Navigation $navigation
+     * @param  \Flexy\SystemBundle\Entity\Navigation $navigation
      * @return Mapping
      */
-    public function setNavigation(\Egzakt\SystemBundle\Entity\Navigation $navigation = null)
+    public function setNavigation(\Flexy\SystemBundle\Entity\Navigation $navigation = null)
     {
         $this->navigation = $navigation;
 
@@ -198,7 +198,7 @@ class Mapping extends BaseEntity
     /**
      * Get navigation
      *
-     * @return \Egzakt\SystemBundle\Entity\Navigation
+     * @return \Flexy\SystemBundle\Entity\Navigation
      */
     public function getNavigation()
     {

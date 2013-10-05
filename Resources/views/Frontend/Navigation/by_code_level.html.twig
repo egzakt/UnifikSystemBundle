@@ -7,7 +7,7 @@
             {% if exploded or (section.isSelected and section.hasChildren) %}
                 {% if level < maxLevel %}
                     <ul class="level_{{ level }}">
-                        {% include 'EgzaktSystemBundle:Frontend/Navigation:by_code_level.html.twig' with { 'sections': section.children, 'level': level + 1 } %}
+                        {% include 'FlexySystemBundle:Frontend/Navigation:by_code_level.html.twig' with { 'sections': section.children, 'level': level + 1 } %}
                     </ul>
                 {% endif %}
             {% endif %}

@@ -1,6 +1,6 @@
-Egzakt\SystemBundle\Entity\User:
+Flexy\SystemBundle\Entity\User:
   type: entity
-  repositoryClass: Egzakt\SystemBundle\Entity\UserRepository
+  repositoryClass: Flexy\SystemBundle\Entity\UserRepository
   fields:
     id:
       type: integer
@@ -48,7 +48,7 @@ Egzakt\SystemBundle\Entity\User:
   lifecycleCallbacks: {  }
   manyToMany:
     roles:
-      targetEntity: Egzakt\SystemBundle\Entity\Role
+      targetEntity: Flexy\SystemBundle\Entity\Role
       inversedBy: users
       cascade: [persist]
       joinTable:

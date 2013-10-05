@@ -1,10 +1,10 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 
-use Egzakt\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Entity\Section;
 use Symfony\Component\DependencyInjection\Container;
 
 class SectionHooks
@@ -66,7 +66,7 @@ class SectionHooks
      *
      * return array(
      *     12 => array(
-     *         'repository' => 'EgzaktBackendCareerBundle:Category',
+     *         'repository' => 'FlexyBackendCareerBundle:Category',
      *         'method' => 'findAll',
      *         'arguments' => array(true, $param1) // Array of function parameters (e.g. $repo->findAll(true))
      *     )
@@ -150,7 +150,7 @@ class SectionHooks
         // Wrap the Section Hooks elements in a NavigationItem Wrapper Class
         $wrappedElements = array();
         foreach ($elements as $element) {
-            $wrappedElement = $this->container->get('egzakt_system.navigation_item');
+            $wrappedElement = $this->container->get('flexy_system.navigation_item');
             $wrappedElement->setEntity($element);
             $wrappedElements[] = $wrappedElement;
         }
@@ -173,7 +173,7 @@ class SectionHooks
         // Loop through the elements (it's not necessary a Section object)
         foreach ($elements as $element) {
             // Is it a Section|SectionProxy and does the ID match?
-            if ($element->getEntity()->getId() == $sectionId && ($element->getEntity() instanceof Section || strstr(get_class($element->getEntity()), 'EgzaktBackendSectionBundleEntitySectionProxy'))) {
+            if ($element->getEntity()->getId() == $sectionId && ($element->getEntity() instanceof Section || strstr(get_class($element->getEntity()), 'FlexyBackendSectionBundleEntitySectionProxy'))) {
                 // Return this element
                 return $element;
             }

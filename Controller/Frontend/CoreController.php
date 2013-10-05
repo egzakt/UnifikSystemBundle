@@ -1,10 +1,10 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Frontend;
+namespace Flexy\SystemBundle\Controller\Frontend;
 
 use Symfony\Component\HttpFoundation\Response;
 
-use Egzakt\SystemBundle\Lib\Frontend\BaseController;
+use Flexy\SystemBundle\Lib\Frontend\BaseController;
 
 /**
  * Core Controller
@@ -29,7 +29,7 @@ class CoreController extends BaseController
             }
         }
 
-        return $this->render('EgzaktSystemBundle:Frontend/Core:head_extra.html.twig', array(
+        return $this->render('FlexySystemBundle:Frontend/Core:head_extra.html.twig', array(
             'headExtra' => $headExtra,
         ));
     }
@@ -42,10 +42,10 @@ class CoreController extends BaseController
     public function robotsAction()
     {
 //        if ($this->container->get('kernel')->getEnvironment() == 'prod') {
-//            return $this->render('EgzaktFrontendCoreBundle:Core:robots_prod.txt.twig');
+//            return $this->render('FlexyFrontendCoreBundle:Core:robots_prod.txt.twig');
 //        }
 //        else {
-//            return $this->render('EgzaktFrontendCoreBundle:Core:robots_dev.txt.twig');
+//            return $this->render('FlexyFrontendCoreBundle:Core:robots_dev.txt.twig');
 //        }
     }
 }

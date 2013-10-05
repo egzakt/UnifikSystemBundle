@@ -1,178 +1,178 @@
 # Security
-egzakt_system_backend_login:
+flexy_system_backend_login:
     pattern:  /login
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Security:login", _locale: %locale% } # force default locale
+    defaults: { _controller: "FlexySystemBundle:Backend/Security:login", _locale: %locale% } # force default locale
 
-egzakt_system_backend_login_check:
+flexy_system_backend_login_check:
     pattern:  /login-check
     options:  { i18n: false }
 
-egzakt_system_backend_logout:
+flexy_system_backend_logout:
     pattern:  /logout
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Security:logout" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Security:logout" }
 
 # Home
-egzakt_system_backend_dashboard:
+flexy_system_backend_dashboard:
     pattern:  /
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:index" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Dashboard:index" }
 
-egzakt_system_backend_switch_managed_app:
+flexy_system_backend_switch_managed_app:
     pattern:  /managed-application/{appSlug}
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:index" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Dashboard:index" }
 
 # Help
-egzakt_system_backend_help_detail:
+flexy_system_backend_help_detail:
     pattern:  /help/{itemId}
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:helpDetail" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Dashboard:helpDetail" }
 
-egzakt_system_backend_help:
+flexy_system_backend_help:
     pattern:  /help
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Dashboard:help" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Dashboard:help" }
 
 # Users
-egzakt_system_backend_user:
+flexy_system_backend_user:
     pattern:  /users
-    defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:index" }
+    defaults: { _controller: "FlexySystemBundle:Backend/User/User:index" }
 
-egzakt_system_backend_user_edit:
+flexy_system_backend_user_edit:
     pattern:  /users/{id}/edit
-    defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:edit", id: 0 }
+    defaults: { _controller: "FlexySystemBundle:Backend/User/User:edit", id: 0 }
 
-egzakt_system_backend_user_delete_check:
+flexy_system_backend_user_delete_check:
     pattern:  /users/{id}/delete/check
-    defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:checkDelete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/User/User:checkDelete" }
 
-egzakt_system_backend_user_delete:
+flexy_system_backend_user_delete:
     pattern:  /users/{id}/delete
-    defaults: { _controller: "EgzaktSystemBundle:Backend/User/User:delete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/User/User:delete" }
 
 # Roles
-egzakt_system_backend_role:
+flexy_system_backend_role:
     pattern:  /roles
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Role/Role:index" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Role/Role:index" }
 
-egzakt_system_backend_role_edit:
+flexy_system_backend_role_edit:
     pattern:  /roles/{id}/edit
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Role/Role:edit", id: 0 }
+    defaults: { _controller: "FlexySystemBundle:Backend/Role/Role:edit", id: 0 }
 
-egzakt_system_backend_role_delete:
+flexy_system_backend_role_delete:
     pattern:  /roles/{id}/delete
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Role/Role:delete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Role/Role:delete" }
 
-egzakt_system_backend_role_delete_check:
+flexy_system_backend_role_delete_check:
     pattern:  /roles/{id}/delete/check
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Role/Role:checkDelete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Role/Role:checkDelete" }
 
 # Members
-egzakt_system_backend_member:
+flexy_system_backend_member:
     pattern:  /members
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Member/Member:list" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Member/Member:list" }
 
-egzakt_system_backend_member_edit:
+flexy_system_backend_member_edit:
     pattern:  /members/{id}/edit
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Member/Member:edit", id: 0 }
+    defaults: { _controller: "FlexySystemBundle:Backend/Member/Member:edit", id: 0 }
 
-egzakt_system_backend_member_delete:
+flexy_system_backend_member_delete:
     pattern:  /members/{id}/delete
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Member/Member:delete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Member/Member:delete" }
 
 # Texts
-egzakt_system_backend_text:
+flexy_system_backend_text:
     pattern:  /texts/{sectionId}
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:index" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Text/Text:index" }
 
-egzakt_system_backend_text_order:
+flexy_system_backend_text_order:
     pattern:  /texts/{sectionId}/order
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:order" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Text/Text:order" }
 
-egzakt_system_backend_text_edit:
+flexy_system_backend_text_edit:
     pattern:  /texts/{sectionId}/{id}/edit
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:edit", id: 0 }
+    defaults: { _controller: "FlexySystemBundle:Backend/Text/Text:edit", id: 0 }
 
-egzakt_system_backend_text_delete:
+flexy_system_backend_text_delete:
     pattern:  /texts/{sectionId}/{id}/delete
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:delete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Text/Text:delete" }
 
-egzakt_system_backend_text_delete_check:
+flexy_system_backend_text_delete_check:
     pattern:  /texts/{sectionId}/{id}/delete/check
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Text/Text:checkDelete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Text/Text:checkDelete" }
 
 # Sections (roots handling)
-egzakt_system_backend_section_root:
+flexy_system_backend_section_root:
     pattern:  /sections/{appSlug}/root
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:list" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Section/Root:list" }
 
-egzakt_system_backend_section_root_order:
+flexy_system_backend_section_root_order:
     pattern:  /sections/{appSlug}/root/order
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:order" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Section/Root:order" }
 
-egzakt_system_backend_section_root_edit:
+flexy_system_backend_section_root_edit:
     pattern:  /sections/{appSlug}/root/{id}/edit
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:edit", id: 0 }
+    defaults: { _controller: "FlexySystemBundle:Backend/Section/Root:edit", id: 0 }
 
-egzakt_system_backend_section_root_delete:
+flexy_system_backend_section_root_delete:
     pattern:  /sections/{appSlug}/root/{id}/delete
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:delete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Section/Root:delete" }
 
-egzakt_system_backend_section_root_delete_check:
+flexy_system_backend_section_root_delete_check:
     pattern:  /sections/{appSlug}/root/{id}/delete/check
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Root:checkDelete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Section/Root:checkDelete" }
 
 # Sections
-egzakt_system_backend_section:
+flexy_system_backend_section:
     pattern:  /sections/{sectionId}
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:index" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Section/Section:index" }
 
-egzakt_system_backend_section_order:
+flexy_system_backend_section_order:
     pattern:  /sections/{sectionId}/order
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:order" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Section/Section:order" }
 
-egzakt_system_backend_section_edit:
+flexy_system_backend_section_edit:
     pattern:  /sections/{sectionId}/{id}/edit
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:edit", id: 0 }
+    defaults: { _controller: "FlexySystemBundle:Backend/Section/Section:edit", id: 0 }
 
-egzakt_system_backend_section_delete:
+flexy_system_backend_section_delete:
     pattern:  /sections/{sectionId}/{id}/delete
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:delete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Section/Section:delete" }
 
-egzakt_system_backend_section_delete_check:
+flexy_system_backend_section_delete_check:
     pattern:  /sections/{sectionId}/{id}/delete/check
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Section/Section:checkDelete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Section/Section:checkDelete" }
 
 # Locales
-egzakt_system_backend_locale:
+flexy_system_backend_locale:
     pattern:  /locales
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:list" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Locale/Locale:list" }
 
-egzakt_system_backend_locale_order:
+flexy_system_backend_locale_order:
     pattern:  /locales/order
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:order" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Locale/Locale:order" }
 
-egzakt_system_backend_locale_edit:
+flexy_system_backend_locale_edit:
     pattern:  /locales/{id}/edit
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:edit", id: 0 }
+    defaults: { _controller: "FlexySystemBundle:Backend/Locale/Locale:edit", id: 0 }
 
-egzakt_system_backend_locale_delete:
+flexy_system_backend_locale_delete:
     pattern:  /locales/{id}/delete
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:delete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Locale/Locale:delete" }
 
-egzakt_system_backend_locale_delete_check:
+flexy_system_backend_locale_delete_check:
     pattern:  /locales/{id}/delete/check
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Locale/Locale:checkDelete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Locale/Locale:checkDelete" }
     
 # Applications
-egzakt_system_backend_application:
+flexy_system_backend_application:
     pattern:  /applications
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:list" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Application/Application:list" }
 
-egzakt_system_backend_application_edit:
+flexy_system_backend_application_edit:
     pattern:  /applications/{applicationId}/edit
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:edit", applicationId: 0 }
+    defaults: { _controller: "FlexySystemBundle:Backend/Application/Application:edit", applicationId: 0 }
 
-egzakt_system_backend_application_delete:
+flexy_system_backend_application_delete:
     pattern:  /applications/{applicationId}/delete
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:delete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Application/Application:delete" }
 
-egzakt_system_backend_application_delete_check:
+flexy_system_backend_application_delete_check:
     pattern:  /applications/{applicationId}/delete/check
-    defaults: { _controller: "EgzaktSystemBundle:Backend/Application/Application:checkDelete" }
+    defaults: { _controller: "FlexySystemBundle:Backend/Application/Application:checkDelete" }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Extensions;
+namespace Flexy\SystemBundle\Extensions;
 
 /**
  * @author Christian Fecteau
@@ -44,6 +44,6 @@ class InspectExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'egzakt_system_core.inspect';
+        return 'flexy_system_core.inspect';
     }
 }

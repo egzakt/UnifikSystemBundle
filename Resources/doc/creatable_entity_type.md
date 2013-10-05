@@ -6,14 +6,14 @@ It works with all three choices types : select box, checkboxes and radio buttons
 
 ## How to use
 
-Let's take for example the EgzaktNewsBundle, in which an article can belong to many categories.
+Let's take for example the FlexyNewsBundle, in which an article can belong to many categories.
 
 ### Controller
 In the controller, you will need to add a `quickCreateAction`:
 
 ```php
 <?php
-// Egzakt/NewsBundle/Controller/Backend/CategoryController.php
+// Flexy/NewsBundle/Controller/Backend/CategoryController.php
 
 /**
  * Simplified form to quickly create a new category via an AJAX popup
@@ -26,7 +26,7 @@ public function quickCreateAction(Request $request)
 {
     $category = $this->initEntity(new Category());
 
-    $form = $this->createForm(new QuickCreateCategoryType(), $category, array('action' => $this->generateUrl('egzakt_news_backend_category_quick_create')));
+    $form = $this->createForm(new QuickCreateCategoryType(), $category, array('action' => $this->generateUrl('flexy_news_backend_category_quick_create')));
 
     if ('POST' == $request->getMethod()) {
 
@@ -48,7 +48,7 @@ public function quickCreateAction(Request $request)
     }
 
     return new JsonResponse(array(
-        'response' => $this->renderView('EgzaktSystemBundle:Backend/Core:quick_create.html.twig', array(
+        'response' => $this->renderView('FlexySystemBundle:Backend/Core:quick_create.html.twig', array(
             'category' => $category,
             'form' => $form->createView()
         ))
@@ -60,10 +60,10 @@ public function quickCreateAction(Request $request)
 Then, you will need to create a route that points to that action:
 
 ``` yaml
-# Egzakt/NewsBundle/Resources/config/routing_backend.yml
-egzakt_news_backend_category_quick_create:
+# Flexy/NewsBundle/Resources/config/routing_backend.yml
+flexy_news_backend_category_quick_create:
     pattern:  /category/{sectionId}/quick-create
-    defaults: { _controller: "EgzaktNewsBundle:Backend/Category:quickCreate" }
+    defaults: { _controller: "FlexyNewsBundle:Backend/Category:quickCreate" }
 ```
 
 ### Create a simplified form type
@@ -73,7 +73,7 @@ To do that, you need to create a new form type that extends your base type and j
 
 ```php
 <?php
-// Egzakt/NewsBundle/Form/Backend/QuickCreateCategoryType.php
+// Flexy/NewsBundle/Form/Backend/QuickCreateCategoryType.php
 
 class QuickCreateCategoryType extends CategoryType
 {
@@ -93,7 +93,7 @@ class QuickCreateCategoryType extends CategoryType
 
 ```php
 <?php
-// Egzakt/NewsBundle/Form/Backend/QuickCreateCategoryTranslationType.php
+// Flexy/NewsBundle/Form/Backend/QuickCreateCategoryTranslationType.php
 
 class QuickCreateCategoryTranslationType extends CategoryTranslationType
 {
@@ -115,13 +115,13 @@ class QuickCreateCategoryTranslationType extends CategoryTranslationType
 Finally, in your form type, locate your entity field and change its type for `creatable_entity`. You will also have to provide the `quick_create_route` you created earlier.
 ```php
 <?php
-// Egzakt/NewsBundle/Form/Backend/ArticleType.php
+// Flexy/NewsBundle/Form/Backend/ArticleType.php
 
 $builder->add('categories', 'creatable_entity', array(
-    'class' => 'Egzakt\NewsBundle\Entity\Category',
+    'class' => 'Flexy\NewsBundle\Entity\Category',
     'required' => false,
     'expanded' => true,
     'multiple' => true,
-    'quick_create_route' => 'egzakt_news_backend_category_quick_create'
+    'quick_create_route' => 'flexy_news_backend_category_quick_create'
 ));
 ```

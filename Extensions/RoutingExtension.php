@@ -1,11 +1,11 @@
 <?php
 
-namespace Egzakt\SystemBundle\Extensions;
+namespace Flexy\SystemBundle\Extensions;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bridge\Twig\Extension\RoutingExtension as BaseRoutingExtension;
 
-use Egzakt\SystemBundle\Lib\RouterAutoParametersHandler;
+use Flexy\SystemBundle\Lib\RouterAutoParametersHandler;
 
 class RoutingExtension extends BaseRoutingExtension
 {

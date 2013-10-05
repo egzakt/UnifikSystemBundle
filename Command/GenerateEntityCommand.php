@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Command;
+namespace Flexy\SystemBundle\Command;
 
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Sensio\Bundle\GeneratorBundle\Command\Validators;
 
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineEntityCommand as BaseGenerateEntityCommand;
-use Egzakt\SystemBundle\Generator\DoctrineEntityGenerator as EgzaktDoctrineEntityGenerator;
+use Flexy\SystemBundle\Generator\DoctrineEntityGenerator as FlexyDoctrineEntityGenerator;
 
 /**
  * Generate Entity Command
@@ -22,7 +22,7 @@ use Egzakt\SystemBundle\Generator\DoctrineEntityGenerator as EgzaktDoctrineEntit
 class GenerateEntityCommand extends BaseGenerateEntityCommand
 {
     /**
-     * @var \Egzakt\SystemBundle\Generator\DoctrineEntityGenerator
+     * @var \Flexy\SystemBundle\Generator\DoctrineEntityGenerator
      */
     private $generator;
 
@@ -32,8 +32,8 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
     protected function configure()
     {
         $this
-            ->setName('egzakt:generate:entity')
-            ->setDescription('Generate a new Egzakt entity inside a bundle')
+            ->setName('flexy:generate:entity')
+            ->setDescription('Generate a new Flexy entity inside a bundle')
             ->addOption('entity', null, InputOption::VALUE_REQUIRED, 'The entity class name to initialize (shortcut notation)')
             ->addOption('fields', null, InputOption::VALUE_REQUIRED, 'The fields to create with the new entity')
             ->addOption('format', null, InputOption::VALUE_REQUIRED, 'Use the format for configuration files (php, xml, yml, or annotation)', 'yml')
@@ -284,12 +284,12 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
     /**
      * Get Generator
      *
-     * @return \Egzakt\SystemBundle\Generator\DoctrineEntityGenerator
+     * @return \Flexy\SystemBundle\Generator\DoctrineEntityGenerator
      */
     public function getGenerator(BundleInterface $bundle = null)
     {
         if (null === $this->generator) {
-            $this->generator = new EgzaktDoctrineEntityGenerator($this->getContainer()->get('filesystem'), $this->getContainer()->get('doctrine'));
+            $this->generator = new FlexyDoctrineEntityGenerator($this->getContainer()->get('filesystem'), $this->getContainer()->get('doctrine'));
         }
 
         return $this->generator;

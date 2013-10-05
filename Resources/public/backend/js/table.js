@@ -49,7 +49,7 @@ var Sort = (function(){
 	sort.numeric_converter = function(separator) {
 		return function(val) {
 			if (typeof(val)=="string") {
-			    // Modif egzakt.com for negative numbers
+			    // Modif flexy.com for negative numbers
 				//val = parseFloat(val.replace(/^[^\d\.]*([\d., ]+).*/g,"$1").replace(new RegExp("[^\\\d"+separator+"]","g"),'').replace(/,/,'.')) || 0;
 				val = parseFloat(val.replace(/^([^\d\.]*)([\d., ]+).*/g,"$1$2").replace(new RegExp("[^\\\d-"+separator+"]","g"),'').replace(/,/,'.')) || 0;
 			}
@@ -600,7 +600,7 @@ var Table = (function(){
 			}
 			// Also allow for a regular input
 			if (filters.nodeName=="INPUT" && filters.type=="text") {
-			    // Modif egzakt.com
+			    // Modif flexy.com
 				//filters={ 'filter':"/^"+filters.value+"/" };
 				filters={ 'filter':"/"+filters.value+"/" };
 			}
@@ -615,7 +615,7 @@ var Table = (function(){
 				if (typeof(filter.filter)=="string") {
 					// If a filter string is like "/expr/" then turn it into a Regex
 					if (filter.filter.match(/^\/(.*)\/$/)) {
-					    // Modif egzakt.com
+					    // Modif flexy.com
 						//filter.filter = new RegExp(RegExp.$1);
 						filter.filter = new RegExp(RegExp.$1, 'i');
 						filter.filter.regex=true;
@@ -977,7 +977,7 @@ var Table = (function(){
 							sel += '<option value="'+colValues[i]+'">'+colValues[i]+'</option>';
 						}
 						sel += '</select>';
-						// Modif egzakt.com
+						// Modif flexy.com
 						//cell.innerHTML += "<br>"+sel;
 						cell.innerHTML += "<div>"+sel+"</div>";
 					}

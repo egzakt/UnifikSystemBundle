@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\ORM\EntityManager;
@@ -8,8 +8,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\DependencyInjection\Container;
 use JMS\I18nRoutingBundle\Router\I18nRouter;
 
-use Egzakt\SystemBundle\Lib\EntityInterface;
-use Egzakt\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Lib\EntityInterface;
+use Flexy\SystemBundle\Entity\Section;
 
 /**
  * Locale switcher
@@ -58,7 +58,7 @@ class LocaleSwitcher
     {
         $this->setDoctrine($container->get('doctrine'));
         $this->router = $container->get('router');
-        $this->core = $container->get('egzakt_frontend.core');
+        $this->core = $container->get('flexy_frontend.core');
         $this->request = $container->get('request');
 
         $this->parameters = array();
@@ -73,7 +73,7 @@ class LocaleSwitcher
     {
         $localizedUrls = array();
 
-        $locales = $this->doctrine->getRepository('EgzaktSystemBundle:Locale')->findAllExcept($this->request->getLocale());
+        $locales = $this->doctrine->getRepository('FlexySystemBundle:Locale')->findAllExcept($this->request->getLocale());
 
         // Get the object class (it may be a proxy...)
         $className = $this->getClassNameFromEntity($this->element);

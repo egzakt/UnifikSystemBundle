@@ -1,9 +1,9 @@
 <?php
 
-namespace Egzakt\SystemBundle\Listener;
+namespace Flexy\SystemBundle\Listener;
 
-use Egzakt\SystemBundle\Entity\AppRepository;
-use Egzakt\SystemBundle\Lib\BaseDeletableListener;
+use Flexy\SystemBundle\Entity\AppRepository;
+use Flexy\SystemBundle\Lib\BaseDeletableListener;
 
 class AppDeletableListener extends BaseDeletableListener
 {

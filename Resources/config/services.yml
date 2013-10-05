@@ -1,162 +1,162 @@
 parameters:
 
-    egzakt_system.kernel_controller_listener.class:             Egzakt\SystemBundle\Listener\ControllerListener
-    egzakt_system.kernel_response_listener.class:               Egzakt\SystemBundle\Listener\ResponseListener
-    egzakt_system.post_load_listener.class:                     Egzakt\SystemBundle\Listener\PostLoadListener
-    egzakt_system.kernel_exception_listener.class:              Egzakt\SystemBundle\Listener\ExceptionListener
-    egzakt_system.core.class:                                   Egzakt\SystemBundle\Lib\Core
-    egzakt_system.twig_extension.class:                         Egzakt\SystemBundle\Extensions\TwigExtension
-    egzakt_system.twig_translation_extension.class:             Egzakt\SystemBundle\Extensions\TranslationExtension
-    egzakt_system.inspect_extension.class:                      Egzakt\SystemBundle\Extensions\InspectExtension
-    egzakt_system.navigation_builder.class:                     Egzakt\SystemBundle\Lib\NavigationBuilder
-    egzakt_system.navigation_item.class:                        Egzakt\SystemBundle\Lib\NavigationItem
-    egzakt_system.breadcrumbs.class:                            Egzakt\SystemBundle\Lib\Breadcrumbs
-    egzakt_system.page_title.class:                             Egzakt\SystemBundle\Lib\PageTitle
-    egzakt_system.router_invalidator.class:                     Egzakt\SystemBundle\Lib\RouterInvalidator
-    egzakt_system.router_auto_parameters_handler.class:         Egzakt\SystemBundle\Lib\RouterAutoParametersHandler
-    egzakt_system.section_filter.class:                         Egzakt\SystemBundle\Lib\SectionFilter
-    egzakt_system.tree_entity_orderer.class:                    Egzakt\SystemBundle\Lib\TreeEntityOrderer
-    egzakt_system.form.type.tree_choice.class:                  Egzakt\SystemBundle\Form\Type\TreeChoiceType
-    egzakt_system.deletable.class:                              Egzakt\SystemBundle\Lib\DeletableService
-    egzakt_system.deletable_user_listener.class:                Egzakt\SystemBundle\Listener\UserDeletableListener
-    egzakt_system.deletable_role_listener.class:                Egzakt\SystemBundle\Listener\RoleDeletableListener
-    egzakt_system.deletable_section_listener.class:             Egzakt\SystemBundle\Listener\SectionDeletableListener
-    egzakt_system.deletable_app_listener.class:                 Egzakt\SystemBundle\Listener\AppDeletableListener
-    egzakt_system.locale_switcher.class:                        Egzakt\SystemBundle\Lib\LocaleSwitcher
-    egzakt_system.section_translation.sluggable.listener.class: Egzakt\SystemBundle\Lib\SectionTranslationSluggableListener
-    egzakt_system.form.type.creatable_entity.class:             Egzakt\SystemBundle\Form\Type\CreatableEntityType
-    egzakt_backend.security.cms_voter.class:                    Egzakt\SystemBundle\Lib\Backend\CmsVoter
-    egzakt_backend.core.class:                                  Egzakt\SystemBundle\Lib\Backend\Core
-    egzakt_backend.form.type.advanced_file.class:               Egzakt\SystemBundle\Form\Backend\AdvancedFileType
-    egzakt_backend.login_listener.class:                        Egzakt\SystemBundle\Listener\LoginBackendListener
-    egzakt_frontend.core.class:                                 Egzakt\SystemBundle\Lib\Frontend\Core
+    flexy_system.kernel_controller_listener.class:             Flexy\SystemBundle\Listener\ControllerListener
+    flexy_system.kernel_response_listener.class:               Flexy\SystemBundle\Listener\ResponseListener
+    flexy_system.post_load_listener.class:                     Flexy\SystemBundle\Listener\PostLoadListener
+    flexy_system.kernel_exception_listener.class:              Flexy\SystemBundle\Listener\ExceptionListener
+    flexy_system.core.class:                                   Flexy\SystemBundle\Lib\Core
+    flexy_system.twig_extension.class:                         Flexy\SystemBundle\Extensions\TwigExtension
+    flexy_system.twig_translation_extension.class:             Flexy\SystemBundle\Extensions\TranslationExtension
+    flexy_system.inspect_extension.class:                      Flexy\SystemBundle\Extensions\InspectExtension
+    flexy_system.navigation_builder.class:                     Flexy\SystemBundle\Lib\NavigationBuilder
+    flexy_system.navigation_item.class:                        Flexy\SystemBundle\Lib\NavigationItem
+    flexy_system.breadcrumbs.class:                            Flexy\SystemBundle\Lib\Breadcrumbs
+    flexy_system.page_title.class:                             Flexy\SystemBundle\Lib\PageTitle
+    flexy_system.router_invalidator.class:                     Flexy\SystemBundle\Lib\RouterInvalidator
+    flexy_system.router_auto_parameters_handler.class:         Flexy\SystemBundle\Lib\RouterAutoParametersHandler
+    flexy_system.section_filter.class:                         Flexy\SystemBundle\Lib\SectionFilter
+    flexy_system.tree_entity_orderer.class:                    Flexy\SystemBundle\Lib\TreeEntityOrderer
+    flexy_system.form.type.tree_choice.class:                  Flexy\SystemBundle\Form\Type\TreeChoiceType
+    flexy_system.deletable.class:                              Flexy\SystemBundle\Lib\DeletableService
+    flexy_system.deletable_user_listener.class:                Flexy\SystemBundle\Listener\UserDeletableListener
+    flexy_system.deletable_role_listener.class:                Flexy\SystemBundle\Listener\RoleDeletableListener
+    flexy_system.deletable_section_listener.class:             Flexy\SystemBundle\Listener\SectionDeletableListener
+    flexy_system.deletable_app_listener.class:                 Flexy\SystemBundle\Listener\AppDeletableListener
+    flexy_system.locale_switcher.class:                        Flexy\SystemBundle\Lib\LocaleSwitcher
+    flexy_system.section_translation.sluggable.listener.class: Flexy\SystemBundle\Lib\SectionTranslationSluggableListener
+    flexy_system.form.type.creatable_entity.class:             Flexy\SystemBundle\Form\Type\CreatableEntityType
+    flexy_backend.security.cms_voter.class:                    Flexy\SystemBundle\Lib\Backend\CmsVoter
+    flexy_backend.core.class:                                  Flexy\SystemBundle\Lib\Backend\Core
+    flexy_backend.form.type.advanced_file.class:               Flexy\SystemBundle\Form\Backend\AdvancedFileType
+    flexy_backend.login_listener.class:                        Flexy\SystemBundle\Listener\LoginBackendListener
+    flexy_frontend.core.class:                                 Flexy\SystemBundle\Lib\Frontend\Core
 
 services:
 
-    egzakt_system.deletable:
-        class: %egzakt_system.deletable.class%
+    flexy_system.deletable:
+        class: %flexy_system.deletable.class%
 
     egazkt_system.deletable_user_listener:
-        class: %egzakt_system.deletable_user_listener.class%
+        class: %flexy_system.deletable_user_listener.class%
         arguments: [ @security.context ]
         tags:
-          - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\User }
+          - { name: flexy_system.deletable, entity: Flexy\SystemBundle\Entity\User }
 
     egazkt_system.deletable_role_listener:
-        class: %egzakt_system.deletable_role_listener.class%
+        class: %flexy_system.deletable_role_listener.class%
         tags:
-          - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\Role }
+          - { name: flexy_system.deletable, entity: Flexy\SystemBundle\Entity\Role }
 
     egazkt_system.deletable_section_listener:
-        class: %egzakt_system.deletable_section_listener.class%
+        class: %flexy_system.deletable_section_listener.class%
         tags:
-          - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\Section }
+          - { name: flexy_system.deletable, entity: Flexy\SystemBundle\Entity\Section }
 
     egazkt_system.deletable_app_listener:
-        class: %egzakt_system.deletable_app_listener.class%
+        class: %flexy_system.deletable_app_listener.class%
         tags:
-          - { name: egzakt_system.deletable, entity: Egzakt\SystemBundle\Entity\App }
+          - { name: flexy_system.deletable, entity: Flexy\SystemBundle\Entity\App }
 
-    egzakt_system.kernel_controller_listener:
-        class: %egzakt_system.kernel_controller_listener.class%
+    flexy_system.kernel_controller_listener:
+        class: %flexy_system.kernel_controller_listener.class%
         tags:
           - { name: kernel.event_listener, event: kernel.controller }
         calls:
           - [ setContainer, [ @service_container ] ]
 
-    egzakt_system.post_load_listener:
-        class: %egzakt_system.post_load_listener.class%
+    flexy_system.post_load_listener:
+        class: %flexy_system.post_load_listener.class%
         tags:
             - { name: doctrine.event_listener, event: postLoad }
         calls:
           - [ setContainer, [ @service_container ] ]
 
-    egzakt_system.kernel_exception_listener:
-        class: %egzakt_system.kernel_exception_listener.class%
+    flexy_system.kernel_exception_listener:
+        class: %flexy_system.kernel_exception_listener.class%
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
         calls:
             - [ setKernel, [ @kernel ] ]
             - [ setTemplating, [ @templating ] ]
 
-    egzakt_system.core:
-        class: %egzakt_system.core.class%
+    flexy_system.core:
+        class: %flexy_system.core.class%
 
-    egzakt_system.twig_extension:
-        class: %egzakt_system.twig_extension.class%
+    flexy_system.twig_extension:
+        class: %flexy_system.twig_extension.class%
         tags:
           - { name: twig.extension }
         calls:
           - [ setRequest, [ @?request= ] ]
           - [ setLocale, [ %locale% ] ]
-          - [ setSystemCore, [ @egzakt_system.core ] ]
+          - [ setSystemCore, [ @flexy_system.core ] ]
 
-    egzakt_system.twig_translation_extension:
-        class: %egzakt_system.twig_translation_extension.class%
+    flexy_system.twig_translation_extension:
+        class: %flexy_system.twig_translation_extension.class%
         tags:
           - { name: twig.extension }
         calls:
           - [ setDoctrine, [ @doctrine ] ]
 
-    egzakt_system.inspect_extension:
-        class: %egzakt_system.inspect_extension.class%
+    flexy_system.inspect_extension:
+        class: %flexy_system.inspect_extension.class%
         tags:
           - { name: twig.extension }
 
-    egzakt_system.navigation_builder:
+    flexy_system.navigation_builder:
         scope: prototype
-        class: %egzakt_system.navigation_builder.class%
+        class: %flexy_system.navigation_builder.class%
         calls:
           - [ setContainer, [ @service_container ] ]
 
-    egzakt_system.navigation_item:
+    flexy_system.navigation_item:
         scope: prototype
-        class: %egzakt_system.navigation_item.class%
+        class: %flexy_system.navigation_item.class%
 
-    egzakt_system.breadcrumbs:
+    flexy_system.breadcrumbs:
         shared: true
-        class:  %egzakt_system.breadcrumbs.class%
+        class:  %flexy_system.breadcrumbs.class%
 
-    egzakt_system.page_title:
+    flexy_system.page_title:
         shared: true
-        class:  %egzakt_system.page_title.class%
+        class:  %flexy_system.page_title.class%
 
-    egzakt_system.pre_persist_listener:
-        class: Egzakt\SystemBundle\Listener\DoctrineEventListener
+    flexy_system.pre_persist_listener:
+        class: Flexy\SystemBundle\Listener\DoctrineEventListener
         tags:
             - { name: doctrine.event_listener, event: prePersist }
 
-    egzakt_system.router_invalidator:
-        class: %egzakt_system.router_invalidator.class%
+    flexy_system.router_invalidator:
+        class: %flexy_system.router_invalidator.class%
         arguments: [ @kernel ]
 
-    egzakt_system.router_auto_parameters_handler:
-        class: %egzakt_system.router_auto_parameters_handler.class%
+    flexy_system.router_auto_parameters_handler:
+        class: %flexy_system.router_auto_parameters_handler.class%
         calls:
           - [ setContainer, [ @service_container ] ]
 
-    egzakt_system.locale_switcher:
-        class: %egzakt_system.locale_switcher.class%
+    flexy_system.locale_switcher:
+        class: %flexy_system.locale_switcher.class%
         arguments: [@service_container]
 
-    egzakt_system.form.type.creatable_entity:
-        class: %egzakt_system.form.type.creatable_entity.class%
+    flexy_system.form.type.creatable_entity:
+        class: %flexy_system.form.type.creatable_entity.class%
         tags:
             - { name: form.type, alias: creatable_entity }
 
-    egzakt_backend.core:
-        class:  %egzakt_backend.core.class%
+    flexy_backend.core:
+        class:  %flexy_backend.core.class%
         shared: true
         calls:
           - [ setContainer, [ @service_container ] ] # only used to fix the request scope widening problem
           - [ setSession, [ @session= ] ]
           - [ setDoctrine, [ @doctrine ] ]
-          - [ setBreadcrumbs, [ @egzakt_system.breadcrumbs ] ]
-          - [ setPageTitle, [ @egzakt_system.page_title ] ]
+          - [ setBreadcrumbs, [ @flexy_system.breadcrumbs ] ]
+          - [ setPageTitle, [ @flexy_system.page_title ] ]
           - [ setLocale, [ %locale% ] ]
 
-    egzakt_backend.login_listener:
-        class: %egzakt_backend.login_listener.class%
+    flexy_backend.login_listener:
+        class: %flexy_backend.login_listener.class%
         tags:
           - { name: kernel.event_listener, event: security.interactive_login, method: onLogin }
 
@@ -170,40 +170,40 @@ services:
         tags:
             - { name: twig.extension }
 
-    egzakt_system.form.type.advanced_file:
-        class: %egzakt_backend.form.type.advanced_file.class%
+    flexy_system.form.type.advanced_file:
+        class: %flexy_backend.form.type.advanced_file.class%
         tags:
           - { name: form.type, alias: advanced_file }
 
-    egzakt_frontend.core:
-        class:  %egzakt_frontend.core.class%
+    flexy_frontend.core:
+        class:  %flexy_frontend.core.class%
         shared: true
         calls:
           - [ setContainer, [ @service_container ] ] # only used to fix the request scope widening problem
           - [ setDoctrine, [ @doctrine ] ]
-          - [ setBreadcrumbs, [ @egzakt_system.breadcrumbs ] ]
-          - [ setPageTitle, [ @egzakt_system.page_title ] ]
+          - [ setBreadcrumbs, [ @flexy_system.breadcrumbs ] ]
+          - [ setPageTitle, [ @flexy_system.page_title ] ]
           
-    egzakt_system.tree_entity_orderer:
-        class: %egzakt_system.tree_entity_orderer.class%
+    flexy_system.tree_entity_orderer:
+        class: %flexy_system.tree_entity_orderer.class%
 
-    egzakt_system.form.type.tree_choice:
-        class: %egzakt_system.form.type.tree_choice.class%
-        arguments: [@egzakt_system.tree_entity_orderer]
+    flexy_system.form.type.tree_choice:
+        class: %flexy_system.form.type.tree_choice.class%
+        arguments: [@flexy_system.tree_entity_orderer]
         tags:
             - { name: form.type, alias: tree_choice }
 
-    egzakt_system.section_filter:
-        class: %egzakt_system.section_filter.class%
+    flexy_system.section_filter:
+        class: %flexy_system.section_filter.class%
         arguments: [@doctrine.orm.entity_manager, @security.context]
 
-    egzakt_system.security.cms_voter:
-        class: %egzakt_backend.security.cms_voter.class%
+    flexy_system.security.cms_voter:
+        class: %flexy_backend.security.cms_voter.class%
         arguments: [@service_container]
         tags:
             - { name: security.voter }
 
-    egzakt_system.section_translation.sluggable.listener:
-        class: %egzakt_system.section_translation.sluggable.listener.class%
+    flexy_system.section_translation.sluggable.listener:
+        class: %flexy_system.section_translation.sluggable.listener.class%
         tags:
-            - { name: doctrine.event_subscriber, type: sluggable, entity: Egzakt\SystemBundle\Entity\SectionTranslation }
+            - { name: doctrine.event_subscriber, type: sluggable, entity: Flexy\SystemBundle\Entity\SectionTranslation }

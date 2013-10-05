@@ -1,7 +1,7 @@
 {% if result.isSuccess() %}
-    {% trans %}Are you sure you want to delete{% endtrans %} "{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}"?.
+    {% trans %}Are you sure you want to delete{% endtrans %} "{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}"?.
 {% else %}
-    "{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}" {% trans %}cannot be deleted because of these restrictions:{% endtrans %}
+    "{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}" {% trans %}cannot be deleted because of these restrictions:{% endtrans %}
     <ul>
         {% for restriction in result.errors %}
             <li>{{ restriction|trans }}</li>

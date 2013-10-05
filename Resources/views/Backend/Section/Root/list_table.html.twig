@@ -22,7 +22,7 @@
                     {% trans %}Ordering{% endtrans %}
                 </th>
                 <th colspan="2" class="switch_list_mode">
-                    <a href="#"><img src="{{ asset("bundles/egzaktsystem/backend/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
+                    <a href="#"><img src="{{ asset("bundles/flexysystem/backend/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
                 </th>
             {% endif %}
         </tr>
@@ -47,7 +47,7 @@
         {% for entity in entities %}
             <tr id="item_{{ navigation.id }}-{{ entity.id }}">
                 <td class="name{% if not entity.active %} inactive{% endif %}">
-                    <a href="{{ path('egzakt_system_backend_section_root_edit', { id: entity.id, appSlug: managedApp.slug }) }}">{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
+                    <a href="{{ path('flexy_system_backend_section_root_edit', { id: entity.id, appSlug: managedApp.slug }) }}">{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
                 </td>
                 <td>
                     {{ entity.children|length }}
@@ -62,14 +62,14 @@
                 {% endif %}
                 <td class="edit">
                     {% if entity.isEditable %}
-                        <a href="{{ path('egzakt_system_backend_section_root_edit', { id: entity.id, appSlug: managedApp.slug }) }}" title="{% trans %}Edit{% endtrans %}">
-                            <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+                        <a href="{{ path('flexy_system_backend_section_root_edit', { id: entity.id, appSlug: managedApp.slug }) }}" title="{% trans %}Edit{% endtrans %}">
+                            <img src="{{ asset('bundles/flexysystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
                         </a>
                     {% endif %}
                 </td>
                 <td class="delete">
-                    <a href="{{ path('egzakt_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug }) }}" rel="{{ path('egzakt_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
-                        <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                    <a href="{{ path('flexy_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug }) }}" rel="{{ path('flexy_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
+                        <img src="{{ asset('bundles/flexysystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
                     </a>
                 </td>
             </tr>

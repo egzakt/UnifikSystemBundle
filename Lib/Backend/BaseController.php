@@ -1,12 +1,12 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib\Backend;
+namespace Flexy\SystemBundle\Lib\Backend;
 
-use Egzakt\SystemBundle\Lib\ApplicationController;
+use Flexy\SystemBundle\Lib\ApplicationController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
- * Base Controller for all Egzakt backend bundles
+ * Base Controller for all Flexy backend bundles
  */
 abstract class BaseController extends ApplicationController
 {
@@ -17,7 +17,7 @@ abstract class BaseController extends ApplicationController
      */
     public function getCore()
     {
-        return $this->container->get('egzakt_backend.core');
+        return $this->container->get('flexy_backend.core');
     }
 
     /**
@@ -33,7 +33,7 @@ abstract class BaseController extends ApplicationController
     {
         // Set the Edit Locale on translatable entities
         if (method_exists($entity, 'setCurrentLocale')) {
-            $entity->setCurrentLocale($this->container->get('egzakt_backend.core')->getEditLocale());
+            $entity->setCurrentLocale($this->container->get('flexy_backend.core')->getEditLocale());
         }
 
         // @TODO Remove the container from entities
@@ -49,7 +49,7 @@ abstract class BaseController extends ApplicationController
     {
         return $this->container->get('router')->generate(
             $route,
-            $this->get('egzakt_system.router_auto_parameters_handler')->inject($parameters),
+            $this->get('flexy_system.router_auto_parameters_handler')->inject($parameters),
             $referenceType
         );
     }

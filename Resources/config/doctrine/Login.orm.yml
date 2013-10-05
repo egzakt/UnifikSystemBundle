@@ -1,6 +1,6 @@
-Egzakt\SystemBundle\Entity\Login:
+Flexy\SystemBundle\Entity\Login:
   type: entity
-  repositoryClass: Egzakt\SystemBundle\Entity\MappingRepository
+  repositoryClass: Flexy\SystemBundle\Entity\MappingRepository
   fields:
     id:
       type: integer

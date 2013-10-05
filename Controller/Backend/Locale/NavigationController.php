@@ -1,10 +1,10 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend\Locale;
+namespace Flexy\SystemBundle\Controller\Backend\Locale;
 
 use Symfony\Component\HttpFoundation\Response;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
+use Flexy\SystemBundle\Lib\Backend\BaseController;
 
 /**
  * User Controller
@@ -25,9 +25,9 @@ class NavigationController extends BaseController
             return new Response();
         }
 
-        $selected = (0 === strpos($_masterRoute, 'egzakt_system_backend_locale'));
+        $selected = (0 === strpos($_masterRoute, 'flexy_system_backend_locale'));
 
-        return $this->render('EgzaktSystemBundle:Backend/Locale/Navigation:global_bundle_bar.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Locale/Navigation:global_bundle_bar.html.twig', array(
             'selected' => $selected
         ));
     }
