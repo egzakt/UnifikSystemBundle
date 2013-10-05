@@ -1,13 +1,13 @@
 <?php
 
-namespace Egzakt\SystemBundle\Listener;
+namespace Flexy\SystemBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\DependencyInjection\Container;
 
-use Egzakt\SystemBundle\Lib\Core;
-use Egzakt\SystemBundle\Lib\BaseControllerInterface;
+use Flexy\SystemBundle\Lib\Core;
+use Flexy\SystemBundle\Lib\BaseControllerInterface;
 
 /**
  * Controller Listener
@@ -32,12 +32,12 @@ class ControllerListener
 
         $request = $this->container->get('request');
 
-        if (false == $request->get('_egzaktEnabled')) {
+        if (false == $request->get('_flexyEnabled')) {
             return;
         }
 
-        $egzaktRequest = $request->get('_egzaktRequest');
-        $applicationName = $egzaktRequest['appName'];
+        $flexyRequest = $request->get('_flexyRequest');
+        $applicationName = $flexyRequest['appName'];
         $applicationName = strtolower($applicationName);
 
         if (false == $applicationName) {
@@ -47,18 +47,18 @@ class ControllerListener
         // sectionId juggling to make the backend parameters behave like the frontend router auto generated parameters
         if ('backend' === $applicationName) {
             if ($sectionId = $request->get('sectionId')) {
-                $egzaktRequest = $request->get('_egzaktRequest');
-                $egzaktRequest['sectionId'] = $sectionId;
-                $request->attributes->set('_egzaktRequest', $egzaktRequest);
+                $flexyRequest = $request->get('_flexyRequest');
+                $flexyRequest['sectionId'] = $sectionId;
+                $request->attributes->set('_flexyRequest', $flexyRequest);
             }
         }
 
         if (false == $controller instanceof BaseControllerInterface) {
-            throw new \Exception(get_class($controller) . ' must extends the Egzakt/SystemBundle/Lib/' . ucfirst($applicationName) . '/BaseController class.');
+            throw new \Exception(get_class($controller) . ' must extends the Flexy/SystemBundle/Lib/' . ucfirst($applicationName) . '/BaseController class.');
         }
 
-        $systemCore = $this->container->get('egzakt_system.core');
-        $applicationCore = $this->container->get('egzakt_' . $applicationName . '.core');
+        $systemCore = $this->container->get('flexy_system.core');
+        $applicationCore = $this->container->get('flexy_' . $applicationName . '.core');
         $systemCore->setApplicationCore($applicationCore);
 
         if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {

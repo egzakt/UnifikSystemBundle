@@ -2,8 +2,8 @@
 
 namespace {{ namespace }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\SystemBundle\Lib\BaseEntity;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * {{ entity }} Entity
@@ -12,17 +12,17 @@ class {{ entity }} extends BaseEntity
 {
     {%- if is_timestampable %}
 
-    use EgzaktORMBehaviors\Timestampable\Timestampable;
+    use FlexyORMBehaviors\Timestampable\Timestampable;
     {%- endif %}
 
     {%- if is_sluggable %}
 
-    use EgzaktORMBehaviors\Sluggable\Sluggable;
+    use FlexyORMBehaviors\Sluggable\Sluggable;
     {%- endif %}
 
     {%- if has_i18n %}
 
-    use EgzaktORMBehaviors\Translatable\Translatable;
+    use FlexyORMBehaviors\Translatable\Translatable;
     {%- endif %}
 
 

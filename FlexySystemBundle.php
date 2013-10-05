@@ -1,15 +1,15 @@
 <?php
 
-namespace Egzakt\SystemBundle;
+namespace Flexy\SystemBundle;
 
-use Egzakt\SystemBundle\DependencyInjection\Compiler\DeletableExtensionCompilerPass;
+use Flexy\SystemBundle\DependencyInjection\Compiler\DeletableExtensionCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use Egzakt\SystemBundle\DependencyInjection\Compiler\RouterExtensionCompilerPass;
-use Egzakt\SystemBundle\DependencyInjection\Compiler\HttpKernelExtensionCompilerPass;
+use Flexy\SystemBundle\DependencyInjection\Compiler\RouterExtensionCompilerPass;
+use Flexy\SystemBundle\DependencyInjection\Compiler\HttpKernelExtensionCompilerPass;
 
-class EgzaktSystemBundle extends Bundle
+class FlexySystemBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

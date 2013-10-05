@@ -1,19 +1,19 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\SystemBundle\Lib\BaseEntity;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * Member
  */
 class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
 {
-    use EgzaktORMBehaviors\Timestampable\Timestampable;
+    use FlexyORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer
@@ -101,7 +101,7 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
      */
     public function getRouteBackend($suffix = 'edit')
     {
-        return 'egzakt_system_backend_member_' . $suffix;
+        return 'flexy_system_backend_member_' . $suffix;
     }
 
     /**

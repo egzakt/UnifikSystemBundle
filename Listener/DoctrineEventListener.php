@@ -1,11 +1,11 @@
 <?php
 
-namespace Egzakt\SystemBundle\Listener;
+namespace Flexy\SystemBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\NoResultException;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
+use Flexy\SystemBundle\Lib\BaseEntity;
 
 /**
  * Doctrine Event Listener

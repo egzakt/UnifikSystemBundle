@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Command;
+namespace Flexy\SystemBundle\Command;
 
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputArgument;
@@ -14,8 +14,8 @@ use Sensio\Bundle\GeneratorBundle\Command\Validators;
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
-use Egzakt\SystemBundle\Command\Generator;
-use Egzakt\SystemBundle\Generator\DoctrineFormGenerator;
+use Flexy\SystemBundle\Command\Generator;
+use Flexy\SystemBundle\Generator\DoctrineFormGenerator;
 
 /**
  * Generate CRUD Command
@@ -44,8 +44,8 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
             new InputOption('route-prefix', '', InputOption::VALUE_REQUIRED, 'The route prefix'),
             new InputOption('with-jqgrid', '', InputOption::VALUE_NONE, 'use if you want to generate a jqgrid array'),
         );
-        $this->setName('egzakt:generate:crud')
-            ->setDescription('Generates a CRUD based on an Egzakt entity')
+        $this->setName('flexy:generate:crud')
+            ->setDescription('Generates a CRUD based on an Flexy entity')
             ->setDefinition($setDefinitionOptions);
 
     }
@@ -111,8 +111,8 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
 
         // jqGrid
         if ( $input->getOption('with-jqgrid') ) {
-            $command = $this->getApplication()->find('egzakt:jqgrid:generate');
-            $arguments = array('entity' => $input->getOption('entity'), 'command' => 'egzakt:jqgrid:generate');
+            $command = $this->getApplication()->find('flexy:jqgrid:generate');
+            $arguments = array('entity' => $input->getOption('entity'), 'command' => 'flexy:jqgrid:generate');
             $command->run( new ArrayInput($arguments), $output );
         }
 
@@ -128,7 +128,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
     public function interact(InputInterface $input, OutputInterface $output)
     {
         $dialog = $this->getDialogHelper();
-        $dialog->writeSection($output, 'Welcome to the Egzakt CMS CRUD generator');
+        $dialog->writeSection($output, 'Welcome to the Flexy CMS CRUD generator');
 
         // namespace
         $output->writeln(
@@ -138,7 +138,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
                 '',
                 'First, you need to give the entity for which you want to generate a CRUD.',
                 '',
-                'You must use the shortcut notation like <comment>EgzaktBlogBundle:Post</comment>.',
+                'You must use the shortcut notation like <comment>FlexyBlogBundle:Post</comment>.',
                 '',
             )
         );
@@ -216,7 +216,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
     protected function getFormGenerator($bundle = null)
     {
         if (null === $this->formGenerator) {
-            $this->formGenerator = new \Egzakt\SystemBundle\Generator\DoctrineFormGenerator(
+            $this->formGenerator = new \Flexy\SystemBundle\Generator\DoctrineFormGenerator(
                 $this->getContainer()->get('filesystem')
             );
             $this->formGenerator->setSkeletonDirs($this->getSkeletonDirs($bundle));

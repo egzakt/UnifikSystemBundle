@@ -1,10 +1,10 @@
 <?php
 
-namespace Egzakt\SystemBundle\Form\Backend;
+namespace Flexy\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-use Egzakt\SystemBundle\Form\Backend\SectionType;
+use Flexy\SystemBundle\Form\Backend\SectionType;
 
 /**
  * RootSection Type

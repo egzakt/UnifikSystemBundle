@@ -55,7 +55,7 @@
 
                     {% if 'ordering' in fields|keys -%}
                     <th colspan="2" class="switch_list_mode">
-                    <a href="#"><img src="{{ '{{ asset("bundles/egzaktsystem/backend/images/buttons/switch_list_mode_off.gif") }}' }}" width="20" height="20" alt="" /></a>
+                    <a href="#"><img src="{{ '{{ asset("bundles/flexysystem/backend/images/buttons/switch_list_mode_off.gif") }}' }}" width="20" height="20" alt="" /></a>
                     </th>
                     {%- else -%}
                     <th class="edit"></th>
@@ -98,7 +98,7 @@
                         {%- elseif metadata.type in ['boolean'] %}
                             {% set render =
                                 '{% if entity.' ~ field ~ ' %}
-                                <img src="{{ asset("bundles/egzaktsystem/backend/images/icons/tick.png") }}" width="16" height="16" alt="yes">
+                                <img src="{{ asset("bundles/flexysystem/backend/images/icons/tick.png") }}" width="16" height="16" alt="yes">
                              {% endif %}' %}
                         {% endif %}
 
@@ -114,13 +114,13 @@
                         <td class="edit">
                             {{ "{% if entity.isEditable %}" }}
                                 <a href="{{ "{{ path(entity.route, entity.routeParams) }}" }}" title="{{ '{% trans %}' }}Edit{{ '{% endtrans %}' }}">
-                                    <img src="{{ "{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" }}" width="15" height="15" alt="" />
+                                    <img src="{{ "{{ asset('bundles/flexysystem/backend/images/buttons/edit.png') }}" }}" width="15" height="15" alt="" />
                                 </a>
                             {{ "{% endif %}" }}
                         </td>
                         <td class="delete">
                             <a href="{{ "{{ path(entity.route('delete'), entity.routeParams) }}" }}" rel="{{ "{{ path(entity.route('delete'), entity.routeParams({'message': true})) }}" }}" title="{{ '{% trans %}' }}Delete{{ '{% endtrans %}' }}">
-                                <img src="{{ "{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" }}" width="12" height="15" alt="" />
+                                <img src="{{ "{{ asset('bundles/flexysystem/backend/images/buttons/delete.png') }}" }}" width="12" height="15" alt="" />
                             </a>
                         </td>
                     </tr>

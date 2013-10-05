@@ -1,10 +1,10 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
+use Flexy\SystemBundle\Lib\BaseEntity;
 
 /**
  * Navigation
@@ -131,9 +131,9 @@ class Navigation extends BaseEntity
     /**
      * Remove sectionNavigations
      *
-     * @param \Egzakt\SystemBundle\Entity\SectionNavigation $sectionNavigations
+     * @param \Flexy\SystemBundle\Entity\SectionNavigation $sectionNavigations
      */
-    public function removeSectionNavigation(\Egzakt\SystemBundle\Entity\SectionNavigation $sectionNavigations)
+    public function removeSectionNavigation(\Flexy\SystemBundle\Entity\SectionNavigation $sectionNavigations)
     {
         $this->sectionNavigations->removeElement($sectionNavigations);
     }
@@ -145,10 +145,10 @@ class Navigation extends BaseEntity
     /**
      * Add mappings
      *
-     * @param  \Egzakt\SystemBundle\Entity\Mapping $mappings
+     * @param  \Flexy\SystemBundle\Entity\Mapping $mappings
      * @return Navigation
      */
-    public function addMapping(\Egzakt\SystemBundle\Entity\Mapping $mappings)
+    public function addMapping(\Flexy\SystemBundle\Entity\Mapping $mappings)
     {
         $this->mappings[] = $mappings;
 
@@ -158,9 +158,9 @@ class Navigation extends BaseEntity
     /**
      * Remove mappings
      *
-     * @param \Egzakt\SystemBundle\Entity\Mapping $mappings
+     * @param \Flexy\SystemBundle\Entity\Mapping $mappings
      */
-    public function removeMapping(\Egzakt\SystemBundle\Entity\Mapping $mappings)
+    public function removeMapping(\Flexy\SystemBundle\Entity\Mapping $mappings)
     {
         $this->mappings->removeElement($mappings);
     }
@@ -175,17 +175,17 @@ class Navigation extends BaseEntity
         return $this->mappings;
     }
     /**
-     * @var \Egzakt\SystemBundle\Entity\App
+     * @var \Flexy\SystemBundle\Entity\App
      */
     private $app;
 
     /**
      * Set app
      *
-     * @param  \Egzakt\SystemBundle\Entity\App $app
+     * @param  \Flexy\SystemBundle\Entity\App $app
      * @return Navigation
      */
-    public function setApp(\Egzakt\SystemBundle\Entity\App $app = null)
+    public function setApp(\Flexy\SystemBundle\Entity\App $app = null)
     {
         $this->app = $app;
 
@@ -195,7 +195,7 @@ class Navigation extends BaseEntity
     /**
      * Get app
      *
-     * @return \Egzakt\SystemBundle\Entity\App
+     * @return \Flexy\SystemBundle\Entity\App
      */
     public function getApp()
     {

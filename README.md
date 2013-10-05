@@ -1,4 +1,4 @@
-EgzaktSystemBundle
+FlexySystemBundle
 ==================
 
-EgzaktSystemBundle
+FlexySystemBundle

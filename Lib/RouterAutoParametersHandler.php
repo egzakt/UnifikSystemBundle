@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -18,9 +18,9 @@ class RouterAutoParametersHandler
     {
         $request = $this->container->get('request');
 
-        $egzaktRequest = $request->get('_egzaktRequest');
+        $flexyRequest = $request->get('_flexyRequest');
 
-        $sectionId = $egzaktRequest['sectionId'];
+        $sectionId = $flexyRequest['sectionId'];
 
         $parameters = array(
             'sectionId' => $sectionId

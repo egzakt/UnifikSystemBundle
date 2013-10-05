@@ -1,16 +1,16 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\SystemBundle\Lib\BaseEntity;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * SectionNavigation
  */
 class SectionNavigation extends BaseEntity
 {
-    use EgzaktORMBehaviors\Timestampable\Timestampable;
+    use FlexyORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer

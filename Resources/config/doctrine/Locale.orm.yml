@@ -1,4 +1,4 @@
-Egzakt\SystemBundle\Entity\Locale:
+Flexy\SystemBundle\Entity\Locale:
   type: entity
   fields:
     id:
@@ -20,4 +20,4 @@ Egzakt\SystemBundle\Entity\Locale:
     active:
       type: boolean
       nullable: true
-  repositoryClass: Egzakt\SystemBundle\Entity\LocaleRepository
+  repositoryClass: Flexy\SystemBundle\Entity\LocaleRepository

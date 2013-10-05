@@ -1,9 +1,9 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
-use Egzakt\SystemBundle\Lib\BaseEntityRepository;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Flexy\SystemBundle\Lib\BaseEntityRepository;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -58,7 +58,7 @@ class UserRepository extends BaseEntityRepository implements UserProviderInterfa
      */
     public function supportsClass($class)
     {
-        return $class === 'Egzakt\SystemBundle\Entity\User';
+        return $class === 'Flexy\SystemBundle\Entity\User';
     }
 
     /**

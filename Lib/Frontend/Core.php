@@ -1,14 +1,14 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib\Frontend;
+namespace Flexy\SystemBundle\Lib\Frontend;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Egzakt\SystemBundle\Entity\App;
-use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Lib\ApplicationCoreInterface;
-use Egzakt\SystemBundle\Lib\Breadcrumbs;
-use Egzakt\SystemBundle\Lib\NavigationElementInterface;
-use Egzakt\SystemBundle\Lib\PageTitle;
+use Flexy\SystemBundle\Entity\App;
+use Flexy\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Lib\ApplicationCoreInterface;
+use Flexy\SystemBundle\Lib\Breadcrumbs;
+use Flexy\SystemBundle\Lib\NavigationElementInterface;
+use Flexy\SystemBundle\Lib\PageTitle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -75,7 +75,7 @@ class Core implements ApplicationCoreInterface
         $em = $this->doctrine->getManager();
 
         if ($sectionId = $this->getSectionId()) {
-            $this->setSection($em->getRepository('EgzaktSystemBundle:Section')->findOneBy(array(
+            $this->setSection($em->getRepository('FlexySystemBundle:Section')->findOneBy(array(
                 'id' => $sectionId,
                 'active' => true
             )));
@@ -131,9 +131,9 @@ class Core implements ApplicationCoreInterface
      */
     public function getSectionId()
     {
-        $egzaktRequest = $this->request->attributes->get('_egzaktRequest');
+        $flexyRequest = $this->request->attributes->get('_flexyRequest');
 
-        return $egzaktRequest['sectionId'] ?: 0;
+        return $flexyRequest['sectionId'] ?: 0;
     }
 
     /**
@@ -149,7 +149,7 @@ class Core implements ApplicationCoreInterface
 
         $em = $this->doctrine->getManager();
 
-        $this->section = $em->getRepository('EgzaktSystemBundle:Section')->find($this->getSectionId());
+        $this->section = $em->getRepository('FlexySystemBundle:Section')->find($this->getSectionId());
 
         return $this->section;
     }
@@ -161,9 +161,9 @@ class Core implements ApplicationCoreInterface
      */
     public function getAppId()
     {
-        $egzaktRequest = $this->request->attributes->get('_egzaktRequest');
+        $flexyRequest = $this->request->attributes->get('_flexyRequest');
 
-        return $egzaktRequest['appId'] ?: 0;
+        return $flexyRequest['appId'] ?: 0;
     }
 
     /**

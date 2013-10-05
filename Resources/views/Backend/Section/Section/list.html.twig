@@ -1,4 +1,4 @@
-{% extends 'EgzaktSystemBundle:Backend/Section:layout.html.twig' %}
+{% extends 'FlexySystemBundle:Backend/Section:layout.html.twig' %}
 
 {% block content_header %}
     <h1>{% trans with { '%entity%': 'Subsections'|trans } %}%entity% list{% endtrans %}</h1>
@@ -7,11 +7,11 @@
 {% block content_main %}
 
     <script type="text/javascript">
-        var url_ordre = '{{ path('egzakt_system_backend_section_order') }}';
+        var url_ordre = '{{ path('flexy_system_backend_section_order') }}';
     </script>
 
     <div id="list_actions_bar">
-        <a class="add" href="{{ path('egzakt_system_backend_section_edit') }}">{% trans %}Add a subsection{% endtrans %}</a>
+        <a class="add" href="{{ path('flexy_system_backend_section_edit') }}">{% trans %}Add a subsection{% endtrans %}</a>
     </div>
 
     <div class="list_box">
@@ -31,7 +31,7 @@
                     {% trans %}Last update{% endtrans %}
                 </th>
                 <th colspan="2" class="switch_list_mode">
-                    <a href="#"><img src="{{ asset("bundles/egzaktsystem/backend/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
+                    <a href="#"><img src="{{ asset("bundles/flexysystem/backend/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
                 </th>
             </tr>
             <tr class="filters">
@@ -62,7 +62,7 @@
                         {{ entity.ordering }}
                     </td>
                     <td class="name{% if not entity.active %} inactive{% endif %}">
-                        <a href="{{ path('egzakt_system_backend_section_edit', { 'id': entity.id }) }}">{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
+                        <a href="{{ path('flexy_system_backend_section_edit', { 'id': entity.id }) }}">{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
                     </td>
                     <td>
                         {{ entity.children|length }}
@@ -71,13 +71,13 @@
                         {{ entity.updatedAt|date('Y-m-d') }}
                     </td>
                     <td class="edit">
-                        <a href="{{ path('egzakt_system_backend_section_edit', { 'id': entity.id }) }}" title="{% trans %}Edit{% endtrans %}">
-                            <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+                        <a href="{{ path('flexy_system_backend_section_edit', { 'id': entity.id }) }}" title="{% trans %}Edit{% endtrans %}">
+                            <img src="{{ asset('bundles/flexysystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
                         </a>
                     </td>
                     <td class="delete">
-                        <a href="{{ path('egzakt_system_backend_section_delete', { 'id': entity.id }) }}" rel="{{ path('egzakt_system_backend_section_delete', { 'id': entity.id, 'message': true }) }}" title="{% trans %}Delete{% endtrans %}">
-                            <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                        <a href="{{ path('flexy_system_backend_section_delete', { 'id': entity.id }) }}" rel="{{ path('flexy_system_backend_section_delete', { 'id': entity.id, 'message': true }) }}" title="{% trans %}Delete{% endtrans %}">
+                            <img src="{{ asset('bundles/flexysystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
                         </a>
                     </td>
                 </tr>

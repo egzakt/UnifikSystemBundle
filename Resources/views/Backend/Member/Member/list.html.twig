@@ -1,4 +1,4 @@
-{% extends 'EgzaktSystemBundle:Backend/Member:layout.html.twig' %}
+{% extends 'FlexySystemBundle:Backend/Member:layout.html.twig' %}
 
 {% block content_header %}
     <h1>{% trans %}Members list{% endtrans %}</h1>
@@ -7,7 +7,7 @@
 {% block content_main %}
 
     <div id="list_actions_bar">
-        <a class="add" href="{{ path('egzakt_system_backend_member_edit') }}">{% trans %}Add a member{% endtrans %}</a>
+        <a class="add" href="{{ path('flexy_system_backend_member_edit') }}">{% trans %}Add a member{% endtrans %}</a>
     </div>
 
     <div class="list_box">
@@ -50,13 +50,13 @@
                     <td class="edit">
                         {% if member.isEditable %}
                             <a href="{{ path(member.route, member.routeParams) }}" title="{% trans %}Edit{% endtrans %}">
-                                <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+                                <img src="{{ asset('bundles/flexysystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
                             </a>
                         {% endif %}
                     </td>
                     <td class="delete">
                         <a href="{{ path(member.route('delete'), member.routeParams) }}" rel="{{ path(member.route('delete'), member.routeParams({'message': true})) }}" title="{% trans %}Delete{% endtrans %}">
-                            <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                            <img src="{{ asset('bundles/flexysystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
                         </a>
                     </td>
                 </tr>

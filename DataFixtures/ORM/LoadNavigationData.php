@@ -1,13 +1,13 @@
 <?php
 
-namespace Egzakt\Frontend\CoreBundle\DataFixtures\ORM;
+namespace Flexy\Frontend\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
-use Egzakt\SystemBundle\Entity\Navigation;
+use Flexy\SystemBundle\Entity\Navigation;
 
 class LoadNavigationData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -18,7 +18,7 @@ class LoadNavigationData extends AbstractFixture implements OrderedFixtureInterf
      */
     public function load(ObjectManager $manager)
     {
-        $metadata = $manager->getClassMetaData('Egzakt\\SystemBundle\\Entity\\Navigation');
+        $metadata = $manager->getClassMetaData('Flexy\\SystemBundle\\Entity\\Navigation');
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $sectionBar = new Navigation();

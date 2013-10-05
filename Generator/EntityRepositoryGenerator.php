@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Generator;
+namespace Flexy\SystemBundle\Generator;
 
 /**
  * Entity Repository Generator

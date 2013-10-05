@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Command;
+namespace Flexy\SystemBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,12 +18,12 @@ class RouterInvalidateCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('egzakt:router:invalidate')
+            ->setName('flexy:router:invalidate')
             ->setDescription('Invalidate the router cache')
             ->setHelp(<<<EOF
-The <info>egzakt:router:invalidate</info> invalidate (clear) the router cache
+The <info>flexy:router:invalidate</info> invalidate (clear) the router cache
 
-<info>php app/console egzakt:router:invalidate --env=dev</info>
+<info>php app/console flexy:router:invalidate --env=dev</info>
 EOF
             )
         ;
@@ -37,7 +37,7 @@ EOF
         $kernel = $this->getContainer()->get('kernel');
         $output->writeln(sprintf('Invalidating routes for the <info>%s</info> environment', $kernel->getEnvironment()));
 
-        $this->getContainer()->get('egzakt_system.router_cache')->invalidate();
+        $this->getContainer()->get('flexy_system.router_cache')->invalidate();
     }
 
 }

@@ -1,8 +1,8 @@
-{% extends 'EgzaktSystemBundle:Backend/Role:layout.html.twig' %}
-{% form_theme form 'EgzaktSystemBundle:Backend/Core:edit_fields.html.twig' %}
+{% extends 'FlexySystemBundle:Backend/Role:layout.html.twig' %}
+{% form_theme form 'FlexySystemBundle:Backend/Core:edit_fields.html.twig' %}
 
 {% block content_header %}
-    <h1>{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</h1>
+    <h1>{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</h1>
 {% endblock %}
 
 {% block content_main %}
@@ -10,9 +10,9 @@
     <form novalidate="novalidate" action="{{ path(entity.route, entity.routeParams) }}" method="post" {{ form_enctype(form) }}>
 
         {% block edit_action %}
-            {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
+            {% include 'FlexySystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'delete_route': path(entity.route('delete'), entity.routeParams),
-                'cancel_route': path('egzakt_system_backend_role'),
+                'cancel_route': path('flexy_system_backend_role'),
             } %}
         {% endblock %}
 

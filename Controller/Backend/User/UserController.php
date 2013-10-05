@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend\User;
+namespace Flexy\SystemBundle\Controller\Backend\User;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -8,10 +8,10 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BackendController;
-use Egzakt\SystemBundle\Entity\User;
-use Egzakt\SystemBundle\Form\Backend\UserType;
-use Egzakt\SystemBundle\Entity\Role;
+use Flexy\SystemBundle\Lib\Backend\BackendController;
+use Flexy\SystemBundle\Entity\User;
+use Flexy\SystemBundle\Form\Backend\UserType;
+use Flexy\SystemBundle\Entity\Role;
 
 /**
  * User controller.
@@ -35,7 +35,7 @@ class UserController extends BackendController
             throw new AccessDeniedHttpException();
         }
 
-        $this->createAndPushNavigationElement('Users', 'egzakt_system_backend_user');
+        $this->createAndPushNavigationElement('Users', 'flexy_system_backend_user');
 
         $this->isDeveloper = $this->get('security.context')->isGranted('ROLE_DEVELOPER');
     }
@@ -48,12 +48,12 @@ class UserController extends BackendController
     public function indexAction()
     {
         if (!$this->isDeveloper) {
-            $roles = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->findAllExcept(array('ROLE_DEVELOPER', 'ROLE_BACKEND_ACCESS'));
+            $roles = $this->getEm()->getRepository('FlexySystemBundle:Role')->findAllExcept(array('ROLE_DEVELOPER', 'ROLE_BACKEND_ACCESS'));
         } else {
-            $roles = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->findAllExcept('ROLE_BACKEND_ACCESS');
+            $roles = $this->getEm()->getRepository('FlexySystemBundle:Role')->findAllExcept('ROLE_BACKEND_ACCESS');
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/User/User:list.html.twig', array('roles' => $roles));
+        return $this->render('FlexySystemBundle:Backend/User/User:list.html.twig', array('roles' => $roles));
     }
 
     /**
@@ -66,7 +66,7 @@ class UserController extends BackendController
      */
     public function editAction($id, Request $request)
     {
-        $user = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
+        $user = $this->getEm()->getRepository('FlexySystemBundle:User')->find($id);
 
         if (!$user) {
             $user = new User();
@@ -90,7 +90,7 @@ class UserController extends BackendController
             if ($form->isValid()) {
 
                 // All Users are automatically granted the ROLE_BACKEND_ACCESS Role
-                $backendAccessRole = $this->getEm()->getRepository('EgzaktSystemBundle:Role')->findOneBy(array('role' => 'ROLE_BACKEND_ACCESS'));
+                $backendAccessRole = $this->getEm()->getRepository('FlexySystemBundle:Role')->findOneBy(array('role' => 'ROLE_BACKEND_ACCESS'));
                 if (!$backendAccessRole) {
                     $backendAccessRole = new Role();
                     $backendAccessRole->setRole('ROLE_BACKEND_ACCESS');
@@ -123,10 +123,10 @@ class UserController extends BackendController
                 );
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
+                    return $this->redirect($this->generateUrl('flexy_system_backend_user'));
                 }
 
-                return $this->redirect($this->generateUrl('egzakt_system_backend_user_edit', array(
+                return $this->redirect($this->generateUrl('flexy_system_backend_user_edit', array(
                     'id' => $user->getId()
                 )));
             } else {
@@ -134,7 +134,7 @@ class UserController extends BackendController
             }
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/User/User:edit.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/User/User:edit.html.twig', array(
             'user' => $user,
             'form' => $form->createView()
         ));
@@ -150,7 +150,7 @@ class UserController extends BackendController
      */
     public function checkDeleteAction(Request $request, $id)
     {
-        $user = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
+        $user = $this->getEm()->getRepository('FlexySystemBundle:User')->find($id);
         $output = $this->checkDeleteEntity($user);
 
         return new JsonResponse($output);
@@ -165,9 +165,9 @@ class UserController extends BackendController
      */
     public function deleteAction($id)
     {
-        $user = $this->getEm()->getRepository('EgzaktSystemBundle:User')->find($id);
+        $user = $this->getEm()->getRepository('FlexySystemBundle:User')->find($id);
         $this->deleteEntity($user);
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_user'));
+        return $this->redirect($this->generateUrl('flexy_system_backend_user'));
     }
 }

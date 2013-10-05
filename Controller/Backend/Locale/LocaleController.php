@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend\Locale;
+namespace Flexy\SystemBundle\Controller\Backend\Locale;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BackendController;
-use Egzakt\SystemBundle\Entity\Locale;
-use Egzakt\SystemBundle\Form\Backend\LocaleType;
+use Flexy\SystemBundle\Lib\Backend\BackendController;
+use Flexy\SystemBundle\Entity\Locale;
+use Flexy\SystemBundle\Form\Backend\LocaleType;
 
 /**
  * Locale Controller
@@ -38,9 +38,9 @@ class LocaleController extends BackendController
      */
     public function listAction()
     {
-        $locales = $this->getEm()->getRepository('EgzaktSystemBundle:Locale')->findAll();
+        $locales = $this->getEm()->getRepository('FlexySystemBundle:Locale')->findAll();
 
-        return $this->render('EgzaktSystemBundle:Backend/Locale/Locale:list.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Locale/Locale:list.html.twig', array(
             'locales' => $locales
         ));
     }
@@ -58,7 +58,7 @@ class LocaleController extends BackendController
         /**
          * @var $locale Locale
          */
-        $locale = $this->getEm()->getRepository('EgzaktSystemBundle:Locale')->find($id);
+        $locale = $this->getEm()->getRepository('FlexySystemBundle:Locale')->find($id);
 
         if (false == $locale) {
             $locale = new Locale();
@@ -82,7 +82,7 @@ class LocaleController extends BackendController
                 );
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('egzakt_system_backend_locale'));
+                    return $this->redirect($this->generateUrl('flexy_system_backend_locale'));
                 }
 
                 return $this->redirect($this->generateUrl($locale->getRoute(), $locale->getRouteParams()));
@@ -91,7 +91,7 @@ class LocaleController extends BackendController
             }
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/Locale/Locale:edit.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Locale/Locale:edit.html.twig', array(
             'locale' => $locale,
             'form' => $form->createView()
         ));
@@ -107,7 +107,7 @@ class LocaleController extends BackendController
      */
     public function checkDeleteAction(Request $request, $id)
     {
-        $locale = $this->getEm()->getRepository('EgzaktSystemBundle:Locale')->find($id);
+        $locale = $this->getEm()->getRepository('FlexySystemBundle:Locale')->find($id);
         $output = $this->checkDeleteEntity($locale);
 
         return new JsonResponse($output);
@@ -123,10 +123,10 @@ class LocaleController extends BackendController
      */
     public function deleteAction(Request $request, $id)
     {
-        $locale = $this->getEm()->getRepository('EgzaktSystemBundle:Locale')->find($id);
+        $locale = $this->getEm()->getRepository('FlexySystemBundle:Locale')->find($id);
         $this->deleteEntity($locale);
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_locale'));
+        return $this->redirect($this->generateUrl('flexy_system_backend_locale'));
     }
 
 }

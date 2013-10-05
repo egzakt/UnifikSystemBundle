@@ -1,13 +1,13 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Frontend;
+namespace Flexy\SystemBundle\Controller\Frontend;
 
 use Symfony\Component\HttpFoundation\Response;
 
-use Egzakt\SystemBundle\Lib\Frontend\BaseController;
-use Egzakt\SystemBundle\Entity\MappingRepository;
-use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Entity\SectionRepository;
+use Flexy\SystemBundle\Lib\Frontend\BaseController;
+use Flexy\SystemBundle\Entity\MappingRepository;
+use Flexy\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Entity\SectionRepository;
 
 /**
  * Navigation Controller
@@ -29,9 +29,9 @@ class NavigationController extends BaseController
      */
     public function init()
     {
-        $this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
-        $this->mappingRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Mapping');
-        $this->navigationRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation');
+        $this->sectionRepository = $this->getEm()->getRepository('FlexySystemBundle:Section');
+        $this->mappingRepository = $this->getEm()->getRepository('FlexySystemBundle:Mapping');
+        $this->navigationRepository = $this->getEm()->getRepository('FlexySystemBundle:Navigation');
     }
 
     /**
@@ -59,14 +59,14 @@ class NavigationController extends BaseController
 
         $template = ($template ? '_' . $template : '');
 
-        $navigationBuilder = $this->get('egzakt_system.navigation_builder');
+        $navigationBuilder = $this->get('flexy_system.navigation_builder');
         $navigationBuilder->setElements($sections);
         $navigationBuilder->setSelectedElement($this->getCore()->getSection());
         $navigationBuilder->build();
 
         $elements = $navigationBuilder->getElements();
 
-        return $this->render('EgzaktSystemBundle:Frontend/Navigation:by_code' . $template . '.html.twig', array(
+        return $this->render('FlexySystemBundle:Frontend/Navigation:by_code' . $template . '.html.twig', array(
             'code' => $code,
             'sections' => $elements,
             'maxLevel' => $maxLevel,
@@ -84,9 +84,9 @@ class NavigationController extends BaseController
     public function breadcrumbsAction()
     {
         $elementCurrent = $this->getCore()->getElement();
-        $elements = $this->get('egzakt_system.breadcrumbs')->getElements();
+        $elements = $this->get('flexy_system.breadcrumbs')->getElements();
 
-        return $this->render('EgzaktSystemBundle:Frontend/Navigation:breadcrumbs.html.twig', array(
+        return $this->render('FlexySystemBundle:Frontend/Navigation:breadcrumbs.html.twig', array(
             'elements' => $elements,
             'elementCurrent' => $elementCurrent
         ));
@@ -99,9 +99,9 @@ class NavigationController extends BaseController
      */
     public function pageTitleAction()
     {
-        $elements = $this->get('egzakt_system.page_title')->getElements();
+        $elements = $this->get('flexy_system.page_title')->getElements();
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:page_title.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Navigation:page_title.html.twig', array(
             'elements' => $elements,
         ));
     }
@@ -113,13 +113,13 @@ class NavigationController extends BaseController
      */
     public function localeSwitcherAction()
     {
-        $localeSwitcher = $this->get('egzakt_system.locale_switcher');
+        $localeSwitcher = $this->get('flexy_system.locale_switcher');
         $localeSwitcher->setElement($this->getCore()->getElement());
 
         $routes = $localeSwitcher->generate();
 
         return $this->render(
-            'EgzaktSystemBundle:Frontend/Navigation:locale_switcher.html.twig',
+            'FlexySystemBundle:Frontend/Navigation:locale_switcher.html.twig',
             array(
                 'routes' => $routes,
             )

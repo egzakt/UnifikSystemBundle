@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend\Text;
+namespace Flexy\SystemBundle\Controller\Backend\Text;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,10 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Egzakt\SystemBundle\Lib\Backend\BackendController;
-use Egzakt\SystemBundle\Entity\Text;
-use Egzakt\SystemBundle\Form\Backend\TextMainType;
-use Egzakt\SystemBundle\Form\Backend\TextStaticType;
+use Flexy\SystemBundle\Lib\Backend\BackendController;
+use Flexy\SystemBundle\Entity\Text;
+use Flexy\SystemBundle\Form\Backend\TextMainType;
+use Flexy\SystemBundle\Form\Backend\TextStaticType;
 
 /**
  * Text controller.
@@ -27,7 +27,7 @@ class TextController extends BackendController
     {
         parent::init();
 
-        $this->createAndPushNavigationElement('Text list', 'egzakt_system_backend_text');
+        $this->createAndPushNavigationElement('Text list', 'flexy_system_backend_text');
     }
 
     /**
@@ -39,21 +39,21 @@ class TextController extends BackendController
     {
         $section = $this->getSection();
 
-        $mainEntities = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->findBy(array(
+        $mainEntities = $this->getEm()->getRepository('FlexySystemBundle:Text')->findBy(array(
             'section' => $section->getId(),
             'static' => false
         ), array(
             'ordering' => 'ASC'
         ));
 
-        $staticEntities = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->findBy(array(
+        $staticEntities = $this->getEm()->getRepository('FlexySystemBundle:Text')->findBy(array(
             'section' => $section->getId(),
             'static' => true
         ), array(
             'ordering' => 'ASC'
         ));
 
-        return $this->render('EgzaktSystemBundle:Backend/Text/Text:list.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Text/Text:list.html.twig', array(
             'mainEntities' => $mainEntities,
             'staticEntities' => $staticEntities,
             'truncateLength' => 100
@@ -72,7 +72,7 @@ class TextController extends BackendController
     {
         $section = $this->getSection();
 
-        $text = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
+        $text = $this->getEm()->getRepository('FlexySystemBundle:Text')->find($id);
 
         if (false == $text) {
             $text = $this->initEntity(new Text());
@@ -99,15 +99,15 @@ class TextController extends BackendController
                 $em->persist($text);
                 $em->flush();
 
-                $this->get('egzakt_system.router_invalidator')->invalidate();
+                $this->get('flexy_system.router_invalidator')->invalidate();
 
                 $this->addFlashSuccess('The Text has been saved.');
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('egzakt_system_backend_text'));
+                    return $this->redirect($this->generateUrl('flexy_system_backend_text'));
                 }
 
-                return $this->redirect($this->generateUrl('egzakt_system_backend_text_edit', array(
+                return $this->redirect($this->generateUrl('flexy_system_backend_text_edit', array(
                     'id' => $text->getId() ?: 0
                 )));
             } else {
@@ -115,7 +115,7 @@ class TextController extends BackendController
             }
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/Text/Text:edit.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Text/Text:edit.html.twig', array(
             'text' => $text,
             'form' => $form->createView(),
         ));
@@ -131,7 +131,7 @@ class TextController extends BackendController
      */
     public function checkDeleteAction(Request $request, $id)
     {
-        $text = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
+        $text = $this->getEm()->getRepository('FlexySystemBundle:Text')->find($id);
         $output = $this->checkDeleteEntity($text);
 
         return new JsonResponse($output);
@@ -147,11 +147,11 @@ class TextController extends BackendController
      */
     public function deleteAction($id)
     {
-        $text = $this->getEm()->getRepository('EgzaktSystemBundle:Text')->find($id);
+        $text = $this->getEm()->getRepository('FlexySystemBundle:Text')->find($id);
         $this->deleteEntity($text);
-        $this->get('egzakt_system.router_invalidator')->invalidate();
+        $this->get('flexy_system.router_invalidator')->invalidate();
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_text'));
+        return $this->redirect($this->generateUrl('flexy_system_backend_text'));
     }
 
     /**
@@ -163,9 +163,9 @@ class TextController extends BackendController
      */
     public function orderAction(Request $request)
     {
-        $textRepo = $this->getEm()->getRepository('EgzaktSystemBundle:Text');
+        $textRepo = $this->getEm()->getRepository('FlexySystemBundle:Text');
         $this->orderEntities($request, $textRepo);
-        $this->get('egzakt_system.router_invalidator')->invalidate();
+        $this->get('flexy_system.router_invalidator')->invalidate();
 
         return new Response('');
     }

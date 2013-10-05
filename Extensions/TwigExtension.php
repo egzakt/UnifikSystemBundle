@@ -1,12 +1,12 @@
 <?php
 
-namespace Egzakt\SystemBundle\Extensions;
+namespace Flexy\SystemBundle\Extensions;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Stopwatch\Section;
 use BCC\ExtraToolsBundle\Util\DateFormatter;
 
-use Egzakt\SystemBundle\Lib\Core;
+use Flexy\SystemBundle\Lib\Core;
 
 /**
  * Library of helper functions
@@ -258,7 +258,7 @@ class TwigExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'egzakt_system_extension';
+        return 'flexy_system_extension';
     }
 
     /**

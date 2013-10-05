@@ -1,17 +1,17 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * SectionTranslation
  */
 class SectionTranslation
 {
-    use EgzaktORMBehaviors\Translatable\Translation;
+    use FlexyORMBehaviors\Translatable\Translation;
 
-    use EgzaktORMBehaviors\Sluggable\Sluggable;
+    use FlexyORMBehaviors\Sluggable\Sluggable;
 
     /**
      * @var integer $id

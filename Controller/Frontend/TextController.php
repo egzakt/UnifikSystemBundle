@@ -1,13 +1,13 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Frontend;
+namespace Flexy\SystemBundle\Controller\Frontend;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Egzakt\SystemBundle\Entity\Text;
-use Egzakt\SystemBundle\Entity\TextRepository;
-use Egzakt\SystemBundle\Lib\Frontend\BaseController;
+use Flexy\SystemBundle\Entity\Text;
+use Flexy\SystemBundle\Entity\TextRepository;
+use Flexy\SystemBundle\Lib\Frontend\BaseController;
 
 /**
  * Text Controller
@@ -24,7 +24,7 @@ class TextController extends BaseController
      */
     public function init()
     {
-        $this->textRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Text');
+        $this->textRepository = $this->getEm()->getRepository('FlexySystemBundle:Text');
     }
 
     /**
@@ -34,7 +34,7 @@ class TextController extends BaseController
      */
     public function indexAction()
     {
-        return $this->render('EgzaktSystemBundle:Frontend/Text:index.html.twig');
+        return $this->render('FlexySystemBundle:Frontend/Text:index.html.twig');
     }
 
     /**
@@ -53,7 +53,7 @@ class TextController extends BaseController
 
         $texts = $this->textRepository->findBy(array('section' => $sectionId, 'static' => false, 'active' => true), array('ordering' => 'ASC'));
 
-        return $this->render('EgzaktSystemBundle:Frontend/Text:displayTexts.html.twig', array(
+        return $this->render('FlexySystemBundle:Frontend/Text:displayTexts.html.twig', array(
             'texts' => $texts,
             'textId' => $this->get('request')->get('bloc')
         ));
@@ -73,7 +73,7 @@ class TextController extends BaseController
             'active' => true
         ));
 
-        return $this->render('EgzaktSystemBundle:Frontend/Text:displayTexts.html.twig', array(
+        return $this->render('FlexySystemBundle:Frontend/Text:displayTexts.html.twig', array(
             'texts' => is_null($text) ? null : array($text),
             'textId' => $textId
         ));
@@ -88,7 +88,7 @@ class TextController extends BaseController
      */
     public function displayTextAction($text)
     {
-        return $this->render('EgzaktSystemBundle:Frontend/Text:displayTexts.html.twig', array(
+        return $this->render('FlexySystemBundle:Frontend/Text:displayTexts.html.twig', array(
             'texts' => array($text),
             'textId' => $text->getId(),
         ));

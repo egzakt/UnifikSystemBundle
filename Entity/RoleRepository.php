@@ -1,9 +1,9 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
-use Egzakt\SystemBundle\Lib\BaseEntityRepository;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Flexy\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * RoleRepository
@@ -13,7 +13,7 @@ use Egzakt\SystemBundle\Lib\BaseEntityRepository;
  */
 class RoleRepository extends BaseEntityRepository
 {
-    use EgzaktORMBehaviors\Repository\TranslatableEntityRepository;
+    use FlexyORMBehaviors\Repository\TranslatableEntityRepository;
 
     /**
      * Find with User
@@ -23,7 +23,7 @@ class RoleRepository extends BaseEntityRepository
     public function findWithUser()
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT r FROM EgzaktSystemBundle:Role r LEFT JOIN r.translations rt INNER JOIN r.users u ORDER BY rt.name ASC')
+            ->createQuery('SELECT r FROM FlexySystemBundle:Role r LEFT JOIN r.translations rt INNER JOIN r.users u ORDER BY rt.name ASC')
             ->getResult();
     }
 

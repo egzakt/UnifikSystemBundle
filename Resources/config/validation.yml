@@ -1,4 +1,4 @@
-Egzakt\SystemBundle\Entity\Member:
+Flexy\SystemBundle\Entity\Member:
     properties:
         firstname:
             - NotBlank: { groups: [Default, edit, register] }
@@ -12,7 +12,7 @@ Egzakt\SystemBundle\Entity\Member:
     constraints:
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: email, groups: [Default, edit, register] }
 
-Egzakt\SystemBundle\Entity\User:
+Flexy\SystemBundle\Entity\User:
     properties:
         username:
             - NotBlank: { groups: [new, edit] }
@@ -33,17 +33,17 @@ Egzakt\SystemBundle\Entity\User:
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: username, groups: [new, edit] }
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: email, groups: [new, edit]  }
 
-Egzakt\SystemBundle\Entity\SectionTranslation:
+Flexy\SystemBundle\Entity\SectionTranslation:
     properties:
         name:
             - NotBlank: { groups: [Default] }
 
-Egzakt\SystemBundle\Entity\Section:
+Flexy\SystemBundle\Entity\Section:
     constraints:
       - Callback:
           methods: [isHeadCodeHtml]
 
-Egzakt\SystemBundle\Entity\TextTranslation:
+Flexy\SystemBundle\Entity\TextTranslation:
     properties:
         text:
             - NotBlank: ~
@@ -51,19 +51,19 @@ Egzakt\SystemBundle\Entity\TextTranslation:
         - Callback:
             methods: [isCollapsableValid]
 
-Egzakt\SystemBundle\Entity\RoleTranslation:
+Flexy\SystemBundle\Entity\RoleTranslation:
     properties:
         name:
             - NotBlank: ~
             
-Egzakt\SystemBundle\Entity\Locale:
+Flexy\SystemBundle\Entity\Locale:
     properties:
         name:
             - NotBlank: ~
         code:
             - NotBlank: ~
                         
-Egzakt\SystemBundle\Entity\App:
+Flexy\SystemBundle\Entity\App:
     properties:
         name:
             - NotBlank: ~

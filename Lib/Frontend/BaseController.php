@@ -1,11 +1,11 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib\Frontend;
+namespace Flexy\SystemBundle\Lib\Frontend;
 
-use Egzakt\SystemBundle\Lib\ApplicationController;
+use Flexy\SystemBundle\Lib\ApplicationController;
 
 /**
- * Base Controller for all Egzakt Frontend Bundles
+ * Base Controller for all Flexy Frontend Bundles
  */
 abstract class BaseController extends ApplicationController
 {
@@ -18,7 +18,7 @@ abstract class BaseController extends ApplicationController
      */
     public function getCore()
     {
-        return $this->get('egzakt_frontend.core');
+        return $this->get('flexy_frontend.core');
     }
 
 

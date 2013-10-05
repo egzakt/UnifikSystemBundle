@@ -1,14 +1,14 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
+use Flexy\SystemBundle\Lib\BaseEntity;
 
 /**
- * Represent an egzakt application
+ * Represent an flexy application
  */
 class App extends BaseEntity
 {
@@ -140,7 +140,7 @@ class App extends BaseEntity
      */
     public function getRoute($suffix = 'edit')
     {
-        $route = 'egzakt_system_backend_application';
+        $route = 'flexy_system_backend_application';
 
         if ($suffix) {
             $route .= '_' . $suffix;

@@ -1,22 +1,22 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 
-use Egzakt\SystemBundle\Entity\User;
-use Egzakt\SystemBundle\Lib\BaseEntity;
+use Flexy\SystemBundle\Entity\User;
+use Flexy\SystemBundle\Lib\BaseEntity;
 
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * Role
  */
 class Role extends BaseEntity implements RoleInterface, \Serializable
 {
-    use EgzaktORMBehaviors\Translatable\Translatable;
-    use EgzaktORMBehaviors\Timestampable\Timestampable;
+    use FlexyORMBehaviors\Translatable\Translatable;
+    use FlexyORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer
@@ -122,10 +122,10 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     /**
      * Add sections
      *
-     * @param  \Egzakt\SystemBundle\Entity\Section $sections
+     * @param  \Flexy\SystemBundle\Entity\Section $sections
      * @return Role
      */
-    public function addSection(\Egzakt\SystemBundle\Entity\Section $sections)
+    public function addSection(\Flexy\SystemBundle\Entity\Section $sections)
     {
         $this->sections[] = $sections;
 
@@ -145,9 +145,9 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     /**
      * Remove sections
      *
-     * @param \Egzakt\SystemBundle\Entity\Section $sections
+     * @param \Flexy\SystemBundle\Entity\Section $sections
      */
-    public function removeSection(\Egzakt\SystemBundle\Entity\Section $sections)
+    public function removeSection(\Flexy\SystemBundle\Entity\Section $sections)
     {
         $this->sections->removeElement($sections);
     }
@@ -165,9 +165,9 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     /**
      * Remove users
      *
-     * @param \Egzakt\SystemBundle\Entity\User $users
+     * @param \Flexy\SystemBundle\Entity\User $users
      */
-    public function removeUser(\Egzakt\SystemBundle\Entity\User $users)
+    public function removeUser(\Flexy\SystemBundle\Entity\User $users)
     {
         $this->users->removeElement($users);
     }
@@ -181,7 +181,7 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
      */
     public function getRouteBackend($suffix = 'edit')
     {
-        return 'egzakt_system_backend_role_' . $suffix;
+        return 'flexy_system_backend_role_' . $suffix;
     }
 
     /**

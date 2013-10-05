@@ -1,4 +1,4 @@
-Egzakt\SystemBundle\Entity\Mapping:
+Flexy\SystemBundle\Entity\Mapping:
   type: entity
   fields:
     id:
@@ -17,21 +17,21 @@ Egzakt\SystemBundle\Entity\Mapping:
       nullable: true
   manyToOne:
     section:
-      targetEntity: Egzakt\SystemBundle\Entity\Section
+      targetEntity: Flexy\SystemBundle\Entity\Section
       inversedBy:  mappings
       joinColumn:
         name: section_id
         referencedColumnName: id
         onDelete: cascade
     app:
-      targetEntity: Egzakt\SystemBundle\Entity\App
+      targetEntity: Flexy\SystemBundle\Entity\App
       inversedBy:  mappings
       joinColumn:
         name: app_id
         referencedColumnName: id
         onDelete: cascade
     navigation:
-      targetEntity: Egzakt\SystemBundle\Entity\Navigation
+      targetEntity: Flexy\SystemBundle\Entity\Navigation
       inversedBy:  mappings
       joinColumn:
         name: navigation_id

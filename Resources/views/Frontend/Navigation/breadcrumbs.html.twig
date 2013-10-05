@@ -7,9 +7,9 @@
         {% for element in elements %}
             <li>
                 {% if loop.last %}
-                    <strong>{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': element } %}</strong>
+                    <strong>{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': element } %}</strong>
                 {% else %}
-                    <a href="{{ path(element.route, element.routeParams) }}">{% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': element } %}</a>
+                    <a href="{{ path(element.route, element.routeParams) }}">{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': element } %}</a>
                     <span>&raquo;</span>
                 {% endif %}
             </li>

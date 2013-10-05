@@ -1,4 +1,4 @@
-Egzakt\SystemBundle\Entity\Text:
+Flexy\SystemBundle\Entity\Text:
   type: entity
   fields:
     id:
@@ -14,10 +14,10 @@ Egzakt\SystemBundle\Entity\Text:
     ordering:
       type: integer
       nullable: true
-  repositoryClass: Egzakt\SystemBundle\Entity\TextRepository
+  repositoryClass: Flexy\SystemBundle\Entity\TextRepository
   manyToOne:
     section:
-      targetEntity: Egzakt\SystemBundle\Entity\Section
+      targetEntity: Flexy\SystemBundle\Entity\Section
       inversedBy:   texts
       joinColumn:
         name: section_id

@@ -1,5 +1,5 @@
 {% if is_granted('ROLE_DEVELOPER') %}
     <li{% if selected %} class="selected"{% endif %}>
-        <a href="{{ path('egzakt_system_backend_application') }}"><img src="{{ asset('bundles/egzaktsystem/backend/images/icons/root_section.gif') }}" width="13" height="12" alt="" />{% trans %}Applications{% endtrans %}</a>
+        <a href="{{ path('flexy_system_backend_application') }}"><img src="{{ asset('bundles/flexysystem/backend/images/icons/root_section.gif') }}" width="13" height="12" alt="" />{% trans %}Applications{% endtrans %}</a>
     </li>
 {% endif %}

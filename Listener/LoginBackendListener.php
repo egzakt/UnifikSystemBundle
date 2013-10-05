@@ -1,8 +1,8 @@
 <?php
 
-namespace Egzakt\SystemBundle\Listener;
+namespace Flexy\SystemBundle\Listener;
 
-use Egzakt\SystemBundle\Entity\User;
+use Flexy\SystemBundle\Entity\User;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class LoginBackendListener

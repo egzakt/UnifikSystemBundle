@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Form\Type;
+namespace Flexy\SystemBundle\Form\Type;
 
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
@@ -10,9 +10,9 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Egzakt\SystemBundle\Form\ChoiceList\ORMSortedQueryBuilderLoader;
-use Egzakt\SystemBundle\Lib\TreeEntityOrderer;
-use Egzakt\SystemBundle\Lib\NavigationElementInterface;
+use Flexy\SystemBundle\Form\ChoiceList\ORMSortedQueryBuilderLoader;
+use Flexy\SystemBundle\Lib\TreeEntityOrderer;
+use Flexy\SystemBundle\Lib\NavigationElementInterface;
 
 /**
  * Class TreeChoiceType

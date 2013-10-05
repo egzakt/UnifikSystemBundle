@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Form\Backend;
+namespace Flexy\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -23,7 +23,7 @@ class RoleTranslationType extends AbstractType
 
     public function getName()
     {
-        return 'egzakt_backend_userbundle_roletranslationtype';
+        return 'flexy_backend_userbundle_roletranslationtype';
     }
 
     /**
@@ -34,7 +34,7 @@ class RoleTranslationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Egzakt\SystemBundle\Entity\RoleTranslation'
+            'data_class' => 'Flexy\SystemBundle\Entity\RoleTranslation'
         ));
     }
 }

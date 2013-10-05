@@ -1,15 +1,15 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * RoleTranslation
  */
 class RoleTranslation
 {
-    use EgzaktORMBehaviors\Translatable\Translation;
+    use FlexyORMBehaviors\Translatable\Translation;
 
     /**
      * @var integer $id

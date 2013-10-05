@@ -1,4 +1,4 @@
-Egzakt\SystemBundle\Entity\SectionNavigation:
+Flexy\SystemBundle\Entity\SectionNavigation:
   type: entity
   fields:
     id:
@@ -11,14 +11,14 @@ Egzakt\SystemBundle\Entity\SectionNavigation:
       nullable: true
   manyToOne:
     section:
-      targetEntity: Egzakt\SystemBundle\Entity\Section
+      targetEntity: Flexy\SystemBundle\Entity\Section
       inversedBy:  sectionNavigations
       joinColumn:
         name: section_id
         referencedColumnName: id
         onDelete:  cascade
     navigation:
-      targetEntity: Egzakt\SystemBundle\Entity\Navigation
+      targetEntity: Flexy\SystemBundle\Entity\Navigation
       inversedBy:  sectionNavigations
       joinColumn:
         name: navigation_id

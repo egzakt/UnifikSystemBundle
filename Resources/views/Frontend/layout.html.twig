@@ -5,18 +5,18 @@
             <meta charset="utf-8" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-            <title>{% block title %}{{ render(controller('EgzaktSystemBundle:Frontend/Navigation:PageTitle')) }}{% endblock %}</title>
+            <title>{% block title %}{{ render(controller('FlexySystemBundle:Frontend/Navigation:PageTitle')) }}{% endblock %}</title>
 
-            {% block stylesheets %}{% include 'EgzaktSystemBundle:Frontend/Core:stylesheets.html.twig' %}{% endblock %}
+            {% block stylesheets %}{% include 'FlexySystemBundle:Frontend/Core:stylesheets.html.twig' %}{% endblock %}
 
             <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}" />
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 
-            {% block metas %}{% include 'EgzaktSystemBundle:Frontend/Core:open_graph_metas.html.twig' %}{% endblock %}
+            {% block metas %}{% include 'FlexySystemBundle:Frontend/Core:open_graph_metas.html.twig' %}{% endblock %}
 
-            {% block head_extra %}{{ render(controller('EgzaktSystemBundle:Frontend/Core:HeadExtra')) }}{% endblock %}
+            {% block head_extra %}{{ render(controller('FlexySystemBundle:Frontend/Core:HeadExtra')) }}{% endblock %}
         {% endblock %}
     </head>
 
@@ -26,8 +26,8 @@
             <div id="wrapper">
 
                 <header id="site_header">
-                    {{ render(controller('EgzaktSystemBundle:Frontend/Navigation:LocaleSwitcher')) }}
-                    {{ render(controller('EgzaktSystemBundle:Frontend/Navigation:ByCode', { code: 'secondary', attr: { id: 'secondary_navigation' } })) }}
+                    {{ render(controller('FlexySystemBundle:Frontend/Navigation:LocaleSwitcher')) }}
+                    {{ render(controller('FlexySystemBundle:Frontend/Navigation:ByCode', { code: 'secondary', attr: { id: 'secondary_navigation' } })) }}
 
                     {% block logo %}
                         <div id="logo">
@@ -36,7 +36,7 @@
                     {% endblock %}
                 </header>
 
-                {{ render(controller('EgzaktSystemBundle:Frontend/Navigation:ByCode', { code: 'primary', maxLevel: 1, attr: { id: 'primary_navigation'} })) }}
+                {{ render(controller('FlexySystemBundle:Frontend/Navigation:ByCode', { code: 'primary', maxLevel: 1, attr: { id: 'primary_navigation'} })) }}
 
                 {% block main %}
                     <div id="main" role="main" class="clearfix">
@@ -48,7 +48,7 @@
                         </div>
 
                         <div id="content_col">
-                            {% block breadcrumbs %}{{ render(controller('EgzaktSystemBundle:Frontend/Navigation:Breadcrumbs')) }}{% endblock %}
+                            {% block breadcrumbs %}{{ render(controller('FlexySystemBundle:Frontend/Navigation:Breadcrumbs')) }}{% endblock %}
 
                             {% block content %}
                                 {% block content_top %}
@@ -75,16 +75,16 @@
                 {% endblock %}
 
                 <footer id="site_footer">
-                    {{ render(controller('EgzaktSystemBundle:Frontend/Navigation:ByCode', { code: 'footer', attr: { id: 'footer_navigation' } })) }}
+                    {{ render(controller('FlexySystemBundle:Frontend/Navigation:ByCode', { code: 'footer', attr: { id: 'footer_navigation' } })) }}
                 </footer>
             </div>
 
             {% block javascripts %}
-                {% include 'EgzaktSystemBundle:Frontend/Core:javascripts.html.twig' %}
+                {% include 'FlexySystemBundle:Frontend/Core:javascripts.html.twig' %}
             {% endblock %}
 
             {% block analytics %}
-                {% include 'EgzaktSystemBundle:Frontend/Core:analytics.html.twig' %}
+                {% include 'FlexySystemBundle:Frontend/Core:analytics.html.twig' %}
             {% endblock %}
         {% endblock %}
     </body>

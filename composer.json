@@ -1,9 +1,9 @@
 {
-    "name": "egzakt/system-bundle",
+    "name": "flexy/system-bundle",
     "type": "symfony-bundle",
-    "description": "The core bundle of the symfony-egzakt distribution",
-    "keywords": ["egzakt", "system", "cms"],
-    "homepage": "https://github.com/egzakt/symfony-egzakt",
+    "description": "The core bundle of the symfony-flexy distribution",
+    "keywords": ["flexy", "system", "cms"],
+    "homepage": "https://github.com/flexy/symfony-flexy",
     "license": "MIT",
     "authors": [
         {
@@ -23,7 +23,7 @@
         "symfony/symfony": "2.3.*"
     },
     "autoload": {
-        "psr-0": { "Egzakt\\SystemBundle": "" }
+        "psr-0": { "Flexy\\SystemBundle": "" }
     },
-    "target-dir": "Egzakt/SystemBundle"
+    "target-dir": "Flexy/SystemBundle"
 }

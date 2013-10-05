@@ -1,12 +1,12 @@
 <?php
 
-namespace Egzakt\SystemBundle\Generator;
+namespace Flexy\SystemBundle\Generator;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\DBAL\Types\Type;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use Egzakt\SystemBundle\Tools\EntityGenerator as BaseEntityGenerator;
+use Flexy\SystemBundle\Tools\EntityGenerator as BaseEntityGenerator;
 
 class EntityGenerator extends BaseEntityGenerator
 {

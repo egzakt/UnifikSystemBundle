@@ -1,8 +1,8 @@
 <?php
 
-namespace Egzakt\SystemBundle\Listener;
+namespace Flexy\SystemBundle\Listener;
 
-use Egzakt\SystemBundle\Lib\BaseDeletableListener;
+use Flexy\SystemBundle\Lib\BaseDeletableListener;
 
 class SectionDeletableListener extends BaseDeletableListener
 {

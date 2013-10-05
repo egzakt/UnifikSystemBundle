@@ -1,15 +1,15 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend;
+namespace Flexy\SystemBundle\Controller\Backend;
 
-use Egzakt\SystemBundle\Entity\AppRepository;
-use Egzakt\SystemBundle\Entity\NavigationRepository;
+use Flexy\SystemBundle\Entity\AppRepository;
+use Flexy\SystemBundle\Entity\NavigationRepository;
 use Symfony\Component\HttpFoundation\Response;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
-use Egzakt\SystemBundle\Entity\MappingRepository;
-use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Entity\SectionRepository;
+use Flexy\SystemBundle\Lib\Backend\BaseController;
+use Flexy\SystemBundle\Entity\MappingRepository;
+use Flexy\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Entity\SectionRepository;
 
 /**
  * Navigation Controller
@@ -31,8 +31,8 @@ class NavigationController extends BaseController
      */
     public function init()
     {
-        $this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
-        $this->mappingRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Mapping');
+        $this->sectionRepository = $this->getEm()->getRepository('FlexySystemBundle:Section');
+        $this->mappingRepository = $this->getEm()->getRepository('FlexySystemBundle:Mapping');
     }
 
     /**
@@ -57,16 +57,16 @@ class NavigationController extends BaseController
             }
         }
 
-        $navigationBuilder = $this->get('egzakt_system.navigation_builder');
+        $navigationBuilder = $this->get('flexy_system.navigation_builder');
         $navigationBuilder->setElements($sections);
         $navigationBuilder->setSelectedElement($sectionCurrent);
         $navigationBuilder->build();
 
         $sections = $navigationBuilder->getElements();
 
-        $sections = $this->get('egzakt_system.section_filter')->filterSections($sections);
+        $sections = $this->get('flexy_system.section_filter')->filterSections($sections);
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:section_bar.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Navigation:section_bar.html.twig', array(
             'sections' => $sections,
             'sectionCurrent' => $sectionCurrent,
             'managedApp' => $this->getApp()
@@ -82,7 +82,7 @@ class NavigationController extends BaseController
     {
         $mappings = $this->mappingRepository->findBy(array('navigation' => NavigationRepository::GLOBAL_MODULE_BAR_ID), array('ordering' => 'ASC'));
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:global_module_bar.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Navigation:global_module_bar.html.twig', array(
             'mappings' => $mappings
         ));
     }
@@ -101,7 +101,7 @@ class NavigationController extends BaseController
 
         $mappings = $this->mappingRepository->findBy(array('navigation' => NavigationRepository::APP_MODULE_BAR_ID), array('ordering' => 'ASC'));
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:app_module_bar.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Navigation:app_module_bar.html.twig', array(
             'mappings' => $mappings,
             'managedApp' => $this->getApp()
         ));
@@ -116,7 +116,7 @@ class NavigationController extends BaseController
     {
         $appCurrent = $this->getCore()->getApp();
 
-        $appRepo = $this->getDoctrine()->getRepository('EgzaktSystemBundle:App');
+        $appRepo = $this->getDoctrine()->getRepository('FlexySystemBundle:App');
         $apps = $appRepo->findBy(array(), array('ordering' => 'asc'));
 
         // BC fix, previous version had a "backend" application that need to be removed
@@ -126,7 +126,7 @@ class NavigationController extends BaseController
             }
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:app.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Navigation:app.html.twig', array(
             'apps' => $apps,
             'appCurrent' => $appCurrent
         ));
@@ -140,9 +140,9 @@ class NavigationController extends BaseController
     public function breadcrumbsAction()
     {
         $elementCurrent = $this->getCore()->getElement();
-        $elements = $this->get('egzakt_system.breadcrumbs')->getElements();
+        $elements = $this->get('flexy_system.breadcrumbs')->getElements();
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:breadcrumbs.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Navigation:breadcrumbs.html.twig', array(
             'elements' => $elements,
             'elementCurrent' => $elementCurrent
         ));
@@ -155,9 +155,9 @@ class NavigationController extends BaseController
      */
     public function pageTitleAction()
     {
-        $elements = $this->get('egzakt_system.page_title')->getElements();
+        $elements = $this->get('flexy_system.page_title')->getElements();
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:page_title.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Navigation:page_title.html.twig', array(
             'elements' => $elements,
         ));
     }
@@ -178,7 +178,7 @@ class NavigationController extends BaseController
             'navigation' => NavigationRepository::SECTION_MODULE_BAR_ID
         ));
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:section_module_bar.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Navigation:section_module_bar.html.twig', array(
             'mappings' => $mappings,
         ));
     }
@@ -190,10 +190,10 @@ class NavigationController extends BaseController
      */
     public function localeBarAction()
     {
-        $localeRepo = $this->getEm()->getRepository('EgzaktSystemBundle:Locale');
+        $localeRepo = $this->getEm()->getRepository('FlexySystemBundle:Locale');
         $locales = $localeRepo->findAll();
 
-        return $this->render('EgzaktSystemBundle:Backend/Navigation:locale_bar.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Navigation:locale_bar.html.twig', array(
             'locales' => $locales,
             'editLocale' => $this->getCore()->getEditLocale()
         ));

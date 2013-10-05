@@ -1,6 +1,6 @@
-Egzakt\SystemBundle\Entity\Navigation:
+Flexy\SystemBundle\Entity\Navigation:
   type: entity
-  repositoryClass: Egzakt\SystemBundle\Entity\NavigationRepository
+  repositoryClass: Flexy\SystemBundle\Entity\NavigationRepository
   fields:
     id:
       type: integer
@@ -15,14 +15,14 @@ Egzakt\SystemBundle\Entity\Navigation:
       length: 255
   oneToMany:
     sectionNavigations:
-      targetEntity: Egzakt\SystemBundle\Entity\SectionNavigation
+      targetEntity: Flexy\SystemBundle\Entity\SectionNavigation
       mappedBy: navigation
     mappings:
-      targetEntity: Egzakt\SystemBundle\Entity\Mapping
+      targetEntity: Flexy\SystemBundle\Entity\Mapping
       mappedBy: navigation
   manyToOne:
     app:
-      targetEntity: Egzakt\SystemBundle\Entity\App
+      targetEntity: Flexy\SystemBundle\Entity\App
       inversedBy: navigations
       joinColumn:
         name: app_id

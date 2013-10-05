@@ -1,10 +1,10 @@
-{% extends 'EgzaktSystemBundle:Backend:layout.html.twig' %}
+{% extends 'FlexySystemBundle:Backend:layout.html.twig' %}
 
 {% block body_attr 'id="login_page"' %}
 
 {% block body %}
 
-    {% include 'EgzaktSystemBundle:Backend/Core:header.html.twig' %}
+    {% include 'FlexySystemBundle:Backend/Core:header.html.twig' %}
 
     <div id="login_bar">
         <h6>{% trans %}Content Management System (CMS){% endtrans %}</h6>
@@ -20,7 +20,7 @@
             </div>
         {% endif %}
 
-        <form id="login_form" action="{{ path('egzakt_system_backend_login_check') }}" method="post">
+        <form id="login_form" action="{{ path('flexy_system_backend_login_check') }}" method="post">
             <label class="utilisateur" for="connexion_utilisateur_nom">{% trans %}User{% endtrans %}</label>
             <input type="text" name="_username" id="connexion_utilisateur_nom" />
 
@@ -31,6 +31,6 @@
         </form>
 
     </div>
-    <div id="form_connexion_bas"><img src="{{ asset('bundles/egzaktsystem/backend/images/graphics/login_form_bottom.png') }}" width="370" height="20" alt="" /></div>
+    <div id="form_connexion_bas"><img src="{{ asset('bundles/flexysystem/backend/images/graphics/login_form_bottom.png') }}" width="370" height="20" alt="" /></div>
 
 {% endblock %}

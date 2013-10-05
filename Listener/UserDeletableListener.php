@@ -1,9 +1,9 @@
 <?php
 
-namespace Egzakt\SystemBundle\Listener;
+namespace Flexy\SystemBundle\Listener;
 
-use Egzakt\SystemBundle\Entity\User;
-use Egzakt\SystemBundle\Lib\BaseDeletableListener;
+use Flexy\SystemBundle\Entity\User;
+use Flexy\SystemBundle\Lib\BaseDeletableListener;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class UserDeletableListener extends BaseDeletableListener

@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
 /**
  * Base Controller Interface

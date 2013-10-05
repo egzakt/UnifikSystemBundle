@@ -1,8 +1,8 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
-use Egzakt\SystemBundle\Lib\BaseEntityRepository;
+use Flexy\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * MappingRepository

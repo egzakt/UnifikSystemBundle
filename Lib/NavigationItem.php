@@ -1,9 +1,9 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib;
+namespace Flexy\SystemBundle\Lib;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
-use Egzakt\SystemBundle\Lib\NavigationItemInterface;
+use Flexy\SystemBundle\Lib\BaseEntity;
+use Flexy\SystemBundle\Lib\NavigationItemInterface;
 
 class NavigationItem implements NavigationItemInterface
 {

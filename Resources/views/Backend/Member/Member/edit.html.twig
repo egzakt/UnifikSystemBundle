@@ -1,5 +1,5 @@
-{% extends 'EgzaktSystemBundle:Backend/Member:layout.html.twig' %}
-{% form_theme form 'EgzaktSystemBundle:Backend/Core:edit_fields.html.twig' %}
+{% extends 'FlexySystemBundle:Backend/Member:layout.html.twig' %}
+{% form_theme form 'FlexySystemBundle:Backend/Core:edit_fields.html.twig' %}
 
 {% block content_header %}
     <h1>{{ member|trans }}</h1>
@@ -10,10 +10,10 @@
     <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
 
         {% block edit_actions %}
-            {% include 'EgzaktSystemBundle:Backend/Core:edit_actions.html.twig' with {
+            {% include 'FlexySystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'entity': member,
-                'delete_route': path('egzakt_system_backend_member_delete', { 'id': 0 }),
-                'cancel_route': path('egzakt_system_backend_member')
+                'delete_route': path('flexy_system_backend_member_delete', { 'id': 0 }),
+                'cancel_route': path('flexy_system_backend_member')
             } %}
         {% endblock %}
 
@@ -31,7 +31,7 @@
                 {{ form_row(form.postalCode) }}
                 {{ form_row(form.telephone) }}
 
-                {% include 'EgzaktSystemBundle:Backend/Core:collapsable_fields.html.twig' with {
+                {% include 'FlexySystemBundle:Backend/Core:collapsable_fields.html.twig' with {
                     'link_name': 'Login informations',
                     'fields': [
                         form_row(form.email),

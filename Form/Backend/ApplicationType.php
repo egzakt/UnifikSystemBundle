@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Form\Backend;
+namespace Flexy\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -44,7 +44,7 @@ class ApplicationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Egzakt\SystemBundle\Entity\App'
+            'data_class' => 'Flexy\SystemBundle\Entity\App'
         ));
     }
 }

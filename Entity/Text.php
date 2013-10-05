@@ -1,19 +1,19 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\SystemBundle\Lib\BaseEntity;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * Text
  */
 class Text extends BaseEntity
 {
-    use EgzaktORMBehaviors\Translatable\Translatable;
-    use EgzaktORMBehaviors\Timestampable\Timestampable;
+    use FlexyORMBehaviors\Translatable\Translatable;
+    use FlexyORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer $id
@@ -184,7 +184,7 @@ class Text extends BaseEntity
      */
     public function getRouteBackend($action = 'edit')
     {
-        return 'egzakt_system_backend_text_' . $action;
+        return 'flexy_system_backend_text_' . $action;
     }
 
     /**

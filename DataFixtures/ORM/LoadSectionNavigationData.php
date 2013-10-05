@@ -1,12 +1,12 @@
 <?php
 
-namespace Egzakt\Frontend\CoreBundle\DataFixtures\ORM;
+namespace Flexy\Frontend\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Egzakt\SystemBundle\Entity\SectionNavigation;
+use Flexy\SystemBundle\Entity\SectionNavigation;
 
 class LoadSectionNavigationData extends AbstractFixture implements OrderedFixtureInterface
 {

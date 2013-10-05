@@ -1,17 +1,17 @@
 <?php
 
-namespace Egzakt\SystemBundle\Routing;
+namespace Flexy\SystemBundle\Routing;
 
 use Symfony\Component\Routing\Route;
 
 use JMS\I18nRoutingBundle\Router\DefaultRouteExclusionStrategy;
 
 /**
- * The egzakt route exclusion strategy.
+ * The flexy route exclusion strategy.
  *
  * This strategy add one condition to the default JMSi18nRouting excludes list:
  *
- *     - the route must not be from a egzakt backend application
+ *     - the route must not be from a flexy backend application
  */
 class RouteExclusionStrategy extends DefaultRouteExclusionStrategy
 {
@@ -23,8 +23,8 @@ class RouteExclusionStrategy extends DefaultRouteExclusionStrategy
             return true;
         }
 
-        // automatically exclude if the route is a egzakt backend one
-        if (preg_match('/egzakt_[a-zA-Z0-9-_]*backend_/', $routeName)) {
+        // automatically exclude if the route is a flexy backend one
+        if (preg_match('/flexy_[a-zA-Z0-9-_]*backend_/', $routeName)) {
             return true;
         }
 

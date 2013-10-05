@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Lib\Backend;
+namespace Flexy\SystemBundle\Lib\Backend;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
@@ -101,7 +101,7 @@ class CmsVoter implements VoterInterface
             if (array_key_exists('sectionId', $route)) {
 
                 // Check is the user can access this Section
-                if ($this->container->get('egzakt_system.section_filter')->canAccess($route['sectionId'])) {
+                if ($this->container->get('flexy_system.section_filter')->canAccess($route['sectionId'])) {
                     return VoterInterface::ACCESS_GRANTED;
                 } else {
                     $result = VoterInterface::ACCESS_DENIED;

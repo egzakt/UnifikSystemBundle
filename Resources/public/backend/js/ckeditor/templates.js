@@ -1,7 +1,7 @@
-CKEDITOR.addTemplates('egzakt', {
+CKEDITOR.addTemplates('flexy', {
 
     // The name of the subfolder that contains the preview images of the templates.
-    imagesPath : '/bundles/egzaktsystem/backend/images/templates/',
+    imagesPath : '/bundles/flexysystem/backend/images/templates/',
 
     // Template definitions.
     templates :

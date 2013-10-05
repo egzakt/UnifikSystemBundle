@@ -1,10 +1,10 @@
 <?php
 
-namespace Egzakt\SystemBundle\Extensions;
+namespace Flexy\SystemBundle\Extensions;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
-use Egzakt\SystemBundle\Lib\BaseEntity;
+use Flexy\SystemBundle\Lib\BaseEntity;
 
 /**
  * Library of helper functions
@@ -60,7 +60,7 @@ class TranslationExtension extends \Twig_Extension
         $entityPreviousLocale = $entity->getCurrentLocale();
 
         if (false == $this->locales) {
-            $this->locales = $this->doctrine->getManager()->getRepository('EgzaktSystemBundle:Locale')->findBy(
+            $this->locales = $this->doctrine->getManager()->getRepository('FlexySystemBundle:Locale')->findBy(
                 array('active' => true),
                 array('ordering' => 'ASC')
             );

@@ -1,19 +1,19 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend\Section;
+namespace Flexy\SystemBundle\Controller\Backend\Section;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
-use Egzakt\SystemBundle\Entity\AppRepository;
-use Egzakt\SystemBundle\Entity\Mapping;
-use Egzakt\SystemBundle\Entity\NavigationRepository;
-use Egzakt\SystemBundle\Entity\SectionRepository;
-use Egzakt\SystemBundle\Lib\Backend\BackendController;
-use Egzakt\SystemBundle\Entity\Section;
-use Egzakt\SystemBundle\Form\Backend\RootSectionType;
+use Flexy\SystemBundle\Entity\AppRepository;
+use Flexy\SystemBundle\Entity\Mapping;
+use Flexy\SystemBundle\Entity\NavigationRepository;
+use Flexy\SystemBundle\Entity\SectionRepository;
+use Flexy\SystemBundle\Lib\Backend\BackendController;
+use Flexy\SystemBundle\Entity\Section;
+use Flexy\SystemBundle\Form\Backend\RootSectionType;
 
 /**
  * RootSection Controller
@@ -42,13 +42,13 @@ class RootController extends BackendController
     {
         parent::init();
 
-        $this->createAndPushNavigationElement('Sections', 'egzakt_system_backend_section_root', array(
+        $this->createAndPushNavigationElement('Sections', 'flexy_system_backend_section_root', array(
             'appSlug' => $this->getApp()->getSlug()
         ));
 
-        $this->navigationRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Navigation');
-        $this->sectionRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Section');
-        $this->appRepository = $this->getEm()->getRepository('EgzaktSystemBundle:App');
+        $this->navigationRepository = $this->getEm()->getRepository('FlexySystemBundle:Navigation');
+        $this->sectionRepository = $this->getEm()->getRepository('FlexySystemBundle:Section');
+        $this->appRepository = $this->getEm()->getRepository('FlexySystemBundle:App');
     }
 
     /**
@@ -61,7 +61,7 @@ class RootController extends BackendController
         $navigations = $this->navigationRepository->findHaveSections($this->getApp()->getId());
         $withoutNavigation = $this->sectionRepository->findRootsWithoutNavigation($this->getApp()->getId());
 
-        return $this->render('EgzaktSystemBundle:Backend/Section/Root:list.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Section/Root:list.html.twig', array(
             'navigations' => $navigations,
             'withoutNavigation' => $withoutNavigation,
             'managedApp' => $this->getApp()
@@ -107,7 +107,7 @@ class RootController extends BackendController
                     $mapping->setSection($entity);
                     $mapping->setApp($backendApp);
                     $mapping->setType('route');
-                    $mapping->setTarget('egzakt_system_backend_text');
+                    $mapping->setTarget('flexy_system_backend_text');
 
                     $entity->addMapping($mapping);
 
@@ -116,7 +116,7 @@ class RootController extends BackendController
                     $mapping->setApp($backendApp);
                     $mapping->setNavigation($sectionModuleBar);
                     $mapping->setType('render');
-                    $mapping->setTarget('EgzaktSystemBundle:Backend/Text/Navigation:SectionModuleBar');
+                    $mapping->setTarget('FlexySystemBundle:Backend/Text/Navigation:SectionModuleBar');
 
                     $entity->addMapping($mapping);
 
@@ -125,7 +125,7 @@ class RootController extends BackendController
                     $mapping->setApp($backendApp);
                     $mapping->setNavigation($sectionModuleBar);
                     $mapping->setType('render');
-                    $mapping->setTarget('EgzaktSystemBundle:Backend/Section/Navigation:SectionModuleBar');
+                    $mapping->setTarget('FlexySystemBundle:Backend/Section/Navigation:SectionModuleBar');
 
                     $entity->addMapping($mapping);
 
@@ -134,13 +134,13 @@ class RootController extends BackendController
                     $mapping->setSection($entity);
                     $mapping->setApp($this->getApp());
                     $mapping->setType('route');
-                    $mapping->setTarget('egzakt_system_frontend_text');
+                    $mapping->setTarget('flexy_system_frontend_text');
 
                     $entity->addMapping($mapping);
                 }
 
                 $this->getEm()->flush();
-                $this->get('egzakt_system.router_invalidator')->invalidate();
+                $this->get('flexy_system.router_invalidator')->invalidate();
 
                 $this->addFlashSuccess($this->get('translator')->trans(
                     '%entity% has been saved.',
@@ -148,10 +148,10 @@ class RootController extends BackendController
                 );
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('egzakt_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));
+                    return $this->redirect($this->generateUrl('flexy_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));
                 }
 
-                return $this->redirect($this->generateUrl('egzakt_system_backend_section_root_edit', array(
+                return $this->redirect($this->generateUrl('flexy_system_backend_section_root_edit', array(
                     'id' => $entity->getId() ? : 0,
                     'appSlug' => $this->getApp()->getSlug()
                 )));
@@ -160,7 +160,7 @@ class RootController extends BackendController
             }
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/Section/Root:edit.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Section/Root:edit.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView(),
             'managedApp' => $this->getApp()
@@ -196,7 +196,7 @@ class RootController extends BackendController
         $section = $this->sectionRepository->find($id);
         $this->deleteEntity($section);
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));
+        return $this->redirect($this->generateUrl('flexy_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));
     }
 
     /**
@@ -218,7 +218,7 @@ class RootController extends BackendController
             foreach ($elements as $element) {
 
                 $sectionId = preg_replace('/(.)*-/', '', $element);
-                $entity = $this->getEm()->getRepository('EgzaktSystemBundle:SectionNavigation')->findOneBy(array('section' => $sectionId, 'navigation' => $navigationId));
+                $entity = $this->getEm()->getRepository('FlexySystemBundle:SectionNavigation')->findOneBy(array('section' => $sectionId, 'navigation' => $navigationId));
 
                 if ($entity) {
                     $entity->setOrdering(++$i);
@@ -227,7 +227,7 @@ class RootController extends BackendController
                 }
             }
 
-            $this->get('egzakt_system.router_invalidator')->invalidate();
+            $this->get('flexy_system.router_invalidator')->invalidate();
         }
 
         return new Response('');

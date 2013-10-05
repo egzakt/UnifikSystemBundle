@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Generator;
+namespace Flexy\SystemBundle\Generator;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
@@ -8,10 +8,10 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Tools\EntityGenerator;
 use Doctrine\ORM\Tools\EntityRepositoryGenerator;
-use Egzakt\SystemBundle\Tools\Export\ClassMetadataExporter;
+use Flexy\SystemBundle\Tools\Export\ClassMetadataExporter;
 
 /**
- * Egzakt Backend Doctrine Entity Generator
+ * Flexy Backend Doctrine Entity Generator
  */
 class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\DoctrineEntityGenerator
 {
@@ -190,11 +190,11 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
     /**
      * Get Entity Generator
      *
-     * @return \Egzakt\SystemBundle\Generator\EntityGenerator
+     * @return \Flexy\SystemBundle\Generator\EntityGenerator
      */
     protected function getEntityGenerator(BundleInterface $bundle = null)
     {
-        $entityGenerator = new \Egzakt\SystemBundle\Generator\EntityGenerator();
+        $entityGenerator = new \Flexy\SystemBundle\Generator\EntityGenerator();
         $entityGenerator->setGenerateAnnotations(false);
         $entityGenerator->setGenerateStubMethods(true);
         $entityGenerator->setRegenerateEntityIfExists(false);
@@ -209,11 +209,11 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
     /**
      * Get EntityTranslation Generator
      *
-     * @return \Egzakt\SystemBundle\Generator\EntityTranslationGenerator
+     * @return \Flexy\SystemBundle\Generator\EntityTranslationGenerator
      */
     protected function getEntityTranslationGenerator()
     {
-        $entityGenerator = new \Egzakt\SystemBundle\Generator\EntityTranslationGenerator();
+        $entityGenerator = new \Flexy\SystemBundle\Generator\EntityTranslationGenerator();
         $entityGenerator->setGenerateAnnotations(false);
         $entityGenerator->setGenerateStubMethods(true);
         $entityGenerator->setRegenerateEntityIfExists(false);
@@ -230,11 +230,11 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
      *
      * @param bool $hasI18n
      *
-     * @return \Egzakt\SystemBundle\Generator\EntityRepositoryGenerator
+     * @return \Flexy\SystemBundle\Generator\EntityRepositoryGenerator
      */
     protected function getRepositoryGenerator($hasI18n = false)
     {
-        $entityRepositoryGenerator = new \Egzakt\SystemBundle\Generator\EntityRepositoryGenerator();
+        $entityRepositoryGenerator = new \Flexy\SystemBundle\Generator\EntityRepositoryGenerator();
         $entityRepositoryGenerator->setSkeletonDirs($this->getSkeletonDirs());
         $entityRepositoryGenerator->setHasI18n($hasI18n);
 

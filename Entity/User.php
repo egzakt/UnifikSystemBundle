@@ -1,19 +1,19 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-use Egzakt\SystemBundle\Lib\BaseEntity;
-use Egzakt\DoctrineBehaviorsBundle\Model as EgzaktORMBehaviors;
+use Flexy\SystemBundle\Lib\BaseEntity;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * User
  */
 class User extends BaseEntity implements AdvancedUserInterface, \Serializable
 {
-    use EgzaktORMBehaviors\Timestampable\Timestampable;
+    use FlexyORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var int
@@ -267,7 +267,7 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
      *
      * @return $this
      */
-    public function addRole(\Egzakt\SystemBundle\Entity\Role $role)
+    public function addRole(\Flexy\SystemBundle\Entity\Role $role)
     {
         $this->roles[] = $role;
 

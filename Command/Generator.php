@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Command;
+namespace Flexy\SystemBundle\Command;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
@@ -9,7 +9,7 @@ use Sensio\Bundle\GeneratorBundle\Generator\DoctrineCrudGenerator;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Egzakt Backend Crud Generator
+ * Flexy Backend Crud Generator
  *
  * @throws \RuntimeException
  */

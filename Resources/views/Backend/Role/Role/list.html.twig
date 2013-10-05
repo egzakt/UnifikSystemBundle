@@ -1,9 +1,9 @@
-{% extends 'EgzaktSystemBundle:Backend/Role:layout.html.twig' %}
+{% extends 'FlexySystemBundle:Backend/Role:layout.html.twig' %}
 
 {% block content_main %}
 
     <div id="list_actions_bar">
-        <a class="add" href="{{ path('egzakt_system_backend_role_edit') }}">{% trans %}Add a Role{% endtrans %}</a>
+        <a class="add" href="{{ path('flexy_system_backend_role_edit') }}">{% trans %}Add a Role{% endtrans %}</a>
     </div>
 
     <div class="list_box">
@@ -22,19 +22,19 @@
                 <tr id="item_{{ entity.id }}">
                     <td class="name">
                         <a href="{{ path(entity.route, entity.routeParams) }}">
-                            {% include 'EgzaktSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}
+                            {% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}
                         </a>
                     </td>
                     <td>{{ entity.users|length }}</td>
                     <td>{{ entity.updatedAt|date('Y-m-d') }}</td>
                     <td class="edit">
                         <a href="{{ path(entity.route('edit'), entity.routeParams) }}" title="Modifier">
-                            <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+                            <img src="{{ asset('bundles/flexysystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
                         </a>
                     </td>
                     <td class="delete">
                         <a href="{{ path(entity.route('delete'), entity.routeParams) }}" rel="{{ path(entity.route('delete'), entity.routeParams({'message': true})) }}" title="{% trans %}Delete{% endtrans %}">
-                            <img src="{{ asset('bundles/egzaktsystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                            <img src="{{ asset('bundles/flexysystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
                         </a>
                     </td>
                 </tr>

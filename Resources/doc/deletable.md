@@ -45,13 +45,13 @@ Inside the service :
 
 ## Inside the listener
 
-Knowing that, it's time for us to create a listener and bind him to our service. To create it, we must implements Egzakt\SystemBundle\Lib\DeletableListener.
-Also, a base implementation already exists and you can subclass it : Egzakt\SystemBundle\BaseDeletableListener. We will do this :
+Knowing that, it's time for us to create a listener and bind him to our service. To create it, we must implements Flexy\SystemBundle\Lib\DeletableListener.
+Also, a base implementation already exists and you can subclass it : Flexy\SystemBundle\BaseDeletableListener. We will do this :
 
 ```php
 <?php
 
-use Egzakt\SystemBundle\Lib\BaseDeletableListener
+use Flexy\SystemBundle\Lib\BaseDeletableListener
 
 class MyEntityListener extends BaseDeletableListener
 {
@@ -80,8 +80,8 @@ class MyEntityListener extends BaseDeletableListener
 So, we just created our listener. Now it's time to bind it with our service and we will do it with the Symfony DIC.
 The services.yml in /resources/config of this bundle looks like this :
 ```yml
-    egzakt_system.deletable:
-        class: %egzakt_system.deletable.class%
+    flexy_system.deletable:
+        class: %flexy_system.deletable.class%
 ```
 
 To push a listener into this service, do something like that :
@@ -90,7 +90,7 @@ To push a listener into this service, do something like that :
         class: My\NamespaceBundle\Listener\MyEntityListener
         arguments: [ %kernel.environment% ]
         tags:
-          - { name: egzakt_system.deletable, entity: My\NameSpaceBundle\Entity\Entity }
+          - { name: flexy_system.deletable, entity: My\NameSpaceBundle\Entity\Entity }
 ```
 
 What you have to change :
