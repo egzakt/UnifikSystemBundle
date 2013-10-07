@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Generator;
+namespace Flexy\SystemBundle\Generator;
 
 use Sensio\Bundle\GeneratorBundle\Generator\Generator;
 use Symfony\Component\Filesystem\Filesystem;

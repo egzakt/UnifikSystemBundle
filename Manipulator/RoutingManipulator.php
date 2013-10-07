@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Manipulator;
+namespace Flexy\SystemBundle\Manipulator;
 
 use Sensio\Bundle\GeneratorBundle\Manipulator\Manipulator;
 use Symfony\Component\DependencyInjection\Container;
