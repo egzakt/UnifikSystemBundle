@@ -11,7 +11,7 @@
 
         {{ "{% block edit_actions %}" }}
             {{ "{% include 'FlexySystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
-                'entity': entity,
+                'entity': " ~ entity_var ~ ",
                 'delete_route': path('" ~ route_prefix ~ "_delete', { " ~ entity_var ~ "Id: " ~ twig_entity_var ~ ".id ?: 0 }),
                 'cancel_route': path('" ~ route_prefix ~ "')
             } %}" }}
