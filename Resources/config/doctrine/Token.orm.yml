@@ -1,7 +1,7 @@
-Egzakt\SystemBundle\Entity\Token:
+Flexy\SystemBundle\Entity\Token:
     type: entity
     table: null
-    repositoryClass: Egzakt\SystemBundle\Entity\TokenRepository
+    repositoryClass: Flexy\SystemBundle\Entity\TokenRepository
     options:
         collate: utf8_bin # Used for case sensitive search
     fields:
@@ -17,7 +17,7 @@ Egzakt\SystemBundle\Entity\Token:
 
     oneToMany:
         translations:
-            targetEntity: Egzakt\SystemBundle\Entity\TokenTranslation
+            targetEntity: Flexy\SystemBundle\Entity\TokenTranslation
             mappedBy: token
             fetch: EAGER
             cascade: [persist]

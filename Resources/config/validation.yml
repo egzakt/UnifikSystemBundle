@@ -72,7 +72,7 @@ Flexy\SystemBundle\Entity\App:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: prefix, ignoreNull: false }
 
-Egzakt\SystemBundle\Entity\Token:
+Flexy\SystemBundle\Entity\Token:
     properties:
         token:
             - NotBlank: ~

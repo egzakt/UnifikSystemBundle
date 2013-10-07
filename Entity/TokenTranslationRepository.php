@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

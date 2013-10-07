@@ -1,4 +1,4 @@
-{% extends 'EgzaktSystemBundle:Backend/translation:layout.html.twig' %}
+{% extends 'FlexySystemBundle:Backend/translation:layout.html.twig' %}
 
 {% block content_header %}
     <h1>{% trans %}Translations List{% endtrans %}</h1>
@@ -6,9 +6,9 @@
 
 {% block content_main %}
 
-    <form class="translation_list" novalidate="novalidate" action="{{ path('egzakt_system_backend_translation_insert') }}" method="post">
+    <form class="translation_list" novalidate="novalidate" action="{{ path('flexy_system_backend_translation_insert') }}" method="post">
 
-    {% include 'EgzaktSystemBundle:Backend/Translation/Translation:edit_actions.html.twig' %}
+    {% include 'FlexySystemBundle:Backend/Translation/Translation:edit_actions.html.twig' %}
 
     <div class="list_box">
         <table cellspacing="0" class="table-autosort">

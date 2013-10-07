@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -33,7 +33,7 @@ class Token
      */
     public function getRouteBackend($suffix = 'edit')
     {
-        return 'egzakt_system_backend_translation_' . $suffix;
+        return 'flexy_system_backend_translation_' . $suffix;
     }
 
     /**
@@ -149,10 +149,10 @@ class Token
     /**
      * Add translations
      *
-     * @param \Egzakt\SystemBundle\Entity\TokenTranslation $translations
+     * @param \Flexy\SystemBundle\Entity\TokenTranslation $translations
      * @return Token
      */
-    public function addTranslation(\Egzakt\SystemBundle\Entity\TokenTranslation $translation)
+    public function addTranslation(\Flexy\SystemBundle\Entity\TokenTranslation $translation)
     {
         $this->translations[] = $translation;
 
@@ -162,9 +162,9 @@ class Token
     /**
      * Remove translations
      *
-     * @param \Egzakt\SystemBundle\Entity\TokenTranslation $translations
+     * @param \Flexy\SystemBundle\Entity\TokenTranslation $translations
      */
-    public function removeTranslation(\Egzakt\SystemBundle\Entity\TokenTranslation $translation)
+    public function removeTranslation(\Flexy\SystemBundle\Entity\TokenTranslation $translation)
     {
         $this->translations->removeElement($translation);
     }

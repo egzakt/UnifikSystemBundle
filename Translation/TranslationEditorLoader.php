@@ -1,14 +1,14 @@
 <?php
 
-namespace Egzakt\SystemBundle\Translation;
+namespace Flexy\SystemBundle\Translation;
 
 use Symfony\Component\Translation\Loader\LoaderInterface;
 use Symfony\Component\Translation\MessageCatalogue;
 use Doctrine\ORM\EntityManager;
 use Symfony\Component\Finder\Finder;
 
-use Egzakt\SystemBundle\Entity\TokenTranslation;
-use Egzakt\SystemBundle\Entity\TokenTranslationRepository;
+use Flexy\SystemBundle\Entity\TokenTranslation;
+use Flexy\SystemBundle\Entity\TokenTranslationRepository;
 
 class TranslationEditorLoader implements LoaderInterface
 {
@@ -22,7 +22,7 @@ class TranslationEditorLoader implements LoaderInterface
      */
     public function __construct(EntityManager $entityManager, $appDir)
     {
-        $this->translationRepository = $entityManager->getRepository("EgzaktSystemBundle:TokenTranslation");
+        $this->translationRepository = $entityManager->getRepository("FlexySystemBundle:TokenTranslation");
 
         $this->cacheDir = $appDir . '/cache';
     }

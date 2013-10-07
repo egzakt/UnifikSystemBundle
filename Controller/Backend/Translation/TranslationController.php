@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Controller\Backend\Translation;
+namespace Flexy\SystemBundle\Controller\Backend\Translation;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,13 +11,13 @@ use Symfony\Component\Finder\Finder;
 use Symfony\Component\Translation\MessageCatalogue;
 use Symfony\Component\Translation\Catalogue\MergeOperation;
 
-use Egzakt\SystemBundle\Lib\Backend\BaseController;
-use Egzakt\SystemBundle\Entity\LocaleRepository;
-use Egzakt\SystemBundle\Entity\TokenRepository;
-use Egzakt\SystemBundle\Entity\Token;
-use Egzakt\SystemBundle\Entity\TokenTranslation;
-use Egzakt\SystemBundle\Entity\TokenList;
-use Egzakt\SystemBundle\Entity\TokenTranslationRepository;
+use Flexy\SystemBundle\Lib\Backend\BaseController;
+use Flexy\SystemBundle\Entity\LocaleRepository;
+use Flexy\SystemBundle\Entity\TokenRepository;
+use Flexy\SystemBundle\Entity\Token;
+use Flexy\SystemBundle\Entity\TokenTranslation;
+use Flexy\SystemBundle\Entity\TokenList;
+use Flexy\SystemBundle\Entity\TokenTranslationRepository;
 
 /**
  * Translation Controller
@@ -45,9 +45,9 @@ class TranslationController extends BaseController
             throw new AccessDeniedHttpException('You don\'t have the privileges to view this page.');
         }
 
-        $this->tokenRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Token');
-        $this->tokenTranslationRepository = $this->getEm()->getRepository('EgzaktSystemBundle:TokenTranslation');
-        $this->localeRepository = $this->getEm()->getRepository('EgzaktSystemBundle:Locale');
+        $this->tokenRepository = $this->getEm()->getRepository('FlexySystemBundle:Token');
+        $this->tokenTranslationRepository = $this->getEm()->getRepository('FlexySystemBundle:TokenTranslation');
+        $this->localeRepository = $this->getEm()->getRepository('FlexySystemBundle:Locale');
     }
 
     /**
@@ -145,7 +145,7 @@ class TranslationController extends BaseController
 
         $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('Tokens have been updated.'));
 
-        return $this->redirect($this->generateUrl('egzakt_system_backend_translation'));
+        return $this->redirect($this->generateUrl('flexy_system_backend_translation'));
     }
 
     /**
@@ -186,7 +186,7 @@ class TranslationController extends BaseController
             $tokenList->addToken($token);
         }
 
-        return $this->render('EgzaktSystemBundle:Backend/Translation/Translation:list.html.twig', array(
+        return $this->render('FlexySystemBundle:Backend/Translation/Translation:list.html.twig', array(
             'locales' => $locales,
             'tokenList' => $tokenList,
         ));

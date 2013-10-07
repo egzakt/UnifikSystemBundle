@@ -1,6 +1,6 @@
 <?php
 
-namespace Egzakt\SystemBundle\Entity;
+namespace Flexy\SystemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -59,7 +59,7 @@ class TokenTranslation
     private $updatedAt;
 
     /**
-     * @var \Egzakt\SystemBundle\Entity\Token
+     * @var \Flexy\SystemBundle\Entity\Token
      */
     private $token;
 
@@ -215,10 +215,10 @@ class TokenTranslation
     /**
      * Set token
      *
-     * @param \Egzakt\SystemBundle\Entity\Token $token
+     * @param \Flexy\SystemBundle\Entity\Token $token
      * @return TokenTranslation
      */
-    public function setToken(\Egzakt\SystemBundle\Entity\Token $token = null)
+    public function setToken(\Flexy\SystemBundle\Entity\Token $token = null)
     {
         $this->token = $token;
     
@@ -228,7 +228,7 @@ class TokenTranslation
     /**
      * Get token
      *
-     * @return \Egzakt\SystemBundle\Entity\Token 
+     * @return \Flexy\SystemBundle\Entity\Token
      */
     public function getToken()
     {

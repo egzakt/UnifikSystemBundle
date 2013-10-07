@@ -1,13 +1,13 @@
 <?php
 
-namespace Egzakt\SystemBundle\Form\Backend;
+namespace Flexy\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 use Doctrine\ORM\EntityRepository;
-use Egzakt\SystemBundle\Form\EventSubscriber\LocaleIdToCodeSubscriber;
+use Flexy\SystemBundle\Form\EventSubscriber\LocaleIdToCodeSubscriber;
 
 use Symfony\Component\Validator\Constraints\NotBlank;
 
@@ -50,7 +50,7 @@ class TokenTranslationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Egzakt\SystemBundle\Entity\TokenTranslation',
+            'data_class' => 'Flexy\SystemBundle\Entity\TokenTranslation',
         ));
     }
 }
