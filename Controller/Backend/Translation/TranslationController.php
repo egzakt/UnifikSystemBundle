@@ -143,7 +143,7 @@ class TranslationController extends BaseController
             }
         }
 
-        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans('Tokens have been updated.'));
+        $this->addFlashSuccess($this->get('translator')->trans('Tokens have been updated.'));
 
         return $this->redirect($this->generateUrl('flexy_system_backend_translation'));
     }

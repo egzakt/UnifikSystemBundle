@@ -178,14 +178,14 @@ flexy_system_backend_application_delete_check:
     defaults: { _controller: "FlexySystemBundle:Backend/Application/Application:checkDelete" }
 
 # Translation Editor
-flex_system_backend_translation:
+flexy_system_backend_translation:
     pattern:  /translation-editor
     defaults: { _controller: "FlexySystemBundle:Backend/Translation/Translation:list" }
 
-flex_system_backend_translation_insert:
+flexy_system_backend_translation_insert:
     pattern:  /translation-editor/insert
     defaults: { _controller: "FlexySystemBundle:Backend/Translation/Translation:insert" }
 
-flex_system_backend_translation_rebuild_token:
+flexy_system_backend_translation_rebuild_token:
     pattern:  /translation-editor/rebuild-tokens
     defaults: { _controller: "FlexySystemBundle:Backend/Translation/Translation:rebuildToken" }
