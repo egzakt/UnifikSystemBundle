@@ -13,7 +13,7 @@ use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
  */
 class App extends BaseEntity
 {
-    use EgzaktORMBehaviors\Sluggable\Sluggable;
+    use FlexyORMBehaviors\Sluggable\Sluggable;
 
     /**
      * @var integer
