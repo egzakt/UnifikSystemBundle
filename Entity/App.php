@@ -6,12 +6,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
 use Flexy\SystemBundle\Lib\BaseEntity;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * Represent an flexy application
  */
 class App extends BaseEntity
 {
+    use EgzaktORMBehaviors\Sluggable\Sluggable;
+
     /**
      * @var integer
      */
@@ -21,11 +24,6 @@ class App extends BaseEntity
      * @var string $name
      */
     private $name;
-
-    /**
-     * @var string $slug
-     */
-    private $slug;
 
     /**
      * @var int $order
@@ -150,7 +148,7 @@ class App extends BaseEntity
     }
 
     /**
-     * Get slug
+     * Get Route Params
      *
      * @param array $params The params of the route
      *
@@ -162,26 +160,6 @@ class App extends BaseEntity
         $params = array_merge($defaults, $params);
 
         return $params;
-    }
-
-    /**
-     * Set slug
-     *
-     * @param string $slug The slug
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-    }
-
-    /**
-     * Get slug
-     *
-     * @return string
-     */
-    public function getSlug()
-    {
-        return $this->slug;
     }
 
     /**
@@ -328,5 +306,15 @@ class App extends BaseEntity
     public function getNavigations()
     {
         return $this->navigations;
+    }
+
+    /**
+     * Get Sluggable Fields
+     *
+     * @return array
+     */
+    public function getSluggableFields()
+    {
+        return array('name');
     }
 }

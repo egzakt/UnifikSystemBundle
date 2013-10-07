@@ -18,13 +18,6 @@ Flexy\SystemBundle\Entity\App:
     ordering:
       type: integer
       nullable: true
-    slug:
-      type: string
-      length: 255
-      gedmo:
-        slug:
-          fields: [name]
-          separator: -
   oneToMany:
     sections:
       targetEntity: Flexy\SystemBundle\Entity\Section
