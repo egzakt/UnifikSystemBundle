@@ -1,23 +1,22 @@
 Flexy\SystemBundle\Entity\Token:
-    type: entity
-    table: null
-    repositoryClass: Flexy\SystemBundle\Entity\TokenRepository
-    options:
-        collate: utf8_bin # Used for case sensitive search
-    fields:
-        id:
-            type: integer
-            id: true
-            generator:
-                strategy: AUTO
-        token:
-            type: string
-            length: 200
-    lifecycleCallbacks: {  }
-
-    oneToMany:
-        translations:
-            targetEntity: Flexy\SystemBundle\Entity\TokenTranslation
-            mappedBy: token
-            fetch: EAGER
-            cascade: [persist]
+  type: entity
+  table: null
+  repositoryClass: Flexy\SystemBundle\Entity\TokenRepository
+  options:
+    collate: utf8_bin # Used for case sensitive search
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    token:
+      type: string
+      length: 200
+  lifecycleCallbacks: {  }
+  oneToMany:
+    translations:
+      targetEntity: Flexy\SystemBundle\Entity\TokenTranslation
+      mappedBy: token
+      fetch: EAGER
+      cascade: [persist]

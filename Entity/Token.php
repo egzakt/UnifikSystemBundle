@@ -2,13 +2,14 @@
 
 namespace Flexy\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
+use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
 
 /**
  * Token
  */
 class Token
 {
+    use FlexyORMBehaviors\Timestampable\Timestampable;
 
     public function __toString()
     {
@@ -112,7 +113,7 @@ class Token
     {
         $this->translations = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
+
     /**
      * Get id
      *
@@ -172,7 +173,7 @@ class Token
     /**
      * Get translations
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getTranslations()
     {
