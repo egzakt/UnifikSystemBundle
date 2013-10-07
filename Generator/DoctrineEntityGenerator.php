@@ -47,21 +47,29 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         $isI18nSluggable = false;
         foreach ($fields as $field) {
             if (substr(strtolower($field['i18n']), 0, 1) == 'y') { // Simulate all Yes combinations
+                $push = true;
                 unset($field['i18n']);
 
                 // Slug field won't be added to the ClassMetadata, it will be done with the Sluggable Trait
                 if ($field['fieldName'] == 'slug') {
                     $isI18nSluggable = true;
-                } else {
+                    $push = false;
+                }
+
+                if ($push) {
                     array_push($entityTranslationFields, $field);
                 }
             } else {
+                $push = true;
                 unset($field['i18n']);
 
                 // Slug field won't be added to the ClassMetadata, it will be done with the Sluggable Trait
                 if ($field['fieldName'] == 'slug') {
                     $isSluggable = true;
-                } else {
+                    $push = false;
+                }
+
+                if ($push) {
                     array_push($entityFields, $field);
                 }
             }
@@ -72,6 +80,85 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
         if ($hasI18n) {
             $this->generateEntityTranslation($bundle, $entity, $format, $entityTranslationFields, $fields, $isI18nSluggable);
         }
+
+        // Entity not nullable fields? Add it to the validation.yml file
+        $notNullableFields = [];
+        foreach($entityFields as $field) {
+            if (isset($field['nullable']) && !$field['nullable']) {
+                $notNullableFields[] = $field['fieldName'];
+            }
+        }
+
+        if ($notNullableFields) {
+            $this->addEntityValidationConstraint($bundle->getNamespace().'\\Entity\\' . $entity, $notNullableFields, $format, $bundle);
+        }
+
+        // Entity not nullable fields? Add it to the validation.yml file
+        $notNullableFields = [];
+        foreach($entityTranslationFields as $field) {
+            if (isset($field['nullable']) && !$field['nullable']) {
+                $notNullableFields[] = $field['fieldName'];
+            }
+        }
+
+        if ($notNullableFields) {
+            $this->addEntityValidationConstraint($bundle->getNamespace().'\\Entity\\' . $entity . 'Translation', $notNullableFields, $format, $bundle);
+        }
+    }
+
+    /**
+     * Add a validation constraint to the validation.yml file
+     *
+     * @param $entityNamespace
+     * @param $fields
+     * @param $format
+     * @param $bundle
+     *
+     * @return boolean
+     */
+    protected function addEntityValidationConstraint($entityNamespace, $fields, $format, $bundle)
+    {
+        if (!in_array($format, ['yml', 'xml'])) {
+            return false;
+        }
+
+        $target = sprintf(
+            '%s/Resources/config/validation.%s',
+            $bundle->getPath(),
+            $format
+        );
+
+        // For XML
+        $renderHeader = true;
+
+        $current = '';
+        if (file_exists($target)) {
+            $current = file_get_contents($target);
+
+            // Don't add the same entity twice
+            if (false !== strpos($current, $entityNamespace . ':')) {
+                return false;
+            }
+
+            // for XML
+            if (false !== strpos($current, 'constraint-mapping')) {
+                $renderHeader = false;
+            }
+        }
+
+        $content = $this->render(sprintf('entity/validation.%s.twig', $format), array(
+            'render_header' => $renderHeader,
+            'namespace' => $entityNamespace,
+            'fields' => $fields
+        ));
+
+        $content = $current . $content;
+
+        if (false === file_put_contents($target, $content)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function generateEntity(BundleInterface $bundle, $entity, $format, array $entityFields, array $fields, $withRepository, $hasI18n, $isTimestampable, $isSluggable)
@@ -189,6 +276,8 @@ class DoctrineEntityGenerator extends \Sensio\Bundle\GeneratorBundle\Generator\D
 
     /**
      * Get Entity Generator
+     *
+     * @param BundleInterface $bundle
      *
      * @return \Flexy\SystemBundle\Generator\EntityGenerator
      */

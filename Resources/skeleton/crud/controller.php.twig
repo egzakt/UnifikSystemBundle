@@ -3,27 +3,31 @@
 namespace {{ namespace }}\Controller\{{ application }}\{{ entity }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\JsonResponse;
 {% if 'order' in actions or 'delete' in actions %}
 use Symfony\Component\HttpFoundation\Response;
 {% endif %}
+use Doctrine\ORM\EntityRepository;
 
-use Flexy\SystemBundle\Lib\{{ application }}\BaseController;
+use Flexy\SystemBundle\Lib\{{ application }}\BackendController;
 use {{ namespace }}\Entity\{{ entity }};
 use {{ namespace }}\Form\{{ application }}\{{ entity }}Type;
 
 /**
  * {{ entity_class }} Controller
  */
-class {{ entity_class }}Controller extends BaseController
+class {{ entity_class }}Controller extends BackendController
 {
-    {%- include 'crud/actions/init.php.twig' %}
+    /**
+     * @var EntityRepository ${{ entity_var }}Repository
+     */
+    protected ${{ entity_var }}Repository;
+
+{% include 'crud/actions/init.php.twig' %}
 
     {%- if 'list' in actions %}
     {%- include 'crud/actions/list.php.twig' %}
-    {%- endif %}
-
-    {%- if 'order' in actions %}
-    {%- include 'crud/actions/order.php.twig' %}
     {%- endif %}
 
     {%- if 'edit' in actions %}
@@ -31,6 +35,11 @@ class {{ entity_class }}Controller extends BaseController
     {%- endif %}
 
     {%- if 'delete' in actions %}
+    {%- include 'crud/actions/delete_check.php.twig' %}
     {%- include 'crud/actions/delete.php.twig' %}
+    {%- endif %}
+
+    {%- if 'order' in actions %}
+    {%- include 'crud/actions/order.php.twig' %}
     {%- endif %}
 }

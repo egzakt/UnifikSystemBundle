@@ -27,10 +27,7 @@ class EntityTranslationGenerator extends BaseEntityGenerator
     {
         $target = sprintf('%s/Entity/%s.php', $bundle->getPath(), $entity);
 
-        $parts = explode('\\', $entity);
-
-        $entityNamespace = implode('\\', $parts);
-        $namespace = $this->getNamespace($metadata);
+        $namespace = $this->generateEntityNamespace($metadata);
         $code = str_replace('<spaces>', $this->spaces, $this->generateEntityBody($metadata));
 
         $bundleName = explode('\Entity', $metadata->name);
@@ -47,7 +44,6 @@ class EntityTranslationGenerator extends BaseEntityGenerator
         }
 
         $this->renderFile('entity/EntityTranslation.php.twig', $target, array(
-            'entity_namespace' => $entityNamespace,
             'namespace' => $namespace,
             'route' => $routeName,
             'entity' => $entity,

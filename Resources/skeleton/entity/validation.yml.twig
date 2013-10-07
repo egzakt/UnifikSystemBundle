@@ -1,0 +1,9 @@
+{{ namespace }}:
+  properties:
+    {%- for field in fields  %}
+
+    {{ field }}:
+      - NotBlank: ~
+    {%- endfor %}
+
+

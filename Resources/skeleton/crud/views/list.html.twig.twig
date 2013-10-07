@@ -79,31 +79,31 @@
                 </tr>
             </thead>
             <tbody>
-                {{ '{% for entity in entities %}' }}
-                    <tr id="item_{{ '{{ entity.id }}' }}">
+                {{ '{% for ' ~ twig_entity_var ~ ' in ' ~ twig_entity_var ~ 's %}' }}
+                    <tr id="item_{{ '{{ ' ~ twig_entity_var ~ '.id }}' }}">
                         {%- for field, metadata in fields if field not in hidden_fields -%}
                         {%- set class = ''-%}
 
                         {# General css class #}
                         {%- if loop.first %}{% set class = class ~ ' name' %}{% endif -%}
-                        {%- if 'active' in fields|keys %}{% set class = class ~ ' {% if not entity.active %} inactive{% endif %}' %}{% endif -%}
-                        {%- if 'featured' in fields|keys %}{% set class = class ~ ' {% if entity.featured %} featured{% endif %}' %}{% endif -%}
+                        {%- if 'active' in fields|keys %}{% set class = class ~ ' {% if not ' ~ twig_entity_var ~ '.active %} inactive{% endif %}' %}{% endif -%}
+                        {%- if 'featured' in fields|keys %}{% set class = class ~ ' {% if ' ~ twig_entity_var ~ '.featured %} featured{% endif %}' %}{% endif -%}
 
                         {# Specific entity type css class #}
                         {%- if field == 'ordering' %}{% set class = class ~ ' default_ordering' %}{% endif -%}
                         {%- if metadata.type in ['boolean'] %}{% set class = class ~ ' centered' %}{% endif -%}
 
-                        {%- set render = '{{ entity.' ~ field ~ '|raw }}' -%}
-                        {%- if metadata.type in ['date', 'datetime'] %}{% set render = '{{ entity.' ~ field ~ "|date('Y-m-d') }}" -%}
+                        {%- set render = '{{ ' ~ twig_entity_var ~ '.' ~ field ~ '|raw }}' -%}
+                        {%- if metadata.type in ['date', 'datetime'] %}{% set render = '{{ ' ~ twig_entity_var ~ '.' ~ field ~ "|date('Y-m-d') }}" -%}
                         {%- elseif metadata.type in ['boolean'] %}
                             {% set render =
-                                '{% if entity.' ~ field ~ ' %}
+                                '{% if ' ~ twig_entity_var ~ '.' ~ field ~ ' %}
                                 <img src="{{ asset("bundles/flexysystem/backend/images/icons/tick.png") }}" width="16" height="16" alt="yes">
                              {% endif %}' %}
                         {% endif %}
 
                         <td class="{{ class }}">
-                            {% if loop.first %}<a href="{{ "{{ path(entity.route, entity.routeParams) }}" }}">{% endif %}
+                            {% if loop.first %}<a href="{{ "{{ path(" ~ twig_entity_var ~ ".route, " ~ twig_entity_var ~ ".routeParams) }}" }}">{% endif %}
 
                             {{- render -}}
                             {% if loop.first %}</a>{% endif %}
@@ -112,14 +112,14 @@
                         {%- endfor %}
 
                         <td class="edit">
-                            {{ "{% if entity.isEditable %}" }}
-                                <a href="{{ "{{ path(entity.route, entity.routeParams) }}" }}" title="{{ '{% trans %}' }}Edit{{ '{% endtrans %}' }}">
+                            {{ "{% if " ~ twig_entity_var ~ ".isEditable %}" }}
+                                <a href="{{ "{{ path(" ~ twig_entity_var ~ ".route, " ~ twig_entity_var ~ ".routeParams) }}" }}" title="{{ '{% trans %}' }}Edit{{ '{% endtrans %}' }}">
                                     <img src="{{ "{{ asset('bundles/flexysystem/backend/images/buttons/edit.png') }}" }}" width="15" height="15" alt="" />
                                 </a>
                             {{ "{% endif %}" }}
                         </td>
                         <td class="delete">
-                            <a href="{{ "{{ path(entity.route('delete'), entity.routeParams) }}" }}" rel="{{ "{{ path(entity.route('delete'), entity.routeParams({'message': true})) }}" }}" title="{{ '{% trans %}' }}Delete{{ '{% endtrans %}' }}">
+                            <a href="{{ "{{ path(" ~ twig_entity_var ~ ".route('delete'), " ~ twig_entity_var ~ ".routeParams) }}" }}" rel="{{ "{{ path(" ~ twig_entity_var ~ ".route('delete'), " ~ twig_entity_var ~ ".routeParams({'message': true})) }}" }}" title="{{ '{% trans %}' }}Delete{{ '{% endtrans %}' }}">
                                 <img src="{{ "{{ asset('bundles/flexysystem/backend/images/buttons/delete.png') }}" }}" width="12" height="15" alt="" />
                             </a>
                         </td>
@@ -130,7 +130,7 @@
 
         <div class="total">
             <span class="sub-total"></span>
-            {{ "{% set count = entities|length %}" }}
+            {{ "{% set count = " ~ twig_entity_var ~ "s|length %}" }}
             {{ "{% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}" }}
         </div>
     </div>

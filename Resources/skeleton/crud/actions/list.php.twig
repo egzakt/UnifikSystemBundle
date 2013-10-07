@@ -6,9 +6,9 @@
      */
     public function listAction()
     {
-        $entities = $this->getEm()->getRepository('{{ namespace|replace({'\\': ''}) ~ ':' ~ entity|replace({'\\': '/'}) }}'){% if 'order' in actions %}->findBy(array(), array('ordering' => 'ASC')){% else %}->findAll(){% endif %};
+        ${{ entity_var }}s = $this->{{ entity_var }}Repository{% if 'order' in actions %}->findBy(array(), array('ordering' => 'ASC')){% else %}->findAll(){% endif %};
 
         return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity_class ~ '/' ~ entity|replace({'\\': '/'}) }}:list.html.twig', array(
-            'entities' => $entities
+            '{{ twig_entity_var }}s' => ${{ entity_var }}s
         ));
     }

@@ -73,6 +73,12 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
         $dialog->writeGeneratorSummary($output, array());
     }
 
+    /**
+     * Interact
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     protected function interact(InputInterface $input, OutputInterface $output)
     {
         $dialog = $this->getDialogHelper();
@@ -149,6 +155,13 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
         ));
     }
 
+    /**
+     * Parse the entity fields
+     *
+     * @param $input
+     *
+     * @return array
+     */
     private function parseFields($input)
     {
         if (is_array($input)) {
@@ -172,13 +185,22 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
         return $fields;
     }
 
+    /**
+     * Add the entity fields
+     *
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @param DialogHelper $dialog
+     *
+     * @return array
+     */
     private function addFields(InputInterface $input, OutputInterface $output, DialogHelper $dialog)
     {
         $fields = $this->parseFields($input->getOption('fields'));
         $output->writeln(array(
             '',
             'Instead of starting with a blank entity, you can add some fields now.',
-            'Note that the primary key will be added automatically (named <comment>id</comment>).',
+            'Note that the primary key will be added automatically (named <comment>id</comment>) as well as the <comment>active</comment> field.',
             '',
         ));
         $output->write('<info>Available types:</info> ');
@@ -233,6 +255,14 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
             return $isI18n;
         };
 
+        $isNullableValidator = function ($isNullable) {
+            if (!in_array($isNullable, array('Yes', 'No', 'yes', 'no', 'Y', 'N', 'y', 'n'))) {
+                throw new \InvalidArgumentException(sprintf('Invalid answer (Yes/No) "%s".', $isNullable));
+            }
+
+            return (substr(strtolower($isNullable), 0, 1) == 'y') ? true : false;
+        };
+
         while (true) {
             $output->writeln('');
             $generator = $this->getGenerator();
@@ -275,6 +305,10 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
 
             $data['i18n'] = $dialog->askAndValidate($output, $dialog->getQuestion('Field is i18n', 'no'), $i18nValidator, false, 'no');
 
+            if ($columnName != 'slug') {
+                $data['nullable'] = $dialog->askAndValidate($output, $dialog->getQuestion('Field is nullable', 'no'), $isNullableValidator, false, 'no');
+            }
+
             $fields[$columnName] = $data;
         }
 
@@ -282,19 +316,29 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
     }
 
     /**
-     * Get Generator
+     * Get Entity Generator
      *
-     * @return \Flexy\SystemBundle\Generator\DoctrineEntityGenerator
+     * @param BundleInterface $bundle
+     *
+     * @return FlexyDoctrineEntityGenerator
      */
     public function getGenerator(BundleInterface $bundle = null)
     {
         if (null === $this->generator) {
             $this->generator = new FlexyDoctrineEntityGenerator($this->getContainer()->get('filesystem'), $this->getContainer()->get('doctrine'));
+            $this->generator->setSkeletonDirs($this->getSkeletonDirs());
         }
 
         return $this->generator;
     }
 
+    /**
+     * Get the list of Skeleton Directories
+     *
+     * @param BundleInterface $bundle
+     *
+     * @return array
+     */
     protected function getSkeletonDirs(BundleInterface $bundle = null)
     {
         $skeletonDirs = array();

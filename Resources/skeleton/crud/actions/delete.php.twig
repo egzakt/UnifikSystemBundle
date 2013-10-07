@@ -2,39 +2,15 @@
     /**
      * Deletes a {{ entity }} entity.
      *
-     * @param integer $id The id of the {{ entity }} to delete
+     * @param Request $request
+     * @param integer ${{ entity_var }}Id      The ID of the {{ entity }} to delete
      *
-     * @throws NotFoundHttpException
-     *
-     * @return Response|RedirectResponse
+     * @return RedirectResponse
      */
-    public function deleteAction(Request $request, $id)
+    public function deleteAction(Request $request, ${{ entity_var }}Id)
     {
-        $entity = $this->getEm()->getRepository('{{ namespace|replace({'\\': ''}) ~ ':' ~ entity|replace({'\\': '/'}) }}')->find($id);
-
-        if (!$entity) {
-            throw $this->createNotFoundException('Unable to find {{ entity }} entity.');
-        }
-
-        if ($request->get('message')) {
-            $template = $this->renderView('FlexySystemBundle:{{ application }}/Core:delete_message.html.twig', array(
-                'entity' => $entity
-            ));
-
-            return new Response(json_encode(array(
-                'template' => $template,
-                'isDeletable' => $entity->isDeletable()
-            )));
-        }
-
-        // Call the translator before we flush the entity so we can have the real __toString()
-        $this->get('session')->getFlashBag()->add('success', $this->get('translator')->trans(
-            '%entity% has been deleted.',
-            array('%entity%' => $entity))
-        );
-
-        $this->getEm()->remove($entity);
-        $this->getEm()->flush();
+        ${{ entity_var }} = $this->{{ entity_var }}Repository->find(${{ entity_var }}Id);
+        $this->deleteEntity(${{ entity_var }});
 
         return $this->redirect($this->generateUrl('{{ route_prefix }}'));
     }

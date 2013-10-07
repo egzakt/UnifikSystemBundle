@@ -2,7 +2,7 @@
 {{ "{% form_theme form 'FlexySystemBundle:" ~ application ~ "/Core:edit_fields.html.twig' %}" }}
 
 {{ '{% block content_header %}' }}
-    <h1>{{ '{{ entity|trans }}' }}</h1>
+    <h1>{{ '{{ ' ~ twig_entity_var ~ '|trans }}' }}</h1>
 {{ '{% endblock %}' }}
 
 {{ '{% block content_main %}' }}
@@ -12,7 +12,7 @@
         {{ "{% block edit_actions %}" }}
             {{ "{% include 'FlexySystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
                 'entity': entity,
-                'delete_route': path('" ~ route_prefix ~ "_delete', { id: entity.id ?: 0 }),
+                'delete_route': path('" ~ route_prefix ~ "_delete', { " ~ entity_var ~ "Id: " ~ twig_entity_var ~ ".id ?: 0 }),
                 'cancel_route': path('" ~ route_prefix ~ "')
             } %}" }}
         {{ "{% endblock %}" }}
@@ -38,21 +38,30 @@
                 {{ '{{ form_row(form.translation.name) }}' }}
             {% endif %}
 
-            {%- if 'slug' in fields|keys -%}
-            {{ "{% include 'FlexySystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
-            'link_name': 'SEO Informations',
-            'fields': [form_row(form.slug)]
-            } %}" }}
+            {%- if 'slug' in fields|keys %}
+
+                {{ "{% include 'FlexySystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
+                'link_name': 'SEO Informations',
+                'fields': [form_row(form.slug)]
+                } %}" }}
+            {%- endif -%}
+
+            {%- if 'slug' in translation_fields|keys %}
+
+                {{ "{% include 'FlexySystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
+                'link_name': 'SEO Informations',
+                'fields': [form_row(form.translation.slug)]
+                } %}" }}
             {%- endif -%}
 
             {%- for field in fields -%}
-                {%- if field.fieldName not in ['id', 'active', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
+                {%- if field.fieldName not in ['id', 'active', 'slug', 'name', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
 
                 {{ '{{ form_row(form.' ~ field.fieldName ~ ') }}' }}
                 {%- endif -%}
             {%- endfor -%}
             {%- for field in translation_fields -%}
-                {%- if field.fieldName not in ['id', 'active', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
+                {%- if field.fieldName not in ['id', 'active', 'slug', 'name', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
 
                 {{ '{{ form_row(form.translation.' ~ field.fieldName ~ ') }}' }}
                 {%- endif -%}
@@ -60,13 +69,13 @@
 
                 {{ "{{ form_rest(form) }}" }}
                 {% if 'updatedAt' in fields|keys -%}
-                {{ "{% if entity.id %}" }}
+                {{ "{% if " ~ twig_entity_var ~ ".id %}" }}
                     <tr>
                         <th>
                             {{ '{% trans %}Last update {% endtrans %}' }} :
                         </th>
                         <td style="vertical-align:bottom">
-                            {{ "{{ entity.updatedAt|date }}" }}
+                            {{ "{{ " ~ twig_entity_var ~ ".updatedAt|date }}" }}
                         </td>
                     </tr>
                 {{ "{% endif %}" }}

@@ -1,8 +1,9 @@
-
     /**
      * Init
      */
     public function init()
     {
         parent::init();
+
+        $this->{{ entity_var }}Repository = $this->getEm()->getRepository('{{ namespace|replace({'\\': ''}) ~ ':' ~ entity|replace({'\\': '/'}) }}');
     }

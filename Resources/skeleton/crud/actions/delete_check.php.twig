@@ -1,0 +1,16 @@
+
+    /**
+     * Check if we can delete a {{ entity }}.
+     *
+     * @param Request $request
+     * @param ${{ entity_var }}Id
+     *
+     * @return JsonResponse
+     */
+    public function checkDeleteAction(Request $request, ${{ entity_var }}Id)
+    {
+        ${{ entity_var }} = $this->{{ entity_var }}Repository->find(${{ entity_var }}Id);
+        $output = $this->checkDeleteEntity(${{ entity_var }});
+
+        return new JsonResponse($output);
+    }

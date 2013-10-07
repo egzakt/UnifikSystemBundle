@@ -12,13 +12,17 @@
 {% endif %}
 {% if 'edit' in actions %}
 {{ route_prefix }}_edit:
-    pattern:  /{{ entity|lower }}/{sectionId}/{id}/edit
-    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:edit", id: 0 }
+    pattern:  /{{ entity|lower }}/{sectionId}/{{ '{' ~ entity_var ~'Id}'}}/edit
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:edit", {{ entity_var }}Id: 0 }
 
 {% endif %}
 {% if 'delete' in actions %}
 {{ route_prefix }}_delete:
-    pattern:  /{{ entity|lower }}/{sectionId}/{id}/delete
+    pattern:  /{{ entity|lower }}/{sectionId}/{{ '{' ~ entity_var ~'Id}'}}/delete
     defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:delete" }
+
+{{ route_prefix }}_delete_check:
+    pattern:  /{{ entity|lower }}/{sectionId}/{{ '{' ~ entity_var ~'Id}'}}/delete/check
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:checkDelete" }
 
 {% endif %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace {{ namespace }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
+{{ namespace }}
 
 use Flexy\SystemBundle\Lib\BaseEntity;
 use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
@@ -61,7 +61,7 @@ class {{ entity }} extends BaseEntity
     public function getRouteBackendParams($params = array())
     {
         $defaults = array(
-            'id' => $this->id ? $this->id : 0,
+            '{{ entity_var }}Id' => $this->id ? $this->id : 0,
         );
 
         $params = array_merge($defaults, $params);

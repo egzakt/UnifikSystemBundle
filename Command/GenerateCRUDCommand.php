@@ -185,6 +185,8 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
     /**
      * Get Generator
      *
+     * @param BundleInterface $bundle
+     *
      * @return Generator
      */
     protected function getGenerator(BundleInterface $bundle = null)
