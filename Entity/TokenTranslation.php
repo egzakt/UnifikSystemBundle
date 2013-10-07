@@ -2,8 +2,6 @@
 
 namespace Flexy\SystemBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
 /**
  * TokenTranslation
  */
@@ -47,16 +45,6 @@ class TokenTranslation
      * @var boolean
      */
     private $active;
-
-    /**
-     * @var \DateTime
-     */
-    private $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    private $updatedAt;
 
     /**
      * @var \Flexy\SystemBundle\Entity\Token
@@ -164,52 +152,6 @@ class TokenTranslation
     public function getActive()
     {
         return $this->active;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     * @return TokenTranslation
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    
-        return $this;
-    }
-
-    /**
-     * Get createdAt
-     *
-     * @return \DateTime 
-     */
-    public function getCreatedAt()
-    {
-        return $this->createdAt;
-    }
-
-    /**
-     * Set updatedAt
-     *
-     * @param \DateTime $updatedAt
-     * @return TokenTranslation
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    
-        return $this;
-    }
-
-    /**
-     * Get updatedAt
-     *
-     * @return \DateTime 
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**
