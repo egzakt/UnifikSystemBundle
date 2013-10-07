@@ -85,6 +85,8 @@ class LoadMappingData extends AbstractFixture implements OrderedFixtureInterface
         $mapping->setTarget('FlexySystemBundle:Backend/Translation/Navigation:GlobalModuleBar');
         $mapping->setType('render');
 
+        $manager->persist($mapping);
+
         $manager->flush();
 
         $this->loadFrontend($manager);
