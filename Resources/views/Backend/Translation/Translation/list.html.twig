@@ -1,7 +1,7 @@
 {% extends 'FlexySystemBundle:Backend/translation:layout.html.twig' %}
 
 {% block content_header %}
-    <h1>{% trans %}Translations List{% endtrans %}</h1>
+    <h1>{% trans with { '%entity%': 'Static Texts'|trans } %}%entity% list{% endtrans %}</h1>
 {% endblock %}
 
 {% block content_main %}
@@ -16,7 +16,7 @@
                 <tr>
                     <th class="name table-sortable:ignorecase">{% trans %}Token{% endtrans %}</th>
                     {% for locale in locales %}
-                        <th class="table-sortable:ignorecase">{{ locale }}</th>
+                        <th class="table-sortable:ignorecase">{{ locale|trans }}</th>
                     {% endfor %}
                 </tr>
                 <tr class="filters">
