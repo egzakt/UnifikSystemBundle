@@ -1,0 +1,42 @@
+Flexy\SystemBundle\Entity\TokenTranslation:
+    type: entity
+    table: null
+    repositoryClass: Flexy\SystemBundle\Entity\TokenTranslationRepository
+    fields:
+        id:
+            type: integer
+            id: true
+            generator:
+                strategy: AUTO
+        locale:
+            type: string
+            length: 2
+        name:
+            type: string
+            length: 200
+        domain:
+            type: string
+            length: 200
+        active:
+            type: boolean
+            nullable: true
+        createdAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: create
+        updatedAt:
+            type: datetime
+            gedmo:
+                timestampable:
+                    on: update
+    lifecycleCallbacks: {  }
+
+    manyToOne:
+        token:
+            targetEntity: Flexy\SystemBundle\Entity\Token
+            inversedBy:  translations
+            joinColumn:
+                name: token_id
+                referencedColumnName: id
+                onDelete:  cascade

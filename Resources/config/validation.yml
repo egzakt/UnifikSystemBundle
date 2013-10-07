@@ -71,3 +71,8 @@ Flexy\SystemBundle\Entity\App:
             - Regex: { pattern: "/^[a-zA-Z0-9-_]*$/"}
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: prefix, ignoreNull: false }
+
+Flexy\SystemBundle\Entity\Token:
+    properties:
+        token:
+            - NotBlank: ~

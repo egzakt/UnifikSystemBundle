@@ -1,0 +1,156 @@
+{% extends 'FlexySystemBundle:Backend/translation:layout.html.twig' %}
+
+{% block content_header %}
+    <h1>{% trans %}Translations List{% endtrans %}</h1>
+{% endblock %}
+
+{% block content_main %}
+
+    <form class="translation_list" novalidate="novalidate" action="{{ path('flexy_system_backend_translation_insert') }}" method="post">
+
+    {% include 'FlexySystemBundle:Backend/Translation/Translation:edit_actions.html.twig' %}
+
+    <div class="list_box">
+        <table cellspacing="0" class="table-autosort">
+            <thead>
+                <tr>
+                    <th class="name table-sortable:ignorecase">{% trans %}Token{% endtrans %}</th>
+                    {% for locale in locales %}
+                        <th class="table-sortable:ignorecase">{{ locale }}</th>
+                    {% endfor %}
+                </tr>
+                <tr class="filters">
+                    <th class="name">
+                        <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a Token"|trans }}" />
+                    </th>
+                    {% for locale in locales %}
+                        <th><input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a Translation"|trans }}" /></th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for token in tokenList.tokens %}
+                    <tr>
+                        <td class="name">
+                            <input class="token" tabindex="-1" readonly type="text" id="token_list_tokens_{{ token.id }}_token" name="token_list[tokens][{{ token.id }}][token]" value="{{ token.token }}" />
+                        </td>
+                        {% for translation in token.translations %}
+                            <td>
+                                <input class="translation table-sortable:ignorecase" type="text" id="token_list_tokens_{{ token.id }}_{{ translation.locale }}" name="token_list[tokens][{{ token.id }}][{{ translation.locale }}]" value="{{ translation.name }}" />
+                            </td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</form>
+
+<script>
+    var timer = null;
+    var inputs = [];
+
+    var form = $('.translation_list');
+    var url = form.attr('action');
+
+    var translationInput = $('.translation');
+
+    /**
+     * The Token generation usually takes a while so we add a loading animation
+     */
+    $('.refresh_token').click(function() {
+        $('#loading').show();
+    });
+
+    /**
+     * Immediately save translations and clear the timer
+     */
+    form.submit(function() {
+
+        var focused = document.activeElement;
+
+        if ($(focused).is('input') && !inputFound(focused)) {
+            inputs.push(focused);
+        }
+
+        saveTranslations();
+
+        return false;
+    });
+
+    translationInput.keyup(function() {
+
+        if ($(this).val() != '' && timer != null) {
+
+            if (!inputFound(this)) {
+                inputs.push(this);
+            }
+
+            clearTimeout(timer);
+            timer = setTimeout(function() { saveTranslations() }, 1500);
+        }
+    });
+
+    translationInput.blur(function() {
+
+        if ($(this).val() != '') {
+
+            if (!inputFound(this)) {
+                inputs.push(this);
+            }
+
+            if (timer == null) {
+                timer = setTimeout(function() { saveTranslations() }, 3000);
+            }
+        }
+    });
+
+    function inputFound(input)
+    {
+        var found = false;
+        for (var i = 0; i < inputs.length; i++) {
+            if ($(inputs[i]).attr('name') == $(input).attr('name')) {
+                found = true;
+                break;
+            }
+        }
+        return found;
+    }
+
+    function saveTranslations()
+    {
+        var data = $(inputs).serializeArray();
+
+        $.ajax({
+            url: url,
+            dataType: 'json',
+            data: data,
+            type: 'POST'
+        }).done(function(data, textStatus, jqXHR){
+            if (data.success) {
+
+                var success_message = $('<div/>', {
+                    'class': 'flash-success',
+                    'text': data.message
+                });
+
+                success_message.css('top', '50%');
+                success_message.css('left', '50%');
+                success_message.css('position', 'absolute');
+
+                $(success_message).insertAfter($('body'));
+
+                if($(success_message).html().trim()){
+                    $(success_message).hide().delay(20).fadeIn().delay(5000).fadeOut();
+                }
+            }
+        });
+
+        clearTimeout(timer);
+        timer = null;
+        inputs = [];
+    }
+</script>
+
+{% endblock content_main %}

@@ -1,0 +1,18 @@
+{% extends 'FlexySystemBundle:Backend:layout.html.twig' %}
+
+{% block breadcrumbs '' %}
+
+{% block content %}
+
+    {% block content_header %}
+        <h1>{{ section }}</h1>
+    {% endblock %}
+
+    {% block flash_message %}
+        {% include 'FlexySystemBundle:Backend/Core:flash_message.html.twig' %}
+    {% endblock %}
+
+    {% block content_main '' %}
+    {% block content_footer '' %}
+
+{% endblock %}

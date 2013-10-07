@@ -1615,3 +1615,21 @@ span.cke_skin_kama {
 .flash-error p {
     margin: 0;
 }
+
+
+/* TRANSLATION EDITOR
+-----------------------------------------*/
+
+.list_box input {
+    width: 90%;
+
+    border: 1px solid #999999;
+    padding: 3px;
+    font: 12px/15px Arial, Helvetica, sans-serif;
+    color: #333;
+    margin-left: 1px;
+}
+
+.list_box .token {
+    border: none;
+}
