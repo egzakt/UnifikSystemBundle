@@ -207,7 +207,7 @@
             {% endif %}
             <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
                 {%- if entity is defined -%}
-                    {% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } -%}
+                    {% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}
                 {%- else -%}
                     {{ label|trans|raw }}
                 {%- endif -%}
