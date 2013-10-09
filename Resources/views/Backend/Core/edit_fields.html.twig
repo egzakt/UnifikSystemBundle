@@ -87,9 +87,9 @@
     {% spaceless %}
         {% if expanded %}
             <ul {{ block('widget_container_attributes') }}>
-                {% for child in form %}
+                {% for key, child in form %}
                     <li>
-                        {{ form_widget(child) }}&nbsp;{{ form_label(child, null, {'withoutColon': true}) }}
+                        {{ form_widget(child) }}&nbsp;{{ form_label(child, null, {'withoutColon': true, 'entity': form.vars.choices[key].data}) }}
                     </li>
                 {% endfor %}
             </ul>
@@ -154,9 +154,9 @@
                     {% endjavascripts %}
                 {% endblock  %}
             {% endif %}
-        {% for child in form %}
+        {% for key, child in form %}
             <li>
-                {{ form_widget(child) }}&nbsp;{{ form_label(child, null, {'withoutColon': true}) }}
+                {{ form_widget(child) }}&nbsp;{{ form_label(child, null, {'withoutColon': true, 'entity': form.vars.choices[key].data}) }}
             </li>
         {% endfor %}
         </ul>
@@ -204,7 +204,14 @@
             {% if label is empty %}
                 {% set label = name|humanize %}
             {% endif %}
-            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans|raw }}</label>{% if withoutColon is not defined %}{% trans %}:{% endtrans %}{% endif %}
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+                {%- if entity is defined -%}
+                    {% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}
+                {%- else -%}
+                    {{ label|trans|raw }}
+                {%- endif -%}
+            </label>
+            {%- if withoutColon is not defined %}{% trans %}:{% endtrans %}{% endif %}
             {% if attr.alt is defined %}
                 <div class="note">{{ attr.alt|trans|raw }}</div>
             {% endif %}
