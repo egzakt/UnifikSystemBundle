@@ -193,7 +193,6 @@
 
 {% block form_label %}
     {% spaceless %}
-        {{ inspect(label) }}
         {% if label is not sameas(false) %}
             {% if not compound %}
                 {% set label_attr = label_attr|merge({'for': id}) %}
