@@ -79,30 +79,27 @@
         return false;
     });
 
-    translationInput.keyup(function() {
-
-        if ($(this).val() != '' && timer != null) {
-
+    translationInput.keyup(function(e) {
+        // Ignore tab key
+        if (e.keyCode != '9') {
             if (!inputFound(this)) {
                 inputs.push(this);
             }
 
             clearTimeout(timer);
-            timer = setTimeout(function() { saveTranslations() }, 1500);
+            timer = setTimeout(function() { saveTranslations() }, 2500);
         }
     });
 
     translationInput.blur(function() {
-
         if ($(this).val() != '') {
 
             if (!inputFound(this)) {
                 inputs.push(this);
             }
 
-            if (timer == null) {
-                timer = setTimeout(function() { saveTranslations() }, 3000);
-            }
+            clearTimeout(timer);
+            timer = setTimeout(function() { saveTranslations() }, 1000);
         }
     });
 

@@ -219,10 +219,9 @@ class TranslationController extends BaseController
                     }
 
                     foreach ($translations as $locale => $name) {
+                        $translation = $token->translationExist($locale);
 
                         if ($name != '') {
-                            $translation = $token->translationExist($locale);
-
                             if (!$translation) {
                                 $translation = new TokenTranslation();
 
@@ -239,6 +238,10 @@ class TranslationController extends BaseController
                             $this->getEm()->persist($translation);
                             $this->getEm()->flush();
 
+                            $this->clearLanguageCache();
+                        } elseif ($translation !== false) {
+                            $this->getEm()->remove($translation);
+                            $this->getEm()->flush();
 
                             $this->clearLanguageCache();
                         }
