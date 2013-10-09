@@ -1,9 +1,9 @@
-{% spaceless %}
+{% spaceless -%}
     {% if entity == '' %}<em>{% endif %}
-    {% set entityTitle = entity|transTitle|striptags|truncate(truncateLength|default(100))|raw %}
+    {%- set entityTitle = entity|transTitle|striptags|truncate(truncateLength|default(100))|raw -%}
     {% if (entity.id is defined and entity.id is null) or entity.id is not defined %}
-        {% set entityTitle = entityTitle|trans %}
-    {% endif %}
+        {%- set entityTitle = entityTitle|trans -%}
+    {% endif -%}
     {{ entityTitle }}
-    {% if entity == '' %}</em>{% endif %}
-{% endspaceless %}
+    {%- if entity == '' %}</em>{% endif %}
+{%- endspaceless %}

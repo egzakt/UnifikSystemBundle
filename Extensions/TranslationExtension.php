@@ -46,14 +46,14 @@ class TranslationExtension extends \Twig_Extension
      * If there is no usable reprentation available, a fallback machanism is launch and every
      * active locales are tried until one provides an usable result.
      *
-     * @param BaseEntity $entity
+     * @param $entity
      *
      * @return string
      */
-    public function transTitle(BaseEntity $entity)
+    public function transTitle($entity)
     {
         // Fallback not necessary, entity provides a usable string representation in the current locale.
-        if ((string) $entity) {
+        if ((string) $entity || !$this->isTranslatable($entity)) {
             return $entity;
         }
 
@@ -83,6 +83,27 @@ class TranslationExtension extends \Twig_Extension
         }
 
         return '';
+    }
+
+    /**
+     * Check if the entity is a Translatable entity
+     *
+     * @param $entity
+     *
+     * @return bool
+     */
+    protected function isTranslatable($entity)
+    {
+        if (!is_object($entity)) {
+            return false;
+        }
+
+        $reflClass = new \ReflectionClass($entity);
+
+        $traitNames = $reflClass->getTraitNames();
+
+        return in_array('Flexy\DoctrineBehaviorsBundle\Model\Translatable\Translatable', $traitNames)
+                && $reflClass->hasProperty('translations');
     }
 
     /**
