@@ -12,8 +12,8 @@
         {% block edit_action %}
             {% include 'FlexySystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'entity': user,
-                'delete_route': path('flexy_system_backend_user_delete', { 'id': user.id ? user.id : 0 }),
-                'delete_message_route': path('flexy_system_backend_user_delete', { 'id': user.id ? user.id : 0, 'message': true }),
+                'delete_route': path('flexy_system_backend_user_delete', { 'id': user.id ?: 0 }),
+                'delete_message_route': path('flexy_system_backend_user_delete', { 'id': user.id ?: 0, 'message': true }),
                 'cancel_route': path('flexy_system_backend_user')
             } %}
         {% endblock %}
