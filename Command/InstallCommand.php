@@ -34,6 +34,8 @@ EOF
     }
 
     /**
+     * Main entry point
+     *
      * @see Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -57,6 +59,12 @@ EOF
         return $this->success($input, $output);
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     *
+     * @return int
+     */
     private function doDatabaseSetup(InputInterface $input, OutputInterface $output)
     {
         $output->write('<info>Testing database connection...</info> ');
@@ -120,6 +128,10 @@ EOF
         }
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     private function doFixturesLoad(InputInterface $input, OutputInterface $output)
     {
         $dialog = $this->getHelperSet()->get('dialog');
@@ -129,6 +141,10 @@ EOF
         }
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     private function doAssetsDump(InputInterface $input, OutputInterface $output)
     {
         $silentOutput = new ConsoleOutput();
@@ -139,6 +155,10 @@ EOF
         $output->writeln('OK');
     }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     */
     private function doAdministrationSetup(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('');
