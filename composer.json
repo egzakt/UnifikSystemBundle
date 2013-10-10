@@ -2,8 +2,8 @@
     "name": "flexy/system-bundle",
     "type": "symfony-bundle",
     "description": "The core bundle of the symfony-flexy distribution",
-    "keywords": ["flexy", "system", "cms"],
-    "homepage": "https://github.com/flexy/symfony-flexy",
+    "keywords": ["cms", "cmf", "symfony", "flexy", "distribution"],
+    "homepage": "https://github.com/egzakt/symfony-flexy",
     "license": "MIT",
     "authors": [
         {
