@@ -21,6 +21,10 @@ class RouterExtensionCompilerPass implements CompilerPassInterface
         // i18n loader override
         $container->setParameter('jms_i18n_routing.loader.class', 'Flexy\\SystemBundle\\Routing\\Loader');
         $container->setParameter('jms_i18n_routing.route_exclusion_strategy.class', 'Flexy\\SystemBundle\\Routing\\RouteExclusionStrategy');
+        $container->setParameter('jms_i18n_routing.pattern_generation_strategy.class', 'Flexy\\SystemBundle\\Routing\\PatternGenerationStrategy');
+        $container->findDefinition('jms_i18n_routing.pattern_generation_strategy')->addMethodCall('parentConstructor', array(
+            new Reference('database_connection')
+        ));
         $container->findDefinition('jms_i18n_routing.loader')->addMethodCall('setDatabaseConnection', array(
             new Reference('database_connection')
         ));
