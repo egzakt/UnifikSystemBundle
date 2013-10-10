@@ -12,7 +12,7 @@
         {% block edit_actions %}
             {% include 'FlexySystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'entity': locale,
-                'delete_route': path('flexy_system_backend_locale_delete', { 'id': locale.id ? locale.id : 0 }),
+                'delete_route': path('flexy_system_backend_locale_delete', { 'id': locale.id ?: 0 }),
                 'cancel_route': path('flexy_system_backend_locale')
             } %}
         {% endblock %}
