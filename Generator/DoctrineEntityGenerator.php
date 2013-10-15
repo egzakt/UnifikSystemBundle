@@ -8,7 +8,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Tools\EntityGenerator;
 use Doctrine\ORM\Tools\EntityRepositoryGenerator;
-use Flexy\SystemBundle\Tools\Export\ClassMetadataExporter;
+use Flexy\SystemBundle\Generator\Tools\Export\ClassMetadataExporter;
 
 /**
  * Flexy Backend Doctrine Entity Generator
