@@ -4,7 +4,7 @@ namespace Flexy\SystemBundle\Generator;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use Flexy\SystemBundle\Tools\EntityGenerator as BaseEntityGenerator;
+use Flexy\SystemBundle\Generator\Tools\EntityGenerator as BaseEntityGenerator;
 
 /**
  * EntityTranslation Generator

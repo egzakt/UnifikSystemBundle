@@ -17,7 +17,7 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace Flexy\SystemBundle\Tools\Export;
+namespace Flexy\SystemBundle\Generator\Tools\Export;
 
 use Doctrine\ORM\Tools\Export\ExportException,
     Doctrine\ORM\EntityManager;
@@ -35,8 +35,8 @@ class ClassMetadataExporter
 {
     private static $_exporterDrivers = array(
         'xml' => 'Doctrine\ORM\Tools\Export\Driver\XmlExporter',
-        'yaml' => 'Flexy\SystemBundle\Tools\Export\Driver\YamlExporter',
-        'yml' => 'Flexy\SystemBundle\Tools\Export\Driver\YamlExporter',
+        'yaml' => 'Flexy\SystemBundle\Generator\Tools\Export\Driver\YamlExporter',
+        'yml' => 'Flexy\SystemBundle\Generator\Tools\Export\Driver\YamlExporter',
         'php' => 'Doctrine\ORM\Tools\Export\Driver\PhpExporter',
         'annotation' => 'Doctrine\ORM\Tools\Export\Driver\AnnotationExporter'
     );

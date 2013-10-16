@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Type;
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use Flexy\SystemBundle\Tools\EntityGenerator as BaseEntityGenerator;
+use Flexy\SystemBundle\Generator\Tools\EntityGenerator as BaseEntityGenerator;
 
 class EntityGenerator extends BaseEntityGenerator
 {
