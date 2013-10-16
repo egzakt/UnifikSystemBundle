@@ -228,6 +228,20 @@ aside#actions a {
     margin-bottom: 0;
 }
 
+.items_list .image {
+    float: left;
+    width: 80px;
+}
+
+.items_list .image img {
+    display: block;
+}
+
+.items_list .content.with_image {
+    float: right;
+    width: 660px;
+}
+
 .items_list h2 {
     margin-bottom: 2px;
 }
@@ -272,6 +286,16 @@ article.item .detail h1 {
 
 article.item .detail .text {
     margin-top: 10px;
+}
+
+article.item .detail .image {
+    float: left;
+    width: 250px;
+    margin: 0 20px 20px 0;
+}
+
+article.item .detail .image img {
+    display: block;
 }
 
 
