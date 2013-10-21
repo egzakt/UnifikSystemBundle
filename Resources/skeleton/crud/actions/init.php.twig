@@ -6,4 +6,5 @@
         parent::init();
 
         $this->{{ entity_var }}Repository = $this->getEm()->getRepository('{{ namespace|replace({'\\': ''}) ~ ':' ~ entity|replace({'\\': '/'}) }}');
+        $this->createAndPushNavigationElement('{{ entity_class }}s List', '{{ route_prefix }}');
     }
