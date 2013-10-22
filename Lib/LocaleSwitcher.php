@@ -144,6 +144,14 @@ class LocaleSwitcher
             $this->setElement($this->core->getSection());
             $data = $this->generate();
             $url = $data[$locale->getCode()]['url'];
+        } else {
+
+            // Fallback to the homepage
+            try {
+                $url = $this->router->generate('section_id_1', array('_locale' => $locale->getCode()));;
+            } catch (\Exception $e) {
+                $url = '';
+            }
         }
 
         return $url;
@@ -239,5 +247,4 @@ class LocaleSwitcher
     {
         unset($this->em);
     }
-
 }
