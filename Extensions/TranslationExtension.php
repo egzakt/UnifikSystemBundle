@@ -5,6 +5,7 @@ namespace Flexy\SystemBundle\Extensions;
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
 use Flexy\SystemBundle\Lib\BaseEntity;
+use Symfony\Component\Security\Core\Util\ClassUtils;
 
 /**
  * Library of helper functions
@@ -98,7 +99,9 @@ class TranslationExtension extends \Twig_Extension
             return false;
         }
 
-        $reflClass = new \ReflectionClass($entity);
+        // Support Doctrine Proxies
+        $realClass = ClassUtils::getRealClass($entity);
+        $reflClass = new \ReflectionClass($realClass);
 
         $traitNames = $reflClass->getTraitNames();
 
