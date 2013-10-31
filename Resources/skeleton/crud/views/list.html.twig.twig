@@ -93,7 +93,12 @@
                         {%- if field == 'ordering' %}{% set class = class ~ ' default_ordering' %}{% endif -%}
                         {%- if metadata.type in ['boolean'] %}{% set class = class ~ ' centered' %}{% endif -%}
 
-                        {%- set render = '{{ ' ~ twig_entity_var ~ '.' ~ field ~ '|raw }}' -%}
+                        {%- if field == 'name' %}
+                            {%- set render = "{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': " ~ twig_entity_var ~ " } %}" -%}
+                        {% else %}
+                            {%- set render = '{{ ' ~ twig_entity_var ~ '.' ~ field ~ '|raw }}' -%}
+                        {% endif %}
+
                         {%- if metadata.type in ['date', 'datetime'] %}{% set render = '{{ ' ~ twig_entity_var ~ '.' ~ field ~ "|date('Y-m-d') }}" -%}
                         {%- elseif metadata.type in ['boolean'] %}
                             {% set render =
