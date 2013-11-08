@@ -41,13 +41,14 @@ EOF
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->write(
-            '    ________
-               / ____/ /__  _  ____  __
-              / /_  / / _ \| |/_/ / / /
-             / __/ / /  __/>  </ /_/ /
-            /_/   /_/\___/_/|_|\__, /
-                              /____/
-            ');
+'
+    ________
+   / ____/ /__  _  ____  __
+  / /_  / / _ \| |/_/ / / /
+ / __/ / /  __/>  </ /_/ /
+/_/   /_/\___/_/|_|\__, /
+                  /____/
+');
         $output->writeln('<info>Installation.</info>');
         $output->writeln('');
 
@@ -80,7 +81,7 @@ EOF
                 $this->checkDatabaseConnection(true);
             } catch (\PDOException $e) {
                 $output->writeln('<error>' . $e->getMessage() . '</error>');
-                return $this->faillure($input, $output);
+                $this->faillure($input, $output);
             }
         }
 
@@ -100,7 +101,7 @@ EOF
                 $this->runCommand('doctrine:database:create', $input, $output);
             } else {
                 $output->writeln('<info>Flexy installation aborded.</info>');
-                return $this->faillure($input, $output);
+                $this->faillure($input, $output);
             }
         }
 
@@ -115,7 +116,7 @@ EOF
                 $this->checkSchemaExist(true);
             } catch (\PDOException $e) {
                 $output->writeln('<error>' . $e->getMessage() . '</error>');
-                return $this->faillure($input, $output);
+                $this->faillure($input, $output);
             }
             $dbname = $this->getContainer()->get('doctrine')->getManager()->getConnection()->getParams()['dbname'];
             $output->writeln('');
@@ -123,7 +124,7 @@ EOF
                 $this->runCommand('doctrine:schema:drop', new ArrayInput(array('--force' => true, '')), $silentOutput);
                 $this->runCommand('doctrine:schema:create', $input, $silentOutput);
             } else {
-                return $this->faillure($input, $output);
+                $this->faillure($input, $output);
             }
         }
     }
@@ -221,7 +222,7 @@ EOF
     {
         $output->writeln('<error>Flexy could not be installed. Fix the error above and restart the install procedure.</error>');
 
-        return 1;
+        exit(1);
     }
 
     /**
