@@ -31,6 +31,7 @@ parameters:
     flexy_backend.login_listener.class:                        Flexy\SystemBundle\Listener\LoginBackendListener
     flexy_frontend.core.class:                                 Flexy\SystemBundle\Lib\Frontend\Core
     flexy_system.translation_editor_loader.class:              Flexy\SystemBundle\Translation\TranslationEditorLoader
+    flexy_system.twig.application_context_extension.class:     Flexy\SystemBundle\Extensions\ApplicationContextExtension
 
 services:
 
@@ -214,3 +215,12 @@ services:
         arguments: [@doctrine.orm.entity_manager, %kernel.root_dir%]
         tags:
             - { name: translation.loader, alias: db }
+
+    flexy_system.twig.application_context_extension:
+        class: %flexy_system.twig.application_context_extension.class%
+        synchronized: true
+        tags:
+          - { name: 'twig.extension' }
+        calls:
+          - [setControllerNameConverter, [@controller_name_converter]]
+          - [setRequest, [@?request=]]
