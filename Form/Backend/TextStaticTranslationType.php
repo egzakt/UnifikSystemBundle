@@ -21,7 +21,7 @@ class TextStaticTranslationType extends AbstractType
     {
         $builder
             ->add('active', 'checkbox')
-            ->add('text', 'textarea', array('label' => 'Text', 'attr' => array('class' => 'ckeditor')))
+            ->add('text', 'ckeditor')
         ;
     }
 
