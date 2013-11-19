@@ -191,7 +191,7 @@ class NavigationController extends BaseController
     public function localeBarAction()
     {
         $localeRepo = $this->getEm()->getRepository('FlexySystemBundle:Locale');
-        $locales = $localeRepo->findAll();
+        $locales = $localeRepo->findBy(array(), array('ordering' => 'ASC'));
 
         return $this->render('FlexySystemBundle:Backend/Navigation:locale_bar.html.twig', array(
             'locales' => $locales,

@@ -24,7 +24,21 @@
 
                 {{ form_row(form.active) }}
                 {{ form_row(form.name) }}
-                {{ form_row(form.code) }}
+
+                <tr>
+                    <th>
+                        {{ form_errors(form.code) }}
+                        {{ form_label(form.code) }}
+                    </th>
+                    <td>
+                        {{ form_widget(form.code) }}
+                        <div class="url_pattern note">
+                            {% trans %}Home page URL{% endtrans %}{% trans %}:{% endtrans %}
+                            {# using the dashboard route as the base route because it cannot be disabled and/or removed like frontend routes #}
+                            <span>{{ url('flexy_system_backend_dashboard')|replace({ 'admin/': '' }) }}</span>
+                        </div>
+                    </td>
+                </tr>
 
                 {{ form_row(form._token) }}
 
@@ -34,5 +48,25 @@
         {{ block('edit_actions') }}
 
     </form>
+
+    <script>
+        $(function(){
+            var $localeCode = $('#locale_code');
+
+            $localeCode.change(function(){
+                var localeCode = $(this).val();
+
+                // The default locale do not use code a prefix in the routing (JMS prefix_except_default strategy)
+                if (localeCode == '{{ default_locale }}') {
+                    localeCode = '';
+                }
+
+                var $urlPattern = $('.url_pattern span');
+                $urlPattern.html($urlPattern.html().replace(/[^/]*$/, localeCode));
+            });
+
+            $localeCode.change();
+        });
+    </script>
 
 {% endblock content_main %}

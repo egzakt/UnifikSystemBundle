@@ -22,8 +22,8 @@ class LocaleType extends AbstractType
     {
         $builder
             ->add('active')
-            ->add('name')
-            ->add('code', 'locale')
+            ->add('name', null, array('attr' => array('alt' => 'Displayed on the language switcher')))
+            ->add('code', 'locale', array('label' => 'Language', 'preferred_choices' => array('en', 'fr', 'es')))
         ;
     }
 

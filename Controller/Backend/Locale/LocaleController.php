@@ -38,10 +38,11 @@ class LocaleController extends BackendController
      */
     public function listAction()
     {
-        $locales = $this->getEm()->getRepository('FlexySystemBundle:Locale')->findAll();
+        $locales = $this->getEm()->getRepository('FlexySystemBundle:Locale')->findBy(array(), array('ordering' => 'ASC'));
 
         return $this->render('FlexySystemBundle:Backend/Locale/Locale:list.html.twig', array(
-            'locales' => $locales
+            'locales' => $locales,
+            'default_locale' => $this->container->getParameter('locale')
         ));
     }
 
@@ -95,6 +96,7 @@ class LocaleController extends BackendController
 
         return $this->render('FlexySystemBundle:Backend/Locale/Locale:edit.html.twig', array(
             'locale' => $locale,
+            'default_locale' => $this->container->getParameter('locale'),
             'form' => $form->createView()
         ));
     }
