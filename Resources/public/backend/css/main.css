@@ -1633,3 +1633,13 @@ span.cke_skin_kama {
 .list_box .token {
     border: none;
 }
+
+
+/* LOCALES MANAGEMENT
+-----------------------------------------*/
+.url_pattern {
+    margin-top: 4px;
+}
+.url_pattern span {
+    color: #2882E6;
+}

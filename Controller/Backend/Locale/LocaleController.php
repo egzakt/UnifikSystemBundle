@@ -95,6 +95,7 @@ class LocaleController extends BackendController
 
         return $this->render('FlexySystemBundle:Backend/Locale/Locale:edit.html.twig', array(
             'locale' => $locale,
+            'default_locale' => $this->container->getParameter('locale'),
             'form' => $form->createView()
         ));
     }
