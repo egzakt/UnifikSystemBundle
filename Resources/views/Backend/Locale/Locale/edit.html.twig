@@ -34,7 +34,8 @@
                         {{ form_widget(form.code) }}
                         <div class="url_pattern note">
                             {% trans %}Home page URL{% endtrans %}{% trans %}:{% endtrans %}
-                            <span>{{ url('flexy_system_backend_dashboard') }}</span>
+                            {# using the dashboard route as the base route because it cannot be disabled and/or removed like frontend routes #}
+                            <span>{{ url('flexy_system_backend_dashboard')|replace({ 'admin/': '' }) }}</span>
                         </div>
                     </td>
                 </tr>
@@ -61,7 +62,7 @@
                 }
 
                 var $urlPattern = $('.url_pattern span');
-                $urlPattern.html($urlPattern.html().replace(/[^/]*$/, localeCode).replace(/admin\//, ''));
+                $urlPattern.html($urlPattern.html().replace(/[^/]*$/, localeCode));
             });
 
             $localeCode.change();

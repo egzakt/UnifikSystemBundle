@@ -41,7 +41,8 @@ class LocaleController extends BackendController
         $locales = $this->getEm()->getRepository('FlexySystemBundle:Locale')->findBy(array(), array('ordering' => 'ASC'));
 
         return $this->render('FlexySystemBundle:Backend/Locale/Locale:list.html.twig', array(
-            'locales' => $locales
+            'locales' => $locales,
+            'default_locale' => $this->container->getParameter('locale')
         ));
     }
 
