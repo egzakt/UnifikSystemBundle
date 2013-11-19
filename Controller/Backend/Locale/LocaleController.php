@@ -81,6 +81,8 @@ class LocaleController extends BackendController
                     array('%entity%' => $locale))
                 );
 
+                $this->get('flexy_database_config.container_invalidator')->invalidate();
+
                 if ($request->request->has('save')) {
                     return $this->redirect($this->generateUrl('flexy_system_backend_locale'));
                 }
@@ -125,6 +127,8 @@ class LocaleController extends BackendController
     {
         $locale = $this->getEm()->getRepository('FlexySystemBundle:Locale')->find($id);
         $this->deleteEntity($locale);
+
+        $this->get('flexy_database_config.container_invalidator')->invalidate();
 
         return $this->redirect($this->generateUrl('flexy_system_backend_locale'));
     }
