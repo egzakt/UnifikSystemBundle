@@ -75,7 +75,7 @@
                             {{ '{% trans %}Last update {% endtrans %}' }} :
                         </th>
                         <td style="vertical-align:bottom">
-                            {{ "{{ " ~ twig_entity_var ~ ".updatedAt|date }}" }}
+                            {{ "{{ " ~ twig_entity_var ~ ".updatedAt|localizeddate('medium') }}" }}
                         </td>
                     </tr>
                 {{ "{% endif %}" }}

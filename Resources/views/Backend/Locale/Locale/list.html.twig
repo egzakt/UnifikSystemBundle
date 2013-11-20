@@ -40,7 +40,6 @@
             </thead>
             <tbody>
             {% for locale in locales %}
-                {{ default_locale }}
                 <tr id="item_{{ locale.id }}">
                     <td class="name{% if not locale.active %} inactive{% endif %}{% if locale.code == default_locale %} featured{% endif %}">
                         <a href="{{ path(locale.route, locale.routeParams) }}">{{ locale }}</a>

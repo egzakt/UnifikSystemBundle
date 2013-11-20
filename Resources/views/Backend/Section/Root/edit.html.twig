@@ -42,7 +42,7 @@
                             {% trans %}Last update{% endtrans %} :
                         </th>
                         <td style="vertical-align:bottom">
-                            {{ entity.updatedAt|date }}
+                            {{ entity.updatedAt|localizeddate('medium') }}
                         </td>
                     </tr>
                 {% endif %}
