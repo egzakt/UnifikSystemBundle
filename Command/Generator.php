@@ -372,7 +372,7 @@ class Generator extends DoctrineCrudGenerator
             'fields'                => $this->metadata->fieldMappings,
             'actions'               => $this->actions,
             'application'           => $this->application,
-            'translation_fields'    => (count($this->translation['metadata']) > 0) ? $this->translation['metadata']->fieldMappings : null
+            'translation_fields'    => (isset($this->translation['metadata']) && (count($this->translation['metadata']) > 0)) ? $this->translation['metadata']->fieldMappings : null
         ));
     }
 
