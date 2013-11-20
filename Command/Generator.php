@@ -338,7 +338,7 @@ class Generator extends DoctrineCrudGenerator
         
         $fields = array();
         
-        if (count($this->translation['metadata']) > 0) {
+        if (isset($this->translation['metadata']) && (count($this->translation['metadata']) > 0)) {
             $fields = array_merge($this->metadata->fieldMappings, $this->translation['metadata']->fieldMappings);
         } else {
             $fields[] = $this->metadata->fieldMappings;
