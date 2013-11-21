@@ -5,7 +5,6 @@ namespace Flexy\SystemBundle\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Output\Output;
 
 /**
  * A console command for invalidating (clearing) the router cache

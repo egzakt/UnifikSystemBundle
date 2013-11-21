@@ -341,7 +341,7 @@ class Generator extends DoctrineCrudGenerator
         if (isset($this->translation['metadata']) && (count($this->translation['metadata']) > 0)) {
             $fields = array_merge($this->metadata->fieldMappings, $this->translation['metadata']->fieldMappings);
         } else {
-            $fields[] = $this->metadata->fieldMappings;
+            $fields = $this->metadata->fieldMappings;
         }
 
         $this->renderFile($filename, $dir . '/' . $this->entity . '/list.html.twig', array(
