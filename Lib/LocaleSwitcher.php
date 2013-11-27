@@ -84,7 +84,7 @@ class LocaleSwitcher
         if ($element) {
             foreach ($locales as $locale) {
 
-                $element->setLocale($locale->getCode());
+                $element->setCurrentLocale($locale->getCode());
 
                 // If the homepage of the currently processed locale is not active, we jump to the next one.
                 try {
@@ -100,7 +100,7 @@ class LocaleSwitcher
 
                 // Generating route ...
                 try {
-                    $url = $this->router->generate($element->getRoute(), $parameters);
+                    $url = $this->router->generate($element->getRoute($this->core->getSectionId()), $parameters);
                 } catch (\Exception $e) {
                     // Fallback if no route found
                     $url = $this->fallBack($element, $locale);
