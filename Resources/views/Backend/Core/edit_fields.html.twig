@@ -265,7 +265,7 @@
 {% block creatable_entity_widget %}
     {% spaceless %}
         {{ block('choice_widget') }}
-        <a href="{{ path(quick_create_route) }}" class="quick_create_link{% if not form.vars.expanded %} aside{% endif %}">{{ "Create a new " ~ entity_name|trans }}</a>
+        <a href="{{ path(quick_create_route) }}" class="quick_create_link{% if not form.vars.expanded %} aside{% endif %}">{% trans with { '%entity%': entity_name|trans } %}Create a new %entity%{% endtrans %}</a>
         <div class="quick_create_container" data-input-id="{{ form.vars.id }}" data-input-name="{{ form.vars.full_name }}" data-input-type="{% if not form.vars.expanded %}select{% elseif form.vars.multiple %}checkbox{% else %}radio{% endif %}"></div>
     {% endspaceless %}
 {% endblock %}
