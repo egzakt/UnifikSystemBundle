@@ -4,9 +4,9 @@ namespace Flexy\SystemBundle\Controller\Frontend;
 
 use Symfony\Component\HttpFoundation\Response;
 
+use Flexy\SystemBundle\Entity\NavigationRepository;
 use Flexy\SystemBundle\Lib\Frontend\BaseController;
 use Flexy\SystemBundle\Entity\MappingRepository;
-use Flexy\SystemBundle\Entity\Section;
 use Flexy\SystemBundle\Entity\SectionRepository;
 
 /**
@@ -23,6 +23,11 @@ class NavigationController extends BaseController
      * @var MappingRepository
      */
     protected $mappingRepository;
+
+    /**
+     * @var NavigationRepository
+     */
+    protected $navigationRepository;
 
     /**
      * Init
