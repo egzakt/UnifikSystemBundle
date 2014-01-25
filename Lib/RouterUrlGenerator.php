@@ -17,11 +17,11 @@ class RouterUrlGenerator extends BaseUrlGenerator
     /**
      * @inheritdoc
      */
-    protected function doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $referenceType, $hostTokens)
+    protected function doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $referenceType, $hostTokens, array $requiredSchemes = array())
     {
         $parameters = $this->removeUnusedAutoParameters($this->automaticParameters, $parameters, $variables);
 
-        return parent::doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $referenceType, $hostTokens);
+        return parent::doGenerate($variables, $defaults, $requirements, $tokens, $parameters, $name, $referenceType, $hostTokens, $requiredSchemes);
     }
 
     /**
