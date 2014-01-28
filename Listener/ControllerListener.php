@@ -1,13 +1,13 @@
 <?php
 
-namespace Flexy\SystemBundle\Listener;
+namespace Unifik\SystemBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\HttpKernel\HttpKernelInterface;
 use Symfony\Component\DependencyInjection\Container;
 
-use Flexy\SystemBundle\Lib\Core;
-use Flexy\SystemBundle\Lib\BaseControllerInterface;
+use Unifik\SystemBundle\Lib\Core;
+use Unifik\SystemBundle\Lib\BaseControllerInterface;
 
 /**
  * Controller Listener
@@ -32,12 +32,12 @@ class ControllerListener
 
         $request = $this->container->get('request');
 
-        if (false == $request->get('_flexyEnabled')) {
+        if (false == $request->get('_unifikEnabled')) {
             return;
         }
 
-        $flexyRequest = $request->get('_flexyRequest');
-        $applicationName = $flexyRequest['appName'];
+        $unifikRequest = $request->get('_unifikRequest');
+        $applicationName = $unifikRequest['appName'];
         $applicationName = strtolower($applicationName);
 
         if (false == $applicationName) {
@@ -47,18 +47,18 @@ class ControllerListener
         // sectionId juggling to make the backend parameters behave like the frontend router auto generated parameters
         if ('backend' === $applicationName) {
             if ($sectionId = $request->get('sectionId')) {
-                $flexyRequest = $request->get('_flexyRequest');
-                $flexyRequest['sectionId'] = $sectionId;
-                $request->attributes->set('_flexyRequest', $flexyRequest);
+                $unifikRequest = $request->get('_unifikRequest');
+                $unifikRequest['sectionId'] = $sectionId;
+                $request->attributes->set('_unifikRequest', $unifikRequest);
             }
         }
 
         if (false == $controller instanceof BaseControllerInterface) {
-            throw new \Exception(get_class($controller) . ' must extends the Flexy/SystemBundle/Lib/' . ucfirst($applicationName) . '/BaseController class.');
+            throw new \Exception(get_class($controller) . ' must extends the Unifik/SystemBundle/Lib/' . ucfirst($applicationName) . '/BaseController class.');
         }
 
-        $systemCore = $this->container->get('flexy_system.core');
-        $applicationCore = $this->container->get('flexy_' . $applicationName . '.core');
+        $systemCore = $this->container->get('unifik_system.core');
+        $applicationCore = $this->container->get('unifik_' . $applicationName . '.core');
         $systemCore->setApplicationCore($applicationCore);
 
         if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {

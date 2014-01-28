@@ -1,9 +1,9 @@
 <?php
 
-namespace Flexy\SystemBundle\Listener;
+namespace Unifik\SystemBundle\Listener;
 
-use Flexy\SystemBundle\Entity\AppRepository;
-use Flexy\SystemBundle\Lib\BaseDeletableListener;
+use Unifik\SystemBundle\Entity\AppRepository;
+use Unifik\SystemBundle\Lib\BaseDeletableListener;
 
 class AppDeletableListener extends BaseDeletableListener
 {

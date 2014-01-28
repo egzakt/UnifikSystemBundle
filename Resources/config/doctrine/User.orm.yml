@@ -1,6 +1,6 @@
-Flexy\SystemBundle\Entity\User:
+Unifik\SystemBundle\Entity\User:
   type: entity
-  repositoryClass: Flexy\SystemBundle\Entity\UserRepository
+  repositoryClass: Unifik\SystemBundle\Entity\UserRepository
   fields:
     id:
       type: integer
@@ -48,7 +48,7 @@ Flexy\SystemBundle\Entity\User:
   lifecycleCallbacks: {  }
   manyToMany:
     roles:
-      targetEntity: Flexy\SystemBundle\Entity\Role
+      targetEntity: Unifik\SystemBundle\Entity\Role
       inversedBy: users
       cascade: [persist]
       joinTable:

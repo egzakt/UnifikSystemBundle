@@ -1,17 +1,17 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * SectionTranslation
  */
 class SectionTranslation
 {
-    use FlexyORMBehaviors\Translatable\Translation;
+    use UnifikORMBehaviors\Translatable\Translation;
 
-    use FlexyORMBehaviors\Sluggable\Sluggable;
+    use UnifikORMBehaviors\Sluggable\Sluggable;
 
     /**
      * @var integer $id

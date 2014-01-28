@@ -1,10 +1,10 @@
 <?php
 
-namespace Flexy\SystemBundle\Controller\Backend\Locale;
+namespace Unifik\SystemBundle\Controller\Backend\Locale;
 
 use Symfony\Component\HttpFoundation\Response;
 
-use Flexy\SystemBundle\Lib\Backend\BaseController;
+use Unifik\SystemBundle\Lib\Backend\BaseController;
 
 /**
  * User Controller
@@ -25,9 +25,9 @@ class NavigationController extends BaseController
             return new Response();
         }
 
-        $selected = (0 === strpos($_masterRoute, 'flexy_system_backend_locale'));
+        $selected = (0 === strpos($_masterRoute, 'unifik_system_backend_locale'));
 
-        return $this->render('FlexySystemBundle:Backend/Locale/Navigation:global_bundle_bar.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Locale/Navigation:global_bundle_bar.html.twig', array(
             'selected' => $selected
         ));
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Flexy\SystemBundle\Extensions;
+namespace Unifik\SystemBundle\Extensions;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Doctrine\Common\Collections\ArrayCollection;
-use Flexy\SystemBundle\Lib\BaseEntity;
+use Unifik\SystemBundle\Lib\BaseEntity;
 use Symfony\Component\Security\Core\Util\ClassUtils;
 
 /**
@@ -61,7 +61,7 @@ class TranslationExtension extends \Twig_Extension
         $entityPreviousLocale = $entity->getCurrentLocale();
 
         if (false == $this->locales) {
-            $this->locales = $this->doctrine->getManager()->getRepository('FlexySystemBundle:Locale')->findBy(
+            $this->locales = $this->doctrine->getManager()->getRepository('UnifikSystemBundle:Locale')->findBy(
                 array('active' => true),
                 array('ordering' => 'ASC')
             );
@@ -105,7 +105,7 @@ class TranslationExtension extends \Twig_Extension
 
         $traitNames = $reflClass->getTraitNames();
 
-        return in_array('Flexy\DoctrineBehaviorsBundle\Model\Translatable\Translatable', $traitNames)
+        return in_array('Unifik\DoctrineBehaviorsBundle\Model\Translatable\Translatable', $traitNames)
                 && $reflClass->hasProperty('translations');
     }
 

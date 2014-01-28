@@ -1,8 +1,8 @@
-{% extends 'FlexySystemBundle:Backend/Locale:layout.html.twig' %}
-{% form_theme form 'FlexySystemBundle:Backend/Core:edit_fields.html.twig' %}
+{% extends 'UnifikSystemBundle:Backend/Locale:layout.html.twig' %}
+{% form_theme form 'UnifikSystemBundle:Backend/Core:edit_fields.html.twig' %}
 
 {% block content_header %}
-    <h1>{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': locale } %}</h1>
+    <h1>{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': locale } %}</h1>
 {% endblock %}
 
 {% block content_main %}
@@ -10,10 +10,10 @@
     <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
 
         {% block edit_actions %}
-            {% include 'FlexySystemBundle:Backend/Core:edit_actions.html.twig' with {
+            {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'entity': locale,
-                'delete_route': path('flexy_system_backend_locale_delete', { 'id': locale.id ?: 0 }),
-                'cancel_route': path('flexy_system_backend_locale')
+                'delete_route': path('unifik_system_backend_locale_delete', { 'id': locale.id ?: 0 }),
+                'cancel_route': path('unifik_system_backend_locale')
             } %}
         {% endblock %}
 
@@ -35,7 +35,7 @@
                         <div class="url_pattern note">
                             {% trans %}Home page URL{% endtrans %}{% trans %}:{% endtrans %}
                             {# using the dashboard route as the base route because it cannot be disabled and/or removed like frontend routes #}
-                            <span>{{ url('flexy_system_backend_dashboard')|replace({ 'admin/': '' }) }}</span>
+                            <span>{{ url('unifik_system_backend_dashboard')|replace({ 'admin/': '' }) }}</span>
                         </div>
                     </td>
                 </tr>

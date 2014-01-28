@@ -1,16 +1,16 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntity;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * SectionNavigation
  */
 class SectionNavigation extends BaseEntity
 {
-    use FlexyORMBehaviors\Timestampable\Timestampable;
+    use UnifikORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer

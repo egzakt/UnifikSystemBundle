@@ -1,9 +1,9 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
-use Flexy\SystemBundle\Lib\NavigationItemInterface;
+use Unifik\SystemBundle\Lib\BaseEntity;
+use Unifik\SystemBundle\Lib\NavigationItemInterface;
 
 class NavigationItem implements NavigationItemInterface
 {

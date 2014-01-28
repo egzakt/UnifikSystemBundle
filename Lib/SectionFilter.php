@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
-use Flexy\SystemBundle\Entity\Section;
+use Unifik\SystemBundle\Entity\Section;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 use Doctrine\ORM\EntityManager;
 
@@ -143,7 +143,7 @@ class SectionFilter
             }
 
             // Find the Sections for the User's Roles
-            $this->allowedSectionIds = $this->entityManager->getRepository('FlexySystemBundle:Section')->findHavingRoles($roles);
+            $this->allowedSectionIds = $this->entityManager->getRepository('UnifikSystemBundle:Section')->findHavingRoles($roles);
         }
 
         return $this->allowedSectionIds;

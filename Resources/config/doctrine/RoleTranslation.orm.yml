@@ -1,4 +1,4 @@
-Flexy\SystemBundle\Entity\RoleTranslation:
+Unifik\SystemBundle\Entity\RoleTranslation:
   type: entity
   fields:
     id:

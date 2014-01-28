@@ -1,12 +1,12 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-use Flexy\SystemBundle\Entity\Section;
-use Flexy\SystemBundle\Entity\App;
+use Unifik\SystemBundle\Entity\Section;
+use Unifik\SystemBundle\Entity\App;
 
 use Doctrine\ORM\EntityManager;
 
@@ -36,7 +36,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
      */
     protected function getSystemCore()
     {
-        return $this->get('flexy_system.core');
+        return $this->get('unifik_system.core');
     }
 
     /**
@@ -234,7 +234,7 @@ abstract class ApplicationController extends Controller implements BaseControlle
      */
     protected function checkDeletable($entity)
     {
-        $ds = $this->get('flexy_system.deletable');
+        $ds = $this->get('unifik_system.deletable');
         return $ds->checkDeletable($entity);
     }
 

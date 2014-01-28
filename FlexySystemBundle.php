@@ -1,15 +1,15 @@
 <?php
 
-namespace Flexy\SystemBundle;
+namespace Unifik\SystemBundle;
 
-use Flexy\SystemBundle\DependencyInjection\Compiler\DeletableExtensionCompilerPass;
+use Unifik\SystemBundle\DependencyInjection\Compiler\DeletableExtensionCompilerPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
-use Flexy\SystemBundle\DependencyInjection\Compiler\RouterExtensionCompilerPass;
-use Flexy\SystemBundle\DependencyInjection\Compiler\HttpKernelExtensionCompilerPass;
+use Unifik\SystemBundle\DependencyInjection\Compiler\RouterExtensionCompilerPass;
+use Unifik\SystemBundle\DependencyInjection\Compiler\HttpKernelExtensionCompilerPass;
 
-class FlexySystemBundle extends Bundle
+class UnifikSystemBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
@@ -10,7 +10,7 @@ use Doctrine\ORM\ORMException;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Flexy Backend Base for Entities
+ * Unifik Backend Base for Entities
  */
 abstract class BaseEntityRepository extends EntityRepository implements ContainerAwareInterface
 {

@@ -1,13 +1,13 @@
 <?php
 
-namespace Flexy\SystemBundle\Form\ChoiceList;
+namespace Unifik\SystemBundle\Form\ChoiceList;
 
 use Symfony\Bridge\Doctrine\Form\ChoiceList\ORMQueryBuilderLoader;
 use Symfony\Component\Form\Exception\UnexpectedTypeException;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
 
-use Flexy\SystemBundle\Lib\TreeEntityOrderer;
+use Unifik\SystemBundle\Lib\TreeEntityOrderer;
 
 /**
  * Class ORMSortedQueryBuilderLoader

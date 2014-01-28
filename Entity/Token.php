@@ -1,15 +1,15 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * Token
  */
 class Token
 {
-    use FlexyORMBehaviors\Timestampable\Timestampable;
+    use UnifikORMBehaviors\Timestampable\Timestampable;
 
     public function __toString()
     {
@@ -34,7 +34,7 @@ class Token
      */
     public function getRouteBackend($suffix = 'edit')
     {
-        return 'flexy_system_backend_translation_' . $suffix;
+        return 'unifik_system_backend_translation_' . $suffix;
     }
 
     /**
@@ -150,10 +150,10 @@ class Token
     /**
      * Add translations
      *
-     * @param \Flexy\SystemBundle\Entity\TokenTranslation $translations
+     * @param \Unifik\SystemBundle\Entity\TokenTranslation $translations
      * @return Token
      */
-    public function addTranslation(\Flexy\SystemBundle\Entity\TokenTranslation $translation)
+    public function addTranslation(\Unifik\SystemBundle\Entity\TokenTranslation $translation)
     {
         $this->translations[] = $translation;
 
@@ -163,9 +163,9 @@ class Token
     /**
      * Remove translations
      *
-     * @param \Flexy\SystemBundle\Entity\TokenTranslation $translations
+     * @param \Unifik\SystemBundle\Entity\TokenTranslation $translations
      */
-    public function removeTranslation(\Flexy\SystemBundle\Entity\TokenTranslation $translation)
+    public function removeTranslation(\Unifik\SystemBundle\Entity\TokenTranslation $translation)
     {
         $this->translations->removeElement($translation);
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Command;
+namespace Unifik\SystemBundle\Command;
 
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;
@@ -11,7 +11,7 @@ use Sensio\Bundle\GeneratorBundle\Command\Validators;
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineCrudCommand;
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 
-use Flexy\SystemBundle\Generator\DoctrineFormGenerator;
+use Unifik\SystemBundle\Generator\DoctrineFormGenerator;
 
 /**
  * Generate CRUD Command
@@ -40,8 +40,8 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
             new InputOption('route-prefix', '', InputOption::VALUE_REQUIRED, 'The route prefix'),
             new InputOption('with-jqgrid', '', InputOption::VALUE_NONE, 'use if you want to generate a jqgrid array'),
         );
-        $this->setName('flexy:generate:crud')
-            ->setDescription('Generates a CRUD based on an Flexy entity')
+        $this->setName('unifik:generate:crud')
+            ->setDescription('Generates a CRUD based on an Unifik entity')
             ->setDefinition($setDefinitionOptions);
 
     }
@@ -107,8 +107,8 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
 
         // jqGrid
         if ( $input->getOption('with-jqgrid') ) {
-            $command = $this->getApplication()->find('flexy:jqgrid:generate');
-            $arguments = array('entity' => $input->getOption('entity'), 'command' => 'flexy:jqgrid:generate');
+            $command = $this->getApplication()->find('unifik:jqgrid:generate');
+            $arguments = array('entity' => $input->getOption('entity'), 'command' => 'unifik:jqgrid:generate');
             $command->run( new ArrayInput($arguments), $output );
         }
 
@@ -124,7 +124,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
     public function interact(InputInterface $input, OutputInterface $output)
     {
         $dialog = $this->getDialogHelper();
-        $dialog->writeSection($output, 'Welcome to the Flexy CMS CRUD generator');
+        $dialog->writeSection($output, 'Welcome to the Unifik CMS CRUD generator');
 
         // namespace
         $output->writeln(
@@ -134,7 +134,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
                 '',
                 'First, you need to give the entity for which you want to generate a CRUD.',
                 '',
-                'You must use the shortcut notation like <comment>FlexyBlogBundle:Post</comment>.',
+                'You must use the shortcut notation like <comment>UnifikBlogBundle:Post</comment>.',
                 '',
             )
         );
@@ -214,7 +214,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
     protected function getFormGenerator($bundle = null)
     {
         if (null === $this->formGenerator) {
-            $this->formGenerator = new \Flexy\SystemBundle\Generator\DoctrineFormGenerator(
+            $this->formGenerator = new \Unifik\SystemBundle\Generator\DoctrineFormGenerator(
                 $this->getContainer()->get('filesystem')
             );
             $this->formGenerator->setSkeletonDirs($this->getSkeletonDirs($bundle));

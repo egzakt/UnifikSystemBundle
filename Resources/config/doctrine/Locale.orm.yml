@@ -1,4 +1,4 @@
-Flexy\SystemBundle\Entity\Locale:
+Unifik\SystemBundle\Entity\Locale:
   type: entity
   fields:
     id:
@@ -20,4 +20,4 @@ Flexy\SystemBundle\Entity\Locale:
     active:
       type: boolean
       nullable: true
-  repositoryClass: Flexy\SystemBundle\Entity\LocaleRepository
+  repositoryClass: Unifik\SystemBundle\Entity\LocaleRepository

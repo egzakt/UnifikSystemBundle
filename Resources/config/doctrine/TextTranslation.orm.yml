@@ -1,4 +1,4 @@
-Flexy\SystemBundle\Entity\TextTranslation:
+Unifik\SystemBundle\Entity\TextTranslation:
   type: entity
   fields:
     id:

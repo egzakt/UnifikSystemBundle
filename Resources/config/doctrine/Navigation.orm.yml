@@ -1,6 +1,6 @@
-Flexy\SystemBundle\Entity\Navigation:
+Unifik\SystemBundle\Entity\Navigation:
   type: entity
-  repositoryClass: Flexy\SystemBundle\Entity\NavigationRepository
+  repositoryClass: Unifik\SystemBundle\Entity\NavigationRepository
   fields:
     id:
       type: integer
@@ -15,14 +15,14 @@ Flexy\SystemBundle\Entity\Navigation:
       length: 255
   oneToMany:
     sectionNavigations:
-      targetEntity: Flexy\SystemBundle\Entity\SectionNavigation
+      targetEntity: Unifik\SystemBundle\Entity\SectionNavigation
       mappedBy: navigation
     mappings:
-      targetEntity: Flexy\SystemBundle\Entity\Mapping
+      targetEntity: Unifik\SystemBundle\Entity\Mapping
       mappedBy: navigation
   manyToOne:
     app:
-      targetEntity: Flexy\SystemBundle\Entity\App
+      targetEntity: Unifik\SystemBundle\Entity\App
       inversedBy: navigations
       joinColumn:
         name: app_id

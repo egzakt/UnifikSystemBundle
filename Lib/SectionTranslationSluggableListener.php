@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
-use Flexy\DoctrineBehaviorsBundle\ORM\Sluggable\SluggableListener;
+use Unifik\DoctrineBehaviorsBundle\ORM\Sluggable\SluggableListener;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\QueryBuilder;
@@ -29,7 +29,7 @@ class SectionTranslationSluggableListener extends SluggableListener
 
         $queryBuilder = $em->createQueryBuilder()
                 ->select('DISTINCT(s.slug)')
-                ->from('Flexy\SystemBundle\Entity\SectionTranslation', 's')
+                ->from('Unifik\SystemBundle\Entity\SectionTranslation', 's')
                 ->innerJoin('s.translatable', 't')
                 ->where('s.slug = :slug')
                 ->andWhere('s.locale = :locale')

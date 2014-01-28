@@ -2,18 +2,18 @@
 
 {{ namespace }}
 
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * {{ entity }} Entity
  */
 class {{ entity }}
 {
-    use FlexyORMBehaviors\Translatable\Translation;
+    use UnifikORMBehaviors\Translatable\Translation;
 
     {%- if is_sluggable %}
 
-    use FlexyORMBehaviors\Sluggable\Sluggable;
+    use UnifikORMBehaviors\Sluggable\Sluggable;
     {%- endif %}
 
 

@@ -1,16 +1,16 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
-use Flexy\SystemBundle\Lib\BaseEntityRepository;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * SectionRepository
  */
 class SectionRepository extends BaseEntityRepository
 {
-    use FlexyORMBehaviors\Repository\TranslatableEntityRepository;
+    use UnifikORMBehaviors\Repository\TranslatableEntityRepository;
 
     /**
      * Find By Navigation From Tree
@@ -53,7 +53,7 @@ class SectionRepository extends BaseEntityRepository
     public function findAllFromTree(array $criteria = null, array $orderBy = null)
     {
         $dql = 'SELECT s, t, sn, n, b, p
-                FROM FlexySystemBundle:Section s
+                FROM UnifikSystemBundle:Section s
                 LEFT JOIN s.sectionNavigations sn
                 LEFT JOIN sn.navigation n
                 LEFT JOIN sb.bundle b

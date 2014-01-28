@@ -2,8 +2,8 @@
 
 {{ namespace }}
 
-use Flexy\SystemBundle\Lib\BaseEntity;
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntity;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * {{ entity }} Entity
@@ -12,17 +12,17 @@ class {{ entity }} extends BaseEntity
 {
     {%- if is_timestampable %}
 
-    use FlexyORMBehaviors\Timestampable\Timestampable;
+    use UnifikORMBehaviors\Timestampable\Timestampable;
     {%- endif %}
 
     {%- if is_sluggable %}
 
-    use FlexyORMBehaviors\Sluggable\Sluggable;
+    use UnifikORMBehaviors\Sluggable\Sluggable;
     {%- endif %}
 
     {%- if has_i18n %}
 
-    use FlexyORMBehaviors\Translatable\Translatable;
+    use UnifikORMBehaviors\Translatable\Translatable;
     {%- endif %}
 
 

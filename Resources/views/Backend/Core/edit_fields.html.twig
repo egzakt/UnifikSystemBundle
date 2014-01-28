@@ -169,7 +169,7 @@
                     </script>
 
                     {% javascripts
-                        '@FlexySystemBundle/Resources/public/backend/js/tree-choice.js'
+                        '@UnifikSystemBundle/Resources/public/backend/js/tree-choice.js'
                     %}
                     <script type="text/javascript" src="{{ asset_url }}"></script>
                     {% endjavascripts %}
@@ -227,7 +227,7 @@
             {% endif %}
             <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
                 {%- if entity.id is defined -%}
-                    {% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}
+                    {% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}
                 {%- else -%}
                     {{ label|trans|raw }}
                 {%- endif -%}

@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Controller\Backend\Locale;
+namespace Unifik\SystemBundle\Controller\Backend\Locale;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,9 +9,9 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Flexy\SystemBundle\Lib\Backend\BackendController;
-use Flexy\SystemBundle\Entity\Locale;
-use Flexy\SystemBundle\Form\Backend\LocaleType;
+use Unifik\SystemBundle\Lib\Backend\BackendController;
+use Unifik\SystemBundle\Entity\Locale;
+use Unifik\SystemBundle\Form\Backend\LocaleType;
 
 /**
  * Locale Controller
@@ -38,9 +38,9 @@ class LocaleController extends BackendController
      */
     public function listAction()
     {
-        $locales = $this->getEm()->getRepository('FlexySystemBundle:Locale')->findBy(array(), array('ordering' => 'ASC'));
+        $locales = $this->getEm()->getRepository('UnifikSystemBundle:Locale')->findBy(array(), array('ordering' => 'ASC'));
 
-        return $this->render('FlexySystemBundle:Backend/Locale/Locale:list.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Locale/Locale:list.html.twig', array(
             'locales' => $locales,
             'default_locale' => $this->container->getParameter('locale')
         ));
@@ -59,7 +59,7 @@ class LocaleController extends BackendController
         /**
          * @var $locale Locale
          */
-        $locale = $this->getEm()->getRepository('FlexySystemBundle:Locale')->find($id);
+        $locale = $this->getEm()->getRepository('UnifikSystemBundle:Locale')->find($id);
 
         if (false == $locale) {
             $locale = new Locale();
@@ -82,10 +82,10 @@ class LocaleController extends BackendController
                     array('%entity%' => $locale))
                 );
 
-                $this->get('flexy_database_config.container_invalidator')->invalidate();
+                $this->get('unifik_database_config.container_invalidator')->invalidate();
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('flexy_system_backend_locale'));
+                    return $this->redirect($this->generateUrl('unifik_system_backend_locale'));
                 }
 
                 return $this->redirect($this->generateUrl($locale->getRoute(), $locale->getRouteParams()));
@@ -94,7 +94,7 @@ class LocaleController extends BackendController
             }
         }
 
-        return $this->render('FlexySystemBundle:Backend/Locale/Locale:edit.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Locale/Locale:edit.html.twig', array(
             'locale' => $locale,
             'default_locale' => $this->container->getParameter('locale'),
             'form' => $form->createView()
@@ -111,7 +111,7 @@ class LocaleController extends BackendController
      */
     public function checkDeleteAction(Request $request, $id)
     {
-        $locale = $this->getEm()->getRepository('FlexySystemBundle:Locale')->find($id);
+        $locale = $this->getEm()->getRepository('UnifikSystemBundle:Locale')->find($id);
         $output = $this->checkDeleteEntity($locale);
 
         return new JsonResponse($output);
@@ -127,12 +127,12 @@ class LocaleController extends BackendController
      */
     public function deleteAction(Request $request, $id)
     {
-        $locale = $this->getEm()->getRepository('FlexySystemBundle:Locale')->find($id);
+        $locale = $this->getEm()->getRepository('UnifikSystemBundle:Locale')->find($id);
         $this->deleteEntity($locale);
 
-        $this->get('flexy_database_config.container_invalidator')->invalidate();
+        $this->get('unifik_database_config.container_invalidator')->invalidate();
 
-        return $this->redirect($this->generateUrl('flexy_system_backend_locale'));
+        return $this->redirect($this->generateUrl('unifik_system_backend_locale'));
     }
 
 }

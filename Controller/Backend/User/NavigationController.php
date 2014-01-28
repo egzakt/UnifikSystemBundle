@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Controller\Backend\User;
+namespace Unifik\SystemBundle\Controller\Backend\User;
 
-use Flexy\SystemBundle\Lib\Backend\BaseController;
+use Unifik\SystemBundle\Lib\Backend\BaseController;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
@@ -24,9 +24,9 @@ class NavigationController extends BaseController
             return new Response();
         }
 
-        $selected = (0 === strpos($_masterRoute, 'flexy_system_backend_user'));
+        $selected = (0 === strpos($_masterRoute, 'unifik_system_backend_user'));
 
-        return $this->render('FlexySystemBundle:Backend/User/Navigation:global_bundle_bar.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/User/Navigation:global_bundle_bar.html.twig', array(
             'selected' => $selected
         ));
     }

@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
 /**
  * Navigation Item Interface

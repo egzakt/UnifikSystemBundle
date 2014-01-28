@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
 use Symfony\Component\HttpKernel\Kernel;
 use Symfony\Component\Finder\Finder;

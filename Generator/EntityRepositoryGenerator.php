@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Generator;
+namespace Unifik\SystemBundle\Generator;
 
 /**
  * Entity Repository Generator

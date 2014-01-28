@@ -17,7 +17,7 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace Flexy\SystemBundle\Generator\Tools;
+namespace Unifik\SystemBundle\Generator\Tools;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\Common\Util\Inflector;

@@ -1,7 +1,7 @@
-CKEDITOR.addTemplates('flexy', {
+CKEDITOR.addTemplates('unifik', {
 
     // The name of the subfolder that contains the preview images of the templates.
-    imagesPath : '/bundles/flexysystem/backend/images/templates/',
+    imagesPath : '/bundles/unifiksystem/backend/images/templates/',
 
     // Template definitions.
     templates :

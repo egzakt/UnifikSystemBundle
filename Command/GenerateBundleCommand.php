@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Command;
+namespace Unifik\SystemBundle\Command;
 
 use Sensio\Bundle\GeneratorBundle\Command\GenerateBundleCommand as BaseGenerateBundleCommand;
 use Sensio\Bundle\GeneratorBundle\Command\Validators;
@@ -11,8 +11,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 
-use Flexy\SystemBundle\Manipulator\RoutingManipulator;
-use Flexy\SystemBundle\Generator\BundleGenerator;
+use Unifik\SystemBundle\Manipulator\RoutingManipulator;
+use Unifik\SystemBundle\Generator\BundleGenerator;
 
 /**
  * Generates bundles.
@@ -53,7 +53,7 @@ If you want to disable any user interaction, use <comment>--no-interaction</comm
 Note that the bundle namespace must end with "Bundle".
 EOT
             )
-            ->setName('flexy:generate:bundle')
+            ->setName('unifik:generate:bundle')
         ;
     }
 

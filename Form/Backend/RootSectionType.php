@@ -1,10 +1,10 @@
 <?php
 
-namespace Flexy\SystemBundle\Form\Backend;
+namespace Unifik\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\FormBuilderInterface;
 
-use Flexy\SystemBundle\Form\Backend\SectionType;
+use Unifik\SystemBundle\Form\Backend\SectionType;
 
 /**
  * RootSection Type

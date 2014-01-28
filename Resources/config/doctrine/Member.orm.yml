@@ -1,6 +1,6 @@
-Flexy\SystemBundle\Entity\Member:
+Unifik\SystemBundle\Entity\Member:
   type: entity
-  repositoryClass: Flexy\SystemBundle\Entity\MemberRepository
+  repositoryClass: Unifik\SystemBundle\Entity\MemberRepository
   fields:
     id:
       type: integer

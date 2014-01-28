@@ -1,10 +1,10 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
-use Flexy\SystemBundle\Entity\App;
-use Flexy\SystemBundle\Entity\Section;
-use Flexy\SystemBundle\Lib\NavigationElementInterface;
+use Unifik\SystemBundle\Entity\App;
+use Unifik\SystemBundle\Entity\Section;
+use Unifik\SystemBundle\Lib\NavigationElementInterface;
 
 /**
  * Base Controller Interface

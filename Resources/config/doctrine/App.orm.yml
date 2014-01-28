@@ -1,6 +1,6 @@
-Flexy\SystemBundle\Entity\App:
+Unifik\SystemBundle\Entity\App:
   type: entity
-  repositoryClass: Flexy\SystemBundle\Entity\AppRepository
+  repositoryClass: Unifik\SystemBundle\Entity\AppRepository
   fields:
     id:
       type: integer
@@ -20,11 +20,11 @@ Flexy\SystemBundle\Entity\App:
       nullable: true
   oneToMany:
     sections:
-      targetEntity: Flexy\SystemBundle\Entity\Section
+      targetEntity: Unifik\SystemBundle\Entity\Section
       mappedBy: app
     mappings:
-      targetEntity: Flexy\SystemBundle\Entity\Mapping
+      targetEntity: Unifik\SystemBundle\Entity\Mapping
       mappedBy: app
     navigations:
-      targetEntity: Flexy\SystemBundle\Entity\Navigation
+      targetEntity: Unifik\SystemBundle\Entity\Navigation
       mappedBy: app

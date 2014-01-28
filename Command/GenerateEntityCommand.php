@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Command;
+namespace Unifik\SystemBundle\Command;
 
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\DependencyInjection\Container;
 use Sensio\Bundle\GeneratorBundle\Command\Validators;
 
 use Sensio\Bundle\GeneratorBundle\Command\GenerateDoctrineEntityCommand as BaseGenerateEntityCommand;
-use Flexy\SystemBundle\Generator\DoctrineEntityGenerator as FlexyDoctrineEntityGenerator;
+use Unifik\SystemBundle\Generator\DoctrineEntityGenerator as UnifikDoctrineEntityGenerator;
 
 /**
  * Generate Entity Command
@@ -22,7 +22,7 @@ use Flexy\SystemBundle\Generator\DoctrineEntityGenerator as FlexyDoctrineEntityG
 class GenerateEntityCommand extends BaseGenerateEntityCommand
 {
     /**
-     * @var \Flexy\SystemBundle\Generator\DoctrineEntityGenerator
+     * @var \Unifik\SystemBundle\Generator\DoctrineEntityGenerator
      */
     private $generator;
 
@@ -32,8 +32,8 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
     protected function configure()
     {
         $this
-            ->setName('flexy:generate:entity')
-            ->setDescription('Generate a new Flexy entity inside a bundle')
+            ->setName('unifik:generate:entity')
+            ->setDescription('Generate a new Unifik entity inside a bundle')
             ->addOption('entity', null, InputOption::VALUE_REQUIRED, 'The entity class name to initialize (shortcut notation)')
             ->addOption('fields', null, InputOption::VALUE_REQUIRED, 'The fields to create with the new entity')
             ->addOption('format', null, InputOption::VALUE_REQUIRED, 'Use the format for configuration files (php, xml, yml, or annotation)', 'yml')
@@ -320,12 +320,12 @@ class GenerateEntityCommand extends BaseGenerateEntityCommand
      *
      * @param BundleInterface $bundle
      *
-     * @return FlexyDoctrineEntityGenerator
+     * @return UnifikDoctrineEntityGenerator
      */
     public function getGenerator(BundleInterface $bundle = null)
     {
         if (null === $this->generator) {
-            $this->generator = new FlexyDoctrineEntityGenerator($this->getContainer()->get('filesystem'), $this->getContainer()->get('doctrine'));
+            $this->generator = new UnifikDoctrineEntityGenerator($this->getContainer()->get('filesystem'), $this->getContainer()->get('doctrine'));
             $this->generator->setSkeletonDirs($this->getSkeletonDirs());
         }
 

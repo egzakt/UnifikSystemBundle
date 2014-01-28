@@ -55,7 +55,7 @@
 
                     {% if 'ordering' in fields|keys -%}
                     <th colspan="2" class="switch_list_mode">
-                    <a href="#"><img src="{{ '{{ asset("bundles/flexysystem/backend/images/buttons/switch_list_mode_off.gif") }}' }}" width="20" height="20" alt="" /></a>
+                    <a href="#"><img src="{{ '{{ asset("bundles/unifiksystem/backend/images/buttons/switch_list_mode_off.gif") }}' }}" width="20" height="20" alt="" /></a>
                     </th>
                     {%- else -%}
                     <th class="edit"></th>
@@ -94,7 +94,7 @@
                         {%- if metadata.type in ['boolean'] %}{% set class = class ~ ' centered' %}{% endif -%}
 
                         {%- if field == 'name' %}
-                            {%- set render = "{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': " ~ twig_entity_var ~ " } %}" -%}
+                            {%- set render = "{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': " ~ twig_entity_var ~ " } %}" -%}
                         {% else %}
                             {%- set render = '{{ ' ~ twig_entity_var ~ '.' ~ field ~ '|raw }}' -%}
                         {% endif %}
@@ -103,7 +103,7 @@
                         {%- elseif metadata.type in ['boolean'] %}
                             {% set render =
                                 '{% if ' ~ twig_entity_var ~ '.' ~ field ~ ' %}
-                                <img src="{{ asset("bundles/flexysystem/backend/images/icons/tick.png") }}" width="16" height="16" alt="yes">
+                                <img src="{{ asset("bundles/unifiksystem/backend/images/icons/tick.png") }}" width="16" height="16" alt="yes">
                              {% endif %}' %}
                         {% endif %}
 
@@ -119,13 +119,13 @@
                         <td class="edit">
                             {{ "{% if " ~ twig_entity_var ~ ".isEditable %}" }}
                                 <a href="{{ "{{ path(" ~ twig_entity_var ~ ".route, " ~ twig_entity_var ~ ".routeParams) }}" }}" title="{{ '{% trans %}' }}Edit{{ '{% endtrans %}' }}">
-                                    <img src="{{ "{{ asset('bundles/flexysystem/backend/images/buttons/edit.png') }}" }}" width="15" height="15" alt="" />
+                                    <img src="{{ "{{ asset('bundles/unifiksystem/backend/images/buttons/edit.png') }}" }}" width="15" height="15" alt="" />
                                 </a>
                             {{ "{% endif %}" }}
                         </td>
                         <td class="delete">
                             <a href="{{ "{{ path(" ~ twig_entity_var ~ ".route('delete'), " ~ twig_entity_var ~ ".routeParams) }}" }}" rel="{{ "{{ path(" ~ twig_entity_var ~ ".route('delete'), " ~ twig_entity_var ~ ".routeParams({'message': true})) }}" }}" title="{{ '{% trans %}' }}Delete{{ '{% endtrans %}' }}">
-                                <img src="{{ "{{ asset('bundles/flexysystem/backend/images/buttons/delete.png') }}" }}" width="12" height="15" alt="" />
+                                <img src="{{ "{{ asset('bundles/unifiksystem/backend/images/buttons/delete.png') }}" }}" width="12" height="15" alt="" />
                             </a>
                         </td>
                     </tr>

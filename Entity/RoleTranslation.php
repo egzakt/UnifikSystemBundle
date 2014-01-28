@@ -1,15 +1,15 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * RoleTranslation
  */
 class RoleTranslation
 {
-    use FlexyORMBehaviors\Translatable\Translation;
+    use UnifikORMBehaviors\Translatable\Translation;
 
     /**
      * @var integer $id

@@ -1,19 +1,19 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib\Backend;
+namespace Unifik\SystemBundle\Lib\Backend;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Flexy\SystemBundle\Entity\AppRepository;
+use Unifik\SystemBundle\Entity\AppRepository;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
 
-use Flexy\SystemBundle\Entity\App;
-use Flexy\SystemBundle\Entity\Section;
-use Flexy\SystemBundle\Lib\ApplicationCoreInterface;
-use Flexy\SystemBundle\Lib\Breadcrumbs;
-use Flexy\SystemBundle\Lib\NavigationElementInterface;
-use Flexy\SystemBundle\Lib\PageTitle;
+use Unifik\SystemBundle\Entity\App;
+use Unifik\SystemBundle\Entity\Section;
+use Unifik\SystemBundle\Lib\ApplicationCoreInterface;
+use Unifik\SystemBundle\Lib\Breadcrumbs;
+use Unifik\SystemBundle\Lib\NavigationElementInterface;
+use Unifik\SystemBundle\Lib\PageTitle;
 
 /**
  * Backend Core Class
@@ -132,9 +132,9 @@ class Core implements ApplicationCoreInterface
      */
     public function getSectionId()
     {
-        $flexyRequest = $this->request->attributes->get('_flexyRequest');
+        $unifikRequest = $this->request->attributes->get('_unifikRequest');
 
-        return $flexyRequest['sectionId'] ?: 0;
+        return $unifikRequest['sectionId'] ?: 0;
     }
 
     /**
@@ -150,7 +150,7 @@ class Core implements ApplicationCoreInterface
 
         $em = $this->doctrine->getManager();
 
-        $this->section = $em->getRepository('FlexySystemBundle:Section')->find($this->getSectionId());
+        $this->section = $em->getRepository('UnifikSystemBundle:Section')->find($this->getSectionId());
 
         return $this->section;
     }
@@ -168,7 +168,7 @@ class Core implements ApplicationCoreInterface
             return $this->app;
         }
 
-        $appRepo = $this->doctrine->getManager()->getRepository('FlexySystemBundle:App');
+        $appRepo = $this->doctrine->getManager()->getRepository('UnifikSystemBundle:App');
         if ($this->request->get('appSlug')) {
             $this->app = $appRepo->findOneBy(array('slug' => $this->request->get('appSlug')));
             $method = 'route parameter {appSlug}';

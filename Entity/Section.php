@@ -1,20 +1,20 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\ExecutionContext;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntity;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * Section
  */
 class Section extends BaseEntity
 {
-    use FlexyORMBehaviors\Translatable\Translatable;
-    use FlexyORMBehaviors\Timestampable\Timestampable;
+    use UnifikORMBehaviors\Translatable\Translatable;
+    use UnifikORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer
@@ -544,9 +544,9 @@ class Section extends BaseEntity
     /**
      * Remove children
      *
-     * @param \Flexy\SystemBundle\Entity\Section $children
+     * @param \Unifik\SystemBundle\Entity\Section $children
      */
-    public function removeChildren(\Flexy\SystemBundle\Entity\Section $children)
+    public function removeChildren(\Unifik\SystemBundle\Entity\Section $children)
     {
         $this->children->removeElement($children);
     }
@@ -554,10 +554,10 @@ class Section extends BaseEntity
     /**
      * Add roles
      *
-     * @param  \Flexy\SystemBundle\Entity\Role $roles
+     * @param  \Unifik\SystemBundle\Entity\Role $roles
      * @return Section
      */
-    public function addRole(\Flexy\SystemBundle\Entity\Role $roles)
+    public function addRole(\Unifik\SystemBundle\Entity\Role $roles)
     {
         $this->roles[] = $roles;
 
@@ -577,9 +577,9 @@ class Section extends BaseEntity
     /**
      * Remove roles
      *
-     * @param \Flexy\SystemBundle\Entity\Role $roles
+     * @param \Unifik\SystemBundle\Entity\Role $roles
      */
-    public function removeRole(\Flexy\SystemBundle\Entity\Role $roles)
+    public function removeRole(\Unifik\SystemBundle\Entity\Role $roles)
     {
         $this->roles->removeElement($roles);
     }
@@ -597,9 +597,9 @@ class Section extends BaseEntity
     /**
      * Remove texts
      *
-     * @param \Flexy\SystemBundle\Entity\Text $texts
+     * @param \Unifik\SystemBundle\Entity\Text $texts
      */
-    public function removeText(\Flexy\SystemBundle\Entity\Text $texts)
+    public function removeText(\Unifik\SystemBundle\Entity\Text $texts)
     {
         $this->texts->removeElement($texts);
     }
@@ -607,9 +607,9 @@ class Section extends BaseEntity
     /**
      * Remove sectionNavigations
      *
-     * @param \Flexy\SystemBundle\Entity\SectionNavigation $sectionNavigations
+     * @param \Unifik\SystemBundle\Entity\SectionNavigation $sectionNavigations
      */
-    public function removeSectionNavigation(\Flexy\SystemBundle\Entity\SectionNavigation $sectionNavigations)
+    public function removeSectionNavigation(\Unifik\SystemBundle\Entity\SectionNavigation $sectionNavigations)
     {
         $this->sectionNavigations->removeElement($sectionNavigations);
     }
@@ -617,10 +617,10 @@ class Section extends BaseEntity
     /**
      * Add mappings
      *
-     * @param  \Flexy\SystemBundle\Entity\Mapping $mappings
+     * @param  \Unifik\SystemBundle\Entity\Mapping $mappings
      * @return Section
      */
-    public function addMapping(\Flexy\SystemBundle\Entity\Mapping $mappings)
+    public function addMapping(\Unifik\SystemBundle\Entity\Mapping $mappings)
     {
         $this->mappings[] = $mappings;
 
@@ -630,9 +630,9 @@ class Section extends BaseEntity
     /**
      * Remove mappings
      *
-     * @param \Flexy\SystemBundle\Entity\Mapping $mappings
+     * @param \Unifik\SystemBundle\Entity\Mapping $mappings
      */
-    public function removeMapping(\Flexy\SystemBundle\Entity\Mapping $mappings)
+    public function removeMapping(\Unifik\SystemBundle\Entity\Mapping $mappings)
     {
         $this->mappings->removeElement($mappings);
     }

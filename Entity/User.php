@@ -1,19 +1,19 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntity;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * User
  */
 class User extends BaseEntity implements AdvancedUserInterface, \Serializable
 {
-    use FlexyORMBehaviors\Timestampable\Timestampable;
+    use UnifikORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var int
@@ -267,7 +267,7 @@ class User extends BaseEntity implements AdvancedUserInterface, \Serializable
      *
      * @return $this
      */
-    public function addRole(\Flexy\SystemBundle\Entity\Role $role)
+    public function addRole(\Unifik\SystemBundle\Entity\Role $role)
     {
         $this->roles[] = $role;
 

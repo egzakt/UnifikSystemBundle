@@ -1,19 +1,19 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntity;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * Member
  */
 class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
 {
-    use FlexyORMBehaviors\Timestampable\Timestampable;
+    use UnifikORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer
@@ -101,7 +101,7 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
      */
     public function getRouteBackend($suffix = 'edit')
     {
-        return 'flexy_system_backend_member_' . $suffix;
+        return 'unifik_system_backend_member_' . $suffix;
     }
 
     /**

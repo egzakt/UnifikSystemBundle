@@ -1,4 +1,4 @@
-{% extends 'FlexySystemBundle:Backend/Section:layout.html.twig' %}
+{% extends 'UnifikSystemBundle:Backend/Section:layout.html.twig' %}
 
 {% block content_header %}
     <h1>{% trans %}Sections List{% endtrans %}</h1>
@@ -7,11 +7,11 @@
 {% block content_main %}
 
     <script type="text/javascript">
-       var url_ordre = '{{ path('flexy_system_backend_section_root_order', { appSlug: managedApp.slug }) }}';
+       var url_ordre = '{{ path('unifik_system_backend_section_root_order', { appSlug: managedApp.slug }) }}';
     </script>
 
     <div id="list_actions_bar">
-       <a class="add" href="{{ path('flexy_system_backend_section_root_edit', { appSlug: managedApp.slug }) }}">
+       <a class="add" href="{{ path('unifik_system_backend_section_root_edit', { appSlug: managedApp.slug }) }}">
            {% trans %}Add a section{% endtrans %}
        </a>
     </div>
@@ -21,7 +21,7 @@
             <div class="list_box">
                 <h2>{{ navigation|capitalize|trans }}</h2>
 
-                {% include 'FlexySystemBundle:Backend/Section/Root:list_table.html.twig' with {
+                {% include 'UnifikSystemBundle:Backend/Section/Root:list_table.html.twig' with {
                     'entities': navigation.sections,
                     'navigation': navigation
                 } %}
@@ -77,7 +77,7 @@
                 {% for section in withoutNavigation %}
                     <tr id="item_{{ section.id }}">
                         <td class="name{% if not section.active %} inactive{% endif %}">
-                            <a href="{{ path('flexy_system_backend_section_root_edit', { id: section.id, appSlug: managedApp.slug }) }}">{% include 'FlexySystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': section } %}</a>
+                            <a href="{{ path('unifik_system_backend_section_root_edit', { id: section.id, appSlug: managedApp.slug }) }}">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': section } %}</a>
                         </td>
                         <td>
                             {{ section.children|length }}
@@ -87,14 +87,14 @@
                         </td>
                         <td class="edit">
                             {% if section.isEditable %}
-                                <a href="{{ path('flexy_system_backend_section_root_edit', { id: section.id, appSlug: managedApp.slug }) }}" title="{% trans %}Edit{% endtrans %}">
-                                    <img src="{{ asset('bundles/flexysystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+                                <a href="{{ path('unifik_system_backend_section_root_edit', { id: section.id, appSlug: managedApp.slug }) }}" title="{% trans %}Edit{% endtrans %}">
+                                    <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
                                 </a>
                             {% endif %}
                         </td>
                         <td class="delete">
-                            <a href="{{ path('flexy_system_backend_section_root_delete', { id: section.id, appSlug: managedApp.slug }) }}" rel="{{ path('flexy_system_backend_section_root_delete', { id: section.id, appSlug: managedApp.slug, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
-                                <img src="{{ asset('bundles/flexysystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                            <a href="{{ path('unifik_system_backend_section_root_delete', { id: section.id, appSlug: managedApp.slug }) }}" rel="{{ path('unifik_system_backend_section_root_delete', { id: section.id, appSlug: managedApp.slug, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
+                                <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
                             </a>
                         </td>
                     </tr>

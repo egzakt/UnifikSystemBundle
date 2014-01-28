@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Controller\Backend\Section;
+namespace Unifik\SystemBundle\Controller\Backend\Section;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -8,12 +8,12 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
-use Flexy\SystemBundle\Lib\Backend\BackendController;
-use Flexy\SystemBundle\Entity\Mapping;
-use Flexy\SystemBundle\Entity\NavigationRepository;
-use Flexy\SystemBundle\Entity\Section;
-use Flexy\SystemBundle\Entity\SectionRepository;
-use Flexy\SystemBundle\Form\Backend\SectionType;
+use Unifik\SystemBundle\Lib\Backend\BackendController;
+use Unifik\SystemBundle\Entity\Mapping;
+use Unifik\SystemBundle\Entity\NavigationRepository;
+use Unifik\SystemBundle\Entity\Section;
+use Unifik\SystemBundle\Entity\SectionRepository;
+use Unifik\SystemBundle\Form\Backend\SectionType;
 
 /**
  * Section controller.
@@ -43,8 +43,8 @@ class SectionController extends BackendController
             throw new AccessDeniedHttpException('You don\'t have the privileges to view this page.');
         }
 
-        $this->sectionRepository = $this->getEm()->getRepository('FlexySystemBundle:Section');
-        $this->navigationRepository = $this->getEm()->getRepository('FlexySystemBundle:Navigation');
+        $this->sectionRepository = $this->getEm()->getRepository('UnifikSystemBundle:Section');
+        $this->navigationRepository = $this->getEm()->getRepository('UnifikSystemBundle:Navigation');
     }
 
     /**
@@ -59,7 +59,7 @@ class SectionController extends BackendController
             array('ordering' => 'ASC')
         );
 
-        return $this->render('FlexySystemBundle:Backend/Section/Section:list.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Section/Section:list.html.twig', array(
             'entities' => $entities,
         ));
     }
@@ -102,13 +102,13 @@ class SectionController extends BackendController
 
                     $sectionModuleBar = $this->navigationRepository->find(NavigationRepository::SECTION_MODULE_BAR_ID);
 
-                    $app = $this->getEm()->getRepository('FlexySystemBundle:App')->findOneByName('backend');
+                    $app = $this->getEm()->getRepository('UnifikSystemBundle:App')->findOneByName('backend');
 
                     $mapping = new Mapping();
                     $mapping->setSection($entity);
                     $mapping->setApp($app);
                     $mapping->setType('route');
-                    $mapping->setTarget('flexy_system_backend_text');
+                    $mapping->setTarget('unifik_system_backend_text');
 
                     $entity->addMapping($mapping);
 
@@ -117,7 +117,7 @@ class SectionController extends BackendController
                     $mapping->setApp($app);
                     $mapping->setNavigation($sectionModuleBar);
                     $mapping->setType('render');
-                    $mapping->setTarget('FlexySystemBundle:Backend/Text/Navigation:SectionModuleBar');
+                    $mapping->setTarget('UnifikSystemBundle:Backend/Text/Navigation:SectionModuleBar');
 
                     $entity->addMapping($mapping);
 
@@ -126,7 +126,7 @@ class SectionController extends BackendController
                     $mapping->setApp($app);
                     $mapping->setNavigation($sectionModuleBar);
                     $mapping->setType('render');
-                    $mapping->setTarget('FlexySystemBundle:Backend/Section/Navigation:SectionModuleBar');
+                    $mapping->setTarget('UnifikSystemBundle:Backend/Section/Navigation:SectionModuleBar');
 
                     $entity->addMapping($mapping);
 
@@ -135,22 +135,22 @@ class SectionController extends BackendController
                     $mapping->setSection($entity);
                     $mapping->setApp($this->getApp());
                     $mapping->setType('route');
-                    $mapping->setTarget('flexy_system_frontend_text');
+                    $mapping->setTarget('unifik_system_frontend_text');
 
                     $entity->addMapping($mapping);
                 }
 
                 $this->getEm()->flush();
 
-                $this->get('flexy_system.router_invalidator')->invalidate();
+                $this->get('unifik_system.router_invalidator')->invalidate();
 
                 $this->addFlashSuccess($this->get('translator')->trans('%entity% has been saved.', array('%entity%' => $entity)));
 
                 if ($request->get('save')) {
-                    return $this->redirect($this->generateUrl('flexy_system_backend_section'));
+                    return $this->redirect($this->generateUrl('unifik_system_backend_section'));
                 }
 
-                return $this->redirect($this->generateUrl('flexy_system_backend_section_edit', array(
+                return $this->redirect($this->generateUrl('unifik_system_backend_section_edit', array(
                     'id' => $entity->getId() ?: 0
                 )));
             } else {
@@ -158,7 +158,7 @@ class SectionController extends BackendController
             }
         }
 
-        return $this->render('FlexySystemBundle:Backend/Section/Section:edit.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Section/Section:edit.html.twig', array(
             'entity' => $entity,
             'form' => $form->createView()
         ));
@@ -192,9 +192,9 @@ class SectionController extends BackendController
     {
         $section = $this->sectionRepository->find($id);
         $this->deleteEntity($section);
-        $this->get('flexy_system.router_invalidator')->invalidate();
+        $this->get('unifik_system.router_invalidator')->invalidate();
 
-        return $this->redirect($this->generateUrl('flexy_system_backend_section'));
+        return $this->redirect($this->generateUrl('unifik_system_backend_section'));
     }
 
     /**
@@ -207,7 +207,7 @@ class SectionController extends BackendController
     public function orderAction(Request $request)
     {
         $this->orderEntities($request, $this->sectionRepository);
-        $this->get('flexy_system.router_invalidator')->invalidate();
+        $this->get('unifik_system.router_invalidator')->invalidate();
 
         return new Response('');
     }

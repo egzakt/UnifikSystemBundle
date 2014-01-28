@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Form\Backend;
+namespace Unifik\SystemBundle\Form\Backend;
 
 use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
@@ -44,7 +44,7 @@ class SectionType extends AbstractType
                 'label' => 'Application',
                 'required' => false,
                 'empty_value' => false,
-                'class' => 'FlexySystemBundle:App',
+                'class' => 'UnifikSystemBundle:App',
                 'query_builder' => function(EntityRepository $er) {
                     $qb = $er->createQueryBuilder('a')
                         ->where('a.id <> 1')
@@ -56,7 +56,7 @@ class SectionType extends AbstractType
             ->add('navigations', 'entity', array(
                 'multiple' => true,
                 'expanded' => true,
-                'class' => 'FlexySystemBundle:Navigation',
+                'class' => 'UnifikSystemBundle:Navigation',
                 'required' => false,
                 'query_builder' => function(EntityRepository $er) use ($options) {
                     $qb = $er->createQueryBuilder('n');
@@ -92,7 +92,7 @@ class SectionType extends AbstractType
     {
         $resolver->setDefaults(array(
             'cascade_validation' => true,
-            'data_class' => 'Flexy\SystemBundle\Entity\Section',
+            'data_class' => 'Unifik\SystemBundle\Entity\Section',
             'current_section' => null,
             'managed_app' => null
         ));

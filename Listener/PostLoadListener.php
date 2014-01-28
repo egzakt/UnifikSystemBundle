@@ -1,11 +1,11 @@
 <?php
 
-namespace Flexy\SystemBundle\Listener;
+namespace Unifik\SystemBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\DependencyInjection\Container;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
+use Unifik\SystemBundle\Lib\BaseEntity;
 
 /**
  * Post Load Listener

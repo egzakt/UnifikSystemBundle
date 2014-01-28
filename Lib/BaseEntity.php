@@ -1,15 +1,15 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use Flexy\SystemBundle\Lib\EntityInterface;
-use Flexy\SystemBundle\Lib\NavigationElementInterface;
+use Unifik\SystemBundle\Lib\EntityInterface;
+use Unifik\SystemBundle\Lib\NavigationElementInterface;
 
 /**
- * Flexy Backend Base for Entities
+ * Unifik Backend Base for Entities
  */
 abstract class BaseEntity implements EntityInterface, NavigationElementInterface
 {
@@ -200,21 +200,21 @@ abstract class BaseEntity implements EntityInterface, NavigationElementInterface
     /**
      * Gets the System Core
      *
-     * @return \Flexy\System\CoreBundle\Lib\Core
+     * @return \Unifik\System\CoreBundle\Lib\Core
      */
     protected function getSystemCore()
     {
-        return $this->container->get('flexy_system.core');
+        return $this->container->get('unifik_system.core');
     }
 
     /**
      * Gets the current application core
      *
-     * @return \Flexy\Backend\CoreBundle\Lib\Core
+     * @return \Unifik\Backend\CoreBundle\Lib\Core
      */
     public function getCore()
     {
-        return $this->container->get('flexy_' . $this->getSystemCore()->getCurrentAppName() . '.core');
+        return $this->container->get('unifik_' . $this->getSystemCore()->getCurrentAppName() . '.core');
     }
 
     /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Extensions;
+namespace Unifik\SystemBundle\Extensions;
 
 /**
  * @author Christian Fecteau
@@ -44,6 +44,6 @@ class InspectExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'flexy_system_core.inspect';
+        return 'unifik_system_core.inspect';
     }
 }
