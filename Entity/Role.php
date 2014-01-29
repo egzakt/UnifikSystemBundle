@@ -1,22 +1,22 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\Role\RoleInterface;
 
-use Flexy\SystemBundle\Entity\User;
-use Flexy\SystemBundle\Lib\BaseEntity;
+use Unifik\SystemBundle\Entity\User;
+use Unifik\SystemBundle\Lib\BaseEntity;
 
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * Role
  */
 class Role extends BaseEntity implements RoleInterface, \Serializable
 {
-    use FlexyORMBehaviors\Translatable\Translatable;
-    use FlexyORMBehaviors\Timestampable\Timestampable;
+    use UnifikORMBehaviors\Translatable\Translatable;
+    use UnifikORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer
@@ -122,10 +122,10 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     /**
      * Add sections
      *
-     * @param  \Flexy\SystemBundle\Entity\Section $sections
+     * @param  \Unifik\SystemBundle\Entity\Section $sections
      * @return Role
      */
-    public function addSection(\Flexy\SystemBundle\Entity\Section $sections)
+    public function addSection(\Unifik\SystemBundle\Entity\Section $sections)
     {
         $this->sections[] = $sections;
 
@@ -145,9 +145,9 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     /**
      * Remove sections
      *
-     * @param \Flexy\SystemBundle\Entity\Section $sections
+     * @param \Unifik\SystemBundle\Entity\Section $sections
      */
-    public function removeSection(\Flexy\SystemBundle\Entity\Section $sections)
+    public function removeSection(\Unifik\SystemBundle\Entity\Section $sections)
     {
         $this->sections->removeElement($sections);
     }
@@ -165,9 +165,9 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
     /**
      * Remove users
      *
-     * @param \Flexy\SystemBundle\Entity\User $users
+     * @param \Unifik\SystemBundle\Entity\User $users
      */
-    public function removeUser(\Flexy\SystemBundle\Entity\User $users)
+    public function removeUser(\Unifik\SystemBundle\Entity\User $users)
     {
         $this->users->removeElement($users);
     }
@@ -181,7 +181,7 @@ class Role extends BaseEntity implements RoleInterface, \Serializable
      */
     public function getRouteBackend($suffix = 'edit')
     {
-        return 'flexy_system_backend_role_' . $suffix;
+        return 'unifik_system_backend_role_' . $suffix;
     }
 
     /**

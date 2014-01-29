@@ -1,191 +1,191 @@
 # Security
-flexy_system_backend_login:
+unifik_system_backend_login:
     pattern:  /login
-    defaults: { _controller: "FlexySystemBundle:Backend/Security:login", _locale: %locale% } # force default locale
+    defaults: { _controller: "UnifikSystemBundle:Backend/Security:login", _locale: %locale% } # force default locale
 
-flexy_system_backend_login_check:
+unifik_system_backend_login_check:
     pattern:  /login-check
     options:  { i18n: false }
 
-flexy_system_backend_logout:
+unifik_system_backend_logout:
     pattern:  /logout
-    defaults: { _controller: "FlexySystemBundle:Backend/Security:logout" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Security:logout" }
 
 # Home
-flexy_system_backend_dashboard:
+unifik_system_backend_dashboard:
     pattern:  /
-    defaults: { _controller: "FlexySystemBundle:Backend/Dashboard:index" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Dashboard:index" }
 
-flexy_system_backend_switch_managed_app:
+unifik_system_backend_switch_managed_app:
     pattern:  /managed-application/{appSlug}
-    defaults: { _controller: "FlexySystemBundle:Backend/Dashboard:index" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Dashboard:index" }
 
 # Help
-flexy_system_backend_help_detail:
+unifik_system_backend_help_detail:
     pattern:  /help/{itemId}
-    defaults: { _controller: "FlexySystemBundle:Backend/Dashboard:helpDetail" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Dashboard:helpDetail" }
 
-flexy_system_backend_help:
+unifik_system_backend_help:
     pattern:  /help
-    defaults: { _controller: "FlexySystemBundle:Backend/Dashboard:help" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Dashboard:help" }
 
 # Users
-flexy_system_backend_user:
+unifik_system_backend_user:
     pattern:  /users
-    defaults: { _controller: "FlexySystemBundle:Backend/User/User:index" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/User/User:index" }
 
-flexy_system_backend_user_edit:
+unifik_system_backend_user_edit:
     pattern:  /users/{id}/edit
-    defaults: { _controller: "FlexySystemBundle:Backend/User/User:edit", id: 0 }
+    defaults: { _controller: "UnifikSystemBundle:Backend/User/User:edit", id: 0 }
 
-flexy_system_backend_user_delete_check:
+unifik_system_backend_user_delete_check:
     pattern:  /users/{id}/delete/check
-    defaults: { _controller: "FlexySystemBundle:Backend/User/User:checkDelete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/User/User:checkDelete" }
 
-flexy_system_backend_user_delete:
+unifik_system_backend_user_delete:
     pattern:  /users/{id}/delete
-    defaults: { _controller: "FlexySystemBundle:Backend/User/User:delete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/User/User:delete" }
 
 # Roles
-flexy_system_backend_role:
+unifik_system_backend_role:
     pattern:  /roles
-    defaults: { _controller: "FlexySystemBundle:Backend/Role/Role:index" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Role/Role:index" }
 
-flexy_system_backend_role_edit:
+unifik_system_backend_role_edit:
     pattern:  /roles/{id}/edit
-    defaults: { _controller: "FlexySystemBundle:Backend/Role/Role:edit", id: 0 }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Role/Role:edit", id: 0 }
 
-flexy_system_backend_role_delete:
+unifik_system_backend_role_delete:
     pattern:  /roles/{id}/delete
-    defaults: { _controller: "FlexySystemBundle:Backend/Role/Role:delete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Role/Role:delete" }
 
-flexy_system_backend_role_delete_check:
+unifik_system_backend_role_delete_check:
     pattern:  /roles/{id}/delete/check
-    defaults: { _controller: "FlexySystemBundle:Backend/Role/Role:checkDelete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Role/Role:checkDelete" }
 
 # Members
-flexy_system_backend_member:
+unifik_system_backend_member:
     pattern:  /members
-    defaults: { _controller: "FlexySystemBundle:Backend/Member/Member:list" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Member/Member:list" }
 
-flexy_system_backend_member_edit:
+unifik_system_backend_member_edit:
     pattern:  /members/{id}/edit
-    defaults: { _controller: "FlexySystemBundle:Backend/Member/Member:edit", id: 0 }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Member/Member:edit", id: 0 }
 
-flexy_system_backend_member_delete:
+unifik_system_backend_member_delete:
     pattern:  /members/{id}/delete
-    defaults: { _controller: "FlexySystemBundle:Backend/Member/Member:delete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Member/Member:delete" }
 
 # Texts
-flexy_system_backend_text:
+unifik_system_backend_text:
     pattern:  /texts/{sectionId}
-    defaults: { _controller: "FlexySystemBundle:Backend/Text/Text:index" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Text/Text:index" }
 
-flexy_system_backend_text_order:
+unifik_system_backend_text_order:
     pattern:  /texts/{sectionId}/order
-    defaults: { _controller: "FlexySystemBundle:Backend/Text/Text:order" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Text/Text:order" }
 
-flexy_system_backend_text_edit:
+unifik_system_backend_text_edit:
     pattern:  /texts/{sectionId}/{id}/edit
-    defaults: { _controller: "FlexySystemBundle:Backend/Text/Text:edit", id: 0 }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Text/Text:edit", id: 0 }
 
-flexy_system_backend_text_delete:
+unifik_system_backend_text_delete:
     pattern:  /texts/{sectionId}/{id}/delete
-    defaults: { _controller: "FlexySystemBundle:Backend/Text/Text:delete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Text/Text:delete" }
 
-flexy_system_backend_text_delete_check:
+unifik_system_backend_text_delete_check:
     pattern:  /texts/{sectionId}/{id}/delete/check
-    defaults: { _controller: "FlexySystemBundle:Backend/Text/Text:checkDelete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Text/Text:checkDelete" }
 
 # Sections (roots handling)
-flexy_system_backend_section_root:
+unifik_system_backend_section_root:
     pattern:  /sections/{appSlug}/root
-    defaults: { _controller: "FlexySystemBundle:Backend/Section/Root:list" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Section/Root:list" }
 
-flexy_system_backend_section_root_order:
+unifik_system_backend_section_root_order:
     pattern:  /sections/{appSlug}/root/order
-    defaults: { _controller: "FlexySystemBundle:Backend/Section/Root:order" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Section/Root:order" }
 
-flexy_system_backend_section_root_edit:
+unifik_system_backend_section_root_edit:
     pattern:  /sections/{appSlug}/root/{id}/edit
-    defaults: { _controller: "FlexySystemBundle:Backend/Section/Root:edit", id: 0 }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Section/Root:edit", id: 0 }
 
-flexy_system_backend_section_root_delete:
+unifik_system_backend_section_root_delete:
     pattern:  /sections/{appSlug}/root/{id}/delete
-    defaults: { _controller: "FlexySystemBundle:Backend/Section/Root:delete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Section/Root:delete" }
 
-flexy_system_backend_section_root_delete_check:
+unifik_system_backend_section_root_delete_check:
     pattern:  /sections/{appSlug}/root/{id}/delete/check
-    defaults: { _controller: "FlexySystemBundle:Backend/Section/Root:checkDelete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Section/Root:checkDelete" }
 
 # Sections
-flexy_system_backend_section:
+unifik_system_backend_section:
     pattern:  /sections/{sectionId}
-    defaults: { _controller: "FlexySystemBundle:Backend/Section/Section:index" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Section/Section:index" }
 
-flexy_system_backend_section_order:
+unifik_system_backend_section_order:
     pattern:  /sections/{sectionId}/order
-    defaults: { _controller: "FlexySystemBundle:Backend/Section/Section:order" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Section/Section:order" }
 
-flexy_system_backend_section_edit:
+unifik_system_backend_section_edit:
     pattern:  /sections/{sectionId}/{id}/edit
-    defaults: { _controller: "FlexySystemBundle:Backend/Section/Section:edit", id: 0 }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Section/Section:edit", id: 0 }
 
-flexy_system_backend_section_delete:
+unifik_system_backend_section_delete:
     pattern:  /sections/{sectionId}/{id}/delete
-    defaults: { _controller: "FlexySystemBundle:Backend/Section/Section:delete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Section/Section:delete" }
 
-flexy_system_backend_section_delete_check:
+unifik_system_backend_section_delete_check:
     pattern:  /sections/{sectionId}/{id}/delete/check
-    defaults: { _controller: "FlexySystemBundle:Backend/Section/Section:checkDelete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Section/Section:checkDelete" }
 
 # Locales
-flexy_system_backend_locale:
+unifik_system_backend_locale:
     pattern:  /locales
-    defaults: { _controller: "FlexySystemBundle:Backend/Locale/Locale:list" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Locale/Locale:list" }
 
-flexy_system_backend_locale_order:
+unifik_system_backend_locale_order:
     pattern:  /locales/order
-    defaults: { _controller: "FlexySystemBundle:Backend/Locale/Locale:order" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Locale/Locale:order" }
 
-flexy_system_backend_locale_edit:
+unifik_system_backend_locale_edit:
     pattern:  /locales/{id}/edit
-    defaults: { _controller: "FlexySystemBundle:Backend/Locale/Locale:edit", id: 0 }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Locale/Locale:edit", id: 0 }
 
-flexy_system_backend_locale_delete:
+unifik_system_backend_locale_delete:
     pattern:  /locales/{id}/delete
-    defaults: { _controller: "FlexySystemBundle:Backend/Locale/Locale:delete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Locale/Locale:delete" }
 
-flexy_system_backend_locale_delete_check:
+unifik_system_backend_locale_delete_check:
     pattern:  /locales/{id}/delete/check
-    defaults: { _controller: "FlexySystemBundle:Backend/Locale/Locale:checkDelete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Locale/Locale:checkDelete" }
     
 # Applications
-flexy_system_backend_application:
+unifik_system_backend_application:
     pattern:  /applications
-    defaults: { _controller: "FlexySystemBundle:Backend/Application/Application:list" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Application/Application:list" }
 
-flexy_system_backend_application_edit:
+unifik_system_backend_application_edit:
     pattern:  /applications/{applicationId}/edit
-    defaults: { _controller: "FlexySystemBundle:Backend/Application/Application:edit", applicationId: 0 }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Application/Application:edit", applicationId: 0 }
 
-flexy_system_backend_application_delete:
+unifik_system_backend_application_delete:
     pattern:  /applications/{applicationId}/delete
-    defaults: { _controller: "FlexySystemBundle:Backend/Application/Application:delete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Application/Application:delete" }
 
-flexy_system_backend_application_delete_check:
+unifik_system_backend_application_delete_check:
     pattern:  /applications/{applicationId}/delete/check
-    defaults: { _controller: "FlexySystemBundle:Backend/Application/Application:checkDelete" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Application/Application:checkDelete" }
 
 # Translation Editor
-flexy_system_backend_translation:
+unifik_system_backend_translation:
     pattern:  /translation-editor
-    defaults: { _controller: "FlexySystemBundle:Backend/Translation/Translation:list" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Translation/Translation:list" }
 
-flexy_system_backend_translation_insert:
+unifik_system_backend_translation_insert:
     pattern:  /translation-editor/insert
-    defaults: { _controller: "FlexySystemBundle:Backend/Translation/Translation:insert" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Translation/Translation:insert" }
 
-flexy_system_backend_translation_rebuild_token:
+unifik_system_backend_translation_rebuild_token:
     pattern:  /translation-editor/rebuild-tokens
-    defaults: { _controller: "FlexySystemBundle:Backend/Translation/Translation:rebuildToken" }
+    defaults: { _controller: "UnifikSystemBundle:Backend/Translation/Translation:rebuildToken" }

@@ -1,7 +1,7 @@
-flexy_system_frontend_home:
+unifik_system_frontend_home:
     pattern:  /
-    defaults: { _controller: "FlexySystemBundle:Frontend/Home:index" }
+    defaults: { _controller: "UnifikSystemBundle:Frontend/Home:index" }
 
-flexy_system_frontend_text:
+unifik_system_frontend_text:
     pattern:  /{sectionsPath}
-    defaults: { _controller: "FlexySystemBundle:Frontend/Text:index" }
+    defaults: { _controller: "UnifikSystemBundle:Frontend/Text:index" }

@@ -1,10 +1,10 @@
 <?php
 
-namespace Flexy\SystemBundle\Controller\Backend\Member;
+namespace Unifik\SystemBundle\Controller\Backend\Member;
 
 use Symfony\Component\HttpFoundation\Response;
 
-use Flexy\SystemBundle\Lib\Backend\BaseController;
+use Unifik\SystemBundle\Lib\Backend\BaseController;
 
 /**
  * User Controller
@@ -20,9 +20,9 @@ class NavigationController extends BaseController
      */
     public function globalModuleBarAction($_masterRoute)
     {
-        $selected = (0 === strpos($_masterRoute, 'flexy_system_backend_member'));
+        $selected = (0 === strpos($_masterRoute, 'unifik_system_backend_member'));
 
-        return $this->render('FlexySystemBundle:Backend/Member/Navigation:global_bundle_bar.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Member/Navigation:global_bundle_bar.html.twig', array(
             'selected' => $selected
         ));
     }

@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Listener;
+namespace Unifik\SystemBundle\Listener;
 
-use Flexy\SystemBundle\Entity\User;
+use Unifik\SystemBundle\Entity\User;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 class LoginBackendListener

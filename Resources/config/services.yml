@@ -1,164 +1,164 @@
 parameters:
 
-    flexy_system.kernel_controller_listener.class:             Flexy\SystemBundle\Listener\ControllerListener
-    flexy_system.kernel_response_listener.class:               Flexy\SystemBundle\Listener\ResponseListener
-    flexy_system.post_load_listener.class:                     Flexy\SystemBundle\Listener\PostLoadListener
-    flexy_system.kernel_exception_listener.class:              Flexy\SystemBundle\Listener\ExceptionListener
-    flexy_system.core.class:                                   Flexy\SystemBundle\Lib\Core
-    flexy_system.twig_extension.class:                         Flexy\SystemBundle\Extensions\TwigExtension
-    flexy_system.twig_translation_extension.class:             Flexy\SystemBundle\Extensions\TranslationExtension
-    flexy_system.inspect_extension.class:                      Flexy\SystemBundle\Extensions\InspectExtension
-    flexy_system.navigation_builder.class:                     Flexy\SystemBundle\Lib\NavigationBuilder
-    flexy_system.navigation_item.class:                        Flexy\SystemBundle\Lib\NavigationItem
-    flexy_system.breadcrumbs.class:                            Flexy\SystemBundle\Lib\Breadcrumbs
-    flexy_system.page_title.class:                             Flexy\SystemBundle\Lib\PageTitle
-    flexy_system.router_invalidator.class:                     Flexy\SystemBundle\Lib\RouterInvalidator
-    flexy_system.router_auto_parameters_handler.class:         Flexy\SystemBundle\Lib\RouterAutoParametersHandler
-    flexy_system.section_filter.class:                         Flexy\SystemBundle\Lib\SectionFilter
-    flexy_system.tree_entity_orderer.class:                    Flexy\SystemBundle\Lib\TreeEntityOrderer
-    flexy_system.form.type.tree_choice.class:                  Flexy\SystemBundle\Form\Type\TreeChoiceType
-    flexy_system.deletable.class:                              Flexy\SystemBundle\Lib\DeletableService
-    flexy_system.deletable_user_listener.class:                Flexy\SystemBundle\Listener\UserDeletableListener
-    flexy_system.deletable_role_listener.class:                Flexy\SystemBundle\Listener\RoleDeletableListener
-    flexy_system.deletable_section_listener.class:             Flexy\SystemBundle\Listener\SectionDeletableListener
-    flexy_system.deletable_app_listener.class:                 Flexy\SystemBundle\Listener\AppDeletableListener
-    flexy_system.locale_switcher.class:                        Flexy\SystemBundle\Lib\LocaleSwitcher
-    flexy_system.section_translation.sluggable.listener.class: Flexy\SystemBundle\Lib\SectionTranslationSluggableListener
-    flexy_system.form.type.creatable_entity.class:             Flexy\SystemBundle\Form\Type\CreatableEntityType
-    flexy_backend.security.cms_voter.class:                    Flexy\SystemBundle\Lib\Backend\CmsVoter
-    flexy_backend.core.class:                                  Flexy\SystemBundle\Lib\Backend\Core
-    flexy_backend.form.type.advanced_file.class:               Flexy\SystemBundle\Form\Backend\AdvancedFileType
-    flexy_backend.login_listener.class:                        Flexy\SystemBundle\Listener\LoginBackendListener
-    flexy_frontend.core.class:                                 Flexy\SystemBundle\Lib\Frontend\Core
-    flexy_system.translation_editor_loader.class:              Flexy\SystemBundle\Translation\TranslationEditorLoader
-    flexy_system.twig.application_context_extension.class:     Flexy\SystemBundle\Extensions\ApplicationContextExtension
+    unifik_system.kernel_controller_listener.class:             Unifik\SystemBundle\Listener\ControllerListener
+    unifik_system.kernel_response_listener.class:               Unifik\SystemBundle\Listener\ResponseListener
+    unifik_system.post_load_listener.class:                     Unifik\SystemBundle\Listener\PostLoadListener
+    unifik_system.kernel_exception_listener.class:              Unifik\SystemBundle\Listener\ExceptionListener
+    unifik_system.core.class:                                   Unifik\SystemBundle\Lib\Core
+    unifik_system.twig_extension.class:                         Unifik\SystemBundle\Extensions\TwigExtension
+    unifik_system.twig_translation_extension.class:             Unifik\SystemBundle\Extensions\TranslationExtension
+    unifik_system.inspect_extension.class:                      Unifik\SystemBundle\Extensions\InspectExtension
+    unifik_system.navigation_builder.class:                     Unifik\SystemBundle\Lib\NavigationBuilder
+    unifik_system.navigation_item.class:                        Unifik\SystemBundle\Lib\NavigationItem
+    unifik_system.breadcrumbs.class:                            Unifik\SystemBundle\Lib\Breadcrumbs
+    unifik_system.page_title.class:                             Unifik\SystemBundle\Lib\PageTitle
+    unifik_system.router_invalidator.class:                     Unifik\SystemBundle\Lib\RouterInvalidator
+    unifik_system.router_auto_parameters_handler.class:         Unifik\SystemBundle\Lib\RouterAutoParametersHandler
+    unifik_system.section_filter.class:                         Unifik\SystemBundle\Lib\SectionFilter
+    unifik_system.tree_entity_orderer.class:                    Unifik\SystemBundle\Lib\TreeEntityOrderer
+    unifik_system.form.type.tree_choice.class:                  Unifik\SystemBundle\Form\Type\TreeChoiceType
+    unifik_system.deletable.class:                              Unifik\SystemBundle\Lib\DeletableService
+    unifik_system.deletable_user_listener.class:                Unifik\SystemBundle\Listener\UserDeletableListener
+    unifik_system.deletable_role_listener.class:                Unifik\SystemBundle\Listener\RoleDeletableListener
+    unifik_system.deletable_section_listener.class:             Unifik\SystemBundle\Listener\SectionDeletableListener
+    unifik_system.deletable_app_listener.class:                 Unifik\SystemBundle\Listener\AppDeletableListener
+    unifik_system.locale_switcher.class:                        Unifik\SystemBundle\Lib\LocaleSwitcher
+    unifik_system.section_translation.sluggable.listener.class: Unifik\SystemBundle\Lib\SectionTranslationSluggableListener
+    unifik_system.form.type.creatable_entity.class:             Unifik\SystemBundle\Form\Type\CreatableEntityType
+    unifik_backend.security.cms_voter.class:                    Unifik\SystemBundle\Lib\Backend\CmsVoter
+    unifik_backend.core.class:                                  Unifik\SystemBundle\Lib\Backend\Core
+    unifik_backend.form.type.advanced_file.class:               Unifik\SystemBundle\Form\Backend\AdvancedFileType
+    unifik_backend.login_listener.class:                        Unifik\SystemBundle\Listener\LoginBackendListener
+    unifik_frontend.core.class:                                 Unifik\SystemBundle\Lib\Frontend\Core
+    unifik_system.translation_editor_loader.class:              Unifik\SystemBundle\Translation\TranslationEditorLoader
+    unifik_system.twig.application_context_extension.class:     Unifik\SystemBundle\Extensions\ApplicationContextExtension
 
 services:
 
-    flexy_system.deletable:
-        class: %flexy_system.deletable.class%
+    unifik_system.deletable:
+        class: %unifik_system.deletable.class%
 
     egazkt_system.deletable_user_listener:
-        class: %flexy_system.deletable_user_listener.class%
+        class: %unifik_system.deletable_user_listener.class%
         arguments: [ @security.context ]
         tags:
-          - { name: flexy_system.deletable, entity: Flexy\SystemBundle\Entity\User }
+          - { name: unifik_system.deletable, entity: Unifik\SystemBundle\Entity\User }
 
     egazkt_system.deletable_role_listener:
-        class: %flexy_system.deletable_role_listener.class%
+        class: %unifik_system.deletable_role_listener.class%
         tags:
-          - { name: flexy_system.deletable, entity: Flexy\SystemBundle\Entity\Role }
+          - { name: unifik_system.deletable, entity: Unifik\SystemBundle\Entity\Role }
 
     egazkt_system.deletable_section_listener:
-        class: %flexy_system.deletable_section_listener.class%
+        class: %unifik_system.deletable_section_listener.class%
         tags:
-          - { name: flexy_system.deletable, entity: Flexy\SystemBundle\Entity\Section }
+          - { name: unifik_system.deletable, entity: Unifik\SystemBundle\Entity\Section }
 
     egazkt_system.deletable_app_listener:
-        class: %flexy_system.deletable_app_listener.class%
+        class: %unifik_system.deletable_app_listener.class%
         tags:
-          - { name: flexy_system.deletable, entity: Flexy\SystemBundle\Entity\App }
+          - { name: unifik_system.deletable, entity: Unifik\SystemBundle\Entity\App }
 
-    flexy_system.kernel_controller_listener:
-        class: %flexy_system.kernel_controller_listener.class%
+    unifik_system.kernel_controller_listener:
+        class: %unifik_system.kernel_controller_listener.class%
         tags:
           - { name: kernel.event_listener, event: kernel.controller }
         calls:
           - [ setContainer, [ @service_container ] ]
 
-    flexy_system.post_load_listener:
-        class: %flexy_system.post_load_listener.class%
+    unifik_system.post_load_listener:
+        class: %unifik_system.post_load_listener.class%
         tags:
             - { name: doctrine.event_listener, event: postLoad }
         calls:
           - [ setContainer, [ @service_container ] ]
 
-    flexy_system.kernel_exception_listener:
-        class: %flexy_system.kernel_exception_listener.class%
+    unifik_system.kernel_exception_listener:
+        class: %unifik_system.kernel_exception_listener.class%
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
         calls:
             - [ setKernel, [ @kernel ] ]
             - [ setTemplating, [ @templating ] ]
 
-    flexy_system.core:
-        class: %flexy_system.core.class%
+    unifik_system.core:
+        class: %unifik_system.core.class%
 
-    flexy_system.twig_extension:
-        class: %flexy_system.twig_extension.class%
+    unifik_system.twig_extension:
+        class: %unifik_system.twig_extension.class%
         tags:
           - { name: twig.extension }
         calls:
           - [ setRequest, [ @?request= ] ]
           - [ setLocale, [ %locale% ] ]
-          - [ setSystemCore, [ @flexy_system.core ] ]
+          - [ setSystemCore, [ @unifik_system.core ] ]
 
-    flexy_system.twig_translation_extension:
-        class: %flexy_system.twig_translation_extension.class%
+    unifik_system.twig_translation_extension:
+        class: %unifik_system.twig_translation_extension.class%
         tags:
           - { name: twig.extension }
         calls:
           - [ setDoctrine, [ @doctrine ] ]
 
-    flexy_system.inspect_extension:
-        class: %flexy_system.inspect_extension.class%
+    unifik_system.inspect_extension:
+        class: %unifik_system.inspect_extension.class%
         tags:
           - { name: twig.extension }
 
-    flexy_system.navigation_builder:
+    unifik_system.navigation_builder:
         scope: prototype
-        class: %flexy_system.navigation_builder.class%
+        class: %unifik_system.navigation_builder.class%
         calls:
           - [ setContainer, [ @service_container ] ]
 
-    flexy_system.navigation_item:
+    unifik_system.navigation_item:
         scope: prototype
-        class: %flexy_system.navigation_item.class%
+        class: %unifik_system.navigation_item.class%
 
-    flexy_system.breadcrumbs:
+    unifik_system.breadcrumbs:
         shared: true
-        class:  %flexy_system.breadcrumbs.class%
+        class:  %unifik_system.breadcrumbs.class%
 
-    flexy_system.page_title:
+    unifik_system.page_title:
         shared: true
-        class:  %flexy_system.page_title.class%
+        class:  %unifik_system.page_title.class%
 
-    flexy_system.pre_persist_listener:
-        class: Flexy\SystemBundle\Listener\DoctrineEventListener
+    unifik_system.pre_persist_listener:
+        class: Unifik\SystemBundle\Listener\DoctrineEventListener
         tags:
             - { name: doctrine.event_listener, event: prePersist }
 
-    flexy_system.router_invalidator:
-        class: %flexy_system.router_invalidator.class%
+    unifik_system.router_invalidator:
+        class: %unifik_system.router_invalidator.class%
         arguments: [ @kernel ]
 
-    flexy_system.router_auto_parameters_handler:
-        class: %flexy_system.router_auto_parameters_handler.class%
+    unifik_system.router_auto_parameters_handler:
+        class: %unifik_system.router_auto_parameters_handler.class%
         calls:
           - [ setContainer, [ @service_container ] ]
 
-    flexy_system.locale_switcher:
-        class: %flexy_system.locale_switcher.class%
+    unifik_system.locale_switcher:
+        class: %unifik_system.locale_switcher.class%
         arguments: [@service_container]
 
-    flexy_system.form.type.creatable_entity:
-        class: %flexy_system.form.type.creatable_entity.class%
+    unifik_system.form.type.creatable_entity:
+        class: %unifik_system.form.type.creatable_entity.class%
         tags:
             - { name: form.type, alias: creatable_entity }
 
-    flexy_backend.core:
-        class:  %flexy_backend.core.class%
+    unifik_backend.core:
+        class:  %unifik_backend.core.class%
         shared: true
         calls:
           - [ setContainer, [ @service_container ] ] # only used to fix the request scope widening problem
           - [ setSession, [ @session= ] ]
           - [ setDoctrine, [ @doctrine ] ]
-          - [ setBreadcrumbs, [ @flexy_system.breadcrumbs ] ]
-          - [ setPageTitle, [ @flexy_system.page_title ] ]
+          - [ setBreadcrumbs, [ @unifik_system.breadcrumbs ] ]
+          - [ setPageTitle, [ @unifik_system.page_title ] ]
           - [ setLocale, [ %locale% ] ]
 
-    flexy_backend.login_listener:
-        class: %flexy_backend.login_listener.class%
+    unifik_backend.login_listener:
+        class: %unifik_backend.login_listener.class%
         tags:
           - { name: kernel.event_listener, event: security.interactive_login, method: onLogin }
 
@@ -172,52 +172,52 @@ services:
         tags:
             - { name: twig.extension }
 
-    flexy_system.form.type.advanced_file:
-        class: %flexy_backend.form.type.advanced_file.class%
+    unifik_system.form.type.advanced_file:
+        class: %unifik_backend.form.type.advanced_file.class%
         tags:
           - { name: form.type, alias: advanced_file }
 
-    flexy_frontend.core:
-        class:  %flexy_frontend.core.class%
+    unifik_frontend.core:
+        class:  %unifik_frontend.core.class%
         shared: true
         calls:
           - [ setContainer, [ @service_container ] ] # only used to fix the request scope widening problem
           - [ setDoctrine, [ @doctrine ] ]
-          - [ setBreadcrumbs, [ @flexy_system.breadcrumbs ] ]
-          - [ setPageTitle, [ @flexy_system.page_title ] ]
+          - [ setBreadcrumbs, [ @unifik_system.breadcrumbs ] ]
+          - [ setPageTitle, [ @unifik_system.page_title ] ]
           
-    flexy_system.tree_entity_orderer:
-        class: %flexy_system.tree_entity_orderer.class%
+    unifik_system.tree_entity_orderer:
+        class: %unifik_system.tree_entity_orderer.class%
 
-    flexy_system.form.type.tree_choice:
-        class: %flexy_system.form.type.tree_choice.class%
-        arguments: [@flexy_system.tree_entity_orderer]
+    unifik_system.form.type.tree_choice:
+        class: %unifik_system.form.type.tree_choice.class%
+        arguments: [@unifik_system.tree_entity_orderer]
         tags:
             - { name: form.type, alias: tree_choice }
 
-    flexy_system.section_filter:
-        class: %flexy_system.section_filter.class%
+    unifik_system.section_filter:
+        class: %unifik_system.section_filter.class%
         arguments: [@doctrine.orm.entity_manager, @security.context]
 
-    flexy_system.security.cms_voter:
-        class: %flexy_backend.security.cms_voter.class%
+    unifik_system.security.cms_voter:
+        class: %unifik_backend.security.cms_voter.class%
         arguments: [@service_container]
         tags:
             - { name: security.voter }
 
-    flexy_system.section_translation.sluggable.listener:
-        class: %flexy_system.section_translation.sluggable.listener.class%
+    unifik_system.section_translation.sluggable.listener:
+        class: %unifik_system.section_translation.sluggable.listener.class%
         tags:
-            - { name: doctrine.event_subscriber, type: sluggable, entity: Flexy\SystemBundle\Entity\SectionTranslation }
+            - { name: doctrine.event_subscriber, type: sluggable, entity: Unifik\SystemBundle\Entity\SectionTranslation }
 
-    flexy_system.translation.translator_editor_loader:
-        class: %flexy_system.translation_editor_loader.class%
+    unifik_system.translation.translator_editor_loader:
+        class: %unifik_system.translation_editor_loader.class%
         arguments: [@doctrine.orm.entity_manager, %kernel.root_dir%]
         tags:
             - { name: translation.loader, alias: db }
 
-    flexy_system.twig.application_context_extension:
-        class: %flexy_system.twig.application_context_extension.class%
+    unifik_system.twig.application_context_extension:
+        class: %unifik_system.twig.application_context_extension.class%
         synchronized: true
         tags:
           - { name: 'twig.extension' }

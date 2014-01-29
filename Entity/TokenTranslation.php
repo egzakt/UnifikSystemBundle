@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 /**
  * TokenTranslation
@@ -47,7 +47,7 @@ class TokenTranslation
     private $active;
 
     /**
-     * @var \Flexy\SystemBundle\Entity\Token
+     * @var \Unifik\SystemBundle\Entity\Token
      */
     private $token;
 
@@ -157,10 +157,10 @@ class TokenTranslation
     /**
      * Set token
      *
-     * @param \Flexy\SystemBundle\Entity\Token $token
+     * @param \Unifik\SystemBundle\Entity\Token $token
      * @return TokenTranslation
      */
-    public function setToken(\Flexy\SystemBundle\Entity\Token $token = null)
+    public function setToken(\Unifik\SystemBundle\Entity\Token $token = null)
     {
         $this->token = $token;
     
@@ -170,7 +170,7 @@ class TokenTranslation
     /**
      * Get token
      *
-     * @return \Flexy\SystemBundle\Entity\Token
+     * @return \Unifik\SystemBundle\Entity\Token
      */
     public function getToken()
     {

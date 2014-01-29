@@ -17,7 +17,7 @@
  * <http://www.doctrine-project.org>.
  */
 
-namespace Flexy\SystemBundle\Generator\Tools\Export\Driver;
+namespace Unifik\SystemBundle\Generator\Tools\Export\Driver;
 
 use Doctrine\ORM\Mapping\ClassMetadataInfo;
 use Doctrine\ORM\Tools\Export\Driver\AbstractExporter;

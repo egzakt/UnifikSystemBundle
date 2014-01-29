@@ -1,19 +1,19 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntity;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
- * Represent an flexy application
+ * Represent an unifik application
  */
 class App extends BaseEntity
 {
-    use FlexyORMBehaviors\Sluggable\Sluggable;
+    use UnifikORMBehaviors\Sluggable\Sluggable;
 
     /**
      * @var integer
@@ -138,7 +138,7 @@ class App extends BaseEntity
      */
     public function getRoute($suffix = 'edit')
     {
-        $route = 'flexy_system_backend_application';
+        $route = 'unifik_system_backend_application';
 
         if ($suffix) {
             $route .= '_' . $suffix;

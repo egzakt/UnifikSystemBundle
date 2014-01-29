@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Flexy\SystemBundle\Command;
+namespace Unifik\SystemBundle\Command;
 
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;

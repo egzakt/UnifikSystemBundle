@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Form\Backend;
+namespace Unifik\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -48,7 +48,7 @@ class TokenType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Flexy\SystemBundle\Entity\Token',
+            'data_class' => 'Unifik\SystemBundle\Entity\Token',
         ));
     }
 }

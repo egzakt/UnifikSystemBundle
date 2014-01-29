@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -26,7 +26,7 @@ class TokenList
     /**
      * Add Token
      *
-     * @param \Flexy\SystemBundle\Entity\Token $token
+     * @param \Unifik\SystemBundle\Entity\Token $token
      * @return Token
      */
     public function addToken($token)
@@ -39,7 +39,7 @@ class TokenList
     /**
      * Remove Token
      *
-     * @param \Flexy\SystemBundle\Entity\Token $token
+     * @param \Unifik\SystemBundle\Entity\Token $token
      */
     public function removeToken($token)
     {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Listener;
+namespace Unifik\SystemBundle\Listener;
 
-use Flexy\SystemBundle\Lib\BaseDeletableListener;
+use Unifik\SystemBundle\Lib\BaseDeletableListener;
 
 class SectionDeletableListener extends BaseDeletableListener
 {

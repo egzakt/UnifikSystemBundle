@@ -1,4 +1,4 @@
-{{ "{% extends 'FlexySystemBundle:" ~ application ~ ":layout.html.twig' %}" }}
+{{ "{% extends 'UnifikSystemBundle:" ~ application ~ ":layout.html.twig' %}" }}
 
 {{ '{% block content %}' }}
 
@@ -7,7 +7,7 @@
     {{ '{% endblock %}' }}
 
     {{ '{% block flash_message %}' }}
-        {{ "{% include 'FlexySystemBundle:" ~ application ~ "/Core:flash_message.html.twig' %}" }}
+        {{ "{% include 'UnifikSystemBundle:" ~ application ~ "/Core:flash_message.html.twig' %}" }}
     {{ '{% endblock %}' }}
 
     {{ '{% block content_main %}' }}

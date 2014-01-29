@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Command;
+namespace Unifik\SystemBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -9,10 +9,10 @@ use Symfony\Component\Console\Output\ConsoleOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 
-use Flexy\SystemBundle\Entity\User;
+use Unifik\SystemBundle\Entity\User;
 
 /**
- * A console command for installing flexy.
+ * A console command for installing unifik.
  *
  * This class is inspired from Sylius's install command.
  */
@@ -24,10 +24,10 @@ class InstallCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('flexy:install')
-            ->setDescription('Flexy installer')
+            ->setName('unifik:install')
+            ->setDescription('Unifik installer')
             ->setHelp(<<<EOF
-The <info>flexy:install</info> command install a flexy application.
+The <info>unifik:install</info> command install a unifik application.
 EOF
             )
         ;
@@ -100,7 +100,7 @@ EOF
             if ($dialog->askConfirmation($output, '<question>Create the "' . $dbname . '" database Y/N ?</question> ', false)) {
                 $this->runCommand('doctrine:database:create', $input, $output);
             } else {
-                $output->writeln('<info>Flexy installation aborded.</info>');
+                $output->writeln('<info>Unifik installation aborded.</info>');
                 $this->faillure($input, $output);
             }
         }
@@ -183,7 +183,7 @@ EOF
         $user->setPassword($encodedPassword);
 
         // default roles
-        $roleRepo = $this->getContainer()->get('doctrine')->getRepository('FlexySystemBundle:Role');
+        $roleRepo = $this->getContainer()->get('doctrine')->getRepository('UnifikSystemBundle:Role');
         $roleRepo->setContainer($this->getContainer());
         $roleRepo->setCurrentAppName('backend');
         $role = $roleRepo->findOneByRole('ROLE_BACKEND_ADMIN');
@@ -205,7 +205,7 @@ EOF
     private function success(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('');
-        $output->writeln('Flexy has been successfully installed.');
+        $output->writeln('Unifik has been successfully installed.');
 
         return 0;
     }
@@ -220,7 +220,7 @@ EOF
      */
     private function faillure(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('<error>Flexy could not be installed. Fix the error above and restart the install procedure.</error>');
+        $output->writeln('<error>Unifik could not be installed. Fix the error above and restart the install procedure.</error>');
 
         exit(1);
     }

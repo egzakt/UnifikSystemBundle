@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -18,9 +18,9 @@ class RouterAutoParametersHandler
     {
         $request = $this->container->get('request');
 
-        $flexyRequest = $request->get('_flexyRequest');
+        $unifikRequest = $request->get('_unifikRequest');
 
-        $sectionId = $flexyRequest['sectionId'];
+        $sectionId = $unifikRequest['sectionId'];
 
         $parameters = array(
             'sectionId' => $sectionId

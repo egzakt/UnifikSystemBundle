@@ -6,14 +6,14 @@ It works with all three choices types : select box, checkboxes and radio buttons
 
 ## How to use
 
-Let's take for example the FlexyNewsBundle, in which an article can belong to many categories.
+Let's take for example the UnifikNewsBundle, in which an article can belong to many categories.
 
 ### Controller
 In the controller, you will need to add a `quickCreateAction`:
 
 ```php
 <?php
-// Flexy/NewsBundle/Controller/Backend/CategoryController.php
+// Unifik/NewsBundle/Controller/Backend/CategoryController.php
 
 /**
  * Simplified form to quickly create a new category via an AJAX popup
@@ -26,7 +26,7 @@ public function quickCreateAction(Request $request)
 {
     $category = $this->initEntity(new Category());
 
-    $form = $this->createForm(new QuickCreateCategoryType(), $category, array('action' => $this->generateUrl('flexy_news_backend_category_quick_create')));
+    $form = $this->createForm(new QuickCreateCategoryType(), $category, array('action' => $this->generateUrl('unifik_news_backend_category_quick_create')));
 
     if ('POST' == $request->getMethod()) {
 
@@ -48,7 +48,7 @@ public function quickCreateAction(Request $request)
     }
 
     return new JsonResponse(array(
-        'response' => $this->renderView('FlexySystemBundle:Backend/Core:quick_create.html.twig', array(
+        'response' => $this->renderView('UnifikSystemBundle:Backend/Core:quick_create.html.twig', array(
             'category' => $category,
             'form' => $form->createView()
         ))
@@ -60,10 +60,10 @@ public function quickCreateAction(Request $request)
 Then, you will need to create a route that points to that action:
 
 ``` yaml
-# Flexy/NewsBundle/Resources/config/routing_backend.yml
-flexy_news_backend_category_quick_create:
+# Unifik/NewsBundle/Resources/config/routing_backend.yml
+unifik_news_backend_category_quick_create:
     pattern:  /category/{sectionId}/quick-create
-    defaults: { _controller: "FlexyNewsBundle:Backend/Category:quickCreate" }
+    defaults: { _controller: "UnifikNewsBundle:Backend/Category:quickCreate" }
 ```
 
 ### Create a simplified form type
@@ -73,7 +73,7 @@ To do that, you need to create a new form type that extends your base type and j
 
 ```php
 <?php
-// Flexy/NewsBundle/Form/Backend/QuickCreateCategoryType.php
+// Unifik/NewsBundle/Form/Backend/QuickCreateCategoryType.php
 
 class QuickCreateCategoryType extends CategoryType
 {
@@ -93,7 +93,7 @@ class QuickCreateCategoryType extends CategoryType
 
 ```php
 <?php
-// Flexy/NewsBundle/Form/Backend/QuickCreateCategoryTranslationType.php
+// Unifik/NewsBundle/Form/Backend/QuickCreateCategoryTranslationType.php
 
 class QuickCreateCategoryTranslationType extends CategoryTranslationType
 {
@@ -115,13 +115,13 @@ class QuickCreateCategoryTranslationType extends CategoryTranslationType
 Finally, in your form type, locate your entity field and change its type for `creatable_entity`. You will also have to provide the `quick_create_route` you created earlier.
 ```php
 <?php
-// Flexy/NewsBundle/Form/Backend/ArticleType.php
+// Unifik/NewsBundle/Form/Backend/ArticleType.php
 
 $builder->add('categories', 'creatable_entity', array(
-    'class' => 'Flexy\NewsBundle\Entity\Category',
+    'class' => 'Unifik\NewsBundle\Entity\Category',
     'required' => false,
     'expanded' => true,
     'multiple' => true,
-    'quick_create_route' => 'flexy_news_backend_category_quick_create'
+    'quick_create_route' => 'unifik_news_backend_category_quick_create'
 ));
 ```

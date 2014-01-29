@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Listener;
+namespace Unifik\SystemBundle\Listener;
 
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpFoundation\Session;
@@ -45,8 +45,8 @@ class ResponseListener
                 return;
             }
 
-            $this->session->set('_flexy.last_master_request_uri', $this->request->getUri());
-            $this->session->set('_flexy.last_master_request_route', $route);
+            $this->session->set('_unifik.last_master_request_uri', $this->request->getUri());
+            $this->session->set('_unifik.last_master_request_route', $route);
         }
     }
 

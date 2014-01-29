@@ -1,11 +1,11 @@
 <?php
 
-namespace Flexy\SystemBundle\Listener;
+namespace Unifik\SystemBundle\Listener;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\NoResultException;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
+use Unifik\SystemBundle\Lib\BaseEntity;
 
 /**
  * Doctrine Event Listener

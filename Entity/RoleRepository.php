@@ -1,9 +1,9 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
-use Flexy\SystemBundle\Lib\BaseEntityRepository;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * RoleRepository
@@ -13,7 +13,7 @@ use Flexy\SystemBundle\Lib\BaseEntityRepository;
  */
 class RoleRepository extends BaseEntityRepository
 {
-    use FlexyORMBehaviors\Repository\TranslatableEntityRepository;
+    use UnifikORMBehaviors\Repository\TranslatableEntityRepository;
 
     /**
      * Find with User
@@ -23,7 +23,7 @@ class RoleRepository extends BaseEntityRepository
     public function findWithUser()
     {
         return $this->getEntityManager()
-            ->createQuery('SELECT r FROM FlexySystemBundle:Role r LEFT JOIN r.translations rt INNER JOIN r.users u ORDER BY rt.name ASC')
+            ->createQuery('SELECT r FROM UnifikSystemBundle:Role r LEFT JOIN r.translations rt INNER JOIN r.users u ORDER BY rt.name ASC')
             ->getResult();
     }
 

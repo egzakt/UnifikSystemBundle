@@ -1,9 +1,9 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
-use Flexy\SystemBundle\Lib\BaseEntityRepository;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * TextRepository
@@ -13,5 +13,5 @@ use Flexy\SystemBundle\Lib\BaseEntityRepository;
  */
 class TextRepository extends BaseEntityRepository
 {
-    use FlexyORMBehaviors\Repository\TranslatableEntityRepository;
+    use UnifikORMBehaviors\Repository\TranslatableEntityRepository;
 }

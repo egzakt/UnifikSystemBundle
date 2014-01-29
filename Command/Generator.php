@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Command;
+namespace Unifik\SystemBundle\Command;
 
 use Symfony\Component\DependencyInjection\Container;
 use Symfony\Component\Filesystem\Filesystem;
@@ -10,7 +10,7 @@ use Sensio\Bundle\GeneratorBundle\Generator\DoctrineCrudGenerator;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Flexy Backend Crud Generator
+ * Unifik Backend Crud Generator
  *
  * @throws \RuntimeException
  */

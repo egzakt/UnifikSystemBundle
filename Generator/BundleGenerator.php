@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Generator;
+namespace Unifik\SystemBundle\Generator;
 
 use Sensio\Bundle\GeneratorBundle\Generator\Generator;
 use Symfony\Component\Filesystem\Filesystem;

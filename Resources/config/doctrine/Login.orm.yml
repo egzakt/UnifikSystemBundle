@@ -1,6 +1,6 @@
-Flexy\SystemBundle\Entity\Login:
+Unifik\SystemBundle\Entity\Login:
   type: entity
-  repositoryClass: Flexy\SystemBundle\Entity\MappingRepository
+  repositoryClass: Unifik\SystemBundle\Entity\MappingRepository
   fields:
     id:
       type: integer

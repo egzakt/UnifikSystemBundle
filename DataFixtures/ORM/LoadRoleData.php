@@ -1,14 +1,14 @@
 <?php
 
-namespace Flexy\Frontend\CoreBundle\DataFixtures\ORM;
+namespace Unifik\Frontend\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
-use Flexy\SystemBundle\Entity\Role;
-use Flexy\SystemBundle\Entity\RoleTranslation;
+use Unifik\SystemBundle\Entity\Role;
+use Unifik\SystemBundle\Entity\RoleTranslation;
 
 class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -19,7 +19,7 @@ class LoadRoleData extends AbstractFixture implements OrderedFixtureInterface
      */
     public function load(ObjectManager $manager)
     {
-        $metadata = $manager->getClassMetaData('Flexy\\SystemBundle\\Entity\\Role');
+        $metadata = $manager->getClassMetaData('Unifik\\SystemBundle\\Entity\\Role');
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $role = new Role();

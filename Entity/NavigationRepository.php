@@ -1,10 +1,10 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
-use Flexy\SystemBundle\Lib\BaseEntityRepository;
+use Unifik\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * NavigationRepository

@@ -1,4 +1,4 @@
-Flexy\SystemBundle\Entity\Mapping:
+Unifik\SystemBundle\Entity\Mapping:
   type: entity
   fields:
     id:
@@ -17,21 +17,21 @@ Flexy\SystemBundle\Entity\Mapping:
       nullable: true
   manyToOne:
     section:
-      targetEntity: Flexy\SystemBundle\Entity\Section
+      targetEntity: Unifik\SystemBundle\Entity\Section
       inversedBy:  mappings
       joinColumn:
         name: section_id
         referencedColumnName: id
         onDelete: cascade
     app:
-      targetEntity: Flexy\SystemBundle\Entity\App
+      targetEntity: Unifik\SystemBundle\Entity\App
       inversedBy:  mappings
       joinColumn:
         name: app_id
         referencedColumnName: id
         onDelete: cascade
     navigation:
-      targetEntity: Flexy\SystemBundle\Entity\Navigation
+      targetEntity: Unifik\SystemBundle\Entity\Navigation
       inversedBy:  mappings
       joinColumn:
         name: navigation_id

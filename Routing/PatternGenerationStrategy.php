@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Routing;
+namespace Unifik\SystemBundle\Routing;
 
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Routing\Route;

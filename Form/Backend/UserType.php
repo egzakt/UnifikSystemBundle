@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Form\Backend;
+namespace Unifik\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -33,7 +33,7 @@ class UserType extends AbstractType
             ->add('lastname')
             ->add('email')
             ->add('userRoles', 'entity', array(
-                'class' => 'FlexySystemBundle:Role',
+                'class' => 'UnifikSystemBundle:Role',
                 'expanded' => true,
                 'multiple' => true,
                 'label' => 'Roles',
@@ -86,7 +86,7 @@ class UserType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Flexy\SystemBundle\Entity\User',
+            'data_class' => 'Unifik\SystemBundle\Entity\User',
             'self_edit' => false,
             'developer' => false,
             'error_mapping' => array('roles' => 'userRoles')

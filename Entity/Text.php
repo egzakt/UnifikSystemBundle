@@ -1,19 +1,19 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntity;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
  * Text
  */
 class Text extends BaseEntity
 {
-    use FlexyORMBehaviors\Translatable\Translatable;
-    use FlexyORMBehaviors\Timestampable\Timestampable;
+    use UnifikORMBehaviors\Translatable\Translatable;
+    use UnifikORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer $id
@@ -184,7 +184,7 @@ class Text extends BaseEntity
      */
     public function getRouteBackend($action = 'edit')
     {
-        return 'flexy_system_backend_text_' . $action;
+        return 'unifik_system_backend_text_' . $action;
     }
 
     /**

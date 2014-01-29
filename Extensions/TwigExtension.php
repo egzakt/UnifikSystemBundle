@@ -1,12 +1,12 @@
 <?php
 
-namespace Flexy\SystemBundle\Extensions;
+namespace Unifik\SystemBundle\Extensions;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Stopwatch\Section;
 use BCC\ExtraToolsBundle\Util\DateFormatter;
 
-use Flexy\SystemBundle\Lib\Core;
+use Unifik\SystemBundle\Lib\Core;
 
 /**
  * Library of helper functions
@@ -258,7 +258,7 @@ class TwigExtension extends \Twig_Extension
      */
     public function getName()
     {
-        return 'flexy_system_extension';
+        return 'unifik_system_extension';
     }
 
     /**

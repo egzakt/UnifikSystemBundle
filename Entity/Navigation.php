@@ -1,10 +1,10 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
+use Unifik\SystemBundle\Lib\BaseEntity;
 
 /**
  * Navigation
@@ -131,9 +131,9 @@ class Navigation extends BaseEntity
     /**
      * Remove sectionNavigations
      *
-     * @param \Flexy\SystemBundle\Entity\SectionNavigation $sectionNavigations
+     * @param \Unifik\SystemBundle\Entity\SectionNavigation $sectionNavigations
      */
-    public function removeSectionNavigation(\Flexy\SystemBundle\Entity\SectionNavigation $sectionNavigations)
+    public function removeSectionNavigation(\Unifik\SystemBundle\Entity\SectionNavigation $sectionNavigations)
     {
         $this->sectionNavigations->removeElement($sectionNavigations);
     }
@@ -145,10 +145,10 @@ class Navigation extends BaseEntity
     /**
      * Add mappings
      *
-     * @param  \Flexy\SystemBundle\Entity\Mapping $mappings
+     * @param  \Unifik\SystemBundle\Entity\Mapping $mappings
      * @return Navigation
      */
-    public function addMapping(\Flexy\SystemBundle\Entity\Mapping $mappings)
+    public function addMapping(\Unifik\SystemBundle\Entity\Mapping $mappings)
     {
         $this->mappings[] = $mappings;
 
@@ -158,9 +158,9 @@ class Navigation extends BaseEntity
     /**
      * Remove mappings
      *
-     * @param \Flexy\SystemBundle\Entity\Mapping $mappings
+     * @param \Unifik\SystemBundle\Entity\Mapping $mappings
      */
-    public function removeMapping(\Flexy\SystemBundle\Entity\Mapping $mappings)
+    public function removeMapping(\Unifik\SystemBundle\Entity\Mapping $mappings)
     {
         $this->mappings->removeElement($mappings);
     }
@@ -175,17 +175,17 @@ class Navigation extends BaseEntity
         return $this->mappings;
     }
     /**
-     * @var \Flexy\SystemBundle\Entity\App
+     * @var \Unifik\SystemBundle\Entity\App
      */
     private $app;
 
     /**
      * Set app
      *
-     * @param  \Flexy\SystemBundle\Entity\App $app
+     * @param  \Unifik\SystemBundle\Entity\App $app
      * @return Navigation
      */
-    public function setApp(\Flexy\SystemBundle\Entity\App $app = null)
+    public function setApp(\Unifik\SystemBundle\Entity\App $app = null)
     {
         $this->app = $app;
 
@@ -195,7 +195,7 @@ class Navigation extends BaseEntity
     /**
      * Get app
      *
-     * @return \Flexy\SystemBundle\Entity\App
+     * @return \Unifik\SystemBundle\Entity\App
      */
     public function getApp()
     {

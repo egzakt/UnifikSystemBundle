@@ -1,15 +1,15 @@
 <?php
 
-namespace Flexy\SystemBundle\Controller\Backend\Member;
+namespace Unifik\SystemBundle\Controller\Backend\Member;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-use Flexy\SystemBundle\Lib\Backend\BaseController;
-use Flexy\SystemBundle\Entity\Member;
-use Flexy\SystemBundle\Form\Backend\MemberType;
+use Unifik\SystemBundle\Lib\Backend\BaseController;
+use Unifik\SystemBundle\Entity\Member;
+use Unifik\SystemBundle\Form\Backend\MemberType;
 
 /**
  * Member Controller
@@ -33,9 +33,9 @@ class MemberController extends BaseController
      */
     public function listAction()
     {
-        $members = $this->getEm()->getRepository('FlexySystemBundle:Member')->findAll();
+        $members = $this->getEm()->getRepository('UnifikSystemBundle:Member')->findAll();
 
-        return $this->render('FlexySystemBundle:Backend/Member/Member:list.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Member/Member:list.html.twig', array(
             'members' => $members
         ));
     }
@@ -53,7 +53,7 @@ class MemberController extends BaseController
         /**
          * @var $member Member
          */
-        $member = $this->getEm()->getRepository('FlexySystemBundle:Member')->find($id);
+        $member = $this->getEm()->getRepository('UnifikSystemBundle:Member')->find($id);
 
         if (false == $member) {
             $member = new Member();
@@ -89,7 +89,7 @@ class MemberController extends BaseController
                 );
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('flexy_system_backend_member'));
+                    return $this->redirect($this->generateUrl('unifik_system_backend_member'));
                 }
 
                 return $this->redirect($this->generateUrl($member->getRoute(), $member->getRouteParams()));
@@ -98,7 +98,7 @@ class MemberController extends BaseController
             }
         }
 
-        return $this->render('FlexySystemBundle:Backend/Member/Member:edit.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Member/Member:edit.html.twig', array(
             'member' => $member,
             'form' => $form->createView()
         ));
@@ -116,14 +116,14 @@ class MemberController extends BaseController
      */
     public function deleteAction(Request $request, $id)
     {
-        $member = $this->getEm()->getRepository('FlexySystemBundle:Member')->find($id);
+        $member = $this->getEm()->getRepository('UnifikSystemBundle:Member')->find($id);
 
         if (!$member) {
             throw $this->createNotFoundException('Unable to find a member entity using id "' . $id . '".');
         }
 
         if ($request->get('message')) {
-            $template = $this->renderView('FlexySystemBundle:Backend/Core:delete_message.html.twig', array(
+            $template = $this->renderView('UnifikSystemBundle:Backend/Core:delete_message.html.twig', array(
                 'entity' => $member
             ));
 
@@ -142,7 +142,7 @@ class MemberController extends BaseController
         $this->getEm()->remove($member);
         $this->getEm()->flush();
 
-        return $this->redirect($this->generateUrl('flexy_system_backend_member'));
+        return $this->redirect($this->generateUrl('unifik_system_backend_member'));
     }
 
 }

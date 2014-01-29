@@ -1,9 +1,9 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
 /**
- * Flexy Backend Base for Translation Entities
+ * Unifik Backend Base for Translation Entities
  */
 abstract class BaseTranslationEntity
 {

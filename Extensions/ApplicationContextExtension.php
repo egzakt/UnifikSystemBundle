@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Extensions;
+namespace Unifik\SystemBundle\Extensions;
 
 use Symfony\Component\HttpFoundation\Request;
 

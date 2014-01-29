@@ -1,10 +1,10 @@
 <?php
 
-namespace Flexy\SystemBundle\Controller\Backend\Translation;
+namespace Unifik\SystemBundle\Controller\Backend\Translation;
 
 use Symfony\Component\HttpFoundation\Response;
 
-use Flexy\SystemBundle\Lib\Backend\BaseController;
+use Unifik\SystemBundle\Lib\Backend\BaseController;
 
 /**
  * Navigation Controller
@@ -18,9 +18,9 @@ class NavigationController extends BaseController
      */
     public function sectionModuleBarAction($_masterRoute)
     {
-        $selected = (0 === strpos($_masterRoute, 'flexy_system_backend_translation'));
+        $selected = (0 === strpos($_masterRoute, 'unifik_system_backend_translation'));
 
-        return $this->render('FlexySystemBundle:Backend/Translation/Navigation:section_module_bar.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Translation/Navigation:section_module_bar.html.twig', array(
             'selected' => $selected,
         ));
     }
@@ -39,9 +39,9 @@ class NavigationController extends BaseController
             return new Response();
         }
 
-        $selected = (0 === strpos($_masterRoute, 'flexy_system_backend_translation'));
+        $selected = (0 === strpos($_masterRoute, 'unifik_system_backend_translation'));
 
-        return $this->render('FlexySystemBundle:Backend/Translation/Navigation:global_bundle_bar.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Translation/Navigation:global_bundle_bar.html.twig', array(
             'selected' => $selected
         ));
     }

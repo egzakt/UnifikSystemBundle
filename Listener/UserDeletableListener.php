@@ -1,9 +1,9 @@
 <?php
 
-namespace Flexy\SystemBundle\Listener;
+namespace Unifik\SystemBundle\Listener;
 
-use Flexy\SystemBundle\Entity\User;
-use Flexy\SystemBundle\Lib\BaseDeletableListener;
+use Unifik\SystemBundle\Entity\User;
+use Unifik\SystemBundle\Lib\BaseDeletableListener;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 class UserDeletableListener extends BaseDeletableListener

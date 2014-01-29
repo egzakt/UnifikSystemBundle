@@ -1,4 +1,4 @@
-Flexy\SystemBundle\Entity\Member:
+Unifik\SystemBundle\Entity\Member:
     properties:
         firstname:
             - NotBlank: { groups: [Default, edit, register] }
@@ -12,7 +12,7 @@ Flexy\SystemBundle\Entity\Member:
     constraints:
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: email, groups: [Default, edit, register] }
 
-Flexy\SystemBundle\Entity\User:
+Unifik\SystemBundle\Entity\User:
     properties:
         username:
             - NotBlank: { groups: [new, edit] }
@@ -33,17 +33,17 @@ Flexy\SystemBundle\Entity\User:
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: username, groups: [new, edit] }
       - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: email, groups: [new, edit]  }
 
-Flexy\SystemBundle\Entity\SectionTranslation:
+Unifik\SystemBundle\Entity\SectionTranslation:
     properties:
         name:
             - NotBlank: { groups: [Default] }
 
-Flexy\SystemBundle\Entity\Section:
+Unifik\SystemBundle\Entity\Section:
     constraints:
       - Callback:
           methods: [isHeadCodeHtml]
 
-Flexy\SystemBundle\Entity\TextTranslation:
+Unifik\SystemBundle\Entity\TextTranslation:
     properties:
         text:
             - NotBlank: ~
@@ -51,19 +51,19 @@ Flexy\SystemBundle\Entity\TextTranslation:
         - Callback:
             methods: [isCollapsableValid]
 
-Flexy\SystemBundle\Entity\RoleTranslation:
+Unifik\SystemBundle\Entity\RoleTranslation:
     properties:
         name:
             - NotBlank: ~
             
-Flexy\SystemBundle\Entity\Locale:
+Unifik\SystemBundle\Entity\Locale:
     properties:
         name:
             - NotBlank: ~
         code:
             - NotBlank: ~
                         
-Flexy\SystemBundle\Entity\App:
+Unifik\SystemBundle\Entity\App:
     properties:
         name:
             - NotBlank: ~
@@ -72,7 +72,7 @@ Flexy\SystemBundle\Entity\App:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: prefix, ignoreNull: false }
 
-Flexy\SystemBundle\Entity\Token:
+Unifik\SystemBundle\Entity\Token:
     properties:
         token:
             - NotBlank: ~

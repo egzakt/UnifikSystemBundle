@@ -1,11 +1,11 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib;
+namespace Unifik\SystemBundle\Lib;
 
 use Symfony\Component\DependencyInjection\Container;
 
-use Flexy\SystemBundle\Lib\NavigationItemInterface;
-use Flexy\SystemBundle\Entity\Section;
+use Unifik\SystemBundle\Lib\NavigationItemInterface;
+use Unifik\SystemBundle\Entity\Section;
 
 /**
  * Navigation Builder
@@ -69,7 +69,7 @@ class NavigationBuilder
             $element->setSelected(get_class($element->getEntity()) == get_class($this->selectedElement) && $element->getEntity()->getId() == $this->selectedElement->getId());
 
             // TODO Remplacer le 1 par le ID de la section 'Accueil'
-            if (get_class($element->getEntity()) == 'Flexy\Backend\SectionBundle\Entity\Section' && $element->getEntity()->getId() == 1 && $element->isSelected() && ($this->container->get('flexy_system.core')->getCurrentAppName() != 'backend')) {
+            if (get_class($element->getEntity()) == 'Unifik\Backend\SectionBundle\Entity\Section' && $element->getEntity()->getId() == 1 && $element->isSelected() && ($this->container->get('unifik_system.core')->getCurrentAppName() != 'backend')) {
                 unset($elements[$key]);
                 continue;
             }
@@ -165,7 +165,7 @@ class NavigationBuilder
      */
     protected function buildNavigationItem($element)
     {
-        $wrappedElement = $this->container->get('flexy_system.navigation_item');
+        $wrappedElement = $this->container->get('unifik_system.navigation_item');
         $wrappedElement->setEntity($element);
 
         return $wrappedElement;
@@ -182,7 +182,7 @@ class NavigationBuilder
      */
     protected function isSectionElement($element)
     {
-        return ($element instanceof Section || strstr(get_class($element), 'FlexyBackendSectionBundleEntitySectionProxy'));
+        return ($element instanceof Section || strstr(get_class($element), 'UnifikBackendSectionBundleEntitySectionProxy'));
     }
 
     /**

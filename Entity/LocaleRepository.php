@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\SystemBundle\Lib\BaseEntityRepository;
+use Unifik\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * LocaleRepository
@@ -22,7 +22,7 @@ class LocaleRepository extends BaseEntityRepository
     public function findAllExcept($localeCode)
     {
         $query = $this->getEntityManager()->createQuery(
-            'SELECT l FROM FlexySystemBundle:Locale l
+            'SELECT l FROM UnifikSystemBundle:Locale l
             WHERE l.code != :code
             AND l.active = :active
             ORDER BY l.ordering'

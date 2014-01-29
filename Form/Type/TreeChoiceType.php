@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Form\Type;
+namespace Unifik\SystemBundle\Form\Type;
 
 use Doctrine\ORM\QueryBuilder;
 use Symfony\Component\Form\AbstractType;
@@ -10,9 +10,9 @@ use Symfony\Component\OptionsResolver\Options;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-use Flexy\SystemBundle\Form\ChoiceList\ORMSortedQueryBuilderLoader;
-use Flexy\SystemBundle\Lib\TreeEntityOrderer;
-use Flexy\SystemBundle\Lib\NavigationElementInterface;
+use Unifik\SystemBundle\Form\ChoiceList\ORMSortedQueryBuilderLoader;
+use Unifik\SystemBundle\Lib\TreeEntityOrderer;
+use Unifik\SystemBundle\Lib\NavigationElementInterface;
 
 /**
  * Class TreeChoiceType

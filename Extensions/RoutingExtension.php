@@ -1,11 +1,11 @@
 <?php
 
-namespace Flexy\SystemBundle\Extensions;
+namespace Unifik\SystemBundle\Extensions;
 
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Bridge\Twig\Extension\RoutingExtension as BaseRoutingExtension;
 
-use Flexy\SystemBundle\Lib\RouterAutoParametersHandler;
+use Unifik\SystemBundle\Lib\RouterAutoParametersHandler;
 
 class RoutingExtension extends BaseRoutingExtension
 {

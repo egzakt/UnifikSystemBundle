@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Routing;
+namespace Unifik\SystemBundle\Routing;
 
 use Doctrine\DBAL\Connection;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
@@ -60,7 +60,7 @@ class Loader extends BaseLoader
                 continue;
             }
 
-            if (preg_match('/.*' . static::ROUTING_PREFIX . 'flexy_/', $name)) {
+            if (preg_match('/.*' . static::ROUTING_PREFIX . 'unifik_/', $name)) {
                 $collection->remove($name);
             }
         }
@@ -75,7 +75,7 @@ class Loader extends BaseLoader
      */
     protected function processBackendRoutes($collection)
     {
-        $flexyRequest = array(
+        $unifikRequest = array(
             'sectionId' => null,
             'appId' => 1,
             'appPrefix' => 'admin',
@@ -84,9 +84,9 @@ class Loader extends BaseLoader
         );
 
         foreach ($collection->all() as $name => $route) {
-            if (preg_match('/flexy_.*_backend/', $name)) {
-                $route->setDefault('_flexyEnabled', true);
-                $route->setDefault('_flexyRequest', $flexyRequest);
+            if (preg_match('/unifik_.*_backend/', $name)) {
+                $route->setDefault('_unifikEnabled', true);
+                $route->setDefault('_unifikRequest', $unifikRequest);
             }
         }
 
@@ -144,7 +144,7 @@ class Loader extends BaseLoader
         $route->setPath($expandedPath);
 
         // additionals parameters
-        $flexyRequest = array(
+        $unifikRequest = array(
             'sectionId' => $mapping['section_id'],
             'appId' => $mapping['app_id'],
             'appPrefix' => $mapping['app_prefix'],
@@ -155,8 +155,8 @@ class Loader extends BaseLoader
             'mappedRouteName' => $sourceName
         );
 
-        $route->setDefault('_flexyEnabled', true);
-        $route->setDefault('_flexyRequest', $flexyRequest);
+        $route->setDefault('_unifikEnabled', true);
+        $route->setDefault('_unifikRequest', $unifikRequest);
 
         // adding the route to the main collection
         $collection->add($name, $route);

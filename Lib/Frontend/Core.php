@@ -1,14 +1,14 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib\Frontend;
+namespace Unifik\SystemBundle\Lib\Frontend;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
-use Flexy\SystemBundle\Entity\App;
-use Flexy\SystemBundle\Entity\Section;
-use Flexy\SystemBundle\Lib\ApplicationCoreInterface;
-use Flexy\SystemBundle\Lib\Breadcrumbs;
-use Flexy\SystemBundle\Lib\NavigationElementInterface;
-use Flexy\SystemBundle\Lib\PageTitle;
+use Unifik\SystemBundle\Entity\App;
+use Unifik\SystemBundle\Entity\Section;
+use Unifik\SystemBundle\Lib\ApplicationCoreInterface;
+use Unifik\SystemBundle\Lib\Breadcrumbs;
+use Unifik\SystemBundle\Lib\NavigationElementInterface;
+use Unifik\SystemBundle\Lib\PageTitle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -75,7 +75,7 @@ class Core implements ApplicationCoreInterface
         $em = $this->doctrine->getManager();
 
         if ($sectionId = $this->getSectionId()) {
-            $this->setSection($em->getRepository('FlexySystemBundle:Section')->findOneBy(array(
+            $this->setSection($em->getRepository('UnifikSystemBundle:Section')->findOneBy(array(
                 'id' => $sectionId,
                 'active' => true
             )));
@@ -131,9 +131,9 @@ class Core implements ApplicationCoreInterface
      */
     public function getSectionId()
     {
-        $flexyRequest = $this->request->attributes->get('_flexyRequest');
+        $unifikRequest = $this->request->attributes->get('_unifikRequest');
 
-        return $flexyRequest['sectionId'] ?: 0;
+        return $unifikRequest['sectionId'] ?: 0;
     }
 
     /**
@@ -149,7 +149,7 @@ class Core implements ApplicationCoreInterface
 
         $em = $this->doctrine->getManager();
 
-        $this->section = $em->getRepository('FlexySystemBundle:Section')->find($this->getSectionId());
+        $this->section = $em->getRepository('UnifikSystemBundle:Section')->find($this->getSectionId());
 
         return $this->section;
     }
@@ -161,9 +161,9 @@ class Core implements ApplicationCoreInterface
      */
     public function getAppId()
     {
-        $flexyRequest = $this->request->attributes->get('_flexyRequest');
+        $unifikRequest = $this->request->attributes->get('_unifikRequest');
 
-        return $flexyRequest['appId'] ?: 0;
+        return $unifikRequest['appId'] ?: 0;
     }
 
     /**

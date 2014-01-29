@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
+use Unifik\SystemBundle\Lib\BaseEntity;
 
 /**
  * Locale
@@ -80,7 +80,7 @@ class Locale extends BaseEntity
      */
     public function getRouteBackend($suffix = 'edit')
     {
-        return 'flexy_system_backend_locale_' . $suffix;
+        return 'unifik_system_backend_locale_' . $suffix;
     }
 
     /**

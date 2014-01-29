@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 /**
  * SectionModule
@@ -23,12 +23,12 @@ class SectionModule
     private $ordering;
 
     /**
-     * @var \Flexy\SystemBundle\Entity\Section
+     * @var \Unifik\SystemBundle\Entity\Section
      */
     private $section;
 
     /**
-     * @var \Flexy\SystemBundle\Entity\App
+     * @var \Unifik\SystemBundle\Entity\App
      */
     private $app;
 
@@ -91,10 +91,10 @@ class SectionModule
     /**
      * Set section
      *
-     * @param  \Flexy\SystemBundle\Entity\Section $section
+     * @param  \Unifik\SystemBundle\Entity\Section $section
      * @return SectionModule
      */
-    public function setSection(\Flexy\SystemBundle\Entity\Section $section = null)
+    public function setSection(\Unifik\SystemBundle\Entity\Section $section = null)
     {
         $this->section = $section;
 
@@ -104,7 +104,7 @@ class SectionModule
     /**
      * Get section
      *
-     * @return \Flexy\SystemBundle\Entity\Section
+     * @return \Unifik\SystemBundle\Entity\Section
      */
     public function getSection()
     {
@@ -114,10 +114,10 @@ class SectionModule
     /**
      * Set app
      *
-     * @param  \Flexy\SystemBundle\Entity\App $app
+     * @param  \Unifik\SystemBundle\Entity\App $app
      * @return SectionModule
      */
-    public function setApp(\Flexy\SystemBundle\Entity\App $app = null)
+    public function setApp(\Unifik\SystemBundle\Entity\App $app = null)
     {
         $this->app = $app;
 
@@ -127,24 +127,24 @@ class SectionModule
     /**
      * Get app
      *
-     * @return \Flexy\SystemBundle\Entity\App
+     * @return \Unifik\SystemBundle\Entity\App
      */
     public function getApp()
     {
         return $this->app;
     }
     /**
-     * @var \Flexy\SystemBundle\Entity\Navigation
+     * @var \Unifik\SystemBundle\Entity\Navigation
      */
     private $navigation;
 
     /**
      * Set navigation
      *
-     * @param  \Flexy\SystemBundle\Entity\Navigation $navigation
+     * @param  \Unifik\SystemBundle\Entity\Navigation $navigation
      * @return SectionModule
      */
-    public function setNavigation(\Flexy\SystemBundle\Entity\Navigation $navigation = null)
+    public function setNavigation(\Unifik\SystemBundle\Entity\Navigation $navigation = null)
     {
         $this->navigation = $navigation;
 
@@ -154,7 +154,7 @@ class SectionModule
     /**
      * Get navigation
      *
-     * @return \Flexy\SystemBundle\Entity\Navigation
+     * @return \Unifik\SystemBundle\Entity\Navigation
      */
     public function getNavigation()
     {

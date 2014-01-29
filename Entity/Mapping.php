@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\SystemBundle\Lib\BaseEntity;
+use Unifik\SystemBundle\Lib\BaseEntity;
 
 /**
  * Mapping
@@ -162,10 +162,10 @@ class Mapping extends BaseEntity
     /**
      * Set app
      *
-     * @param  \Flexy\SystemBundle\Entity\App $app
+     * @param  \Unifik\SystemBundle\Entity\App $app
      * @return Mapping
      */
-    public function setApp(\Flexy\SystemBundle\Entity\App $app = null)
+    public function setApp(\Unifik\SystemBundle\Entity\App $app = null)
     {
         $this->app = $app;
 
@@ -175,7 +175,7 @@ class Mapping extends BaseEntity
     /**
      * Get app
      *
-     * @return \Flexy\SystemBundle\Entity\App
+     * @return \Unifik\SystemBundle\Entity\App
      */
     public function getApp()
     {
@@ -185,10 +185,10 @@ class Mapping extends BaseEntity
     /**
      * Set navigation
      *
-     * @param  \Flexy\SystemBundle\Entity\Navigation $navigation
+     * @param  \Unifik\SystemBundle\Entity\Navigation $navigation
      * @return Mapping
      */
-    public function setNavigation(\Flexy\SystemBundle\Entity\Navigation $navigation = null)
+    public function setNavigation(\Unifik\SystemBundle\Entity\Navigation $navigation = null)
     {
         $this->navigation = $navigation;
 
@@ -198,7 +198,7 @@ class Mapping extends BaseEntity
     /**
      * Get navigation
      *
-     * @return \Flexy\SystemBundle\Entity\Navigation
+     * @return \Unifik\SystemBundle\Entity\Navigation
      */
     public function getNavigation()
     {

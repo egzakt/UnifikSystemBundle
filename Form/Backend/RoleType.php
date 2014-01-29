@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Form\Backend;
+namespace Unifik\SystemBundle\Form\Backend;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +25,7 @@ class RoleType extends AbstractType
                     'multiple' => true,
                     'expanded' => true,
                     'property' => 'name',
-                    'class'    => 'Flexy\SystemBundle\Entity\Section',
+                    'class'    => 'Unifik\SystemBundle\Entity\Section',
                     'required' => false
             ));
         }
@@ -33,7 +33,7 @@ class RoleType extends AbstractType
 
     public function getName()
     {
-        return 'flexy_backend_userbundle_roletype';
+        return 'unifik_backend_userbundle_roletype';
     }
 
     /**
@@ -45,7 +45,7 @@ class RoleType extends AbstractType
     {
         $resolver->setDefaults(array(
             'cascade_validation' => true,
-            'data_class' => 'Flexy\SystemBundle\Entity\Role',
+            'data_class' => 'Unifik\SystemBundle\Entity\Role',
             'admin' => false
         ));
     }

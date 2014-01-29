@@ -1,7 +1,7 @@
-Flexy\SystemBundle\Entity\Token:
+Unifik\SystemBundle\Entity\Token:
   type: entity
   table: null
-  repositoryClass: Flexy\SystemBundle\Entity\TokenRepository
+  repositoryClass: Unifik\SystemBundle\Entity\TokenRepository
   options:
     collate: utf8_bin # Used for case sensitive search
   fields:
@@ -16,7 +16,7 @@ Flexy\SystemBundle\Entity\Token:
   lifecycleCallbacks: {  }
   oneToMany:
     translations:
-      targetEntity: Flexy\SystemBundle\Entity\TokenTranslation
+      targetEntity: Unifik\SystemBundle\Entity\TokenTranslation
       mappedBy: token
       fetch: EAGER
       cascade: [persist]

@@ -1,13 +1,13 @@
 <?php
 
-namespace Flexy\Frontend\CoreBundle\DataFixtures\ORM;
+namespace Unifik\Frontend\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
-use Flexy\SystemBundle\Entity\Navigation;
+use Unifik\SystemBundle\Entity\Navigation;
 
 class LoadNavigationData extends AbstractFixture implements OrderedFixtureInterface
 {
@@ -18,7 +18,7 @@ class LoadNavigationData extends AbstractFixture implements OrderedFixtureInterf
      */
     public function load(ObjectManager $manager)
     {
-        $metadata = $manager->getClassMetaData('Flexy\\SystemBundle\\Entity\\Navigation');
+        $metadata = $manager->getClassMetaData('Unifik\\SystemBundle\\Entity\\Navigation');
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $sectionBar = new Navigation();

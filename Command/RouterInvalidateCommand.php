@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Command;
+namespace Unifik\SystemBundle\Command;
 
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -17,12 +17,12 @@ class RouterInvalidateCommand extends ContainerAwareCommand
     protected function configure()
     {
         $this
-            ->setName('flexy:router:invalidate')
+            ->setName('unifik:router:invalidate')
             ->setDescription('Invalidate the router cache')
             ->setHelp(<<<EOF
-The <info>flexy:router:invalidate</info> invalidate (clear) the router cache
+The <info>unifik:router:invalidate</info> invalidate (clear) the router cache
 
-<info>php app/console flexy:router:invalidate --env=dev</info>
+<info>php app/console unifik:router:invalidate --env=dev</info>
 EOF
             )
         ;
@@ -36,7 +36,7 @@ EOF
         $kernel = $this->getContainer()->get('kernel');
         $output->writeln(sprintf('Invalidating routes for the <info>%s</info> environment', $kernel->getEnvironment()));
 
-        $this->getContainer()->get('flexy_system.router_cache')->invalidate();
+        $this->getContainer()->get('unifik_system.router_cache')->invalidate();
     }
 
 }

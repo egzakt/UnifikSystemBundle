@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\SystemBundle\Lib\BaseEntityRepository;
+use Unifik\SystemBundle\Lib\BaseEntityRepository;
 
 /**
  * TokenRepository

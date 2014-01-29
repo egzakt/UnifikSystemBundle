@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Controller\Backend\Role;
+namespace Unifik\SystemBundle\Controller\Backend\Role;
 
-use Flexy\SystemBundle\Lib\Backend\BaseController;
+use Unifik\SystemBundle\Lib\Backend\BaseController;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Role\SwitchUserRole;
@@ -26,9 +26,9 @@ class NavigationController extends BaseController
             return new Response();
         }
 
-        $selected = (0 === strpos($_masterRoute, 'flexy_system_backend_role'));
+        $selected = (0 === strpos($_masterRoute, 'unifik_system_backend_role'));
 
-        return $this->render('FlexySystemBundle:Backend/Role/Navigation:global_bundle_bar.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Role/Navigation:global_bundle_bar.html.twig', array(
             'selected' => $selected
         ));
     }
@@ -60,7 +60,7 @@ class NavigationController extends BaseController
             }
         }
 
-        return $this->render('FlexySystemBundle:Backend/Role/Navigation:impersonating_bar.html.twig', array(
+        return $this->render('UnifikSystemBundle:Backend/Role/Navigation:impersonating_bar.html.twig', array(
             'previousToken' => $previousToken
         ));
     }

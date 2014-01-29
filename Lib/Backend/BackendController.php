@@ -1,8 +1,8 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib\Backend;
+namespace Unifik\SystemBundle\Lib\Backend;
 
-use Flexy\SystemBundle\Lib\Backend\BaseController;
+use Unifik\SystemBundle\Lib\Backend\BaseController;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -26,7 +26,7 @@ abstract class BackendController extends BaseController
 
         $result = $this->checkDeletable($entity);
         $output = $result->toArray();
-        $output['template'] = $this->renderView('FlexySystemBundle:Backend/Core:delete_message.html.twig',
+        $output['template'] = $this->renderView('UnifikSystemBundle:Backend/Core:delete_message.html.twig',
             array(
                 'entity' => $entity,
                 'result' => $result

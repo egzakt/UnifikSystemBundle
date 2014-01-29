@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
 

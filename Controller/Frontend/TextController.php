@@ -1,13 +1,13 @@
 <?php
 
-namespace Flexy\SystemBundle\Controller\Frontend;
+namespace Unifik\SystemBundle\Controller\Frontend;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-use Flexy\SystemBundle\Entity\Text;
-use Flexy\SystemBundle\Entity\TextRepository;
-use Flexy\SystemBundle\Lib\Frontend\BaseController;
+use Unifik\SystemBundle\Entity\Text;
+use Unifik\SystemBundle\Entity\TextRepository;
+use Unifik\SystemBundle\Lib\Frontend\BaseController;
 
 /**
  * Text Controller
@@ -24,7 +24,7 @@ class TextController extends BaseController
      */
     public function init()
     {
-        $this->textRepository = $this->getEm()->getRepository('FlexySystemBundle:Text');
+        $this->textRepository = $this->getEm()->getRepository('UnifikSystemBundle:Text');
     }
 
     /**
@@ -34,7 +34,7 @@ class TextController extends BaseController
      */
     public function indexAction()
     {
-        return $this->render('FlexySystemBundle:Frontend/Text:index.html.twig');
+        return $this->render('UnifikSystemBundle:Frontend/Text:index.html.twig');
     }
 
     /**
@@ -53,7 +53,7 @@ class TextController extends BaseController
 
         $texts = $this->textRepository->findBy(array('section' => $sectionId, 'static' => false, 'active' => true), array('ordering' => 'ASC'));
 
-        return $this->render('FlexySystemBundle:Frontend/Text:displayTexts.html.twig', array(
+        return $this->render('UnifikSystemBundle:Frontend/Text:displayTexts.html.twig', array(
             'texts' => $texts,
             'textId' => $this->get('request')->get('bloc')
         ));
@@ -73,7 +73,7 @@ class TextController extends BaseController
             'active' => true
         ));
 
-        return $this->render('FlexySystemBundle:Frontend/Text:displayTexts.html.twig', array(
+        return $this->render('UnifikSystemBundle:Frontend/Text:displayTexts.html.twig', array(
             'texts' => is_null($text) ? null : array($text),
             'textId' => $textId
         ));
@@ -88,7 +88,7 @@ class TextController extends BaseController
      */
     public function displayTextAction($text)
     {
-        return $this->render('FlexySystemBundle:Frontend/Text:displayTexts.html.twig', array(
+        return $this->render('UnifikSystemBundle:Frontend/Text:displayTexts.html.twig', array(
             'texts' => array($text),
             'textId' => $text->getId(),
         ));

@@ -1,7 +1,7 @@
-Flexy\SystemBundle\Entity\TokenTranslation:
+Unifik\SystemBundle\Entity\TokenTranslation:
   type: entity
   table: null
-  repositoryClass: Flexy\SystemBundle\Entity\TokenTranslationRepository
+  repositoryClass: Unifik\SystemBundle\Entity\TokenTranslationRepository
   fields:
     id:
       type: integer
@@ -23,7 +23,7 @@ Flexy\SystemBundle\Entity\TokenTranslation:
   lifecycleCallbacks: {  }
   manyToOne:
     token:
-      targetEntity: Flexy\SystemBundle\Entity\Token
+      targetEntity: Unifik\SystemBundle\Entity\Token
       inversedBy:  translations
       joinColumn:
         name: token_id

@@ -1,11 +1,11 @@
 <?php
 
-namespace Flexy\SystemBundle\Lib\Frontend;
+namespace Unifik\SystemBundle\Lib\Frontend;
 
-use Flexy\SystemBundle\Lib\ApplicationController;
+use Unifik\SystemBundle\Lib\ApplicationController;
 
 /**
- * Base Controller for all Flexy Frontend Bundles
+ * Base Controller for all Unifik Frontend Bundles
  */
 abstract class BaseController extends ApplicationController
 {
@@ -18,7 +18,7 @@ abstract class BaseController extends ApplicationController
      */
     public function getCore()
     {
-        return $this->get('flexy_frontend.core');
+        return $this->get('unifik_frontend.core');
     }
 
 

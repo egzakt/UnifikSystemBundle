@@ -1,9 +1,9 @@
 {
-    "name": "flexy/system-bundle",
+    "name": "unifik/system-bundle",
     "type": "symfony-bundle",
-    "description": "The core bundle of the symfony-flexy distribution",
-    "keywords": ["cms", "cmf", "symfony", "flexy", "distribution"],
-    "homepage": "https://github.com/egzakt/symfony-flexy",
+    "description": "The core bundle of the symfony-unifik distribution",
+    "keywords": ["cms", "cmf", "symfony", "unifik", "distribution"],
+    "homepage": "https://github.com/egzakt/symfony-unifik",
     "license": "MIT",
     "authors": [
         {
@@ -23,7 +23,7 @@
         "symfony/symfony": "2.3.*"
     },
     "autoload": {
-        "psr-0": { "Flexy\\SystemBundle": "" }
+        "psr-0": { "Unifik\\SystemBundle": "" }
     },
-    "target-dir": "Flexy/SystemBundle"
+    "target-dir": "Unifik/SystemBundle"
 }

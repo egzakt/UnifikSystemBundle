@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Flexy\SystemBundle\Generator;
+namespace Unifik\SystemBundle\Generator;
 
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpKernel\Bundle\BundleInterface;

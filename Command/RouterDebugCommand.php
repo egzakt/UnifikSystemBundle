@@ -1,6 +1,6 @@
 <?php
 
-namespace Flexy\SystemBundle\Command;
+namespace Unifik\SystemBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -11,7 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Command\RouterDebugCommand as BaseRouterDebug
 /**
  * A console command for retrieving information about routes
  *
- * This Flexy version display addional informations about route mapping
+ * This Unifik version display addional informations about route mapping
  */
 class RouterDebugCommand extends BaseRouterDebugCommand
 {
@@ -22,7 +22,7 @@ class RouterDebugCommand extends BaseRouterDebugCommand
     protected function configure()
     {
         $this
-            ->setName('flexy:router:debug')
+            ->setName('unifik:router:debug')
             ->setDefinition(array(
                 new InputArgument('name', InputArgument::OPTIONAL, 'A route name')
             ))
@@ -65,12 +65,12 @@ EOF
             $maxHost = max($maxHost, strlen($host));
             $maxPath = max($maxPath, strlen($route->getPattern()));
 
-            if ($flexyRequest = $route->getDefault('_flexyRequest')) {
-                if (isset($flexyRequest['mappedRouteName'])) {
-                    $maxMappingSource = max($maxMappingSource, strlen($flexyRequest['mappedRouteName']));
+            if ($unifikRequest = $route->getDefault('_unifikRequest')) {
+                if (isset($unifikRequest['mappedRouteName'])) {
+                    $maxMappingSource = max($maxMappingSource, strlen($unifikRequest['mappedRouteName']));
                 }
-                if (isset($flexyRequest['appSlug'])) {
-                    $maxApplication = max($maxApplication, strlen($flexyRequest['appSlug']));
+                if (isset($unifikRequest['appSlug'])) {
+                    $maxApplication = max($maxApplication, strlen($unifikRequest['appSlug']));
                 }
             }
         }
@@ -85,12 +85,12 @@ EOF
             $host = '' !== $route->getHost() ? $route->getHost() : 'ANY';
             $mappingSource = '';
             $appSlug = '';
-            if ($flexyRequest = $route->getDefault('_flexyRequest')) {
-                if (isset($flexyRequest['mappedRouteName'])) {
-                    $mappingSource = $flexyRequest['mappedRouteName'];
+            if ($unifikRequest = $route->getDefault('_unifikRequest')) {
+                if (isset($unifikRequest['mappedRouteName'])) {
+                    $mappingSource = $unifikRequest['mappedRouteName'];
                 }
-                if (isset($flexyRequest['appSlug'])) {
-                    $appSlug = $flexyRequest['appSlug'];
+                if (isset($unifikRequest['appSlug'])) {
+                    $appSlug = $unifikRequest['appSlug'];
                 }
             }
             $output->write(sprintf($format,  $name, $method, $scheme, $host, $route->getPath(), '<fg=yellow>' . $appSlug . '</>', $mappingSource), OutputInterface::OUTPUT_RAW);

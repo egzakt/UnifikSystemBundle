@@ -1,9 +1,9 @@
 <?php
 
-namespace Flexy\SystemBundle\Entity;
+namespace Unifik\SystemBundle\Entity;
 
-use Flexy\DoctrineBehaviorsBundle\Model as FlexyORMBehaviors;
-use Flexy\SystemBundle\Lib\BaseEntityRepository;
+use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
+use Unifik\SystemBundle\Lib\BaseEntityRepository;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
@@ -58,7 +58,7 @@ class UserRepository extends BaseEntityRepository implements UserProviderInterfa
      */
     public function supportsClass($class)
     {
-        return $class === 'Flexy\SystemBundle\Entity\User';
+        return $class === 'Unifik\SystemBundle\Entity\User';
     }
 
     /**
