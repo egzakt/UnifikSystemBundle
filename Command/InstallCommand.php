@@ -41,15 +41,15 @@ EOF
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->write(
-'
-    ________
-   / ____/ /__  _  ____  __
-  / /_  / / _ \| |/_/ / / /
- / __/ / /  __/>  </ /_/ /
-/_/   /_/\___/_/|_|\__, /
-                  /____/
-');
-        $output->writeln('<info>Installation.</info>');
+'              _  __ _ _
+  _   _ _ __ (_)/ _(_) | __
+ | | | | \'_ \| | |_| | |/ /
+ | |_| | | | | |  _| |   <
+  \__,_|_| |_|_|_| |_|_|\_\
+
+        ');
+
+        $output->writeln('<info>Installation</info>');
         $output->writeln('');
 
         $this->doDatabaseSetup($input, $output);
