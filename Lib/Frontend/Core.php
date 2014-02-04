@@ -167,7 +167,7 @@ class Core implements ApplicationCoreInterface
     }
 
     /**
-     * Should be in the backend only
+     * Get App
      *
      * @return App
      */
@@ -179,7 +179,7 @@ class Core implements ApplicationCoreInterface
 
         $em = $this->doctrine->getManager();
 
-        $this->app = $em->getRepository('EgazktSystemBundle:App')->find($this->getAppId());
+        $this->app = $em->getRepository('UnifikSystemBundle:App')->find($this->getAppId());
 
         return $this->app;
     }
