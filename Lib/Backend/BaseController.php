@@ -2,8 +2,10 @@
 
 namespace Unifik\SystemBundle\Lib\Backend;
 
-use Unifik\SystemBundle\Lib\ApplicationController;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+use Unifik\SystemBundle\Lib\ApplicationController;
+use Unifik\SystemBundle\Lib\NavigationElement;
 
 /**
  * Base Controller for all Unifik backend bundles
@@ -52,5 +54,25 @@ abstract class BaseController extends ApplicationController
             $this->get('unifik_system.router_auto_parameters_handler')->inject($parameters),
             $referenceType
         );
+    }
+
+    /**
+     * Helper method to create a navigation element
+     *
+     * @param string $name
+     * @param string $route
+     * @param array  $routeParams
+     *
+     * @return NavigationElement
+     */
+    protected function createNavigationElement($name, $route, $routeParams = array())
+    {
+        $navigationElement = new NavigationElement();
+        $navigationElement->setContainer($this->container);
+        $navigationElement->setName($name);
+        $navigationElement->setRouteBackend($route);
+        $navigationElement->setRouteBackendParams($routeParams);
+
+        return $navigationElement;
     }
 }

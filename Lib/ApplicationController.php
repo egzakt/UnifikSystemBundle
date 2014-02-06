@@ -169,26 +169,6 @@ abstract class ApplicationController extends Controller implements BaseControlle
     }
 
     /**
-     * Helper method to create a navigation element
-     *
-     * @param $name
-     * @param $route
-     * @param array $routeParams
-     *
-     * @return NavigationElement
-     */
-    protected function createNavigationElement($name, $route, $routeParams = array())
-    {
-        $navigationElement = new NavigationElement();
-        $navigationElement->setContainer($this->container);
-        $navigationElement->setName($name);
-        $navigationElement->setRouteBackend($route);
-        $navigationElement->setRouteBackendParams($routeParams);
-
-        return $navigationElement;
-    }
-
-    /**
      * Push a navigation element on top on the navigation element stack
      *
      * @param $element

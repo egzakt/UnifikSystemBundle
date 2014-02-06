@@ -84,7 +84,9 @@ class LocaleSwitcher
         if ($element) {
             foreach ($locales as $locale) {
 
-                $element->setCurrentLocale($locale->getCode());
+                if (in_array('UnifikORMBehaviors\Translatable\Translatable', (new \ReflectionClass($element))->getTraitNames())) {
+                    $element->setCurrentLocale($locale->getCode());
+                }
 
                 // If the homepage of the currently processed locale is not active, we jump to the next one.
                 try {
@@ -194,7 +196,10 @@ class LocaleSwitcher
         // If a repository exists
         if (class_exists($className . 'Repository')) {
             $repository = $this->em->getRepository($className);
-            $repository->setCurrentAppName('backend'); // Faking backend access to force a left join on future queries
+
+            if (in_array('Unifik\DoctrineBehaviorsBundle\Model\Repository\TranslatableEntityRepository', (new \ReflectionClass($repository))->getTraitNames())) {
+                $repository->setCurrentAppName('backend'); // Faking backend access to force a left join on future queries
+            }
 
             $element = $repository->find($this->element->getId());
         }
