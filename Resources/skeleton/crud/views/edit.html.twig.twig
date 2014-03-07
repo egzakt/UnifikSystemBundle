@@ -2,7 +2,7 @@
 {{ "{% form_theme form 'UnifikSystemBundle:" ~ application ~ "/Core:edit_fields.html.twig' %}" }}
 
 {{ '{% block content_header %}' }}
-    <h1>{{ '{{ ' ~ twig_entity_var ~ '|trans }}' }}</h1>
+    <h1>{{ "{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': " ~ twig_entity_var ~ " } %}" }}</h1>
 {{ '{% endblock %}' }}
 
 {{ '{% block content_main %}' }}
