@@ -173,10 +173,13 @@ class NavigationController extends BaseController
             return new Response();
         }
 
-        $mappings = $this->mappingRepository->findBy(array(
-            'section' => $this->getSection(),
-            'navigation' => NavigationRepository::SECTION_MODULE_BAR_ID
-        ));
+        $mappings = $this->mappingRepository->findBy(
+                array(
+                    'section' => $this->getSection(),
+                    'navigation' => NavigationRepository::SECTION_MODULE_BAR_ID
+                ),
+                array('ordering' => 'ASC')
+        );
 
         return $this->render('UnifikSystemBundle:Backend/Navigation:section_module_bar.html.twig', array(
             'mappings' => $mappings,
