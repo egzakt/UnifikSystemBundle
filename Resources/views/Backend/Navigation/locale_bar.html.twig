@@ -1,14 +1,21 @@
 {% if locales and locales|length > 1 %}
-    <label>{% trans %}Content Language{% endtrans %}</label>
-    <select id="languages">
-        {% for locale in locales %}
-            <option {% if editLocale == locale.code %}selected="selected"{% endif %} value="{{ locale.code }}">{{ locale }}</option>
-        {% endfor %}
-    </select>
-
+    <li>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {% trans %}Content Language{% endtrans %}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                {% for locale in locales %}
+                    <li{% if editLocale == locale.code %} class="selected"{% endif %}><a href="{{ locale.code }}" class="languages">{{ locale }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </li>
     <script>
-        $('#languages').change(function() {
-            window.location.href = window.location.href.replace(/[\?#].*|$/, "?edit-locale=" + $(this).val());
+        $('.languages').click(function(e) {
+            e.preventDefault();
+            window.location.href = window.location.href.replace(/[\?#].*|$/, "?edit-locale=" + $(this).attr('href'));
         });
     </script>
 {% endif %}
