@@ -2942,6 +2942,26 @@ div.error label.error:before {
    color: #666;
 }
 
+#signin {
+    background-color: #B61921;
+    border-color: #A50A19;
+}
+
+#signin:hover {
+    background-color: #A50A19;
+}
+
+#error_message ul {
+    padding: 0;
+    margin: 10px 0 0 0;
+}
+
+#error_message ul li {
+    list-style-type: none;
+    padding: 0 0 5px 0;
+    color: #B61921;
+}
+
 /* sign up */
 
 .signuppanel {

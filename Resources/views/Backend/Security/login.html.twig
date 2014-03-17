@@ -1,36 +1,60 @@
 {% extends 'UnifikSystemBundle:Backend:layout.html.twig' %}
 
-{% block body_attr 'id="login_page"' %}
+{% block body_attr 'class="signin"' %}
 
-{% block body %}
+    {% block body %}
 
-    {% include 'UnifikSystemBundle:Backend/Core:header.html.twig' %}
+        <section>
 
-    <div id="login_bar">
-        <h6>{% trans %}Content Management System (CMS){% endtrans %}</h6>
-    </div>
+            <div class="signinpanel">
 
-    <div id="wrapper_login">
+                <div class="row">
 
-        {% if error %}
-            <div id="error_message">
-                <ul>
-                    <li>{{ error.message|trans }}</li>
-                </ul>
-            </div>
-        {% endif %}
+                    <div class="col-md-7">
 
-        <form id="login_form" action="{{ path('unifik_system_backend_login_check') }}" method="post">
-            <label class="utilisateur" for="connexion_utilisateur_nom">{% trans %}User{% endtrans %}</label>
-            <input type="text" name="_username" id="connexion_utilisateur_nom" />
+                        <div class="signin-info">
+                            <div class="logopanel">
+                                <h1><span>[</span> Unifik <span>]</span></h1>
+                            </div><!-- logopanel -->
 
-            <label class="mot_passe" for="connexion_mot_passe">{% trans %}Password{% endtrans %}</label>
-            <input type="password" name="_password" id="connexion_mot_passe" />
+                            <div class="mb20"></div>
 
-            <div class="button"><input type="submit" value="{% trans %}Sign In{% endtrans %}" /></div>
-        </form>
+                            <h5><strong>{% trans %}Welcome to Unifik{% endtrans %}!</strong></h5>
+                            Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
+                        </div><!-- signin0-info -->
 
-    </div>
-    <div id="form_connexion_bas"><img src="{{ asset('bundles/unifiksystem/backend/images/graphics/login_form_bottom.png') }}" width="370" height="20" alt="" /></div>
+                    </div><!-- col-sm-7 -->
+
+                    <div class="col-md-5">
+
+                        <form id="login_form" method="post" action="{{ path('unifik_system_backend_login_check') }}">
+                            <h4 class="nomargin">{% trans %}Sign In{% endtrans %}</h4>
+
+                            {% if error %}
+                                <div id="error_message">
+                                    <ul>
+                                        <li>{{ error.message|trans }}</li>
+                                    </ul>
+                                </div>
+                            {% endif %}
+
+                            <input type="text" class="form-control uname" name="_username" placeholder="{% trans %}Username{% endtrans %}" />
+                            <input type="password" class="form-control pword" name="_password" placeholder="{% trans %}Password{% endtrans %}" />
+                            <button class="btn btn-success btn-block" id="signin">{% trans %}Sign In{% endtrans %}</button>
+
+                        </form>
+                    </div><!-- col-sm-5 -->
+
+                </div><!-- row -->
+
+                <div class="signup-footer">
+                    <div class="pull-left">
+                        &copy; {{ 'now'|date('Y') }} Egzakt. {% trans %}All Rights Reserved{% endtrans %}.
+                    </div>
+                </div>
+
+            </div><!-- signin -->
+
+        </section>
 
 {% endblock %}

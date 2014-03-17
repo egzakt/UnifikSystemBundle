@@ -202,7 +202,7 @@ h4, .h4 {
 }
 
 .btn-success {
-   background-color: #B61921;
+   background-color: #1CAF9A;
    border-color: #17a08c;
 }
 
@@ -262,8 +262,8 @@ h4, .h4 {
 }
 
 .btn-success-alt {
-   border: 2px solid #B61921;
-   color: #B61921;
+   border: 2px solid #1CAF9A;
+   color: #1CAF9A;
    text-transform: uppercase;
    font-family: 'LatoBold';
    font-size: 12px;
@@ -614,7 +614,7 @@ h4, .h4 {
 }
 
 .panel-success .panel-heading {
-   background-color: #B61921;
+   background-color: #1CAF9A;
 }
 
 .panel-warning .panel-heading {
@@ -947,7 +947,7 @@ h4, .h4 {
 }
 
 .label-success {
-   background-color: #B61921;
+   background-color: #1CAF9A;
 }
 
 .badge-primary {
@@ -959,7 +959,7 @@ h4, .h4 {
 }
 
 .badge-success {
-   background-color: #B61921;
+   background-color: #1CAF9A;
 }
 
 .badge-danger {
@@ -988,7 +988,7 @@ h4, .h4 {
 }
 
 .progress-bar-success {
-   background-color: #B61921;
+   background-color: #1CAF9A;
 }
 
 .progress-sm {
@@ -1056,7 +1056,7 @@ h4, .h4 {
 }
 
 .nav .dropdown > a {
-   font-family: 'LatoBold';  
+   font-family: 'LatoBold';
 }
 
 .nav .dropdown-menu {
@@ -1208,8 +1208,8 @@ h4, .h4 {
 .pagination > .active > span:hover,
 .pagination > .active > a:focus,
 .pagination > .active > span:focus {
-   background-color: #B61921;
-   border-color: #B61921;
+   background-color: #1CAF9A;
+   border-color: #1CAF9A;
 }
 
 .pager li > a, .pager li > span {
@@ -1255,7 +1255,7 @@ small.media-desc {
 }
 
 .text-success {
-   color: #B61921;
+   color: #1CAF9A;
 }
 
 .table {

@@ -14,12 +14,8 @@
         {% endblock head %}
     </head>
     <body {% block body_attr '' %}>
-        {% block body %}
 
-            <!-- Preloader -->
-            <div id="preloader">
-                <div id="status"><i class="fa fa-spinner fa-spin"></i></div>
-            </div>
+        {% block body %}
 
             <section>
 
@@ -179,10 +175,11 @@
                     </div>
 
                 </div>
+                -->
             {% endblock %}
 
         {% endblock %}
--->
+
 
         {% block javascripts %}
             {% include 'UnifikSystemBundle:Backend/Core:javascripts.html.twig' %}
