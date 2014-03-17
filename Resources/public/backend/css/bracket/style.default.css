@@ -173,7 +173,7 @@ strong {
 .headermenu .dropdown-toggle:hover,
 .headermenu .dropdown-toggle:focus,
 .headermenu .dropdown-toggle:active,
-.headermenu .dropdown-toggle.active,
+.headermenu .dropdown-toggle.selected,
 .headermenu .open .dropdown-toggle.dropdown-toggle {
    background: #f9f9f9;
    color: #333;
@@ -507,9 +507,9 @@ strong {
 	box-shadow: 0 3px 0 rgba(0,0,0,0.2);
 }
 
-.nav-bracket > li.nav-parent > a {
-   background: transparent url(/bundles/unifiksystem/backend/images/icons/plus-white.png) no-repeat 96% center;
-}
+/*.nav-bracket > li.nav-parent > a {*/
+   /*background: transparent url(/bundles/unifiksystem/backend/images/icons/plus-white.png) no-repeat 96% center;*/
+/*}*/
 
 .nav-bracket > li.nav-parent > a:focus {
    background-color: none;
@@ -523,12 +523,12 @@ strong {
 .nav-bracket > li.nav-parent > a:active {
    color: #1d2939;
    background-color: #fff;
-   background-image: url(/bundles/unifiksystem/backend/images/icons/plus.png);
+   /*background-image: url(/bundles/unifiksystem/backend/images/icons/plus.png);*/
 }
 
 .nav-bracket > li.nav-active > a {
    background-color: #fff;
-   background-image: url(/bundles/unifiksystem/backend/images/icons/minus.png);
+   /*background-image: url(/bundles/unifiksystem/backend/images/icons/minus.png);*/
 	color: #1d2939;
 	-moz-box-shadow: 0 3px 0 rgba(0,0,0,0.2);
 	-webkit-box-shadow: 0 3px 0 rgba(0,0,0,0.2);
@@ -536,7 +536,7 @@ strong {
 }
 
 .nav-bracket > li.nav-active > a:hover {
-	background-image: url(/bundles/unifiksystem/backend/images/icons/minus.png);
+	/*background-image: url(/bundles/unifiksystem/backend/images/icons/minus.png);*/
     background-repeat: no-repeat;
 }
 
@@ -544,30 +544,30 @@ strong {
    color: #1d2939;
 }
 
-.nav-bracket > li.active > a,
-.nav-bracket > li.active > a:hover,
-.nav-bracket > li.active > a:focus {
+.nav-bracket > li.selected > a,
+.nav-bracket > li.selected > a:hover,
+.nav-bracket > li.selected > a:focus {
    background-color: #B61921;
    color: #fff;
 }
 
-.nav-bracket > li.active > a {
+.nav-bracket > li.selected > a {
 	-moz-box-shadow: 0 3px 0 rgba(0,0,0,0.2);
 	-webkit-box-shadow: 0 3px 0 rgba(0,0,0,0.2);
 	box-shadow: 0 3px 0 rgba(0,0,0,0.2);
 }
 
-.nav-bracket > li.nav-parent.active > a {
-   background-image: url(/bundles/unifiksystem/backend/images/icons/plus.png);
-}
+/*.nav-bracket > li.nav-parent.selected > a {*/
+   /*background-image: url(/bundles/unifiksystem/backend/images/icons/plus.png);*/
+/*}*/
 
-.nav-bracket > li.nav-active.active > a {
-   background-image: url(/bundles/unifiksystem/backend/images/icons/minus.png);
-}
+/*.nav-bracket > li.nav-active.selected > a {*/
+   /*background-image: url(/bundles/unifiksystem/backend/images/icons/minus.png);*/
+/*}*/
 
-.nav-bracket > li.nav-active.active > a:hover {
-   background-image: url(/bundles/unifiksystem/backend/images/icons/minus.png);
-}
+/*.nav-bracket > li.nav-active.selected > a:hover {*/
+   /*background-image: url(/bundles/unifiksystem/backend/images/icons/minus.png);*/
+/*}*/
 
 .nav-bracket li .fa,
 .nav-bracket li .glyphicon {
@@ -584,7 +584,7 @@ strong {
 
 .nav-bracket .children {
    list-style: none;
-   display: none;
+   /*display: none;*/
    margin: 5px 0;
 	padding: 0;
 }
@@ -619,7 +619,7 @@ strong {
    vertical-align: baseline;
 }
 
-.nav-bracket .children > li.active > a {
+.nav-bracket .children > li.selected > a {
    color: #B61921;
 }
 
@@ -784,7 +784,7 @@ strong {
 	font-size: 12px;
 }
 
-.pageheader .breadcrumb li.active {
+.pageheader .breadcrumb li.selected {
 	color: #333;
 }
 
@@ -1121,9 +1121,9 @@ div.error label.error:before {
 	opacity: 1;
 }
 
-.basic-wizard .nav li.active a,
-.basic-wizard .nav li.active a:focus,
-.basic-wizard .nav li.active a:active {
+.basic-wizard .nav li.selected a,
+.basic-wizard .nav li.selected a:focus,
+.basic-wizard .nav li.selected a:active {
 	background: #fcfcfc;
 	border-bottom-color: #fcfcfc;
 	color: #333;
@@ -1177,9 +1177,9 @@ div.error label.error:before {
 	cursor: default;
 }
 
-.basic-wizard .nav-disabled-click li.active a:hover,
-.basic-wizard .nav-disabled-click li.active a:active,
-.basic-wizard .nav-disabled-click li.active a:focus {
+.basic-wizard .nav-disabled-click li.selected a:hover,
+.basic-wizard .nav-disabled-click li.selected a:active,
+.basic-wizard .nav-disabled-click li.selected a:focus {
 	background: #fcfcfc;
 	color: #333;
 	opacity: 1;
@@ -1872,7 +1872,7 @@ div.error label.error:before {
 	margin-left: 10px;
 }
 
-.filemanager-options .filter-type a.active {
+.filemanager-options .filter-type a.selected {
 	text-decoration: underline;
 	color: #2A6496;
 }
@@ -3104,7 +3104,7 @@ div.error label.error:before {
    display: none;
 }
 
-.leftpanel-collapsed .nav-bracket > li.active > a > span:last-child {
+.leftpanel-collapsed .nav-bracket > li.selected > a > span:last-child {
    -moz-border-radius: 0 2px 0 0;
    -webkit-border-radius: 0 2px 0 0;
    border-radius: 0 2px 0 0;
@@ -3119,7 +3119,7 @@ div.error label.error:before {
    color: #1d2939;
 }
 
-.leftpanel-collapsed .nav-bracket > li.nav-hover.active > a {
+.leftpanel-collapsed .nav-bracket > li.nav-hover.selected > a {
    background: #B61921;
    color: #fff;
 }
@@ -3128,7 +3128,7 @@ div.error label.error:before {
    display: block;
 }
 
-.leftpanel-collapsed .nav-bracket > li.nav-hover.active > a > span:last-child {
+.leftpanel-collapsed .nav-bracket > li.nav-hover.selected > a > span:last-child {
    background: #B61921;
    color: #fff;
 }
@@ -3236,9 +3236,9 @@ div.error label.error:before {
    color: rgba(255,255,255,0.5);
 }
 
-.rightpanel .nav-tabs > .active > a,
-.rightpanel .nav-tabs > .active > a:hover,
-.rightpanel .nav-tabs > .active > a:focus {
+.rightpanel .nav-tabs > .selected > a,
+.rightpanel .nav-tabs > .selected > a:hover,
+.rightpanel .nav-tabs > .selected > a:focus {
    background: #1D2939;
    color: #fff;
 }
@@ -3378,7 +3378,7 @@ div.error label.error:before {
 .headerbar .topnav > ul > li > a:hover,
 .headerbar .topnav > ul > li > a:focus,
 .headerbar .topnav > ul > li.open > a,
-.headerbar .topnav > ul > li.active > a {
+.headerbar .topnav > ul > li.selected > a {
    box-shadow: 0 3px 0 #B61921;
    color: #B61921;
    background: none;

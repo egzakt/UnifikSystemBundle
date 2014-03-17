@@ -1,40 +1,40 @@
 jQuery(document).ready(function() {
    
    // Toggle Left Menu
-   jQuery('.leftpanel .nav-parent > a').live('click', function() {
-      
-      var parent = jQuery(this).parent();
-      var sub = parent.find('> ul');
-      
-      // Dropdown works only when leftpanel is not collapsed
-      if(!jQuery('body').hasClass('leftpanel-collapsed')) {
-         if(sub.is(':visible')) {
-            sub.slideUp(200, function(){
-               parent.removeClass('nav-active');
-               jQuery('.mainpanel').css({height: ''});
-               adjustmainpanelheight();
-            });
-         } else {
-            closeVisibleSubMenu();
-            parent.addClass('nav-active');
-            sub.slideDown(200, function(){
-               adjustmainpanelheight();
-            });
-         }
-      }
-      return false;
-   });
-   
-   function closeVisibleSubMenu() {
-      jQuery('.leftpanel .nav-parent').each(function() {
-         var t = jQuery(this);
-         if(t.hasClass('nav-active')) {
-            t.find('> ul').slideUp(200, function(){
-               t.removeClass('nav-active');
-            });
-         }
-      });
-   }
+//   jQuery('.leftpanel .nav-parent > a').live('click', function() {
+//
+//      var parent = jQuery(this).parent();
+//      var sub = parent.find('> ul');
+//
+//      // Dropdown works only when leftpanel is not collapsed
+//      if(!jQuery('body').hasClass('leftpanel-collapsed')) {
+//         if(sub.is(':visible')) {
+//            sub.slideUp(200, function(){
+//               parent.removeClass('nav-active');
+//               jQuery('.mainpanel').css({height: ''});
+//               adjustmainpanelheight();
+//            });
+//         } else {
+//            closeVisibleSubMenu();
+//            parent.addClass('nav-active');
+//            sub.slideDown(200, function(){
+//               adjustmainpanelheight();
+//            });
+//         }
+//      }
+//      return false;
+//   });
+//
+//   function closeVisibleSubMenu() {
+//      jQuery('.leftpanel .nav-parent').each(function() {
+//         var t = jQuery(this);
+//         if(t.hasClass('nav-active')) {
+//            t.find('> ul').slideUp(200, function(){
+//               t.removeClass('nav-active');
+//            });
+//         }
+//      });
+//   }
    
    function adjustmainpanelheight() {
       // Adjust mainpanel height
@@ -103,7 +103,7 @@ jQuery(document).ready(function() {
             
          } else {
             body.removeClass('leftpanel-collapsed chat-view');
-            jQuery('.nav-bracket li.active ul').css({display: 'block'});
+            jQuery('.nav-bracket li.selected ul').css({display: 'block'});
             
             jQuery(this).removeClass('menu-collapsed');
             
