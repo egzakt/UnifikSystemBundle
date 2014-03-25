@@ -3,8 +3,6 @@
 namespace Unifik\SystemBundle\Extensions;
 
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Stopwatch\Section;
-use BCC\ExtraToolsBundle\Util\DateFormatter;
 
 use Unifik\SystemBundle\Lib\Core;
 
@@ -135,10 +133,10 @@ class TwigExtension extends \Twig_Extension
             $locale = $this->locale;
         }
 
-        $formatter = new DateFormatter();
+        $defaultDateFormatter = \IntlDateFormatter::create($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);
 
         if ($startDate == $endDate) {
-            return $formatter->format($startDate, 'long', 'none', $locale);
+            return $defaultDateFormatter->format($startDate);
         }
 
         $startDateInfos = date_parse($startDate->format('Y-m-d'));
@@ -148,28 +146,32 @@ class TwigExtension extends \Twig_Extension
 
             // ex.: 2 au 5 février 2012
             if ($locale == 'fr') {
-                $range = $startDateInfos['day'] . ' au ' . $formatter->format($endDate, 'long', 'none', $locale);
+                $range = $startDateInfos['day'] . ' au ' . $defaultDateFormatter->format($endDate);
 
-                // ex.: February 2 to 5, 2012
+            // ex.: February 2 to 5, 2012
             } else {
-                $range = $formatter->format($startDate, 'long', 'none', $locale, 'MMMM d') . ' to ' . $formatter->format($endDate, 'long', 'none', $locale, 'd, Y');
+                $dateFormatterStart = \IntlDateFormatter::create($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, null, null, 'MMMM d');
+                $dateFormatterEnd = \IntlDateFormatter::create($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, null, null, 'd, Y');
+                $range = $dateFormatterStart->format($startDate) . ' to ' . $dateFormatterEnd->format($endDate);
             }
 
         } elseif ($startDateInfos['year'] == $endDateInfos['year']) {
 
             // ex.: 2 février au 5 mai 2012
             if ($locale == 'fr') {
-                $range = $formatter->format($startDate, 'long', 'none', $locale, 'd MMMM') . ' au ' . $formatter->format($endDate, 'long', 'none', $locale);
+                $dateFormatterStart = \IntlDateFormatter::create($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, null, null, 'd MMMM');
+                $range = $dateFormatterStart->format($startDate) . ' au ' . $defaultDateFormatter->format($endDate);
 
-                // ex.: February 2 to May 5, 2012
+            // ex.: February 2 to May 5, 2012
             } else {
-                $range = $formatter->format($startDate, 'long', 'none', $locale, 'MMMM d') . ' to ' . $formatter->format($endDate, 'long', 'none', $locale, 'MMMM d') . ', ' . $endDateInfos['year'];
+                $dateFormatter = \IntlDateFormatter::create($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, null, null, 'MMMM d');
+                $range = $dateFormatter->format($startDate) . ' to ' . $dateFormatter->format($endDate) . ', ' . $endDateInfos['year'];
             }
 
         } else {
-            $range = $formatter->format($startDate, 'long', 'none', $locale);
+            $range = $defaultDateFormatter->format($startDate);
             $range .= $locale == 'fr' ? ' au ' : ' to ';
-            $range .= $formatter->format($endDate, 'long', 'none', $locale);
+            $range .= $defaultDateFormatter->format($endDate);
         }
 
         if ($locale == 'fr') {
