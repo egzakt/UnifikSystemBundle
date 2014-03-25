@@ -7,7 +7,7 @@ Welcome: Bienvenue
 Access site: Accéder au site
 Online help: Aide en ligne
 Content Language: Langue du contenu
-Bad Credentials.: Utilisateur/mot de passe invalide.
+Bad credentials: Utilisateur/mot de passe invalide
 
 Developed by: Développé par
 Languages: Langues
@@ -141,3 +141,7 @@ Search a Translation: Rechercher une traduction
 
 Displayed on the language switcher: Affiché sur le sélecteur de langue
 Home page URL: URL de la page d'accueil
+
+Home: Accueil
+":": " :"
+
