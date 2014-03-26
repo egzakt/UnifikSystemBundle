@@ -120,6 +120,36 @@ class NavigationBuilder
     }
 
     /**
+     * Add elements to the existing array
+     *
+     * @param array $elements An array of elements
+     */
+    public function addElements($elements)
+    {
+        // Wrap elements in a NavigationItem Wrapper Class
+        $wrappedElements = $this->buildNavigationItems($elements);
+
+        if ($this->elements) {
+            $this->elements = array_merge($this->elements, $wrappedElements);
+        } else {
+            $this->elements = $wrappedElements;
+        }
+    }
+
+    /**
+     * Add a single element to the existing array
+     *
+     * @param $element
+     */
+    public function addElement($element)
+    {
+        // Wrap element in a NavigationItem Wrapper Class
+        $wrappedElement = $this->buildNavigationItems(array($element));
+
+        $this->elements[] = $wrappedElement[0];
+    }
+
+    /**
      * Build Navigation Items
      *
      * Wraps all navigation elements in a NavigationItem Wrapper Class
