@@ -80,6 +80,11 @@ services:
         calls:
             - [ setKernel, [ @kernel ] ]
             - [ setTemplating, [ @templating ] ]
+            - [ setTranslator, [ @translator ] ]
+            - [ setEntityManager, [ @doctrine.orm.default_entity_manager] ]
+            - [ setRequest, [ @?request= ] ]
+            - [ setCore, [ @unifik_frontend.core ] ]
+            - [ setDefaultLocale, [%locale%] ]
 
     unifik_system.core:
         class: %unifik_system.core.class%
