@@ -81,7 +81,7 @@ class ExceptionListener
             $unifikRequest = $this->generateUnifikRequest($section);
             $this->setUnifikRequestAttributes($unifikRequest);
 
-            $response = $this->templating->renderResponse('UnifikSystemBundle:Frontend/Exception:404.html.twig');
+            $response = $this->templating->renderResponse('UnifikSystemBundle:Frontend/Exception:404.html.twig', array('section' => $section));
             $response->setStatusCode(404);
 
             $event->setResponse($response);
@@ -95,7 +95,7 @@ class ExceptionListener
             $unifikRequest = $this->generateUnifikRequest($section);
             $this->setUnifikRequestAttributes($unifikRequest);
 
-            $response = $this->templating->renderResponse('UnifikSystemBundle:Frontend/Exception:403.html.twig');
+            $response = $this->templating->renderResponse('UnifikSystemBundle:Frontend/Exception:403.html.twig', array('section' => $section));
             $response->setStatusCode(403);
 
             $event->setResponse($response);
