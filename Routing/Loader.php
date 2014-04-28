@@ -128,8 +128,9 @@ class Loader extends BaseLoader
             }
         }
 
-        // The section does have any active text, using the first child as the generation starting point
-        if (false == $mapping['has_text'] && $mapping['has_children']) {
+        // If the section isn't mapped to a custom bundle and does not have any active text,
+        // use the first child as the generation starting point
+        if (false == $mapping['has_text'] && $mapping['has_children'] && $mapping['target'] == 'unifik_system_frontend_text') {
             return $this->generate($this->findFirstChild($mapping['section_id'], $mapping['locale']), $collection, $name);
         }
 
