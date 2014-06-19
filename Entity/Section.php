@@ -3,7 +3,7 @@
 namespace Unifik\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 use Unifik\SystemBundle\Lib\BaseEntity;
 use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
@@ -475,11 +475,11 @@ class Section extends BaseEntity
     /**
      * Basic verification to ensure the headCode contains html
      *
-     * @param ExecutionContext $context
+     * @param ExecutionContextInterface $context
      *
      * @return bool
      */
-    public function isHeadCodeHtml(ExecutionContext $context)
+    public function isHeadCodeHtml(ExecutionContextInterface $context)
     {
 
         if ($this->getHeadCode() != '' && $this->getHeadCode() == strip_tags($this->getHeadCode())) {
