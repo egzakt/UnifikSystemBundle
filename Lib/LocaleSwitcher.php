@@ -116,9 +116,6 @@ class LocaleSwitcher
             }
         }
 
-        // Clear the temporary Entity Manager
-        $this->unsetEntityManager();
-
         return $localizedUrls;
     }
 
