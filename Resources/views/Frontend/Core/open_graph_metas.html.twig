@@ -1,5 +1,23 @@
 {% block og %}
-    {% block og_image %}
-        <meta property="og:image" content="http://{{ app.request.host }}{{ asset('bundles/unifiksystem/frontend/images/ul/graphics/logo.png') }}" />
+
+    {% block og_title %}
+        <meta property="og:title" content="{{ render(controller('UnifikSystemBundle:Frontend/Navigation:PageTitle')) }}" />
     {% endblock %}
+
+    {% block og_type %}
+        <meta property="og:type" content="website" />
+    {% endblock %}
+
+    {% block og_url %}
+        <meta property="og:url" content="http://{{ app.request.host }}" />
+    {% endblock %}
+
+    {% block og_image %}
+        <meta property="og:image" content="http://{{ app.request.host }}{{ asset('bundles/unifiksystem/frontend/images/og-img.png') }}" />
+    {% endblock %}
+
+    {% block og_description %}
+        <meta property="og:description" content="{{ %project_description% }}" />
+    {% endblock %}
+
 {% endblock %}

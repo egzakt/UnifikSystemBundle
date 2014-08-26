@@ -7,14 +7,17 @@
 
             <title>{% block title %}{{ render(controller('UnifikSystemBundle:Frontend/Navigation:PageTitle')) }}{% endblock %}</title>
 
+            {% block metas %}
+                {% include 'UnifikSystemBundle:Frontend/Core:metas.html.twig' %}
+                {% include 'UnifikSystemBundle:Frontend/Core:open_graph_metas.html.twig' %}
+            {% endblock %}
+
             {% block stylesheets %}{% include 'UnifikSystemBundle:Frontend/Core:stylesheets.html.twig' %}{% endblock %}
 
             <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}" />
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
             <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
-
-            {% block metas %}{% include 'UnifikSystemBundle:Frontend/Core:open_graph_metas.html.twig' %}{% endblock %}
 
             {% block head_extra %}{{ render(controller('UnifikSystemBundle:Frontend/Core:HeadExtra')) }}{% endblock %}
         {% endblock %}
