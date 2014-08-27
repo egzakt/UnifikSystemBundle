@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<!--[if IE 7]>         <html class="ie7" lang="{{ app.request.locale }}">  <![endif]-->
+<!--[if IE 8]>         <html class="ie8" lang="{{ app.request.locale }}">  <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="{{ app.request.locale }}">          <!--<![endif]-->
     <head>
         {% block head %}
             <meta charset="utf-8" />
