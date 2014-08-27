@@ -26,7 +26,9 @@
             <![endif]-->
 
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <script>window.jQuery || document.write('<script src="{{ asset('bundles/unifiksystem/frontend/js/jquery.min.js') }}"><\/script>')</script>
             <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+            <script>window.jQuery.ui || document.write('<script src="{{ asset('bundles/unifiksystem/frontend/js/jquery-ui.min.js') }}"><\/script>')</script>
 
             {% block head_extra %}{{ render(controller('UnifikSystemBundle:Frontend/Core:HeadExtra')) }}{% endblock %}
         {% endblock %}
@@ -43,7 +45,7 @@
 
                     {% block logo %}
                         <div id="logo">
-                            <a href="{{ path('section_id_1') }}">{{ project_title }}</a>
+                            <a href="{{ path('section_id_1') }}" title="{{ project_title }}">{{ project_title }}</a>
                         </div>
                     {% endblock %}
                 </header>
@@ -66,7 +68,7 @@
                                 {% block content_top %}
                                     <article>
                                         <aside id="actions">
-                                            <a href="#" class="print_link">{% trans %}Print{% endtrans %}</a>
+                                            <a href="#" title="{% trans %}Print{% endtrans %}" class="print_link">{% trans %}Print{% endtrans %}</a>
                                         </aside>
 
                                         <header id="section_header">
