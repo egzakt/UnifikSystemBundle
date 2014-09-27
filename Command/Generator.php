@@ -111,7 +111,7 @@ class Generator extends DoctrineCrudGenerator
         $this->generateControllerClass($forceOverwrite);
         $this->generateNavigationClass();
 
-        $dir = sprintf('%s/Resources/views/%s/%s', $this->bundle->getPath(), $this->application, str_replace('\\', '/', $this->entity));
+        $dir = sprintf('%s/Resources/views/%s', $this->bundle->getPath(), $this->application);
 
         if (!file_exists($dir)) {
             $this->filesystem->mkdir($dir, 0777);
@@ -212,10 +212,9 @@ class Generator extends DoctrineCrudGenerator
         $entityNamespace = implode('\\', $parts);
 
         $target = sprintf(
-            '%s/Controller/%s/%s/%sController.php',
+            '%s/Controller/%s/%sController.php',
             $dir,
             $this->application,
-            str_replace('\\', '/', $entityClass),
             $entityClass
         );
 
@@ -246,14 +245,12 @@ class Generator extends DoctrineCrudGenerator
         $dir = $this->bundle->getPath();
 
         $parts = explode('\\', $this->entity);
-        $entityClass = array_pop($parts);
         $entityNamespace = implode('\\', $parts);
 
         $target = sprintf(
-            '%s/Controller/%s/%s/NavigationController.php',
+            '%s/Controller/%s/NavigationController.php',
             $dir,
-            $this->application,
-            str_replace('\\', '/', $entityClass)
+            $this->application
         );
 
         $this->renderFile('crud/navigation.php.twig', $target, array(
@@ -336,10 +333,8 @@ class Generator extends DoctrineCrudGenerator
         $filename.= $this->withjqgrid ? 'jqgrid/' : '';
         $filename.= 'views/list.html.twig.twig';
         
-        $fields = array();
-        
         if (isset($this->translation['metadata']) && (count($this->translation['metadata']) > 0)) {
-            $fields = array_merge($this->metadata->fieldMappings, $this->translation['metadata']->fieldMappings);
+            $fields = array_merge($this->translation['metadata']->fieldMappings, $this->metadata->fieldMappings);
         } else {
             $fields = $this->metadata->fieldMappings;
         }

@@ -1,4 +1,4 @@
-{{ "{% extends '" ~ bundle_name ~ ":" ~ application ~ "/" ~ entity ~ ":layout.html.twig' %}" }}
+{{ "{% extends '" ~ bundle_name ~ ":" ~ application ~ ":layout.html.twig' %}" }}
 {{ "{% form_theme form 'UnifikSystemBundle:" ~ application ~ "/Core:edit_fields.html.twig' %}" }}
 
 {{ '{% block content_header %}' }}
@@ -72,7 +72,7 @@
                 {{ "{% if " ~ twig_entity_var ~ ".id %}" }}
                     <tr>
                         <th>
-                            {{ '{% trans %}Last update {% endtrans %}' }} :
+                            {{ '{% trans %}Last update{% endtrans %}' }} :
                         </th>
                         <td style="vertical-align:bottom">
                             {{ "{{ " ~ twig_entity_var ~ ".updatedAt|localizeddate('medium') }}" }}

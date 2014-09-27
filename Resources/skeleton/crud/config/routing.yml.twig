@@ -1,28 +1,28 @@
 {% if 'list' in actions %}
 {{ route_prefix }}:
     pattern:  /{{ entity|lower }}/{sectionId}/
-    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:list" }
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}:list" }
 
 {% endif %}
 {% if 'order' in actions %}
 {{ route_prefix }}_order:
     pattern:  /{{ entity|lower }}/{sectionId}/order
-    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:order" }
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}:order" }
 
 {% endif %}
 {% if 'edit' in actions %}
 {{ route_prefix }}_edit:
     pattern:  /{{ entity|lower }}/{sectionId}/{{ '{' ~ entity_var ~'Id}'}}/edit
-    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:edit", {{ entity_var }}Id: 0 }
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}:edit", {{ entity_var }}Id: 0 }
 
 {% endif %}
 {% if 'delete' in actions %}
 {{ route_prefix }}_delete:
     pattern:  /{{ entity|lower }}/{sectionId}/{{ '{' ~ entity_var ~'Id}'}}/delete
-    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:delete" }
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}:delete" }
 
 {{ route_prefix }}_delete_check:
     pattern:  /{{ entity|lower }}/{sectionId}/{{ '{' ~ entity_var ~'Id}'}}/delete/check
-    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}/{{ entity }}:checkDelete" }
+    defaults: { _controller: "{{ bundle }}:{{ application }}/{{ entity }}:checkDelete" }
 
 {% endif %}

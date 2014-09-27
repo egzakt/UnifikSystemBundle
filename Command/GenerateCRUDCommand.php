@@ -88,11 +88,11 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
             $translationEntityClass = $metadata->associationMappings['translations']['targetEntity'];
             $entityTranslation = str_replace('\\', '', explode('\Entity', $translationEntityClass));
             $entityTranslation = $entityTranslation[1];
-            $translationMetadata = $this->getEntityMetadata($translationEntityClass);
+            $translationMetadata = $mf->getMetadataFor($translationEntityClass);
 
             $translation['entity'] = $entityTranslation;
             $translation['entityClass'] = $translationEntityClass;
-            $translation['metadata'] = $translationMetadata[0];
+            $translation['metadata'] = $translationMetadata;
         }
 
         // Generate the controller

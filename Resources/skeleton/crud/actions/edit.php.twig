@@ -45,7 +45,7 @@
             }
         }
 
-        return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity_class ~ '/' ~ entity|replace({'\\': '/'}) }}:edit.html.twig', array(
+        return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity|replace({'\\': '/'}) }}:edit.html.twig', array(
             '{{ twig_entity_var }}' => ${{ entity_var }},
             'form' => $form->createView()
         ));
