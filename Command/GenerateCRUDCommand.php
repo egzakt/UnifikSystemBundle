@@ -72,8 +72,9 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
 
         $dialog->writeSection($output, 'CRUD generation');
 
-        $entityClass = $this->getContainer()->get('doctrine')->getEntityNamespace($bundle) . '\\' . $entity;
-        $metadata = $this->getEntityMetadata($entityClass);
+        $entityClass = $this->getContainer()->get('doctrine')->getAliasNamespace($bundle) . '\\' . $entity;
+        $mf = $this->getContainer()->get('doctrine.orm.entity_manager')->getMetadataFactory();
+        $metadata = $mf->getMetadataFor($entityClass);
 
         // Custom route_prefix
         $prefix = $this->getRoutePrefix($input, str_replace('Bundle\Entity', '\\' . $this->application, $entityClass));
@@ -82,9 +83,9 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
 
         // Check if we create a Translation or not
         $translation = array();
-        if (isset($metadata[0]->associationMappings['translations'])) {
+        if (isset($metadata->associationMappings['translations'])) {
 
-            $translationEntityClass = $metadata[0]->associationMappings['translations']['targetEntity'];
+            $translationEntityClass = $metadata->associationMappings['translations']['targetEntity'];
             $entityTranslation = str_replace('\\', '', explode('\Entity', $translationEntityClass));
             $entityTranslation = $entityTranslation[1];
             $translationMetadata = $this->getEntityMetadata($translationEntityClass);
@@ -96,7 +97,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
 
         // Generate the controller
         $generator = $this->getGenerator();
-        $generator->generate($bundle, $entity, $metadata[0], 'yml', $prefix, true, true, $this->application, $translation, $input->getOption('with-jqgrid'));
+        $generator->generate($bundle, $entity, $metadata, 'yml', $prefix, true, true, $this->application, $translation, $input->getOption('with-jqgrid'));
         $output->writeln('Generating the Controller code: <info>OK</info>');
 
         $errors = array();
@@ -234,7 +235,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
     protected function generateForm($bundle, $entity, $metadata, $translation = array())
     {
         try {
-            $this->getFormGenerator()->generate($bundle, $entity, $metadata[0], $this->application, $translation);
+            $this->getFormGenerator()->generate($bundle, $entity, $metadata, $this->application, $translation);
         } catch (\RuntimeException $e) {
             // form already exists
             $e->getCode();
