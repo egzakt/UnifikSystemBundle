@@ -20,7 +20,7 @@
             ${{ entity_var }} = $this->initEntity(new {{ entity_class }}());
         }
 
-        $this->getCore()->addNavigationElement(${{ entity_var }});
+        $this->pushNavigationElement(${{ entity_var }});
 
         $form = $this->createForm(new {{ entity_class }}Type(), ${{ entity_var }});
 
