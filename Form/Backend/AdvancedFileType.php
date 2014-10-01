@@ -5,9 +5,7 @@ namespace Unifik\SystemBundle\Form\Backend;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormView;
-use Symfony\Component\OptionsResolver\Exception\MissingOptionsException;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\PropertyAccess\PropertyAccess;
 
 /**
  * Advanced File Type
@@ -19,19 +17,31 @@ class AdvancedFileType extends AbstractType
      */
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-        if (null == $options['file_path_method']) {
-            throw new MissingOptionsException('The "file_path_method" option must be set.');
-        }
-
-        $filePath = null;
         $parentData = $form->getParent()->getData();
+        $fieldName = $view->vars['name'];
+        $hasFile = false;
+        $fieldWebPath = null;
+        $fieldValue = null;
 
-        if (null !== $parentData) {
-            $accessor = PropertyAccess::createPropertyAccessor();
-            $filePath = $accessor->getValue($parentData, $options['file_path_method']);
+        if ($parentData) {
+            $classUses = class_uses($parentData);
+
+            if (false == in_array('Unifik\DoctrineBehaviorsBundle\Model\Uploadable\Uploadable', $classUses)) {
+                throw new \Exception(
+                    get_class($parentData) . ' must implement the Uploadable behaviour to be used in the advanced_file type.'
+                );
+            }
+
+            $fieldValue = $parentData->{'get' . ucfirst($fieldName) . 'Path'}();
+            $hasFile = (bool) $fieldValue;
+            $fieldWebPath = $parentData->getWebPath($fieldName);
         }
 
-        $view->vars['file_path'] = $filePath;
+        $view->vars['has_file'] = $hasFile;
+        $view->vars['file_name'] = $fieldName;
+        $view->vars['file_web_path'] = $fieldWebPath;
+        $view->vars['file_value'] = $fieldValue;
+        $view->vars['deletable'] = $options['deletable'];
     }
 
     /**
@@ -42,7 +52,7 @@ class AdvancedFileType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'file_path_method' => null
+            'deletable' => false
         ));
     }
 
