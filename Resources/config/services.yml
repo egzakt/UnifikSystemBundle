@@ -28,6 +28,7 @@ parameters:
     unifik_backend.security.cms_voter.class:                    Unifik\SystemBundle\Lib\Backend\CmsVoter
     unifik_backend.core.class:                                  Unifik\SystemBundle\Lib\Backend\Core
     unifik_backend.form.type.advanced_file.class:               Unifik\SystemBundle\Form\Backend\AdvancedFileType
+    unifik_backend.form.type.advanced_image.class:               Unifik\SystemBundle\Form\Backend\AdvancedImageType
     unifik_backend.login_listener.class:                        Unifik\SystemBundle\Listener\LoginBackendListener
     unifik_frontend.core.class:                                 Unifik\SystemBundle\Lib\Frontend\Core
     unifik_system.translation_editor_loader.class:              Unifik\SystemBundle\Translation\TranslationEditorLoader
@@ -181,6 +182,11 @@ services:
         class: %unifik_backend.form.type.advanced_file.class%
         tags:
           - { name: form.type, alias: advanced_file }
+
+    unifik_system.form.type.advanced_image:
+        class: %unifik_backend.form.type.advanced_image.class%
+        tags:
+          - { name: form.type, alias: advanced_image }
 
     unifik_frontend.core:
         class:  %unifik_frontend.core.class%
