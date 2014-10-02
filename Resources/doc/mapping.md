@@ -114,3 +114,16 @@ For example given these values:
 | 4   | 3         | Contact Us    | contact-us
 
 Since the `Contact Us` section has a parent, the sectionPath will be `/our-company/contact-us`.
+
+### Non mapped routes
+
+If you want to add a route that will not be mapped to a section you must add the `do_not_remove` option to the route definition. Without the `do_not_remove` option, the route will be removed from the router since it is not mapped to any section as it may cause conflits with previously mapped routes.
+
+```yml
+unifik_sitemap_frontend_xml:
+   pattern:  /sitemap.xml
+   defaults: { _controller: "UnifikSitemapBundle:Frontend:xml" }
+   options: { do_not_remove: true }
+```
+
+Common use case for unmapped routes are sitemap.xml, RSS feeds or any global routes.
