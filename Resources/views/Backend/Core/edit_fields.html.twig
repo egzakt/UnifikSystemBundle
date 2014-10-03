@@ -276,3 +276,7 @@
     {% for attrname, attrvalue in attr %}{% if attrname in ['placeholder', 'title'] %}{{ attrname }}="{{ attrvalue|trans({}, translation_domain) }}" {% else %}{{ attrname }}="{{ attrvalue }}" {% endif %}{% endfor %}
 {% endspaceless %}
 {% endblock widget_container_attributes %}
+
+{% block media_select_widget %}
+    {% include 'UnifikMediaBundle:Backend/Form:fields.html.twig' with {'widget_attributes': block('widget_attributes')} %}
+{% endblock %}
