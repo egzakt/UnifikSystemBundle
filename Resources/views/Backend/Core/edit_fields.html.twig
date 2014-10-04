@@ -242,20 +242,43 @@
 
 {% block advanced_file_widget %}
     {% spaceless %}
-        {% if file_path is not null %}
+        {% if has_file %}
             <div class="uploaded_file">
-                {# TODO: supply an absolute path for the href #}
-                <a href="{{ file_path }}" target="_blank">{{ file_path }}</a>
+                <a href="{{ file_web_path }}" target="_blank">{{ file_value }}</a>
             </div>
 
-            {% if not required %}
+            {% if deletable or not required %}
                 <div class="delete_uploaded_file">
-                    <label for="{{ id ~ "Delete" }}">{% trans %}Delete:{% endtrans %}</label>
-                    <input type="checkbox" id="{{ id ~ "Delete" }}" name="{{ name ~ "Delete" }}" value="1" />
+                    <label for="{{ file_name ~ '_delete' }}">{% trans %}Delete:{% endtrans %}</label>
+                    <input type="checkbox" id="{{ file_name ~ '_delete' }}" name="{{ file_name ~ '_delete' }}" value="1" />
                 </div>
             {% endif %}
 
-            {% trans %}Replace:{% endtrans %}
+            {% trans %}Replace:{% endtrans %} <br />
+        {% endif %}
+
+        <input type="file" {{ block('widget_attributes') }} />
+    {% endspaceless %}
+{% endblock %}
+
+{% block advanced_image_widget %}
+    {% spaceless %}
+        {% if has_file %}
+
+            <div class="uploaded_file">
+                <a href="{{ file_web_path }}" target="_blank">
+                    <img src="{{ file_web_path }}" alt="" style="max-height: 300px" />
+                </a>
+            </div>
+
+            {% if deletable or not required %}
+                <div class="delete_uploaded_file">
+                    <label for="{{ file_name ~ '_delete' }}">{% trans %}Delete:{% endtrans %}</label>
+                    <input type="checkbox" id="{{ file_name ~ '_delete' }}" name="{{ file_name ~ '_delete' }}" value="1" />
+                </div>
+            {% endif %}
+
+            {% trans %}Replace:{% endtrans %} <br />
         {% endif %}
 
         <input type="file" {{ block('widget_attributes') }} />
