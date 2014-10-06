@@ -98,6 +98,7 @@ services:
           - [ setRequest, [ @?request= ] ]
           - [ setLocale, [ %locale% ] ]
           - [ setSystemCore, [ @unifik_system.core ] ]
+          - [ setControllerNameConverter, [ @controller_name_converter ] ]
 
     unifik_system.twig_translation_extension:
         class: %unifik_system.twig_translation_extension.class%
