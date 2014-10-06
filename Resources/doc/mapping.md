@@ -115,15 +115,30 @@ For example given these values:
 
 Since the `Contact Us` section has a parent, the sectionPath will be `/our-company/contact-us`.
 
-### Non mapped routes
+### Manual route - without the Unifik context
 
 If you want to add a route that will not be mapped to a section you must add the `do_not_remove` option to the route definition. Without the `do_not_remove` option, the route will be removed from the router since it is not mapped to any section as it may cause conflits with previously mapped routes.
+
+```yml
+nelmio_api_doc_bundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+    options:  { do_not_remove: true }
+```
+
+Common use cases for manual routes without context are importing routes that comes from third party bundles.
+
+### Manual route - with the Unifik context
+
+If you want to add a route that will have access to the unifik context without being explicitly mapped, you must use the `force_mapping` option. Using this option, the router will force the injection of every parameters of the Unifik request into the route definition. 
+
+By default, the `force_mapping` option will force map the route to the frontend Home section. If you want to force map to another section, just set the section id as the option value.  
 
 ```yml
 unifik_sitemap_frontend_xml:
    pattern:  /sitemap.xml
    defaults: { _controller: "UnifikSitemapBundle:Frontend:xml" }
-   options: { do_not_remove: true }
+   options:  { force_mapping: true }
 ```
 
-Common use case for unmapped routes are sitemap.xml, RSS feeds or any global routes.
+Common use cases for manual routes with context are global route that needs the Unifik context to work properly like RSS feeds or sitemaps.
