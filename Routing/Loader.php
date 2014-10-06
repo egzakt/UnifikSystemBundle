@@ -42,7 +42,49 @@ class Loader extends BaseLoader
         }
 
         $collection = $this->removeMappingSourceRoutes($collection);
+        $collection = $this->generateForcedMappedRoutes($collection);
         $collection = $this->processBackendRoutes($collection);
+
+        return $collection;
+    }
+
+    /**
+     * @param RouteCollection $collection
+     *
+     * @return RouteCollection
+     */
+    protected function generateForcedMappedRoutes($collection)
+    {
+        foreach ($collection->all() as $name => $route) {
+
+            if ($forceSectionId = $route->getOption('force_mapping')) {
+
+                $sectionId = (int) $forceSectionId;
+
+                $section = $this->databaseConnection->fetchAssoc('
+                    SELECT st.slug AS sectionSlug, a.id AS appId, a.prefix AS appPrefix, a.name AS appName, a.slug AS appSlug
+                    FROM section s
+                    LEFT JOIN section_translation st ON st.translatable_id = s.id
+                    LEFT JOIN app a ON a.id = s.app_id
+                    WHERE s.id =
+                ' . $sectionId);
+
+                $unifikRequest = [
+                    'sectionId' => $sectionId,
+                    'appId' => $section['appId'],
+                    'appPrefix' => $section['appPrefix'],
+                    'appName' => $section['appName'],
+                    'appSlug' => $section['appSlug'],
+                    'sectionSlug' => $section['sectionSlug'],
+                    'sectionsPath' => $section['sectionSlug'],
+                    'mappedRouteName' => $name,
+                    'mappingType' => 'forced'
+                ];
+
+                $route->setDefault('_unifikEnabled', true);
+                $route->setDefault('_unifikRequest', $unifikRequest);
+            }
+        }
 
         return $collection;
     }
@@ -56,7 +98,7 @@ class Loader extends BaseLoader
     {
         foreach ($collection->all() as $name => $route) {
 
-            if ($route->getOption('do_not_remove')) {
+            if ($route->getOption('do_not_remove') || $route->getOption('force_mapping')) {
                 continue;
             }
 
