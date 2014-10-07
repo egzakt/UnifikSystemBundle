@@ -2,6 +2,7 @@
 
 namespace Unifik\SystemBundle\Extensions;
 
+use Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser;
 use Symfony\Component\HttpFoundation\Request;
 
 use Unifik\SystemBundle\Lib\Core;
@@ -25,6 +26,11 @@ class TwigExtension extends \Twig_Extension
      * @var Core
      */
     protected $systemCore;
+
+    /**
+     * @var ControllerNameParser
+     */
+    protected $controllerNameParser;
 
     /**
      * @param mixed $systemCore
@@ -53,6 +59,16 @@ class TwigExtension extends \Twig_Extension
     }
 
     /**
+     * Set Controller Name Parser
+     *
+     * @param ControllerNameParser $controllerNameParser
+     */
+    public function setControllerNameConverter($controllerNameParser)
+    {
+        $this->controllerNameParser = $controllerNameParser;
+    }
+
+    /**
      * List of available functions
      *
      * @return array
@@ -60,9 +76,12 @@ class TwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'isExternalUrl' => new \Twig_Function_Method($this, 'isExternalUrl'),
-            'dateRange' => new \Twig_Function_Method($this, 'dateRange'),
-            'tree_indentation' => new \Twig_Function_Method($this, 'treeIndentation')
+            'is_external_url' => new \Twig_Function_Method($this, 'isExternalUrl'),
+            'date_range' => new \Twig_Function_Method($this, 'dateRange'),
+            'tree_indentation' => new \Twig_Function_Method($this, 'treeIndentation'),
+            'bundle_name' => new \Twig_Function_Method($this, 'getBundleName'),
+            'controller_name' => new \Twig_Function_Method($this, 'getControllerName'),
+            'action_name' => new \Twig_Function_Method($this, 'getActionName'),
         );
     }
 
@@ -75,12 +94,17 @@ class TwigExtension extends \Twig_Extension
     {
         return array(
             'trim' => new \Twig_Filter_Method($this, 'trim'),
-            'stripLineBreaks' => new \Twig_Filter_Method($this, 'stripLineBreaks'),
-            'formatCurrency' => new \Twig_Filter_Method($this, 'formatCurrency'),
+            'strip_line_breaks' => new \Twig_Filter_Method($this, 'stripLineBreaks'),
+            'format_currency' => new \Twig_Filter_Method($this, 'formatCurrency'),
             'ceil' => new \Twig_Filter_Method($this, 'ceil'),
         );
     }
 
+    /**
+     * Get Globals
+     *
+     * @return array
+     */
     public function getGlobals()
     {
         if ($this->systemCore->isLoaded()) {
@@ -92,6 +116,77 @@ class TwigExtension extends \Twig_Extension
         return array(
             'section' => $section
         );
+    }
+
+    /**
+     * Get current bundle name
+     *
+     * @return string|null
+     */
+    public function getBundleName()
+    {
+        try {
+            $controller = $this->controllerNameParser->parse($this->request->get('_controller'));
+        } catch (\InvalidArgumentException $e) {
+            $controller = $this->request->get('_controller');
+        }
+
+        $pattern = "#\\\([a-zA-Z]*)Bundle#";
+        $matches = array();
+
+        if (preg_match($pattern, $controller, $matches)) {
+            return strtolower($matches[1]);
+        }
+    }
+
+    /**
+     * Get current controller name
+     *
+     * @return string|null
+     */
+    public function getControllerName()
+    {
+        try {
+            $controller = $this->controllerNameParser->parse($this->request->get('_controller'));
+        } catch (\InvalidArgumentException $e) {
+            $controller = $this->request->get('_controller');
+        }
+
+        $pattern = "#Controller\\\([a-zA-Z]*)Controller#";
+        $matches = array();
+
+        if (preg_match($pattern, $controller, $matches)) {
+            return strtolower($matches[1]);
+        }
+
+        // If controllerNameParser couldn't parse the Controller name
+        $pattern = "#(.*)\\\([a-zA-Z]*)Controller::([a-zA-Z]*)Action#";
+        $matches = array();
+
+        if (preg_match($pattern, $controller, $matches)) {
+            return strtolower($matches[2]);
+        }
+    }
+
+    /**
+     * Get current action name
+     *
+     * @return string|null
+     */
+    public function getActionName()
+    {
+        try {
+            $controller = $this->controllerNameParser->parse($this->request->get('_controller'));
+        } catch (\InvalidArgumentException $e) {
+            $controller = $this->request->get('_controller');
+        }
+
+        $pattern = "#::([a-zA-Z]*)Action#";
+        $matches = array();
+
+        if (preg_match($pattern, $controller, $matches)) {
+            return $matches[1];
+        }
     }
 
     /**
