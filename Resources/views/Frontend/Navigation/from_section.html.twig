@@ -1,0 +1,7 @@
+{% if sections %}
+    <nav{% if attr|length %}{% for attribute, value in attr %} {{ attribute }}="{{ value }}"{% endfor %}{% endif %} role="navigation">
+        <ul class="level_1">
+            {% include 'UnifikSystemBundle:Frontend/Navigation:from_section_level.html.twig' with { 'sections' : sections, 'level': 1, 'maxLevel' : maxLevel } %}
+        </ul>
+    </nav>
+{% endif %}

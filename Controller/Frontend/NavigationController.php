@@ -82,6 +82,49 @@ class NavigationController extends BaseController
     }
 
     /**
+     * Render a navigation displaying children starting from a section
+     *
+     * @param mixed  $section  The section entity or section id to start from
+     * @param int    $maxLevel The level maximum limit, this is the rendering loop level limit, not the section entity level
+     * @param bool   $exploded When false only the currently selected tree path is displayed
+     * @param string $template Force the template code to use
+     * @param array  $attr     Array of attribure to add to the element (Ex. id="aaa" class="bbb")
+     *
+     * @return Response
+     *
+     * @throws \Exception
+     */
+    public function fromSectionAction($section, $maxLevel = 10, $exploded = false, $template = '', $attr = [])
+    {
+        if (is_numeric($section)) {
+            $section = $this->sectionRepository->find($section);
+        }
+
+        $elements = [];
+
+        if ($parents = $section->getParents()) {
+            $elements = $parents[1]->getChildren();
+        }
+
+        $template = ($template ? '_' . $template : '');
+
+        $navigationBuilder = $this->get('unifik_system.navigation_builder');
+        $navigationBuilder->setElements($elements);
+        $navigationBuilder->setSelectedElement($this->getCore()->getSection());
+        $navigationBuilder->build();
+
+        $elements = $navigationBuilder->getElements();
+
+        return $this->render('UnifikSystemBundle:Frontend/Navigation:from_section' . $template . '.html.twig', array(
+            'sections' => $elements,
+            'maxLevel' => $maxLevel,
+            'currentSection' => $this->getSection(),
+            'attr' => $attr,
+            'exploded' => $exploded
+        ));
+    }
+
+    /**
      * Breadcrumbs Action
      *
      * @return Response

@@ -53,14 +53,14 @@
                     {% endblock %}
                 </header>
 
-                {{ render(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'primary', maxLevel: 1, attr: { id: 'primary_navigation'} })) }}
+                {{ render(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'primary', maxLevel: 1, attr: { id: 'primary_navigation' } })) }}
 
                 {% block main %}
                     <main id="main" role="main" class="clearfix">
 
                         <div id="nav_col">
                             {% block nav_col %}
-                                {# TODO: sub-navigation #}
+                                {{ render(controller('UnifikSystemBundle:Frontend/Navigation:fromSection', { section: section, attr: { id: 'sub_navigation', class: 'aside_nav' } } )) }}
                             {% endblock %}
                         </div>
 
