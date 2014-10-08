@@ -57,6 +57,26 @@ abstract class BaseController extends ApplicationController
     }
 
     /**
+     * @inheritdoc
+     */
+    public function forward($controller, array $path = array(), array $query = array())
+    {
+        $path['_controller'] = $controller;
+
+        $currentRequest = $this->container->get('request_stack')->getCurrentRequest();
+        $subRequest = $currentRequest->duplicate($query, null, $path);
+
+        $unifikAttributes = [
+            '_unifikEnabled' => $currentRequest->attributes->get('_unifikEnabled', false),
+            '_unifikRequest' => $currentRequest->attributes->get('_unifikRequest')
+        ];
+
+        $subRequest->attributes->add($unifikAttributes);
+
+        return $this->container->get('http_kernel')->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+    }
+
+    /**
      * Helper method to create a navigation element
      *
      * @param string $name
