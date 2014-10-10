@@ -126,7 +126,7 @@ class Loader extends BaseLoader
         );
 
         foreach ($collection->all() as $name => $route) {
-            if (preg_match('/unifik_.*_backend/', $name)) {
+            if (preg_match('/.*_backend/', $name)) {
                 $route->setDefault('_unifikEnabled', true);
                 $route->setDefault('_unifikRequest', $unifikRequest);
             }
