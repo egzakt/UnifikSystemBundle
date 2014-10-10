@@ -62,8 +62,10 @@ class ControllerListener
         $systemCore->setApplicationCore($applicationCore);
 
         // Initialization of cores stack in order of: system, application and controller
-        $systemCore->init();
-        $applicationCore->init();
+        if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
+            $systemCore->init();
+            $applicationCore->init();
+        }
 
         // When the controller init method return a response, this response is used and controller action is skipped
         if ($initResponse = $controller->init()) {
