@@ -37,7 +37,11 @@ abstract class BaseController extends ApplicationController
      */
     public function getCore()
     {
-        return $this->get('unifik_frontend.core');
+        $core = $this->get('unifik_'.$this->getAppName().'.core');
+        $app = $core->getApp();
+        if ($app)
+            $core = $this->get('unifik_'.$app->getCoreName().'.core');
+        return $core;
     }
 
 
