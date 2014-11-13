@@ -89,7 +89,7 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
             return $this->firstname . ' ' . $this->lastname;
         }
 
-        return parent::__toString();
+        return $this->getEntityName();
     }
 
     /**

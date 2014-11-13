@@ -28,11 +28,12 @@ parameters:
     unifik_backend.security.cms_voter.class:                    Unifik\SystemBundle\Lib\Backend\CmsVoter
     unifik_backend.core.class:                                  Unifik\SystemBundle\Lib\Backend\Core
     unifik_backend.form.type.advanced_file.class:               Unifik\SystemBundle\Form\Backend\AdvancedFileType
-    unifik_backend.form.type.advanced_image.class:               Unifik\SystemBundle\Form\Backend\AdvancedImageType
+    unifik_backend.form.type.advanced_image.class:              Unifik\SystemBundle\Form\Backend\AdvancedImageType
     unifik_backend.login_listener.class:                        Unifik\SystemBundle\Listener\LoginBackendListener
     unifik_frontend.core.class:                                 Unifik\SystemBundle\Lib\Frontend\Core
     unifik_system.translation_editor_loader.class:              Unifik\SystemBundle\Translation\TranslationEditorLoader
     unifik_system.twig.application_context_extension.class:     Unifik\SystemBundle\Extensions\ApplicationContextExtension
+    unifik_system.twig.application_path_extension.class:        Unifik\SystemBundle\Extensions\ApplicationPathExtension
 
 services:
 
@@ -237,3 +238,14 @@ services:
         calls:
           - [setControllerNameConverter, [@controller_name_converter]]
           - [setRequest, [@?request=]]
+
+    unifik_system.twig.application_path_extension:
+        class: %unifik_system.twig.application_path_extension.class%
+        synchronized: true
+        tags:
+          - { name: 'twig.extension' }
+        calls:
+          - [ setDoctrine, [ @doctrine ] ]
+          - [ setAutoParametersHandler, [ @unifik_system.router_auto_parameters_handler ] ]
+          - [ setGenerator, [ @router ] ]
+          - [ setSystemCore, [ @unifik_system.core ] ]
