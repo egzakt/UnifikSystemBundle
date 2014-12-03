@@ -157,6 +157,10 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
         // Application
         $this->application = $dialog->ask($output, $dialog->getQuestion('Application (Backend, Frontend, etc.)', 'Backend'), 'Backend', null);
 
+        // Datagrid
+        $this->datagrid = $dialog->askConfirmation($output, $dialog->getQuestion('Do you want use the datagrid?', $input->getOption('use-datagrid') ? 'yes' : 'no', '?'), $input->getOption('use-datagrid'));
+        $input->setOption('use-datagrid', $this->datagrid);
+
         // summary
         $output->writeln(
             array(
@@ -164,6 +168,7 @@ class GenerateCRUDCommand extends GenerateDoctrineCrudCommand
                 $this->getHelper('formatter')->formatBlock('Summary before generation', 'bg=blue;fg=white', true),
                 '',
                 sprintf("You are going to generate a CRUD controller for \"<info>%s:%s</info>\"", $bundle, $entity),
+                sprintf("using the \"<info>%s</info>\" listing engine.", $this->datagrid ? 'datagrid' : 'default'),
                 sprintf("using the \"<info>%s</info>\" format.", 'yml'),
                 sprintf("with the route prefix \"<info>%s</info>\" ", $bundle),
                 sprintf("in the \"<info>%s</info>\" application", $this->application),
