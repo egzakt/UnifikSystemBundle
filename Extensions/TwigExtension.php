@@ -97,6 +97,7 @@ class TwigExtension extends \Twig_Extension
             'strip_line_breaks' => new \Twig_Filter_Method($this, 'stripLineBreaks'),
             'format_currency' => new \Twig_Filter_Method($this, 'formatCurrency'),
             'ceil' => new \Twig_Filter_Method($this, 'ceil'),
+            'titleCase' => new \Twig_Filter_Method($this, 'titleCase'),
         );
     }
 
@@ -376,5 +377,21 @@ class TwigExtension extends \Twig_Extension
         }
 
         return $indent;
+    }
+
+    /**
+     * Convert "aCamelCaseString" to "A camel case string"
+     *
+     * @param $string
+     * @return mixed|string
+     */
+    public function titleCase($string)
+    {
+        $string = preg_replace('/(?<=\\w)(?=[A-Z])/'," $1", $string);
+        $string = trim($string);
+        $string = strtolower($string);
+        $string = ucfirst($string);
+
+        return $string;
     }
 }

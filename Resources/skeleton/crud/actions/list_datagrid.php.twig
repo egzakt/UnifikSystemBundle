@@ -1,0 +1,43 @@
+
+    /**
+     * Lists all {{ entity }} entities.
+     *
+     * @return Response
+     */
+    public function listAction()
+    {
+        $source = new Entity('{{ namespace|replace({'\\': ''}) ~ ':' ~ entity|replace({'\\': '/'}) }}');
+
+        $gridBridge = $this->get('unifik_system.datagrid_bridge');
+        {% if translation_fields -%}
+        $gridBridge->addTranslationSupport($source);
+        {% endif %}
+
+        $rowActionEdit = new RowAction('Edit', '{{ route_prefix }}_edit');
+        $rowActionEdit->setRouteParameters(['id'])->setRouteParametersMapping(['id' => '{{ entity|lower }}Id']);
+
+        $rowActionDelete = new RowAction('Delete', '{{ route_prefix }}_delete', true);
+        $rowActionDelete->setRouteParameters(['id'])->setRouteParametersMapping(['id' => '{{ entity|lower }}Id']);
+
+        $grid = $this->get('grid');
+        $grid->setSource($source);
+        $grid->setHiddenColumns(['id']);
+        {%- for translation_field in translation_fields -%}
+            {%- if translation_field.type == 'boolean' -%}
+                {%- set columnType = 'Boolean' -%}
+            {%- else -%}
+                {%- set columnType = 'Text' -%}
+            {%- endif %}
+            {%- if translation_field.fieldName not in ['id', 'slug', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
+
+        $grid->addColumn(new {{ columnType }}Column(['id' => 'translations.{{ translation_field.fieldName }}', 'field' => 'translations.{{ translation_field.fieldName }}', 'title' => '{{ translation_field.fieldName }}', 'source' => true]), {{ loop.index }});
+            {%- endif -%}
+        {%- endfor %}
+
+        $grid->addRowAction($rowActionEdit);
+        $grid->addRowAction($rowActionDelete);
+        $grid->addMassAction(new MassAction('Delete', [$this, 'massDeleteAction']));
+        $grid->addExport(new CSVExport('CSV (.csv)'));
+
+        return $grid->getGridResponse('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity|replace({'\\': '/'}) }}:list.html.twig');
+    }
