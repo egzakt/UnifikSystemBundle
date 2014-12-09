@@ -102,7 +102,7 @@ class Loader extends BaseLoader
                 continue;
             }
 
-            if (preg_match('/.*' . static::ROUTING_PREFIX . 'unifik_/', $name)) {
+            if (preg_match('/_frontend_/', $name)) {
                 $collection->remove($name);
             }
         }
