@@ -2,14 +2,14 @@
 
 namespace Unifik\SystemBundle\Form\Backend;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Unifik\DoctrineBehaviorsBundle\Form\MetadatableType;
 
 /**
  * Section Translation Type
  */
-class SectionTranslationType extends AbstractType
+class SectionTranslationType extends MetadatableType
 {
     /**
      * Build Form
@@ -19,6 +19,8 @@ class SectionTranslationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
+
         $builder
             ->add('active')
             ->add('name')

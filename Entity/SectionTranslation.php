@@ -10,8 +10,8 @@ use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 class SectionTranslation
 {
     use UnifikORMBehaviors\Translatable\Translation;
-
     use UnifikORMBehaviors\Sluggable\Sluggable;
+    use UnifikORMBehaviors\Metadatable\Metadatable;
 
     /**
      * @var integer $id
