@@ -25,8 +25,7 @@ class SectionTranslationType extends MetadatableType
             ->add('active')
             ->add('name')
             ->add('slug')
-            ->add('pageTitle', null, array('label' => 'Page title'))
-            ->add('headCode', null, array('label' => 'Head code'));
+        ;
     }
 
     /**
