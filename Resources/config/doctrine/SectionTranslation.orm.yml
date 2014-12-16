@@ -10,13 +10,6 @@ Unifik\SystemBundle\Entity\SectionTranslation:
       type: string
       length: 255
       nullable: false
-    pageTitle:
-      type: string
-      length: 255
-      nullable: true
-    headCode:
-      type: text
-      nullable: true
     active:
       type: boolean
       nullable: true

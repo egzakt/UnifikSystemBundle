@@ -10,8 +10,8 @@ use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 class SectionTranslation
 {
     use UnifikORMBehaviors\Translatable\Translation;
-
     use UnifikORMBehaviors\Sluggable\Sluggable;
+    use UnifikORMBehaviors\Metadatable\Metadatable;
 
     /**
      * @var integer $id
@@ -22,16 +22,6 @@ class SectionTranslation
      * @var string $name
      */
     private $name;
-
-    /**
-     * @var string $pageTitle
-     */
-    private $pageTitle;
-
-    /**
-     * @var string $headCode
-     */
-    private $headCode;
 
     /**
      * @var boolean $active
@@ -64,46 +54,6 @@ class SectionTranslation
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set pageTitle
-     *
-     * @param string $pageTitle
-     */
-    public function setPageTitle($pageTitle)
-    {
-        $this->pageTitle = $pageTitle;
-    }
-
-    /**
-     * Get pageTitle
-     *
-     * @return string
-     */
-    public function getPageTitle()
-    {
-        return $this->pageTitle;
-    }
-
-    /**
-     * Set headCode
-     *
-     * @param string $headCode
-     */
-    public function setHeadCode($headCode)
-    {
-        $this->headCode = $headCode;
-    }
-
-    /**
-     * Get headCode
-     *
-     * @return string
-     */
-    public function getHeadCode()
-    {
-        return $this->headCode;
     }
 
     /**

@@ -473,27 +473,6 @@ class Section extends BaseEntity
     }
 
     /**
-     * Basic verification to ensure the headCode contains html
-     *
-     * @param ExecutionContextInterface $context
-     *
-     * @return bool
-     */
-    public function isHeadCodeHtml(ExecutionContextInterface $context)
-    {
-
-        if ($this->getHeadCode() != '' && $this->getHeadCode() == strip_tags($this->getHeadCode())) {
-            $propertyPath = $context->getPropertyPath() . '.translation.headCode';
-            $context->setPropertyPath($propertyPath);
-            $context->addViolation('You must put your content in html tags.', array(), null);
-
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Get the navigations
      *
      * @return ArrayCollection
