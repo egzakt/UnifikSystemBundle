@@ -65,7 +65,7 @@ class NavigationController extends BaseController
         $template = ($template ? '_' . $template : '');
 
         $navigationBuilder = $this->get('unifik_system.navigation_builder');
-        $navigationBuilder->setElements($sections);
+        $navigationBuilder->setElements($sections, true);
         $navigationBuilder->setSelectedElement($this->getCore()->getSection());
         $navigationBuilder->build();
 
@@ -109,7 +109,7 @@ class NavigationController extends BaseController
         $template = ($template ? '_' . $template : '');
 
         $navigationBuilder = $this->get('unifik_system.navigation_builder');
-        $navigationBuilder->setElements($elements);
+        $navigationBuilder->setElements($elements, true);
         $navigationBuilder->setSelectedElement($this->getCore()->getSection());
         $navigationBuilder->build();
 
