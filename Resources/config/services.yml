@@ -247,5 +247,5 @@ services:
         calls:
           - [ setDoctrine, [ @doctrine ] ]
           - [ setAutoParametersHandler, [ @unifik_system.router_auto_parameters_handler ] ]
-          - [ setGenerator, [ @router ] ]
+          - [ setRouter, [ @router ] ]
           - [ setSystemCore, [ @unifik_system.core ] ]

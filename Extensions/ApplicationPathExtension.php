@@ -37,7 +37,7 @@ class ApplicationPathExtension extends \Twig_Extension {
     /**
      * @var UrlGeneratorInterface
      */
-    private $generator;
+    private $router;
 
     /**
      * @var RouterAutoParametersHandler
@@ -63,10 +63,26 @@ class ApplicationPathExtension extends \Twig_Extension {
             'target'=>$route_name,
         ), array('section'=>'ASC'));
 
-        if ($mapping)
-            return 'section_id_'.$mapping->getSection()->getId();
+        if ($mapping) {
+            // Faut checker toutes les routes, à cause du mapping alias
+            $routes = $this->router->getRouteCollection()->all();
+            foreach ($routes as $name => $route) {
+                if ($defaults = $route->getDefaults()) {
+                    if (array_key_exists('_unifikRequest', $defaults) && array_key_exists('mappedRouteName', $defaults['_unifikRequest'])) {
+                        $real_name = preg_replace('/^[aA-zZ]{2}__[A-Z]{2}__/', '', $defaults['_unifikRequest']['mappedRouteName']);
 
-        // Fallback sur la premiere route disponible (?)
+                        // On a trouvé la bonne route
+                        if ($real_name == $route_name)
+                            return preg_replace('/^[aA-zZ]{2}__[A-Z]{2}__/', '', $name);
+                    }
+                }
+            }
+
+            // On a rien trouvé... on retourne la route "par défaut" de la section
+            return 'section_id_'.$mapping->getSection()->getId();
+        }
+
+        // Aucun mapping... on fallback sur la premiere route disponible (?)
         $mapping = $this->mappingRepository->findOneBy(array(
             'type'=>'route',
             'target'=>$route_name,
@@ -82,13 +98,13 @@ class ApplicationPathExtension extends \Twig_Extension {
     public function getAppPath($route_name, $parameters = array(), $app_id = null, $relative = false) {
         $route = $this->getAppRoute($route_name, $app_id);
         $parameters = $this->autoParametersHandler->inject($parameters);
-        return $this->generator->generate($route, $parameters, $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH);
+        return $this->router->generate($route, $parameters, $relative ? UrlGeneratorInterface::RELATIVE_PATH : UrlGeneratorInterface::ABSOLUTE_PATH);
     }
 
     public function getAppUrl($route_name, $parameters = array(), $app_id = null, $relative = false) {
         $route = $this->getAppRoute($route_name, $app_id);
         $parameters = $this->autoParametersHandler->inject($parameters);
-        return $this->generator->generate($route, $parameters, $relative ? UrlGeneratorInterface::NETWORK_PATH : UrlGeneratorInterface::ABSOLUTE_URL);
+        return $this->router->generate($route, $parameters, $relative ? UrlGeneratorInterface::NETWORK_PATH : UrlGeneratorInterface::ABSOLUTE_URL);
     }
 
     /**
@@ -134,11 +150,11 @@ class ApplicationPathExtension extends \Twig_Extension {
     }
 
     /**
-     * @param mixed $generator
+     * @param mixed $router
      */
-    public function setGenerator($generator)
+    public function setRouter($router)
     {
-        $this->generator = $generator;
+        $this->router = $router;
     }
 
     /**
