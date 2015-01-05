@@ -96,18 +96,40 @@ class Loader extends BaseLoader
      */
     protected function removeMappingSourceRoutes($collection)
     {
+        $appSlugs = $this->findAllApplicationSlugs($this->mappings);
+
         foreach ($collection->all() as $name => $route) {
 
             if ($route->getOption('do_not_remove') || $route->getOption('force_mapping')) {
                 continue;
             }
 
-            if (preg_match('/_frontend_/', $name)) {
+            if (preg_match('/' . static::ROUTING_PREFIX . 'unifik_|_' . implode('_|_', $appSlugs) .'_/', $name)) {
                 $collection->remove($name);
             }
         }
 
         return $collection;
+    }
+
+    /**
+     * Fetch the slug of every mapped applications.
+     *
+     * @param array $mappings
+     *
+     * @return array
+     */
+    protected function findAllApplicationSlugs($mappings)
+    {
+        $slugs = [];
+
+        foreach ($mappings as $mapping) {
+            $slugs[] = $mapping['app_slug'];
+        }
+
+        $slugs = array_unique($slugs);
+
+        return $slugs;
     }
 
     /**
