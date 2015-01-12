@@ -105,6 +105,7 @@ class NavigationController extends BaseController
         if ($parents = $section->getParents()) {
             $elements = $parents[1]->getChildren();
         }
+
         elseif (count($section->getChildren())){
             $elements = $section->getChildren();
         }
