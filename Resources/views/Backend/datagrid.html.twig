@@ -179,3 +179,14 @@
         </div>
     {% endif %}
 {% endblock grid_pager %}
+
+{# Adding a clickable link and translation support to the default "name" column #}
+{% block grid_column_id_translations_name_cell %}
+    {% if row.entity %}
+        <a href="{{ path(row.entity.route, row.entity.routeParams) }}">
+            {% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { entity: row.entity } %}
+        </a>
+    {% else %}
+        {{ value }}
+    {% endif %}
+{% endblock %}
