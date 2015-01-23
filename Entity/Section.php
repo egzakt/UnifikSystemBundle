@@ -626,16 +626,4 @@ class Section extends BaseEntity
     {
         return $this->mappings;
     }
-
-    /**
-     * Returns the type of the resource using this trait
-     *
-     * This method should return a string like 'blogpost'
-     *
-     * @return string
-     */
-    public function getResourceType()
-    {
-        return 'section';
-    }
 }
