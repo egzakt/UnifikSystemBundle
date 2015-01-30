@@ -118,7 +118,7 @@
                 {% endif %}
             {% endfor %}
             {% endset %}
-            <tr{% if row.color != '' %} style="background-color:{{ row.color }};"{% endif %} class="grid-row-cells {{ cycle(['odd', 'even'], loop.index) }}{% if row.class != '' %} {{ row.class }}{% endif %}">
+            <tr{% if row.color != '' %} style="background-color:{{ row.color }};"{% endif %} data-row-id="{{ row.primaryFieldValue }}" class="grid-row-cells {{ cycle(['odd', 'even'], loop.index) }}{% if row.class != '' %} {{ row.class }}{% endif %}">
             {{ gridColumns }}
         {% endspaceless %}
         </tr>
@@ -137,14 +137,18 @@
                     {% endif %}
                 </div>
                 <div class="grid_body list_box">
-                    <table cellspacing="0">
-                        {% if grid.isTitleSectionVisible %}
-                            {{ grid_titles(grid) }}
-                        {% endif %}
-                        {% if grid.isFilterSectionVisible %}
-                            {{ grid_filters(grid) }}
-                        {% endif %}
-                        {{ grid_rows(grid) }}
+                    <table class="{% if manualOrdering is defined and manualOrdering %}manual_ordering{% endif %}" {% if orderingPath is defined and orderingPath %}data-ordering-path="{{ orderingPath }}"{% endif %} cellspacing="0">
+                        <thead>
+                            {% if grid.isTitleSectionVisible %}
+                                {{ grid_titles(grid) }}
+                            {% endif %}
+                            {% if grid.isFilterSectionVisible %}
+                                {{ grid_filters(grid) }}
+                            {% endif %}
+                        </thead>
+                        <tbody>
+                            {{ grid_rows(grid) }}
+                        </tbody>
                     </table>
                 </div>
                 <div class="grid_footer">
