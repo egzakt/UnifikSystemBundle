@@ -1349,6 +1349,10 @@ tr.collapsable_fields table.fields tr:first-child td {
     border-top: 0;
 }
 
+/*Add .row-error class on tr.collapsable_fields when error occurs, so it will stay open*/
+tr.collapsable_fields.row-error .slide_block {
+    display: block;
+}
 
 /* Options */
 table.fields a.options_link {
