@@ -1,6 +1,3 @@
-// Collapsable fields
-$(".collapsable_fields:not(.erreur) .slide_block").hide();
-
 $(function(){
 
     listeSortable();
@@ -46,6 +43,10 @@ $(function(){
         e.preventDefault();
     });
     
+    // slide_link with selected state when slide-block is open (.row-error sets display block)
+    $(".collapsable_fields.row-error a.slide_link").addClass('selected');
+
+    // @deprecated, use row-error on parent tr
     $('.slide_block th.error').parents('.slide_block').show();
 
     // List mode togle
