@@ -2,6 +2,7 @@
 
 namespace Unifik\SystemBundle\Entity;
 
+use Doctrine\ORM\Query;
 use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 use Unifik\SystemBundle\Lib\BaseEntityRepository;
 
@@ -234,5 +235,23 @@ class SectionRepository extends BaseEntityRepository
 
         // Return the list of IDs in a single array
         return $ids;
+    }
+
+    /**
+     * Find the last update of a Section entity
+     *
+     * @param null $queryBuilder
+     * @return mixed
+     */
+    public function findLastUpdate($queryBuilder = null)
+    {
+        if (!$queryBuilder) {
+            $queryBuilder = $this->createQueryBuilder('s');
+        }
+
+        return $queryBuilder->select('s.updatedAt')
+            ->addOrderBy('s.updatedAt', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()->getSingleScalarResult();
     }
 }
