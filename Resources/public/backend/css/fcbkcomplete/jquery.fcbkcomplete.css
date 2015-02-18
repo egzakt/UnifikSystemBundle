@@ -12,7 +12,7 @@ ul.holder li.bit-input input.smallinput { width: 20px; }
 
 /* Facebook demo CSS */
 ul.holder { margin: 0 !important }
-ul.holder li.bit-box, #apple-list ul.holder li.bit-box { padding-right: 15px; position: relative; z-index:1000;}
+ul.holder li.bit-box, #apple-list ul.holder li.bit-box { padding-right: 15px; position: relative; z-index:1;}
 #apple-list ul.holder li.bit-input { margin: 0; }
 #apple-list ul.holder li.bit-input input.smallinput { width: 5px; }
 ul.holder li.bit-hover { background: #BBCEF1; border: 1px solid #6D95E0; }
