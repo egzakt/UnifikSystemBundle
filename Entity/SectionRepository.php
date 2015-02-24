@@ -14,8 +14,50 @@ class SectionRepository extends BaseEntityRepository
     use UnifikORMBehaviors\Repository\TranslatableEntityRepository;
 
     /**
+     * Find All For Tree
+     * 
+     * @param integer|null $appId
+     * @param array $excludedSectionIds
+     * @return array
+     */
+    public function findAllTree($appId = null, $excludedSectionIds = array())
+    {
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->leftJoin('s.sectionNavigations','sn')
+            ->leftJoin('sn.navigation','n')
+            ->orderBy('sn.ordering','ASC')
+            ->addOrderBy('s.ordering','ASC');
+
+        if ($appId !== null) {
+            $queryBuilder
+                ->innerJoin('s.app','a')
+                ->andWhere('a.id = :appId')
+                ->setParameter('appId',$appId);
+        }
+
+        if (!empty($excludedSectionIds)) {
+            $queryBuilder
+                ->andWhere('s.id NOT IN (:excludedSectionIds)')
+                ->setParameter('excludedSectionIds',$excludedSectionIds);
+        }
+
+        if ($this->getCurrentAppName() == 'backend') {
+            $queryBuilder->leftJoin('s.translations','st','WITH','st.locale = :locale')
+                ->setParameter('locale',$this->getLocale());
+        } else {
+            $queryBuilder
+                ->innerJoin('s.translations','st','WITH','st.locale = :locale')
+                ->andWhere('st.active = true')
+                ->setParameter('locale',$this->getLocale());
+        }
+        
+        return $this->buildTree($queryBuilder->getQuery()->getResult());
+    }
+
+    /**
      * Find By Navigation From Tree
      *
+     * @deprecated sf2.0
      * @param string     $navigationName Navigation name
      * @param array|null $criteria       Criteria
      * @param array|null $orderBy        OrderBy fields
@@ -46,6 +88,7 @@ class SectionRepository extends BaseEntityRepository
     /**
      * Find All From Tree
      *
+     * @deprecated sf2.0
      * @param array|null $criteria Criteria
      * @param array|null $orderBy  OrderBy fields
      *
