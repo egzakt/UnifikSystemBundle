@@ -23,8 +23,10 @@ class SectionRepository extends BaseEntityRepository
     public function findAllForTree($appId = null, $excludedSectionIds = array())
     {
         $queryBuilder = $this->createQueryBuilder('s')
+            ->select('s','st')
             ->leftJoin('s.sectionNavigations','sn')
             ->leftJoin('sn.navigation','n')
+            ->groupBy('s.id')
             ->orderBy('sn.ordering','ASC')
             ->addOrderBy('s.ordering','ASC');
 
