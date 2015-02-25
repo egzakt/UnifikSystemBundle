@@ -20,7 +20,7 @@ class SectionRepository extends BaseEntityRepository
      * @param array $excludedSectionIds
      * @return array
      */
-    public function findAllTree($appId = null, $excludedSectionIds = array())
+    public function findAllForTree($appId = null, $excludedSectionIds = array())
     {
         $queryBuilder = $this->createQueryBuilder('s')
             ->leftJoin('s.sectionNavigations','sn')
@@ -52,103 +52,6 @@ class SectionRepository extends BaseEntityRepository
         }
         
         return $this->buildTree($queryBuilder->getQuery()->getResult());
-    }
-
-    /**
-     * Find By Navigation From Tree
-     *
-     * @deprecated sf2.0
-     * @param string     $navigationName Navigation name
-     * @param array|null $criteria       Criteria
-     * @param array|null $orderBy        OrderBy fields
-     *
-     * @return array
-     */
-    public function findByNavigationFromTree($navigationName, array $criteria = null, array $orderBy = null)
-    {
-        $tree = $this->findAllFromTree($criteria, $orderBy);
-
-        $navigationSections = array();
-        foreach ($tree as $key => $section) {
-
-            foreach ($section->getSectionNavigations() as $sectionNavigation) {
-
-                if ($sectionNavigation->getNavigation()->getName() == $navigationName) {
-                    $navigationSections[$sectionNavigation->getOrdering()] = $section;
-                }
-            }
-
-        }
-
-        ksort($navigationSections);
-
-        return $navigationSections;
-    }
-
-    /**
-     * Find All From Tree
-     *
-     * @deprecated sf2.0
-     * @param array|null $criteria Criteria
-     * @param array|null $orderBy  OrderBy fields
-     *
-     * @return array
-     */
-    public function findAllFromTree(array $criteria = null, array $orderBy = null)
-    {
-        $dql = 'SELECT s, t, sn, n, b, p
-                FROM UnifikSystemBundle:Section s
-                LEFT JOIN s.sectionNavigations sn
-                LEFT JOIN sn.navigation n
-                LEFT JOIN sb.bundle b
-                LEFT JOIN b.params p ';
-
-        if ($this->getCurrentAppName() == 'backend') {
-            $dql .= 'LEFT JOIN s.translations t ';
-        } else {
-            $dql .= 'INNER JOIN s.translations t ';
-            $criteria['locale'] = $this->getLocale();
-            if ($this->_em->getClassMetadata($this->_entityName . 'Translation')->hasField('active') && !in_array('active', array_keys($criteria))) {
-                $criteria['active'] = true;
-            }
-        }
-
-        if ($criteria) {
-
-            $dql .= 'WHERE ';
-
-            foreach (array_keys($criteria) as $column) {
-                if (!$this->_class->hasField($column) && $this->_em->getClassMetadata($this->_entityName . 'Translation')->hasField($column)) {
-                    $dql .= 't.' . $column . ' = :' .  $column . ' AND ';
-                } else {
-                    $dql .= 's.' . $column . ' = :' .  $column . ' AND ';
-                }
-            }
-
-            $dql = substr($dql, 0, -4);
-        }
-
-        if ($orderBy) {
-            // Temporary hack (waiting for the function to be rewritten)
-            if ($this->getCurrentAppName() == 'backend') {
-                $dql .= 'ORDER BY s.' . key($orderBy);
-            } else {
-                // TODO: add an ordering column in the navigation table
-                $dql .= 'ORDER BY n.id, sn.' . key($orderBy);
-            }
-
-            $dql .= ' ' . $orderBy['ordering'];
-        }
-
-        $query = $this->getEntityManager()->createQuery($dql);
-
-        if ($criteria) {
-            $query->setParameters($criteria);
-        }
-
-        $tree = $this->buildTree($query->getResult());
-
-        return $tree;
     }
 
     /**
