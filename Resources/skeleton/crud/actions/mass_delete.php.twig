@@ -7,8 +7,8 @@
     public function massDeleteAction($ids)
     {
         foreach ($ids as $id) {
-            $allergen = $this->{{ entity_var }}Repository->find($id);
-            $this->getEm()->remove($allergen);
+            $entity = $this->{{ entity_var }}Repository->find($id);
+            $this->getEm()->remove($entity);
         }
 
         $this->getEm()->flush();
