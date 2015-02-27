@@ -14,10 +14,10 @@
         {% endif %}
 
         $rowActionEdit = new RowAction('Edit', '{{ route_prefix }}_edit');
-        $rowActionEdit->setRouteParameters(['id'])->setRouteParametersMapping(['id' => '{{ entity|lower }}Id']);
+        $rowActionEdit->setRouteParameters(['id'])->setRouteParametersMapping(['id' => '{{ entity_var }}Id']);
 
         $rowActionDelete = new RowAction('Delete', '{{ route_prefix }}_delete', true);
-        $rowActionDelete->setRouteParameters(['id'])->setRouteParametersMapping(['id' => '{{ entity|lower }}Id']);
+        $rowActionDelete->setRouteParameters(['id'])->setRouteParametersMapping(['id' => '{{ entity_var }}Id']);
 
         $grid = $this->get('grid');
         $grid->setSource($source);
