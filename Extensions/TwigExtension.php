@@ -3,8 +3,10 @@
 namespace Unifik\SystemBundle\Extensions;
 
 use Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
+use Unifik\DoctrineBehaviorsBundle\ORM\Metadatable\MetadatableGetter;
 use Unifik\SystemBundle\Lib\Core;
 
 /**
@@ -31,6 +33,11 @@ class TwigExtension extends \Twig_Extension
      * @var ControllerNameParser
      */
     protected $controllerNameParser;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
 
     /**
      * @param mixed $systemCore
@@ -66,6 +73,14 @@ class TwigExtension extends \Twig_Extension
     public function setControllerNameConverter($controllerNameParser)
     {
         $this->controllerNameParser = $controllerNameParser;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
     }
 
     /**
@@ -108,14 +123,17 @@ class TwigExtension extends \Twig_Extension
      */
     public function getGlobals()
     {
+        $section = null;
+
         if ($this->systemCore->isLoaded()) {
             $section = $this->systemCore->getApplicationCore()->getSection();
-        } else {
-            $section = null;
         }
 
         return array(
-            'section' => $section
+            'section' => $section,
+            'project_title' => $this->container->getParameter('unifik_system.metadata.title'),
+            'project_description' => $this->container->getParameter('unifik_system.metadata.description'),
+            'project_keywords' => $this->container->getParameter('unifik_system.metadata.keywords')
         );
     }
 

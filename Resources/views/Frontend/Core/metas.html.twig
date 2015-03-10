@@ -7,11 +7,11 @@
 {% endblock %}
 
 {% block meta_description %}
-    <meta name="description" content="{{ project_description }}" />
+    {{ render(controller('UnifikSystemBundle:Frontend/Metadata:metadata', { metaName: 'description' })) }}
 {% endblock %}
 
 {% block meta_keywords %}
-    <meta name="keywords" content="{{ project_keywords }}" />
+    {{ render(controller('UnifikSystemBundle:Frontend/Metadata:metadata', { metaName: 'keywords' })) }}
 {% endblock %}
 
 {% block meta_robots %}

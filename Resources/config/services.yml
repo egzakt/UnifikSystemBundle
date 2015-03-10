@@ -100,6 +100,7 @@ services:
           - [ setLocale, [ %locale% ] ]
           - [ setSystemCore, [ @unifik_system.core ] ]
           - [ setControllerNameConverter, [ @controller_name_converter ] ]
+          - [ setContainer, [ @service_container] ]
 
     unifik_system.twig_translation_extension:
         class: %unifik_system.twig_translation_extension.class%

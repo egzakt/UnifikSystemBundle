@@ -1,9 +1,13 @@
 {% block title -%}
-    {%- for element in elements -%}
-        {% set entityTitle = element|transTitle|striptags|truncate(100)|raw %}
-        {%- if (element.id is defined and element.id is null) or element.id is not defined -%}
-            {% set entityTitle = entityTitle|trans %}
-        {%- endif -%}
-        {{ entityTitle }} - {% endfor -%}
-    {{ project_title|trans }}
+    {%- if element_page_title is defined and element_page_title is not null -%}
+        {{ element_page_title|trans }}
+    {%- else -%}
+        {%- for element in elements -%}
+            {% set entityTitle = element|transTitle|striptags|truncate(100)|raw %}
+            {%- if (element.id is defined and element.id is null) or element.id is not defined -%}
+                {% set entityTitle = entityTitle|trans %}
+            {%- endif -%}
+            {{ entityTitle }} - {% endfor -%}
+        {{ project_title|trans }}
+    {%- endif %}
 {%- endblock -%}
