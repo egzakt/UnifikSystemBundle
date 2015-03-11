@@ -201,10 +201,16 @@ class NavigationController extends BaseController
         if (count($elements)) {
             $currentElement = $elements[count($elements) - 1];
             $elementPageTitle = $this->get('unifik_doctrine_behaviors.metadatable_getter')->getMetadata($currentElement, 'title');
+            $elementOverridePageTitle = $this->get('unifik_doctrine_behaviors.metadatable_getter')->getMetadata($currentElement, 'titleOverride');
+
+            if ($elementPageTitle || $elementOverridePageTitle) {
+                unset($elements[count($elements) - 1]);
+            }
         }
 
         return $this->render('UnifikSystemBundle:Backend/Navigation:page_title.html.twig', array(
             'element_page_title' => $elementPageTitle,
+            'element_override_page_title' => $elementOverridePageTitle,
             'elements' => $elements
         ));
     }

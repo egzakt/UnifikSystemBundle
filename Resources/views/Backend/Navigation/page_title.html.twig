@@ -1,7 +1,10 @@
 {% block title -%}
-    {%- if element_page_title is defined and element_page_title is not null -%}
+    {%- if element_page_title is defined and element_override_page_title is defined and element_override_page_title -%}
         {{ element_page_title|trans }}
     {%- else -%}
+        {%- if element_page_title is defined and element_page_title -%}
+            {{ element_page_title }}{% if elements|length %} - {% endif -%}
+        {%- endif -%}
         {%- for element in elements -%}
             {% set entityTitle = element|transTitle|striptags|truncate(100)|raw %}
             {%- if (element.id is defined and element.id is null) or element.id is not defined -%}
