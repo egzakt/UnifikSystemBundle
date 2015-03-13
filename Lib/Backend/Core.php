@@ -76,6 +76,19 @@ class Core implements ApplicationCoreInterface
     protected $container;
 
     /**
+     * @var bool
+     */
+    protected $initialized;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->initialized = false;
+    }
+
+    /**
      * @param ContainerInterface $container
      */
     public function setContainer($container)
@@ -100,13 +113,17 @@ class Core implements ApplicationCoreInterface
      */
     public function init()
     {
-        if ($section = $this->getSection()) {
+        if (!$this->initialized) {
+            if ($section = $this->getSection()) {
 
-            foreach ($section->getParents() as $parent) {
+                foreach ($section->getParents() as $parent) {
 
-                $this->addNavigationElement($parent);
+                    $this->addNavigationElement($parent);
+                }
+                $this->addNavigationElement($section);
             }
-            $this->addNavigationElement($section);
+
+            $this->initialized = true;
         }
     }
 
