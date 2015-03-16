@@ -2,8 +2,6 @@
 
 namespace Unifik\SystemBundle\Lib;
 
-use Unifik\SystemBundle\Lib\BaseEntity;
-
 /**
  * Navigation Element
  */
