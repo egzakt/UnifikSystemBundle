@@ -137,7 +137,7 @@ By default, the `force_mapping` option will force map the route to the frontend 
 ```yml
 unifik_sitemap_frontend_xml:
    pattern:  /sitemap.xml
-   defaults: { "_controller: "UnifikSitemapBundle:Frontend:xml" }
+   defaults: { _controller: "UnifikSitemapBundle:Frontend:xml" }
    options:  { force_mapping: true }
 ```
 
