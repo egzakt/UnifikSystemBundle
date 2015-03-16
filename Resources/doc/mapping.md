@@ -145,7 +145,7 @@ Common use cases for manual routes with context are global route that needs the 
 
 ### Trailing route
 
-If you want to add a route at the end of the route, you must use the `trailing_route` option. Using this option, the router will force the injection of this route at the end of the Router.
+If you want to add a route at the end of the Router, you must use the `trailing_route` option. Using this option, the router will force the injection of this route at the end of the Router.
 
 You may also specify use the `ordering` option to specify at which order you want the route to be mapped at the end of the Router.
 
