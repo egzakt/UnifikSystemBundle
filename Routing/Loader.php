@@ -29,6 +29,11 @@ class Loader extends BaseLoader
     protected $routesToRemove;
 
     /**
+     * @var array
+     */
+    protected $trailingRoutes;
+
+    /**
      * @inheritdoc
      */
     public function load(RouteCollection $collection)
@@ -44,6 +49,7 @@ class Loader extends BaseLoader
         $collection = $this->removeMappingSourceRoutes($collection);
         $collection = $this->generateForcedMappedRoutes($collection);
         $collection = $this->processBackendRoutes($collection);
+        $collection = $this->processTrailingRoutes($collection);
 
         return $collection;
     }
@@ -97,11 +103,23 @@ class Loader extends BaseLoader
     protected function removeMappingSourceRoutes($collection)
     {
         $appSlugs = $this->findAllApplicationSlugs($this->mappings);
+        $trailingRoutesOrdering = 1000;
 
         foreach ($collection->all() as $name => $route) {
 
             if ($route->getOption('do_not_remove') || $route->getOption('force_mapping')) {
                 continue;
+            }
+
+            // Remove the trailing routes and keep it in an array to place it back at the end of the Router
+            if ($route->getOption('trailing_route')) {
+                if (!$ordering = $route->getOption('ordering')) {
+                    $ordering = $trailingRoutesOrdering;
+                    $trailingRoutesOrdering++;
+                }
+
+                $this->trailingRoutes[$ordering] = ['name' => $name, 'route' => $route];
+                $collection->remove($name);
             }
 
             if (preg_match('/' . static::ROUTING_PREFIX . 'unifik_|_' . implode('_|_', $appSlugs) .'_/', $name)) {
@@ -152,6 +170,24 @@ class Loader extends BaseLoader
                 $route->setDefault('_unifikEnabled', true);
                 $route->setDefault('_unifikRequest', $unifikRequest);
             }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Process the routes to add at the end of the Router
+     *
+     * @param RouteCollection $collection
+     *
+     * @return RouteCollection
+     */
+    protected function processTrailingRoutes($collection)
+    {
+        ksort($this->trailingRoutes);
+
+        foreach($this->trailingRoutes as $routeInfos) {
+            $collection->add($routeInfos['name'], $routeInfos['route']);
         }
 
         return $collection;
