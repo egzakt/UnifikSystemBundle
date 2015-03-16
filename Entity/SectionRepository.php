@@ -24,11 +24,12 @@ class SectionRepository extends BaseEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('s')
             ->select('s','st')
+            ->innerjoin('s.mappings', 'm')
             ->leftJoin('s.sectionNavigations','sn')
             ->leftJoin('sn.navigation','n')
             ->groupBy('s.id')
-            ->orderBy('sn.ordering','ASC')
-            ->addOrderBy('s.ordering','ASC');
+            ->orderBy('s.ordering','ASC')
+            ->addOrderBy('sn.ordering','ASC');
 
         if ($appId !== null) {
             $queryBuilder
@@ -48,8 +49,7 @@ class SectionRepository extends BaseEntityRepository
                 ->setParameter('locale',$this->getLocale());
         } else {
             $queryBuilder
-                ->innerJoin('s.translations','st','WITH','st.locale = :locale')
-                ->andWhere('st.active = true')
+                ->innerJoin('s.translations','st','WITH','st.locale = :locale AND st.active = true')
                 ->setParameter('locale',$this->getLocale());
         }
         
