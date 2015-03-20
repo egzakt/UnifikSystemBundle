@@ -31,7 +31,7 @@ class Loader extends BaseLoader
     /**
      * @var array
      */
-    protected $trailingRoutes;
+    protected $trailingRoutes = [];
 
     /**
      * @inheritdoc
