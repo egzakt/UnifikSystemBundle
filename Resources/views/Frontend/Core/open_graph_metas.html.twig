@@ -17,7 +17,7 @@
     {% endblock %}
 
     {% block og_description %}
-        {{ render(controller('UnifikSystemBundle:Frontend/Metadata:metadata', { metaName: 'description', ogMeta: true })) }}
+        {{ render_esi(controller('UnifikSystemBundle:Frontend/Metadata:metadata', { metaName: 'description', ogMeta: true })) }}
     {% endblock %}
 
 {% endblock %}

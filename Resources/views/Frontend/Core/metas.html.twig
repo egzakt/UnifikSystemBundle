@@ -7,11 +7,11 @@
 {% endblock %}
 
 {% block meta_description %}
-    {{ render(controller('UnifikSystemBundle:Frontend/Metadata:metadata', { metaName: 'description' })) }}
+    {{ render_esi(controller('UnifikSystemBundle:Frontend/Metadata:metadata', { metaName: 'description' })) }}
 {% endblock %}
 
 {% block meta_keywords %}
-    {{ render(controller('UnifikSystemBundle:Frontend/Metadata:metadata', { metaName: 'keywords' })) }}
+    {{ render_esi(controller('UnifikSystemBundle:Frontend/Metadata:metadata', { metaName: 'keywords' })) }}
 {% endblock %}
 
 {% block meta_robots %}
