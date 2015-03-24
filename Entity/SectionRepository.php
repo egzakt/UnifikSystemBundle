@@ -197,9 +197,13 @@ class SectionRepository extends BaseEntityRepository
             $queryBuilder = $this->createQueryBuilder('s');
         }
 
-        return $queryBuilder->select('s.updatedAt')
-            ->addOrderBy('s.updatedAt', 'DESC')
-            ->setMaxResults(1)
-            ->getQuery()->getSingleScalarResult();
+        try {
+            return $queryBuilder->select('s.updatedAt')
+                ->addOrderBy('s.updatedAt', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery()->getSingleScalarResult();
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }

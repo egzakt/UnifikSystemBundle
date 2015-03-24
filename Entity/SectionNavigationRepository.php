@@ -21,9 +21,13 @@ class SectionNavigationRepository extends BaseEntityRepository
             $queryBuilder = $this->createQueryBuilder('sn');
         }
 
-        return $queryBuilder->select('sn.updatedAt')
-            ->addOrderBy('sn.updatedAt', 'DESC')
-            ->setMaxResults(1)
-            ->getQuery()->getSingleScalarResult();
+        try {
+            return $queryBuilder->select('sn.updatedAt')
+                ->addOrderBy('sn.updatedAt', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery()->getSingleScalarResult();
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 }

@@ -34,49 +34,87 @@ class TextController extends BaseController
      */
     public function indexAction()
     {
-        return $this->render('UnifikSystemBundle:Frontend/Text:index.html.twig');
+        $response = new Response();
+        $response->setPublic();
+        $response->setSharedMaxAge(86400); // 1 day
+
+        return $this->render(
+            'UnifikSystemBundle:Frontend/Text:index.html.twig',
+            [],
+            $response
+        );
     }
 
     /**
      * Display the main texts of a given section.
      * If no sectionId is provided the current section is used.
      *
+     * @param Request $request
      * @param int $sectionId
      *
      * @return Response
      */
-    public function displayTextsAction($sectionId = null)
+    public function displayTextsAction(Request $request, $sectionId = null)
     {
         if (false == $sectionId) {
             $sectionId = $this->getSection()->getId();
         }
 
+        $textLastUpdate = $this->textRepository->findLastUpdate(null, $sectionId);
+
+        $response = new Response();
+        $response->setPublic();
+        $response->setEtag($sectionId . $textLastUpdate);
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         $texts = $this->textRepository->findBy(array('section' => $sectionId, 'static' => false, 'active' => true), array('ordering' => 'ASC'));
 
-        return $this->render('UnifikSystemBundle:Frontend/Text:displayTexts.html.twig', array(
-            'texts' => $texts,
-            'textId' => $this->get('request')->get('bloc')
-        ));
+        return $this->render(
+            'UnifikSystemBundle:Frontend/Text:displayTexts.html.twig',
+            [
+                'texts' => $texts,
+                'textId' => $this->get('request')->get('bloc')
+            ],
+            $response
+        );
     }
 
     /**
      * Display a text by its id
      *
+     * @param Request $request
      * @param integer $textId
      *
      * @return Response
      */
-    public function displayTextByIdAction($textId)
+    public function displayTextByIdAction(Request $request, $textId)
     {
+        $textLastUpdate = $this->textRepository->findLastUpdate(null, null, $textId);
+
+        $response = new Response();
+        $response->setPublic();
+        $response->setEtag($textId . $textLastUpdate);
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
         $text = $this->textRepository->findOneBy(array(
             'id' => $textId,
             'active' => true
         ));
 
-        return $this->render('UnifikSystemBundle:Frontend/Text:displayTexts.html.twig', array(
-            'texts' => is_null($text) ? null : array($text),
-            'textId' => $textId
-        ));
+        return $this->render(
+            'UnifikSystemBundle:Frontend/Text:displayTexts.html.twig',
+            [
+                'texts' => is_null($text) ? null : array($text),
+                'textId' => $textId
+            ],
+            $response
+        );
     }
 
     /**
