@@ -317,7 +317,8 @@
                         addontab: true,
                         complete_text: '{% trans %}Start typing...{% endtrans %}',
                         newel: {{ form.vars.allow_add ? 'true' : 'false' }},
-                        filter_selected: true
+                        filter_selected: true,
+                        maxitems: Number.MAX_VALUE
                     });
                 } else {
                     console.log('{% trans %}TaggableType Error : Fcbkcomplete plugin is not loaded.{% endtrans %}');
