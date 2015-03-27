@@ -374,7 +374,7 @@ class Loader extends BaseLoader
             AND s.app_id <> 1
             AND m.type = "route"
             AND st.active = 1
-            ORDER BY m.app_id, s.parent_id, s.ordering, m.ordering
+            ORDER BY m.app_id, s.parent_id DESC, s.ordering, m.ordering
         ';
     }
 
