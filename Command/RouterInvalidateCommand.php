@@ -36,7 +36,7 @@ EOF
         $kernel = $this->getContainer()->get('kernel');
         $output->writeln(sprintf('Invalidating routes for the <info>%s</info> environment', $kernel->getEnvironment()));
 
-        $this->getContainer()->get('unifik_system.router_cache')->invalidate();
+        $this->getContainer()->get('unifik_system.router_invalidator')->invalidate();
     }
 
 }
