@@ -48,6 +48,8 @@ class SectionTranslationSluggableListener extends SluggableListener
         if ($translatable->getParent()) {
             $queryBuilder->andWhere('t.parent = :parent')
                 ->setParameter('parent', $translatable->getParent());
+        } else {
+            $queryBuilder->andWhere('t.parent IS NULL');
         }
 
         return $queryBuilder;
