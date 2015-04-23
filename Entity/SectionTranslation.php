@@ -12,6 +12,7 @@ class SectionTranslation
     use UnifikORMBehaviors\Translatable\Translation;
     use UnifikORMBehaviors\Sluggable\Sluggable;
     use UnifikORMBehaviors\Metadatable\Metadatable;
+    use UnifikORMBehaviors\Taggable\Taggable;
 
     /**
      * @var integer $id

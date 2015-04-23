@@ -15,7 +15,6 @@ class Section extends BaseEntity
 {
     use UnifikORMBehaviors\Translatable\Translatable;
     use UnifikORMBehaviors\Timestampable\Timestampable;
-    use UnifikORMBehaviors\Taggable\Taggable;
 
     /**
      * @var integer
