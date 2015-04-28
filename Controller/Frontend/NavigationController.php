@@ -222,6 +222,9 @@ class NavigationController extends BaseController
      */
     public function localeSwitcherAction()
     {
+        $response = new Response();
+        $response->setPublic();
+
         $localeSwitcher = $this->get('unifik_system.locale_switcher');
         $localeSwitcher->setElement($this->getCore()->getElement());
 
@@ -229,9 +232,10 @@ class NavigationController extends BaseController
 
         return $this->render(
             'UnifikSystemBundle:Frontend/Navigation:locale_switcher.html.twig',
-            array(
+            [
                 'routes' => $routes,
-            )
+            ],
+            $response
         );
     }
 
