@@ -123,6 +123,10 @@ class Core implements ApplicationCoreInterface
      */
     public function addNavigationElement(NavigationElementInterface $element)
     {
+        if (!$element->getParent() && count($this->elements)) {
+            $element->setParent(end($this->elements));
+        }
+
         $this->breadcrumbs->addElement($element);
         $this->pageTitle->addElement($element);
 
