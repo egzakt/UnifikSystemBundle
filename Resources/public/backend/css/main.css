@@ -1646,6 +1646,10 @@ span.cke_skin_kama {
     margin-left: 1px;
 }
 
+.list_box input[type="checkbox"] {
+    width: auto;
+}
+
 .list_box .token {
     border: none;
 }
