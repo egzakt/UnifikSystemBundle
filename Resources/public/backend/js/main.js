@@ -5,16 +5,6 @@ $(function(){
     autoFocus();
     populate_inputs();
 
-    $("#help").fancybox({
-        'type' : 'iframe',
-        'titleShow' : false,
-        'centerOnScroll' : true,
-        'width' : 600,
-        'height' : 600,
-        'padding' : 10,
-        'margin' : 0
-    });
-
     if ($.datepicker) {
 		$('.calendar').datepicker({
 			showAnim: 'fadeIn',
