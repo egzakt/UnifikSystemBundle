@@ -7,7 +7,7 @@
 {% block main %}
     <div id="main" role="main" class="full">
         <div id="content_col">
-            {{ render(controller('UnifikSystemBundle:Frontend/Text:DisplayTexts')) }}
+            {{ render_esi(controller('UnifikSystemBundle:Frontend/Text:displayTexts')) }}
         </div>
     </div>
 {% endblock %}

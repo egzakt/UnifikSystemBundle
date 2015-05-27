@@ -56,6 +56,19 @@ class Core implements ApplicationCoreInterface
     protected $elements;
 
     /**
+     * @var bool
+     */
+    protected $initialized;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->initialized = false;
+    }
+
+    /**
      * The name that represent the application
      *
      * @return string
@@ -72,24 +85,34 @@ class Core implements ApplicationCoreInterface
      */
     public function init()
     {
-        $em = $this->doctrine->getManager();
+        if (!$this->initialized) {
+            $em = $this->doctrine->getManager();
 
-        if ($sectionId = $this->getSectionId()) {
-            $this->setSection($em->getRepository('UnifikSystemBundle:Section')->findOneBy(array(
-                'id' => $sectionId,
-                'active' => true
-            )));
-        }
-
-        // If a section has been found
-        if ($section = $this->getSection()) {
-            foreach ($section->getParents() as $parent) {
-                $this->addNavigationElement($parent);
+            if ($sectionId = $this->getSectionId()) {
+                $this->setSection(
+                        $em->getRepository('UnifikSystemBundle:Section')->findOneBy(
+                                array(
+                                        'id' => $sectionId,
+                                        'active' => true
+                                )
+                        )
+                );
             }
 
-            $this->addNavigationElement($section);
-        } else {
-            throw new NotFoundHttpException(sprintf('The section_id_%s does not exist or is not active in the database', $sectionId));
+            // If a section has been found
+            if ($section = $this->getSection()) {
+                foreach ($section->getParents() as $parent) {
+                    $this->addNavigationElement($parent);
+                }
+
+                $this->addNavigationElement($section);
+            } else {
+                throw new NotFoundHttpException(
+                        sprintf('The section_id_%s does not exist or is not active in the database', $sectionId)
+                );
+            }
+
+            $this->initialized = true;
         }
     }
 
@@ -100,6 +123,10 @@ class Core implements ApplicationCoreInterface
      */
     public function addNavigationElement(NavigationElementInterface $element)
     {
+        if (!$element->getParent() && count($this->elements)) {
+            $element->setParent(end($this->elements));
+        }
+
         $this->breadcrumbs->addElement($element);
         $this->pageTitle->addElement($element);
 

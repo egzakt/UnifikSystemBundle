@@ -101,10 +101,10 @@ class NavigationBuilder
      *
      * @param array $elements An array of elements
      */
-    public function setElements($elements)
+    public function setElements($elements, $checkActive = false)
     {
         // Wrap elements in a NavigationItem Wrapper Class
-        $wrappedElements = $this->buildNavigationItems($elements);
+        $wrappedElements = $this->buildNavigationItems($elements, null, $checkActive);
 
         $this->elements = $wrappedElements;
     }
@@ -120,6 +120,36 @@ class NavigationBuilder
     }
 
     /**
+     * Add elements to the existing array
+     *
+     * @param array $elements An array of elements
+     */
+    public function addElements($elements)
+    {
+        // Wrap elements in a NavigationItem Wrapper Class
+        $wrappedElements = $this->buildNavigationItems($elements);
+
+        if ($this->elements) {
+            $this->elements = array_merge($this->elements, $wrappedElements);
+        } else {
+            $this->elements = $wrappedElements;
+        }
+    }
+
+    /**
+     * Add a single element to the existing array
+     *
+     * @param $element
+     */
+    public function addElement($element)
+    {
+        // Wrap element in a NavigationItem Wrapper Class
+        $wrappedElement = $this->buildNavigationItems(array($element));
+
+        $this->elements[] = $wrappedElement[0];
+    }
+
+    /**
      * Build Navigation Items
      *
      * Wraps all navigation elements in a NavigationItem Wrapper Class
@@ -129,11 +159,17 @@ class NavigationBuilder
      *
      * @return array
      */
-    protected function buildNavigationItems($elements, $parentElement = null)
+    protected function buildNavigationItems($elements, $parentElement = null, $checkActive = false)
     {
         $wrappedElements = array();
 
         foreach ($elements as $element) {
+
+            // Check si la section est active
+            if ($checkActive && is_callable(array($element, 'getActive')) && !$element->getActive()) {
+                continue;
+            }
+
             // Create the NavigationItem wrapper
             $wrappedElement = $this->buildNavigationItem($element);
 
@@ -145,7 +181,7 @@ class NavigationBuilder
 
             // Recursive call
             if ($element->hasChildren()) {
-                $this->buildNavigationItems($element->getChildren(), $wrappedElement);
+                $this->buildNavigationItems($element->getChildren(), $wrappedElement, $checkActive);
             }
 
             $wrappedElements[] = $wrappedElement;

@@ -7,7 +7,7 @@ Welcome: Bienvenue
 Access site: Accéder au site
 Online help: Aide en ligne
 Content Language: Langue du contenu
-Bad Credentials.: Utilisateur/mot de passe invalide.
+Bad credentials: Utilisateur/mot de passe invalide
 
 Developed by: Développé par
 Languages: Langues
@@ -41,6 +41,8 @@ Last update: Mise à jour
 Search a name: Rechercher un nom
 Search a title: Rechercher un titre
 This section has one or more subsections.: Cette section a des sous-sections qui lui sont reliées.
+'Delete:': 'Supprimer :'
+'Replace:': 'Remplacer :'
 
 Texts: Textes
 Add a text: Ajouter un texte
@@ -142,4 +144,26 @@ Search a Translation: Rechercher une traduction
 Displayed on the language switcher: Affiché sur le sélecteur de langue
 Home page URL: URL de la page d'accueil
 Welcome to Unifik: Bienvenue dans Unifik
-All Rights Reserved: Tous droits réservés
+All Rights Reserved: Tous droits réservésHome page URL: URL de la page d'accueil
+
+Home: Accueil
+":": " :"
+
+404 Error: Erreur 404
+404 Not Found: Erreur 404 - Page introuvable
+The requested URL was not found on this server: La page à laquelle vous tentez d'accéder n'existe pas ou a été déplacée
+403 Error: Erreur 403
+403 Forbidden - Access Denied: Erreur 403 - Accès non-autorisé
+
+There is no section in this application: Il n'y a aucune section dans cette application
+Create a new section: Créer une nouvelle section
+
+# Datagrid
+Export: Exporter
+"true": oui
+"false": non
+Created at: Date de création
+Updated at: Mise à jour
+Selected _s_ rows: _s_ ligne(s) sélectionnées
+Do you want to delete this row?: Êtes-vous sur de vouloir effacer cette ligne?
+No data: Aucune donnée à afficher

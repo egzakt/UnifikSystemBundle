@@ -1,6 +1,6 @@
 <?php
 
-namespace {{ namespace }}\Controller\{{ application }}\{{ entity }}{{ entity_namespace ? '\\' ~ entity_namespace : '' }};
+namespace {{ namespace }}\Controller\{{ application }};
 
 use Unifik\SystemBundle\Lib\{{ application }}\BaseController;
 
@@ -13,7 +13,7 @@ class NavigationController extends BaseController
     {
         $selected = (0 === strpos($_masterRoute, '{{ route_prefix }}'));
 
-        return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/' ~ entity|replace({'\\': '/'}) ~ '/Navigation'}}:section_module_bar.html.twig', array(
+        return $this->render('{{ namespace|replace({'\\': ''}) ~ ':' ~ application ~ '/Navigation'}}:section_module_bar.html.twig', array(
             'selected' => $selected,
         ));
     }

@@ -1,0 +1,23 @@
+{{ "{% extends '" ~ bundle_name ~ ":" ~ application ~ ":layout.html.twig' %}" -}}
+
+{%- set hidden_fields = ['id', 'locale', 'active', 'featured', 'createdAt'] %}
+
+{{ '{% block content_header %}' }}
+    <h1>{{ "{% trans %}"}}{{ entity }}{{ "s List{% endtrans %}" }}</h1>
+{{ '{% endblock %}' }}
+
+{{ '{% block content_main %}' }}
+
+{% if 'ordering' in fields|keys %}
+    <script type="text/javascript">
+       var url_ordre = '{{ "{{ path('" ~ route_prefix ~ "_order') }}" }}';
+    </script>
+
+{% endif %}
+    <div id="list_actions_bar">
+       <a class="add" href="{{ "{{ path('" ~ route_prefix ~ "_edit') }}" }}">{{ "{% trans %}Add a "}}{{ entity }}{{ "{% endtrans %}" }}</a>
+    </div>
+
+    {{ '{{ grid(grid) }}' }}
+
+{{ '{% endblock content_main %}' }}

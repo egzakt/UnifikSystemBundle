@@ -1,0 +1,16 @@
+{% if sections %}
+    {% for section in sections %}
+        <li class="{% if section.hasChildren %} with_sublevel{% endif %}{% if section.isSelected %} selected{% endif %}">
+            <a href="{% if section.entity.route %}{{ path(section.entity.route, section.entity.routeParams) }}{% endif %}" title="{{ section }}">
+                {{ section }}
+            </a>
+            {% if exploded or (section.isSelected and section.hasChildren) %}
+                {% if level < maxLevel %}
+                    <ul class="level_{{ level }}">
+                        {% include 'UnifikSystemBundle:Frontend/Navigation:from_section_level.html.twig' with { 'sections': section.children, 'level': level + 1 } %}
+                    </ul>
+                {% endif %}
+            {% endif %}
+        </li>
+    {% endfor %}
+{% endif %}

@@ -2,10 +2,11 @@
 
 namespace Unifik\SystemBundle\Extensions;
 
+use Symfony\Bundle\FrameworkBundle\Controller\ControllerNameParser;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Stopwatch\Section;
-use BCC\ExtraToolsBundle\Util\DateFormatter;
 
+use Unifik\DoctrineBehaviorsBundle\ORM\Metadatable\MetadatableGetter;
 use Unifik\SystemBundle\Lib\Core;
 
 /**
@@ -27,6 +28,16 @@ class TwigExtension extends \Twig_Extension
      * @var Core
      */
     protected $systemCore;
+
+    /**
+     * @var ControllerNameParser
+     */
+    protected $controllerNameParser;
+
+    /**
+     * @var ContainerInterface
+     */
+    protected $container;
 
     /**
      * @param mixed $systemCore
@@ -55,6 +66,24 @@ class TwigExtension extends \Twig_Extension
     }
 
     /**
+     * Set Controller Name Parser
+     *
+     * @param ControllerNameParser $controllerNameParser
+     */
+    public function setControllerNameConverter($controllerNameParser)
+    {
+        $this->controllerNameParser = $controllerNameParser;
+    }
+
+    /**
+     * @param ContainerInterface $container
+     */
+    public function setContainer($container)
+    {
+        $this->container = $container;
+    }
+
+    /**
      * List of available functions
      *
      * @return array
@@ -62,9 +91,12 @@ class TwigExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            'isExternalUrl' => new \Twig_Function_Method($this, 'isExternalUrl'),
-            'dateRange' => new \Twig_Function_Method($this, 'dateRange'),
-            'tree_indentation' => new \Twig_Function_Method($this, 'treeIndentation')
+            'is_external_url' => new \Twig_Function_Method($this, 'isExternalUrl'),
+            'date_range' => new \Twig_Function_Method($this, 'dateRange'),
+            'tree_indentation' => new \Twig_Function_Method($this, 'treeIndentation'),
+            'bundle_name' => new \Twig_Function_Method($this, 'getBundleName'),
+            'controller_name' => new \Twig_Function_Method($this, 'getControllerName'),
+            'action_name' => new \Twig_Function_Method($this, 'getActionName'),
         );
     }
 
@@ -77,23 +109,103 @@ class TwigExtension extends \Twig_Extension
     {
         return array(
             'trim' => new \Twig_Filter_Method($this, 'trim'),
-            'stripLineBreaks' => new \Twig_Filter_Method($this, 'stripLineBreaks'),
-            'formatCurrency' => new \Twig_Filter_Method($this, 'formatCurrency'),
+            'strip_line_breaks' => new \Twig_Filter_Method($this, 'stripLineBreaks'),
+            'format_currency' => new \Twig_Filter_Method($this, 'formatCurrency'),
             'ceil' => new \Twig_Filter_Method($this, 'ceil'),
+            'titleCase' => new \Twig_Filter_Method($this, 'titleCase'),
         );
     }
 
+    /**
+     * Get Globals
+     *
+     * @return array
+     */
     public function getGlobals()
     {
+        $section = null;
+
         if ($this->systemCore->isLoaded()) {
             $section = $this->systemCore->getApplicationCore()->getSection();
-        } else {
-            $section = null;
         }
 
         return array(
-            'section' => $section
+            'section' => $section,
+            'project_title' => $this->container->getParameter('unifik_system.metadata.title'),
+            'project_description' => $this->container->getParameter('unifik_system.metadata.description'),
+            'project_keywords' => $this->container->getParameter('unifik_system.metadata.keywords')
         );
+    }
+
+    /**
+     * Get current bundle name
+     *
+     * @return string|null
+     */
+    public function getBundleName()
+    {
+        try {
+            $controller = $this->controllerNameParser->parse($this->request->get('_controller'));
+        } catch (\InvalidArgumentException $e) {
+            $controller = $this->request->get('_controller');
+        }
+
+        $pattern = "#\\\([a-zA-Z]*)Bundle#";
+        $matches = array();
+
+        if (preg_match($pattern, $controller, $matches)) {
+            return strtolower($matches[1]);
+        }
+    }
+
+    /**
+     * Get current controller name
+     *
+     * @return string|null
+     */
+    public function getControllerName()
+    {
+        try {
+            $controller = $this->controllerNameParser->parse($this->request->get('_controller'));
+        } catch (\InvalidArgumentException $e) {
+            $controller = $this->request->get('_controller');
+        }
+
+        $pattern = "#Controller\\\([a-zA-Z]*)Controller#";
+        $matches = array();
+
+        if (preg_match($pattern, $controller, $matches)) {
+            return strtolower($matches[1]);
+        }
+
+        // If controllerNameParser couldn't parse the Controller name
+        $pattern = "#(.*)\\\([a-zA-Z]*)Controller::([a-zA-Z]*)Action#";
+        $matches = array();
+
+        if (preg_match($pattern, $controller, $matches)) {
+            return strtolower($matches[2]);
+        }
+    }
+
+    /**
+     * Get current action name
+     *
+     * @return string|null
+     */
+    public function getActionName()
+    {
+        try {
+            $controller = $this->controllerNameParser->parse($this->request->get('_controller'));
+        } catch (\InvalidArgumentException $e) {
+            $controller = $this->request->get('_controller');
+        }
+
+        $pattern = "#::([a-zA-Z]*)Action#";
+        $matches = array();
+
+        if (preg_match($pattern, $controller, $matches)) {
+            return $matches[1];
+        }
     }
 
     /**
@@ -135,10 +247,10 @@ class TwigExtension extends \Twig_Extension
             $locale = $this->locale;
         }
 
-        $formatter = new DateFormatter();
+        $defaultDateFormatter = \IntlDateFormatter::create($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE);
 
         if ($startDate == $endDate) {
-            return $formatter->format($startDate, 'long', 'none', $locale);
+            return $defaultDateFormatter->format($startDate);
         }
 
         $startDateInfos = date_parse($startDate->format('Y-m-d'));
@@ -148,28 +260,32 @@ class TwigExtension extends \Twig_Extension
 
             // ex.: 2 au 5 février 2012
             if ($locale == 'fr') {
-                $range = $startDateInfos['day'] . ' au ' . $formatter->format($endDate, 'long', 'none', $locale);
+                $range = $startDateInfos['day'] . ' au ' . $defaultDateFormatter->format($endDate);
 
-                // ex.: February 2 to 5, 2012
+            // ex.: February 2 to 5, 2012
             } else {
-                $range = $formatter->format($startDate, 'long', 'none', $locale, 'MMMM d') . ' to ' . $formatter->format($endDate, 'long', 'none', $locale, 'd, Y');
+                $dateFormatterStart = \IntlDateFormatter::create($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, null, null, 'MMMM d');
+                $dateFormatterEnd = \IntlDateFormatter::create($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, null, null, 'd, Y');
+                $range = $dateFormatterStart->format($startDate) . ' to ' . $dateFormatterEnd->format($endDate);
             }
 
         } elseif ($startDateInfos['year'] == $endDateInfos['year']) {
 
             // ex.: 2 février au 5 mai 2012
             if ($locale == 'fr') {
-                $range = $formatter->format($startDate, 'long', 'none', $locale, 'd MMMM') . ' au ' . $formatter->format($endDate, 'long', 'none', $locale);
+                $dateFormatterStart = \IntlDateFormatter::create($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, null, null, 'd MMMM');
+                $range = $dateFormatterStart->format($startDate) . ' au ' . $defaultDateFormatter->format($endDate);
 
-                // ex.: February 2 to May 5, 2012
+            // ex.: February 2 to May 5, 2012
             } else {
-                $range = $formatter->format($startDate, 'long', 'none', $locale, 'MMMM d') . ' to ' . $formatter->format($endDate, 'long', 'none', $locale, 'MMMM d') . ', ' . $endDateInfos['year'];
+                $dateFormatter = \IntlDateFormatter::create($locale, \IntlDateFormatter::LONG, \IntlDateFormatter::NONE, null, null, 'MMMM d');
+                $range = $dateFormatter->format($startDate) . ' to ' . $dateFormatter->format($endDate) . ', ' . $endDateInfos['year'];
             }
 
         } else {
-            $range = $formatter->format($startDate, 'long', 'none', $locale);
+            $range = $defaultDateFormatter->format($startDate);
             $range .= $locale == 'fr' ? ' au ' : ' to ';
-            $range .= $formatter->format($endDate, 'long', 'none', $locale);
+            $range .= $defaultDateFormatter->format($endDate);
         }
 
         if ($locale == 'fr') {
@@ -279,5 +395,21 @@ class TwigExtension extends \Twig_Extension
         }
 
         return $indent;
+    }
+
+    /**
+     * Convert "aCamelCaseString" to "A camel case string"
+     *
+     * @param $string
+     * @return mixed|string
+     */
+    public function titleCase($string)
+    {
+        $string = preg_replace('/(?<=\\w)(?=[A-Z])/'," $1", $string);
+        $string = trim($string);
+        $string = strtolower($string);
+        $string = ucfirst($string);
+
+        return $string;
     }
 }

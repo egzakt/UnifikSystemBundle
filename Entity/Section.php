@@ -3,7 +3,7 @@
 namespace Unifik\SystemBundle\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\ExecutionContext;
+use Symfony\Component\Validator\ExecutionContextInterface;
 
 use Unifik\SystemBundle\Lib\BaseEntity;
 use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
@@ -473,27 +473,6 @@ class Section extends BaseEntity
     }
 
     /**
-     * Basic verification to ensure the headCode contains html
-     *
-     * @param ExecutionContext $context
-     *
-     * @return bool
-     */
-    public function isHeadCodeHtml(ExecutionContext $context)
-    {
-
-        if ($this->getHeadCode() != '' && $this->getHeadCode() == strip_tags($this->getHeadCode())) {
-            $propertyPath = $context->getPropertyPath() . '.translation.headCode';
-            $context->setPropertyPath($propertyPath);
-            $context->addViolation('You must put your content in html tags.', array(), null);
-
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
      * Get the navigations
      *
      * @return ArrayCollection
@@ -646,5 +625,4 @@ class Section extends BaseEntity
     {
         return $this->mappings;
     }
-
 }

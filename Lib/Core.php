@@ -18,11 +18,28 @@ class Core
     protected $currentAppName;
 
     /**
+     * @var bool
+     */
+    protected $initialized;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->initialized = false;
+    }
+
+    /**
      * Init
      */
     public function init()
     {
-        // ...
+        if (!$this->initialized) {
+            // ...
+
+            $this->initialized = true;
+        }
     }
 
     public function isLoaded()

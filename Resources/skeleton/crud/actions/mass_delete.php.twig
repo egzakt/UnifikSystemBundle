@@ -1,0 +1,17 @@
+
+    /**
+    * Mass delete {{ entity }} entities.
+    *
+    * @param array $ids
+    */
+    public function massDeleteAction($ids)
+    {
+        foreach ($ids as $id) {
+            $entity = $this->{{ entity_var }}Repository->find($id);
+            $this->getEm()->remove($entity);
+        }
+
+        $this->getEm()->flush();
+
+        $this->addFlashSuccess($this->get('translator')->trans('Items deleted successfully.'));
+    }

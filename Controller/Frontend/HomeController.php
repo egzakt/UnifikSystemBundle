@@ -18,6 +18,14 @@ class HomeController extends BaseController
      */
     public function indexAction()
     {
-        return $this->render('UnifikSystemBundle:Frontend/Home:index.html.twig');
+        $response = new Response();
+        $response->setPublic();
+        $response->setSharedMaxAge(86400); // 1 day
+
+        return $this->render(
+            'UnifikSystemBundle:Frontend/Home:index.html.twig',
+            [],
+            $response
+        );
     }
 }

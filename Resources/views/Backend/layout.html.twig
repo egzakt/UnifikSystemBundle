@@ -4,7 +4,7 @@
         {% block head %}
             <meta charset="UTF-8" />
             <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-            <title>{% block title %}{{ render(controller('UnifikSystemBundle:Backend/Navigation:PageTitle')) }}{% endblock %}</title>
+            <title>{% block title %}{{ render(controller('UnifikSystemBundle:Backend/Navigation:pageTitle')) }}{% endblock %}</title>
             {% block stylesheets %}{% include 'UnifikSystemBundle:Backend/Core:stylesheets.html.twig' %}{% endblock %}
             <link rel="icon" type="image/png" href="{{ asset('bundles/unifiksystem/backend/images/icons/favicon.png') }}" />
             {% block jquery %}
@@ -90,23 +90,26 @@
                 <div id="cols_wrapper">
 
                     <div id="navigation_col">
+                        {% block section_bar %}
+                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:sectionBar')) }}
+                        {% endblock %}
 
                         {% block app_module_bar %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:AppModuleBar')) }}
+                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:appModuleBar')) }}
                         {% endblock %}
 
                         {% block global_module_bar %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:GlobalModuleBar')) }}
+                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:globalModuleBar')) }}
                         {% endblock %}
                     </div>
 
                     <div id="main_col">
                         {% block breadcrumbs %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:Breadcrumbs')) }}
+                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:breadcrumbs')) }}
                         {% endblock %}
 
                         {% block section_module_bar %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:SectionModuleBar')) }}
+                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:sectionModuleBar')) }}
                         {% endblock %}
 
                     </div>

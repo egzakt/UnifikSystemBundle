@@ -151,6 +151,10 @@ EOF
         $silentOutput = new ConsoleOutput();
         $silentOutput->setVerbosity(OutputInterface::VERBOSITY_QUIET);
 
+        $output->write('<info>Dumping exposed routes...</info>    ');
+        $this->runCommand('fos:js-routing:dump', $input, $silentOutput);
+        $output->writeln('OK');
+
         $output->write('<info>Dumping assets...</info>    ');
         $this->runCommand('assetic:dump', $input, $silentOutput);
         $output->writeln('OK');

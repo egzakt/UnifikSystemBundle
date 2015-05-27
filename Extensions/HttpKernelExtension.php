@@ -29,8 +29,8 @@ class HttpKernelExtension extends BaseHttpKernelExtension
     {
         $request = $this->container->get('request');
 
-        // The rendered controller must be in the Unifik namespace and the master request has to be unifik enabled
-        if (0 === strpos($controller, 'Unifik') && $request->get('_unifikEnabled')) {
+        // The master request has to be unifik enabled
+        if ($request->get('_unifikEnabled')) {
             $attributes['_unifikRequest'] = $request->get('_unifikRequest');
             $attributes['_unifikEnabled'] = true;
             $attributes['_masterRoute'] = $request->get('_masterRoute', $request->get('_route')); // chained to support multiples embedded subrequests

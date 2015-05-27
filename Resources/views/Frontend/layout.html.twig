@@ -1,60 +1,75 @@
 <!DOCTYPE html>
-<html lang="{{ app.request.locale }}">
+<!--[if IE 7]>         <html class="ie7" lang="{{ app.request.locale }}">  <![endif]-->
+<!--[if IE 8]>         <html class="ie8" lang="{{ app.request.locale }}">  <![endif]-->
+<!--[if gt IE 9]><!--> <html lang="{{ app.request.locale }}">          <!--<![endif]-->
     <head>
         {% block head %}
             <meta charset="utf-8" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-            <title>{% block title %}{{ render(controller('UnifikSystemBundle:Frontend/Navigation:PageTitle')) }}{% endblock %}</title>
+            <title>{% block title %}{{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:pageTitle')) }}{% endblock %}</title>
 
-            {% block stylesheets %}{% include 'UnifikSystemBundle:Frontend/Core:stylesheets.html.twig' %}{% endblock %}
+            {% block metas %}
+                {% include 'UnifikSystemBundle:Frontend/Core:metas.html.twig' %}
+            {% endblock %}
+
+            {% block og_metas %}
+                {% include 'UnifikSystemBundle:Frontend/Core:open_graph_metas.html.twig' %}
+            {% endblock %}
 
             <link rel="icon" type="image/png" href="{{ asset('favicon.ico') }}" />
 
+            {% block stylesheets %}{% include 'UnifikSystemBundle:Frontend/Core:stylesheets.html.twig' %}{% endblock %}
+
             <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+            <script>window.jQuery || document.write('<script src="{{ asset('bundles/unifiksystem/frontend/js/jquery.min.js') }}"><\/script>')</script>
             <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+            <script>window.jQuery.ui || document.write('<script src="{{ asset('bundles/unifiksystem/frontend/js/jquery-ui.min.js') }}"><\/script>')</script>
 
-            {% block metas %}{% include 'UnifikSystemBundle:Frontend/Core:open_graph_metas.html.twig' %}{% endblock %}
+            {% block head_extra %}{{ render_esi(controller('UnifikSystemBundle:Frontend/Core:headExtra')) }}{% endblock %}
 
-            {% block head_extra %}{{ render(controller('UnifikSystemBundle:Frontend/Core:HeadExtra')) }}{% endblock %}
+            <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+            <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+            <!--[if lt IE 9]>
+                <script src="//oss.maxcdn.com/html5shiv/3.7.2/html5shiv-printshiv.min.js"></script>
+                <script src="//oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+            <![endif]-->
         {% endblock %}
     </head>
 
-    <body{% block body_attr %} id="{# get_bundle_name() #}_bundle" class="{# get_controller_name() #}_controller {# get_action_name() #}_action"{% endblock %}>
+    <body{% block body_attr %} id="{{ bundle_name() }}_bundle" class="{{ controller_name() }}_controller {{ action_name() }}_action"{% endblock %}>
         {% block body %}
 
             <div id="wrapper">
 
                 <header id="site_header">
-                    {{ render(controller('UnifikSystemBundle:Frontend/Navigation:LocaleSwitcher')) }}
-                    {{ render(controller('UnifikSystemBundle:Frontend/Navigation:ByCode', { code: 'secondary', attr: { id: 'secondary_navigation' } })) }}
+                    {{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:localeSwitcher')) }}
+                    {{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'secondary', attr: { id: 'secondary_navigation' } })) }}
 
                     {% block logo %}
                         <div id="logo">
-                            <a href="{{ path('section_id_1') }}">{{ project_title }}</a>
+                            <a href="{{ path('section_id_1') }}" title="{{ project_title }}">{{ project_title }}</a>
                         </div>
                     {% endblock %}
                 </header>
 
-                {{ render(controller('UnifikSystemBundle:Frontend/Navigation:ByCode', { code: 'primary', maxLevel: 1, attr: { id: 'primary_navigation'} })) }}
+                {{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'primary', maxLevel: 1, attr: { id: 'primary_navigation' } })) }}
 
                 {% block main %}
-                    <div id="main" role="main" class="clearfix">
+                    <main id="main" role="main" class="clearfix{% if not section.parent and not section.children %} full{% endif %}">
 
-                        <div id="nav_col">
-                            {% block nav_col %}
-                                {# TODO: sub-navigation #}
-                            {% endblock %}
-                        </div>
+                        {% block nav_col %}
+                            {{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:fromSection', { section: section.id, attr: { id: 'sub_navigation', class: 'aside_nav' } } )) }}
+                        {% endblock %}
 
                         <div id="content_col">
-                            {% block breadcrumbs %}{{ render(controller('UnifikSystemBundle:Frontend/Navigation:Breadcrumbs')) }}{% endblock %}
+                            {% block breadcrumbs %}{{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:breadcrumbs')) }}{% endblock %}
 
                             {% block content %}
                                 {% block content_top %}
                                     <article>
                                         <aside id="actions">
-                                            <a href="#" class="print_link">{% trans %}Print{% endtrans %}</a>
+                                            <a href="#" title="{% trans %}Print{% endtrans %}" class="print_link">{% trans %}Print{% endtrans %}</a>
                                         </aside>
 
                                         <header id="section_header">
@@ -71,11 +86,11 @@
                                 {% endblock %}
                             {% endblock %}
                         </div>
-                    </div>
+                    </main>
                 {% endblock %}
 
                 <footer id="site_footer">
-                    {{ render(controller('UnifikSystemBundle:Frontend/Navigation:ByCode', { code: 'footer', attr: { id: 'footer_navigation' } })) }}
+                    {{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'footer', attr: { id: 'footer_navigation' } })) }}
                 </footer>
             </div>
 

@@ -1,7 +1,7 @@
 {% if sections %}
     {% for section in sections %}
         <li class="{% if section.hasChildren %} with_sublevel{% endif %}{% if section.isSelected %} selected{% endif %}">
-            <a href="{% if section.entity.route %}{{ path(section.entity.route, section.entity.routeParams) }}{% endif %}">
+            <a href="{% if section.entity.route %}{{ path(section.entity.route, section.entity.routeParams) }}{% endif %}" title="{{ section }}">
                 {{ section }}
             </a>
             {% if exploded or (section.isSelected and section.hasChildren) %}

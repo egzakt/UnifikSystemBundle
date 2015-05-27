@@ -51,7 +51,7 @@ class Generator extends DoctrineCrudGenerator
     protected $translation;
 
     /** @var boolean */
-    protected $withjqgrid;
+    protected $useDatagrid;
 
     /**
      * Constructor.
@@ -79,11 +79,11 @@ class Generator extends DoctrineCrudGenerator
      * @param string            $forceOverwrite   Overwrite the files or not
      * @param string            $application      The current application context
      * @param array             $translation      The translation
-     * @param boolean           $withjqgrid       Check if we use jqgrid or not
+     * @param boolean           $useDatagrid      Check if we use datagrid or not
      *
      * @throws \RuntimeException
      */
-    public function generate(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata, $format, $routePrefix, $needWriteActions, $forceOverwrite, $application = '', $translation = array(), $withjqgrid = false)
+    public function generate(BundleInterface $bundle, $entity, ClassMetadataInfo $metadata, $format, $routePrefix, $needWriteActions, $forceOverwrite, $application = '', $translation = array(), $useDatagrid = false)
     {
         $this->routePrefix = $routePrefix;
         $this->actions = array('list', 'edit', 'delete');
@@ -106,21 +106,19 @@ class Generator extends DoctrineCrudGenerator
         $this->setFormat($format);
         $this->application = $application;
         $this->translation = $translation;
-        $this->withjqgrid = $withjqgrid;
+        $this->useDatagrid = $useDatagrid;
 
         $this->generateControllerClass($forceOverwrite);
         $this->generateNavigationClass();
 
-        $dir = sprintf('%s/Resources/views/%s/%s', $this->bundle->getPath(), $this->application, str_replace('\\', '/', $this->entity));
+        $dir = sprintf('%s/Resources/views/%s', $this->bundle->getPath(), $this->application);
 
         if (!file_exists($dir)) {
             $this->filesystem->mkdir($dir, 0777);
         }
 
         $this->generateLayoutView($dir);
-
         $this->generateNavigationView($dir);
-
         $this->generateIndexView($dir);
 
         if (in_array('edit', $this->actions)) {
@@ -168,9 +166,7 @@ class Generator extends DoctrineCrudGenerator
             $this->format
         );
 
-        $filename = 'crud/';
-        $filename.= $this->withjqgrid ? 'jqgrid/' : '';
-        $filename.= 'config/routing.'.$this->format.'.twig';
+        $filename = 'crud/config/routing.'.$this->format.'.twig';
 
         $content = $this->render($filename, array(
             'actions'       => $this->actions,
@@ -212,16 +208,13 @@ class Generator extends DoctrineCrudGenerator
         $entityNamespace = implode('\\', $parts);
 
         $target = sprintf(
-            '%s/Controller/%s/%s/%sController.php',
+            '%s/Controller/%s/%sController.php',
             $dir,
             $this->application,
-            str_replace('\\', '/', $entityClass),
             $entityClass
         );
 
-        $filename = 'crud/';
-        $filename.= $this->withjqgrid ? 'jqgrid/' : '';
-        $filename.= 'controller.php.twig';
+        $filename = 'crud/controller.php.twig';
 
         $this->renderFile($filename, $target, array(
             'actions'           => $this->actions,
@@ -235,6 +228,8 @@ class Generator extends DoctrineCrudGenerator
             'entity_namespace'  => $entityNamespace,
             'format'            => $this->format,
             'application'       => $this->application,
+            'datagrid'          => $this->useDatagrid,
+            'translation_fields'=> (isset($this->translation['metadata']) && (count($this->translation['metadata']) > 0)) ? $this->translation['metadata']->fieldMappings : null
         ));
     }
 
@@ -246,14 +241,12 @@ class Generator extends DoctrineCrudGenerator
         $dir = $this->bundle->getPath();
 
         $parts = explode('\\', $this->entity);
-        $entityClass = array_pop($parts);
         $entityNamespace = implode('\\', $parts);
 
         $target = sprintf(
-            '%s/Controller/%s/%s/NavigationController.php',
+            '%s/Controller/%s/NavigationController.php',
             $dir,
-            $this->application,
-            str_replace('\\', '/', $entityClass)
+            $this->application
         );
 
         $this->renderFile('crud/navigation.php.twig', $target, array(
@@ -332,14 +325,14 @@ class Generator extends DoctrineCrudGenerator
      */
     protected function generateIndexView($dir)
     {
-        $filename = 'crud/';
-        $filename.= $this->withjqgrid ? 'jqgrid/' : '';
-        $filename.= 'views/list.html.twig.twig';
-        
-        $fields = array();
-        
+        if ($this->useDatagrid) {
+            $filename = 'crud/views/list_datagrid.html.twig.twig';
+        } else {
+            $filename = 'crud/views/list.html.twig.twig';
+        }
+
         if (isset($this->translation['metadata']) && (count($this->translation['metadata']) > 0)) {
-            $fields = array_merge($this->metadata->fieldMappings, $this->translation['metadata']->fieldMappings);
+            $fields = array_merge($this->translation['metadata']->fieldMappings, $this->metadata->fieldMappings);
         } else {
             $fields = $this->metadata->fieldMappings;
         }

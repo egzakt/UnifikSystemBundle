@@ -61,12 +61,13 @@ class ControllerListener
         $applicationCore = $this->container->get('unifik_' . $applicationName . '.core');
         $systemCore->setApplicationCore($applicationCore);
 
+        // Initialization of cores stack in order of: system, application and controller
         if (HttpKernelInterface::MASTER_REQUEST === $event->getRequestType()) {
             $systemCore->init();
             $applicationCore->init();
         }
 
-        // Bypassing the controller default process when the init method return a response
+        // When the controller init method return a response, this response is used and controller action is skipped
         if ($initResponse = $controller->init()) {
             $event->setController(function() use ($initResponse) {
                 return $initResponse;

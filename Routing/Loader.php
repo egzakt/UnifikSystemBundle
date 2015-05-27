@@ -29,6 +29,11 @@ class Loader extends BaseLoader
     protected $routesToRemove;
 
     /**
+     * @var array
+     */
+    protected $trailingRoutes = [];
+
+    /**
      * @inheritdoc
      */
     public function load(RouteCollection $collection)
@@ -42,7 +47,50 @@ class Loader extends BaseLoader
         }
 
         $collection = $this->removeMappingSourceRoutes($collection);
+        $collection = $this->generateForcedMappedRoutes($collection);
         $collection = $this->processBackendRoutes($collection);
+        $collection = $this->processTrailingRoutes($collection);
+
+        return $collection;
+    }
+
+    /**
+     * @param RouteCollection $collection
+     *
+     * @return RouteCollection
+     */
+    protected function generateForcedMappedRoutes($collection)
+    {
+        foreach ($collection->all() as $name => $route) {
+
+            if ($forceSectionId = $route->getOption('force_mapping')) {
+
+                $sectionId = (int) $forceSectionId;
+
+                $section = $this->databaseConnection->fetchAssoc('
+                    SELECT st.slug AS sectionSlug, a.id AS appId, a.prefix AS appPrefix, a.name AS appName, a.slug AS appSlug
+                    FROM section s
+                    LEFT JOIN section_translation st ON st.translatable_id = s.id
+                    LEFT JOIN app a ON a.id = s.app_id
+                    WHERE s.id =
+                ' . $sectionId);
+
+                $unifikRequest = [
+                    'sectionId' => $sectionId,
+                    'appId' => $section['appId'],
+                    'appPrefix' => $section['appPrefix'],
+                    'appName' => $section['appName'],
+                    'appSlug' => $section['appSlug'],
+                    'sectionSlug' => $section['sectionSlug'],
+                    'sectionsPath' => $section['sectionSlug'],
+                    'mappedRouteName' => $name,
+                    'mappingType' => 'forced'
+                ];
+
+                $route->setDefault('_unifikEnabled', true);
+                $route->setDefault('_unifikRequest', $unifikRequest);
+            }
+        }
 
         return $collection;
     }
@@ -54,18 +102,52 @@ class Loader extends BaseLoader
      */
     protected function removeMappingSourceRoutes($collection)
     {
+        $appSlugs = $this->findAllApplicationSlugs($this->mappings);
+        $trailingRoutesOrdering = 1000;
+
         foreach ($collection->all() as $name => $route) {
 
-            if ($route->getOption('do_not_remove')) {
+            if ($route->getOption('do_not_remove') || $route->getOption('force_mapping')) {
                 continue;
             }
 
-            if (preg_match('/.*' . static::ROUTING_PREFIX . 'unifik_/', $name)) {
+            // Remove the trailing routes and keep it in an array to place it back at the end of the Router
+            if ($route->getOption('trailing_route')) {
+                if (!$ordering = $route->getOption('ordering')) {
+                    $ordering = $trailingRoutesOrdering;
+                    $trailingRoutesOrdering++;
+                }
+
+                $this->trailingRoutes[$ordering] = ['name' => $name, 'route' => $route];
+                $collection->remove($name);
+            }
+
+            if (preg_match('/' . static::ROUTING_PREFIX . 'unifik_|_' . implode('_|_', $appSlugs) .'_/', $name)) {
                 $collection->remove($name);
             }
         }
 
         return $collection;
+    }
+
+    /**
+     * Fetch the slug of every mapped applications.
+     *
+     * @param array $mappings
+     *
+     * @return array
+     */
+    protected function findAllApplicationSlugs($mappings)
+    {
+        $slugs = [];
+
+        foreach ($mappings as $mapping) {
+            $slugs[] = $mapping['app_slug'];
+        }
+
+        $slugs = array_unique($slugs);
+
+        return $slugs;
     }
 
     /**
@@ -84,10 +166,28 @@ class Loader extends BaseLoader
         );
 
         foreach ($collection->all() as $name => $route) {
-            if (preg_match('/unifik_.*_backend/', $name)) {
+            if (preg_match('/.*_backend/', $name)) {
                 $route->setDefault('_unifikEnabled', true);
                 $route->setDefault('_unifikRequest', $unifikRequest);
             }
+        }
+
+        return $collection;
+    }
+
+    /**
+     * Process the routes to add at the end of the Router
+     *
+     * @param RouteCollection $collection
+     *
+     * @return RouteCollection
+     */
+    protected function processTrailingRoutes($collection)
+    {
+        ksort($this->trailingRoutes);
+
+        foreach($this->trailingRoutes as $routeInfos) {
+            $collection->add($routeInfos['name'], $routeInfos['route']);
         }
 
         return $collection;
@@ -128,8 +228,9 @@ class Loader extends BaseLoader
             }
         }
 
-        // The section does have any active text, using the first child as the generation starting point
-        if (false == $mapping['has_text'] && $mapping['has_children']) {
+        // If the section isn't mapped to a custom bundle and does not have any active text,
+        // use the first child as the generation starting point
+        if (false == $mapping['has_text'] && $mapping['has_children'] && $mapping['target'] == 'unifik_system_frontend_text') {
             return $this->generate($this->findFirstChild($mapping['section_id'], $mapping['locale']), $collection, $name);
         }
 
