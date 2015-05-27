@@ -245,12 +245,12 @@ strong {
 
 .headermenu .dropdown-menu li.selected a,
 .headermenu .dropdown-menu li a.selected {
-    background: #B61921;
+    background: #DD211C;
     color: #fff;
 }
 
 .headermenu .dropdown-menu li a:hover {
-   background: #B61921;
+   background: #DD211C;
    color: #fff;
 }
 
@@ -396,25 +396,14 @@ strong {
 }
 
 .logopanel {
-   padding: 10px;
+   padding: 17px 15px 16px 15px;
    background: #fff;
 }
 
-.logopanel h1 {
-   font-size: 30px;
-   font-family: 'LatoBold', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif;
-   letter-spacing: -1.5px;
-   color: #1d2939;
-	line-height: 30px;
-	margin: 0;
-}
-
-.logopanel h1 span {
-   color: #B61921;
-}
-
-.logopanel h1 a {
-    color: #1d2939;
+@media screen and (max-width: 480px) {
+    .logopanel {
+        padding: 14px 15px 13px 15px;
+    }
 }
 
 .leftpanelinner {
@@ -456,7 +445,7 @@ strong {
    -webkit-border-radius: 100px;
    border-radius: 100px;
    float: left;
-   border: 2px solid #B61921;
+   border: 2px solid #DD211C;
    padding: 2px;
    margin-left: 2px;
 }
@@ -544,7 +533,7 @@ strong {
 .nav-bracket > li.selected > a,
 .nav-bracket > li.selected > a:hover,
 .nav-bracket > li.selected > a:focus {
-   background-color: #B61921;
+   background-color: #DD211C;
    color: #fff;
 }
 
@@ -604,7 +593,7 @@ strong {
 .nav-bracket .children > li > a:active,
 .nav-bracket .children > li > a:focus {
    text-decoration: none;
-   color: #B61921;
+   color: #DD211C;
 }
 
 .nav-bracket .children > li .fa {
@@ -617,7 +606,7 @@ strong {
 }
 
 .nav-bracket .children > li.selected > a {
-   color: #B61921;
+   color: #DD211C;
 }
 
 .nav-bracket .children ul {
@@ -966,8 +955,8 @@ p {
 }
 
 .ckbox-success input[type="checkbox"]:checked + label:before {
-	border-color: #B61921;
-	background-color: #B61921;
+	border-color: #DD211C;
+	background-color: #DD211C;
 }
 
 .ckbox-danger input[type="checkbox"]:checked + label:before {
@@ -1034,11 +1023,11 @@ p {
 }
 
 .rdio-success input[type="radio"]:checked + label:before {
-	border-color: #B61921;
+	border-color: #DD211C;
 }
 
 .rdio-success input[type="radio"]:checked + label::after {
-	background-color: #B61921;
+	background-color: #DD211C;
 }
 
 .rdio-danger input[type="radio"]:checked + label:before {
@@ -1461,7 +1450,7 @@ div.error label.error:before {
 }
 
 .widget-weather .temp {
-	background-color: #B61921;
+	background-color: #DD211C;
 	color: #fff;
 	padding: 10px 0;
 }
@@ -2341,7 +2330,7 @@ div.error label.error:before {
 }
 
 .blog-quote .quote-success a {
-	background-color: #B61921;
+	background-color: #DD211C;
 	color: #fff;
 }
 
@@ -2940,7 +2929,7 @@ div.error label.error:before {
 }
 
 #signin {
-    background-color: #B61921;
+    background-color: #DD211C;
     border-color: #A50A19;
 }
 
@@ -2956,7 +2945,7 @@ div.error label.error:before {
 #error_message ul li {
     list-style-type: none;
     padding: 0 0 5px 0;
-    color: #B61921;
+    color: #DD211C;
 }
 
 /* sign up */
@@ -3117,7 +3106,7 @@ div.error label.error:before {
 }
 
 .leftpanel-collapsed .nav-bracket > li.nav-hover.selected > a {
-   background: #B61921;
+   background: #DD211C;
    color: #fff;
 }
 
@@ -3126,7 +3115,7 @@ div.error label.error:before {
 }
 
 .leftpanel-collapsed .nav-bracket > li.nav-hover.selected > a > span:last-child {
-   background: #B61921;
+   background: #DD211C;
    color: #fff;
 }
 
@@ -3273,7 +3262,7 @@ div.error label.error:before {
 }
 
 .chatuserlist .online .media-thumb {
-   border-color: #B61921;
+   border-color: #DD211C;
 }
 
 .chatuserlist .media-object {
@@ -3341,6 +3330,19 @@ div.error label.error:before {
    border-right: 1px solid #eee;
 }
 
+.logopanel a.unifik_egzakt {
+    text-decoration: none;
+}
+
+.logopanel a.unifik_egzakt span {
+    display: block;
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 13px;
+    line-height: 1.2em;
+    color: #636F7C;
+    letter-spacing: normal;
+}
+
 .horizontal-menu.chat-view .navhor-bracket {
    padding: 0;
 }
@@ -3376,8 +3378,8 @@ div.error label.error:before {
 .headerbar .topnav > ul > li > a:focus,
 .headerbar .topnav > ul > li.open > a,
 .headerbar .topnav > ul > li.selected > a {
-   box-shadow: 0 3px 0 #B61921;
-   color: #B61921;
+   box-shadow: 0 3px 0 #DD211C;
+   color: #DD211C;
    background: none;
 }
 
@@ -3402,7 +3404,7 @@ div.error label.error:before {
 }
 
 .headerbar .topnav > ul > li .dropdown-menu > li > a:hover {
-   background: #B61921;
+   background: #DD211C;
    color: #fff;
 }
 

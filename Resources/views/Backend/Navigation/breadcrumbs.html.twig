@@ -1,14 +1,15 @@
 {% if elements %}
-    <ul id="breadcrumbs">
-        {% for element in elements %}
-            <li>
-                {% if loop.last %}
-                    <strong>{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': element } %}</strong>
-                {% else %}
-                    <a href="{{ path(element.route, element.routeParams) }}">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': element } %}</a>
-                    <span>&gt;</span>
-                {% endif %}
-            </li>
-        {% endfor %}
-    </ul>
+    <div class="breadcrumb-wrapper">
+        <ol class="breadcrumb">
+            {% for element in elements %}
+                <li{% if loop.last %} class="active"{% endif %}>
+                    {% if loop.last %}
+                        {% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': element } %}
+                    {% else %}
+                        <a href="{{ path(element.route, element.routeParams) }}">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': element } %}</a>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
 {% endif %}

@@ -52,14 +52,13 @@
                     </div><!-- headerbar -->
 
                     <div class="pageheader">
-                        <h2><i class="fa fa-home"></i> Blank <span>Subtitle goes here...</span></h2>
-                        <!--div class="breadcrumb-wrapper">
-                            <span class="label">You are here:</span>
-                            <ol class="breadcrumb">
-                                <li><a href="index.html">Bracket</a></li>
-                                <li class="active">Blank</li>
-                            </ol>
-                        </div-->
+                        {% block content_header %}
+                            <h2><i class="fa fa-pencil-square-o"></i> {{ section }}</h2>
+                        {% endblock %}
+
+                        {% block breadcrumbs %}
+                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:breadcrumbs')) }}
+                        {% endblock %}
                     </div>
 
                     <div class="contentpanel">
@@ -89,9 +88,6 @@
                     </div>
 
                     <div id="main_col">
-                        {% block breadcrumbs %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:breadcrumbs')) }}
-                        {% endblock %}
 
                         {% block section_module_bar %}
                             {{ render(controller('UnifikSystemBundle:Backend/Navigation:sectionModuleBar')) }}

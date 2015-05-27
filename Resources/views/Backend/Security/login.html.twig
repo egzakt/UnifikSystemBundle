@@ -14,12 +14,16 @@
 
                         <div class="signin-info">
                             <div class="logopanel">
-                                <h1><span>[</span> Unifik <span>]</span></h1>
+                                <h1>
+                                    <a href="{{ path('unifik_system_backend_dashboard') }}" class="unifik_egzakt">
+                                        <img src="{{ asset('bundles/unifiksystem/backend/images/graphics/logo.png') }}" width="125" height="43" alt="{{ project_title }}" title="{{ project_title }}" />
+                                        <span>bâti sur Symfony par Egzakt</span>
+                                    </a>
+                                </h1>
                             </div><!-- logopanel -->
 
                             <div class="mb20"></div>
 
-                            <h5><strong>{% trans %}Welcome to Unifik{% endtrans %}!</strong></h5>
                             Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet.
                         </div><!-- signin0-info -->
 
