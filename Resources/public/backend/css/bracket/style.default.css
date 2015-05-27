@@ -5,12 +5,8 @@ URL: http://themepixels.com/
 
 @import url('/bundles/unifiksystem/backend/css/bracket/bootstrap.min.css');
 @import url('/bundles/unifiksystem/backend/css/bracket/bootstrap-override.css');
-@import url('/bundles/unifiksystem/backend/css/bracket/jquery-ui-1.10.3.css');
 @import url('/bundles/unifiksystem/backend/css/bracket/font-awesome.min.css');
-@import url('/bundles/unifiksystem/backend/css/bracket/animate.min.css');
-@import url('/bundles/unifiksystem/backend/css/bracket/animate.delay.css');
 @import url('/bundles/unifiksystem/backend/css/bracket/toggles.css');
-@import url('/bundles/unifiksystem/backend/css/bracket/chosen.css');
 @import url('/bundles/unifiksystem/backend/css/bracket/lato.css');
 @import url('/bundles/unifiksystem/backend/css/bracket/roboto.css');
 
@@ -467,6 +463,7 @@ strong {
 
 .leftpanel .userlogged .media-body {
    margin-left: 50px;
+    margin-top: 10px;
    color: #ccc;
 }
 

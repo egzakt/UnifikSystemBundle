@@ -19,8 +19,6 @@
                         </button>
                         <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
                             {{ render(controller('UnifikSystemBundle:Backend/Role/Navigation:impersonatingBar')) }}
-                            <li><a href="{{ path('unifik_system_backend_help') }}"><i class="glyphicon glyphicon-question-sign"></i> {% trans %}Online help{% endtrans %}</a>
-                            </li>
                             <li><a href="{{ path('unifik_system_backend_logout') }}"><i class="glyphicon glyphicon-log-out"></i> {% trans %}Logout{% endtrans %}</a></li>
                         </ul>
                     </div>

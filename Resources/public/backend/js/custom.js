@@ -100,12 +100,14 @@ jQuery(document).ready(function() {
             jQuery('.nav-bracket ul').attr('style','');
             
             jQuery(this).addClass('menu-collapsed');
+             jQuery.cookie('leftpanel-collapsed', '1');
             
          } else {
             body.removeClass('leftpanel-collapsed chat-view');
             jQuery('.nav-bracket li.selected ul').css({display: 'block'});
             
             jQuery(this).removeClass('menu-collapsed');
+             jQuery.cookie('leftpanel-collapsed', '');
             
          }
       } else {
@@ -199,24 +201,24 @@ jQuery(document).ready(function() {
          
       }
    }
-   
-   
+
+
    // Sticky Header
    if(jQuery.cookie('sticky-header'))
       jQuery('body').addClass('stickyheader');
-      
+
    // Sticky Left Panel
    if(jQuery.cookie('sticky-leftpanel')) {
       jQuery('body').addClass('stickyheader');
       jQuery('.leftpanel').addClass('sticky-leftpanel');
    }
-   
+
    // Left Panel Collapsed
    if(jQuery.cookie('leftpanel-collapsed')) {
       jQuery('body').addClass('leftpanel-collapsed');
       jQuery('.menutoggle').addClass('menu-collapsed');
    }
-   
+
    // Check if leftpanel is collapsed
    if(jQuery('body').hasClass('leftpanel-collapsed'))
       jQuery('.nav-bracket .children').css({display: ''});

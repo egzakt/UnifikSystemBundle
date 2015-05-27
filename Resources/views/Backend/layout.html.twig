@@ -28,23 +28,12 @@
                     <div class="leftpanelinner">
 
                         <!-- This is only visible to small devices -->
-                        <div class="visible-xs hidden-sm hidden-md hidden-lg">
-                            <div class="media userlogged">
-                                <img src="{{ asset('bundles/unifiksystem/backend/images/graphics/loggeduser.png') }}" class="media-object" alt="" />
-                                <div class="media-body">
-                                    <h4>John Doe</h4>
-                                </div>
-                            </div>
-
-                            <h5 class="sidebartitle actitle">{% trans %}Account{% endtrans %}</h5>
-                            <ul class="nav nav-pills nav-stacked nav-bracket mb30">
-                              <li><a href=""><i class="fa fa-question-circle"></i> <span>Help</span></a></li>
-                              <li><a href="signout.html"><i class="fa fa-sign-out"></i> <span>Sign Out</span></a></li>
-                            </ul>
-                        </div>
+                        {% block header_mobile %}
+                            {% include 'UnifikSystemBundle:Backend/Core:header_mobile.html.twig' %}
+                        {% endblock %}
 
                         {% block section_bar %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:SectionBar')) }}
+                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:sectionBar')) }}
                         {% endblock %}
 
                     </div><!-- leftpanelinner -->
@@ -58,19 +47,19 @@
 
                         {% block header %}
                             {% include 'UnifikSystemBundle:Backend/Core:header.html.twig' %}
-                        {% endblock header %}
+                        {% endblock %}
 
                     </div><!-- headerbar -->
 
                     <div class="pageheader">
                         <h2><i class="fa fa-home"></i> Blank <span>Subtitle goes here...</span></h2>
-                        <div class="breadcrumb-wrapper">
+                        <!--div class="breadcrumb-wrapper">
                             <span class="label">You are here:</span>
                             <ol class="breadcrumb">
                                 <li><a href="index.html">Bracket</a></li>
                                 <li class="active">Blank</li>
                             </ol>
-                        </div>
+                        </div-->
                     </div>
 
                     <div class="contentpanel">
@@ -90,10 +79,6 @@
                 <div id="cols_wrapper">
 
                     <div id="navigation_col">
-                        {% block section_bar %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:sectionBar')) }}
-                        {% endblock %}
-
                         {% block app_module_bar %}
                             {{ render(controller('UnifikSystemBundle:Backend/Navigation:appModuleBar')) }}
                         {% endblock %}
