@@ -10,19 +10,27 @@
         var url_ordre = '{{ path('unifik_system_backend_text_order') }}';
     </script>
 
-    <div id="list_actions_bar">
-        <a class="add" href="{{ path('unifik_system_backend_text_edit') }}">{% trans %}Add a text{% endtrans %}</a>
+    <div class="list-actions-bar">
+        <a class="btn btn-primary btn-xs" href="{{ path('unifik_system_backend_text_edit') }}"><i class="fa fa-plus-square mr5"></i> {% trans %}Add a text{% endtrans %}</a>
     </div>
 
-    <div class="list_box">
-        <h2>{% trans %}Main{% endtrans %}</h2>
-        {% include 'UnifikSystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: mainEntities } %}
+    <div class="list-box panel panel-dark">
+        <div class="panel-heading">
+            <h3 class="panel-title">{% trans %}Main{% endtrans %}</h3>
+        </div>
+        <div class="panel-body panel-body-dark">
+            {% include 'UnifikSystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: mainEntities } %}
+        </div>
     </div>
 
     {% if staticEntities %}
-        <div class="list_box">
-            <h2>{% trans %}Static block{% endtrans %}</h2>
-            {% include 'UnifikSystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: staticEntities } %}
+        <div class="list-box panel panel-dark">
+            <div class="panel-heading">
+                <h3 class="panel-title">{% trans %}Static block{% endtrans %}</h3>
+            </div>
+            <div class="panel-body panel-body-dark">
+                {% include 'UnifikSystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: staticEntities } %}
+            </div>
         </div>
     {% endif %}
 

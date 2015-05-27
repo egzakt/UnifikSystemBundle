@@ -4145,3 +4145,142 @@ div.error label.error:before {
    }
    
 }
+
+/* Unifik custom  */
+
+.list-actions-bar {
+    margin-top: 10px;
+}
+
+.list-box {
+    margin-top: 30px;
+}
+
+.panel-body-dark {
+    background-color: #e4e7ea;
+}
+
+/* Custom headers */
+.list-box .default_ordering {
+    display: none;
+}
+
+.list-box thead th.name {
+    padding-left: 8px;
+}
+
+.list-box thead th.centered {
+    text-align: center;
+}
+
+.list-box thead th.update {
+    width: 110px;
+}
+
+.list-box .impersonate {
+    width: 15px;
+    padding-top: 8px;
+}
+
+.list-box th.switch_list_mode {
+    text-align: right;
+}
+
+/* Sortable headers */
+.list-box table.table-autosort th.table-sortable {
+    padding-left: 15px;
+    cursor: pointer;
+    background-image: url(/bundles/unifiksystem/backend/images/icons/sortable.gif);
+    background-repeat: no-repeat;
+    background-position: 0 14px;
+}
+
+.list-box table.table-autosort th.table-sorted-desc {
+    background-position: 0 -86px;
+}
+
+.list-box table.table-autosort th.table-sorted-asc {
+    background-position: 0 -186px;
+}
+
+.list-box table.table-autosort th.name.table-sortable {
+    padding-left: 23px;
+    background-position: 8px 14px;
+}
+
+.list-box table.table-autosort th.name.table-sorted-asc {
+    background-position: 8px -86px
+}
+
+.list-box table.table-autosort th.name.table-sorted-desc {
+    background-position: 8px -186px;
+}
+
+/* Filters */
+.list-box input.filter {
+    border: 1px solid #b9cee6;
+    width: 150px;
+    padding: 3px;
+    font: 12px/15px Arial, Helvetica, sans-serif;
+    color: #333;
+}
+
+.list-box input.filter.unfocus {
+    color: #aeb4ba;
+}
+
+.list-box tr {
+    background-color: #fff;
+}
+
+.list-box td {
+    padding: 6px 10px 6px 0;
+    border-top: 1px solid #B3B3B3;
+    vertical-align: top;
+    background-color: #fff;
+}
+
+.list-box tbody tr:first-child td {
+    border-top: 0;
+}
+
+.list-box td.name {
+    padding-left: 8px;
+}
+
+.list-box td.name a {
+    color: #636e7b;
+    text-decoration: none;
+}
+
+.list-box td.name a:hover {
+    text-decoration: underline;
+    color: #333;
+}
+
+.list-box td.centered {
+    text-align: center;
+}
+
+.list-box td.inactive,
+.list-box td.inactive a,
+.list-box td.inactive a:hover {
+    color: #999999;
+}
+
+.list-box td.featured {
+    font-weight: bold;
+}
+
+/* Draggable rows */
+.list-box table.liste_sortable thead th {
+    cursor: default;
+}
+
+.list-box tr.on_drag td {
+    background-color: #ffffed;
+}
+
+.list-box tr.selected td {
+    background-color: #eef4fc;
+}

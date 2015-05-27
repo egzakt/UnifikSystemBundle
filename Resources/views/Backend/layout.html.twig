@@ -17,64 +17,74 @@
 
         {% block body %}
 
-            <section>
-
-                <div class="leftpanel">
-
-                    {% block logo %}
-                        {% include 'UnifikSystemBundle:Backend/Core:logo.html.twig' %}
-                    {% endblock logo %}
-
-                    <div class="leftpanelinner">
-
-                        <!-- This is only visible to small devices -->
-                        {% block header_mobile %}
-                            {% include 'UnifikSystemBundle:Backend/Core:header_mobile.html.twig' %}
-                        {% endblock %}
-
-                        {% block section_bar %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:sectionBar')) }}
-                        {% endblock %}
-
-                    </div><!-- leftpanelinner -->
-                </div><!-- leftpanel -->
-
-                <div class="mainpanel">
-
-                    <div class="headerbar">
-
-                        <a class="menutoggle"><i class="fa fa-bars"></i></a>
-
-                        {% block header %}
-                            {% include 'UnifikSystemBundle:Backend/Core:header.html.twig' %}
-                        {% endblock %}
-
-                    </div><!-- headerbar -->
-
-                    <div class="pageheader">
-                        {% block content_header %}
-                            <h2><i class="fa fa-pencil-square-o"></i> {{ section }}</h2>
-                        {% endblock %}
-
-                        {% block breadcrumbs %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:breadcrumbs')) }}
-                        {% endblock %}
-                    </div>
-
-                    <div class="contentpanel">
-                        {% block content '' %}
-                    </div>
-
-                </div><!-- mainpanel -->
-
-            </section>
-
-<!--
-            <div id="loading"><img src="{{ asset('bundles/unifiksystem/backend/images/icons/ajax-loader.gif') }}" width="32" height="32" alt="" /></div>
-
             {% include 'UnifikSystemBundle:Backend/Core:delete.html.twig' %}
 
             {% block wrapper %}
+                <section>
+
+                    <div class="leftpanel">
+
+                        {% block logo %}
+                            {% include 'UnifikSystemBundle:Backend/Core:logo.html.twig' %}
+                        {% endblock logo %}
+
+                        <div class="leftpanelinner">
+
+                            <!-- This is only visible to small devices -->
+                            {% block header_mobile %}
+                                {% include 'UnifikSystemBundle:Backend/Core:header_mobile.html.twig' %}
+                            {% endblock %}
+
+                            {% block section_bar %}
+                                {{ render(controller('UnifikSystemBundle:Backend/Navigation:sectionBar')) }}
+                            {% endblock %}
+
+                        </div><!-- leftpanelinner -->
+                    </div><!-- leftpanel -->
+
+                    <div class="mainpanel">
+
+                        <div class="headerbar">
+
+                            <a class="menutoggle"><i class="fa fa-bars"></i></a>
+
+                            {% block header %}
+                                {% include 'UnifikSystemBundle:Backend/Core:header.html.twig' %}
+                            {% endblock %}
+
+                        </div><!-- headerbar -->
+
+                        <div class="pageheader">
+                            {% block content_header %}
+                                <h2><i class="fa fa-pencil-square-o"></i> {{ section }}</h2>
+                            {% endblock %}
+
+                            {% block breadcrumbs %}
+                                {{ render(controller('UnifikSystemBundle:Backend/Navigation:breadcrumbs')) }}
+                            {% endblock %}
+                        </div>
+
+                        <div class="contentpanel">
+
+                            {% block section_module_bar %}
+                                {{ render(controller('UnifikSystemBundle:Backend/Navigation:sectionModuleBar')) }}
+                            {% endblock %}
+
+                            {% block content_wrapper %}
+                                <div class="tab-content">
+                                    {% block content '' %}
+                                </div>
+                            {% endblock %}
+                        </div>
+
+                    </div><!-- mainpanel -->
+
+                </section>
+
+            {% endblock %}
+
+            <!--
+
                 <div id="cols_wrapper">
 
                     <div id="navigation_col">
@@ -87,14 +97,6 @@
                         {% endblock %}
                     </div>
 
-                    <div id="main_col">
-
-                        {% block section_module_bar %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:sectionModuleBar')) }}
-                        {% endblock %}
-
-                    </div>
-
                     <div style="clear:both;"></div>
                     <div id="unifik">
                         {% trans %}Developed by{% endtrans %}
@@ -105,7 +107,7 @@
 
                 </div>
                 -->
-            {% endblock %}
+
 
         {% endblock %}
 

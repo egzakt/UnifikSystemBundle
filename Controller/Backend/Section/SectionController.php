@@ -45,6 +45,8 @@ class SectionController extends BackendController
 
         $this->sectionRepository = $this->getEm()->getRepository('UnifikSystemBundle:Section');
         $this->navigationRepository = $this->getEm()->getRepository('UnifikSystemBundle:Navigation');
+
+        $this->createAndPushNavigationElement('Subsections list', 'unifik_system_backend_section');
     }
 
     /**

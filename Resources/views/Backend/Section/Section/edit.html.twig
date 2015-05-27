@@ -1,8 +1,9 @@
 {% extends 'UnifikSystemBundle:Backend/Section:layout.html.twig' %}
 {% form_theme form 'UnifikSystemBundle:Backend/Core:edit_fields.html.twig' %}
 
+
 {% block content_header %}
-    <h1>{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</h1>
+    <h2><i class="fa fa-pencil-square-o"></i> {% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</h2>
 {% endblock %}
 
 {% block content_main %}

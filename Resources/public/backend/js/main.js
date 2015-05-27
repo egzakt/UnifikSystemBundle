@@ -254,9 +254,9 @@ function switchListMode(linkObject) {
 
     linkObject.toggleClass('selected');
 
-    listBoxObject = linkObject.parents('.list_box');
-    listBoxObject.children('table').toggleClass('table-autosort');
-    listBoxObject.children('table').toggleClass('liste_sortable');
+    listBoxObject = linkObject.parents('.list-box');
+    listBoxObject.find('table:first').toggleClass('table-autosort');
+    listBoxObject.find('table:first').toggleClass('liste_sortable');
 
     $('.tooltip').hide();
 
@@ -309,11 +309,11 @@ function switchListMode(linkObject) {
 /**
  * function displaySubTotal
  *
- * Show the number of displayed elements with .list_box and <tr id='item_*'>
+ * Show the number of displayed elements with .list-box and <tr id='item_*'>
  * Display the result into an element having .total and .sub-total CSS Class
  */
 function displaySubTotal() {
-    $('.list_box').each(function() {
+    $('.list-box').each(function() {
         var spanContainer = $(this).find('.total .sub-total');
         var rowsObj = $(this).find("tr[id^='item_']");
         var rowsNb = 0;
