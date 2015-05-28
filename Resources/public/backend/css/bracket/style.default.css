@@ -15,7 +15,6 @@ body {
    font-family: 'LatoRegular', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
    line-height: 21px;
    color: #636e7b;
-   overflow: hidden;
 }
 
 body.notfound,
@@ -4283,4 +4282,17 @@ div.error label.error:before {
 
 .list-box tr.selected td {
     background-color: #eef4fc;
+}
+
+/* Loading du Delete Message */
+#loading {
+    display: none;
+    position: fixed;
+    width: 32px;
+    height: 32px;
+    left: 50%;
+    top: 50%;
+    margin-top: -16px;
+    margin-left: -16px;
+    z-index: 200;
 }

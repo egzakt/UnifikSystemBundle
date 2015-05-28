@@ -9,6 +9,7 @@
             <link rel="icon" type="image/png" href="{{ asset('bundles/unifiksystem/backend/images/icons/favicon.png') }}" />
             {% block jquery %}
                 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+                <script src="{{ asset('bundles/unifiksystem/backend/js/bootstrap.min.js') }}"></script> {# Bootstrap must be placed before jQ UI #}
                 <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
             {% endblock %}
         {% endblock head %}
@@ -16,6 +17,8 @@
     <body {% block body_attr '' %}>
 
         {% block body %}
+
+            <div id="loading"><img src="{{ asset('bundles/unifiksystem/backend/images/icons/ajax-loader.gif') }}" width="32" height="32" alt="" /></div>
 
             {% include 'UnifikSystemBundle:Backend/Core:delete.html.twig' %}
 
