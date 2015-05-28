@@ -3,7 +3,11 @@
         {% if section.entity.route %}
             <li class="{% if section.hasChildren %}nav-parent {% endif %}{% if section.selected %}{% if section.hasChildren %}nav-active {% endif %}selected{% endif %}">
                 <a href="{{ path(section.entity.route, section.entity.routeParams) }}">
-                    <i class="fa fa-file-text"></i>
+                    {% if level - 1 == 1 %}
+                        <i class="fa fa-file-text"></i>
+                    {% else %}
+                        <i class="fa fa-caret-{% if section.hasChildren %}down{% else %}right{% endif %}"></i>
+                    {% endif %}
                     <span>{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': section.entity } %}</span>
                 </a>
                 {% if section.hasChildren %}

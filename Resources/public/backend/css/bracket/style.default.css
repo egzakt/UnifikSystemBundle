@@ -200,7 +200,7 @@ strong {
    -moz-box-shadow: 3px 3px 0 rgba(12,12,12,0.05);
    -webkit-box-shadow: 3px 3px 0 rgba(12,12,12,0.05);
    box-shadow: 3px 3px 0 rgba(12,12,12,0.05);
-   padding: 5px;
+   padding: 5px 5px 3px 5px;
 }
 
 .headermenu .dropdown-menu:after {
@@ -224,6 +224,7 @@ strong {
 
 .headermenu .dropdown-menu-usermenu li {
 	padding: 0;
+    margin-bottom: 2px;
 }
 
 .headermenu .dropdown-menu-usermenu:after {
@@ -395,14 +396,8 @@ strong {
 }
 
 .logopanel {
-   padding: 17px 15px 16px 15px;
+   padding: 8px 15px 8px 15px;
    background: #fff;
-}
-
-@media screen and (max-width: 480px) {
-    .logopanel {
-        padding: 14px 15px 13px 15px;
-    }
 }
 
 .leftpanelinner {
@@ -433,7 +428,7 @@ strong {
    margin: 0;
    padding: 0;
    padding-bottom: 15px;
-   margin-bottom: 15px;
+   margin-bottom: 30px;
    border-bottom: 1px solid rgba(255,255,255,0.1);
    display: none;
 }
@@ -450,8 +445,7 @@ strong {
 }
 
 .leftpanel .userlogged .media-body {
-   margin-left: 50px;
-    margin-top: 10px;
+   margin-left: 10px;
    color: #ccc;
 }
 
@@ -475,6 +469,11 @@ strong {
 
 .nav-bracket {
    margin-bottom: 30px;
+}
+
+.userlogged .nav-bracket {
+    margin-bottom: 0;
+    margin-top: 10px;
 }
 
 .nav-bracket > li > a {
@@ -558,7 +557,6 @@ strong {
 .nav-bracket li .glyphicon {
    font-size: 16px;
    vertical-align: middle;
-   margin-right: 10px;
    width: 16px;
    text-align: center;
 }
@@ -570,7 +568,7 @@ strong {
 .nav-bracket .children {
    list-style: none;
    /*display: none;*/
-   margin: 5px 0;
+   margin: 0 0 5px 0;
 	padding: 0;
 }
 
@@ -578,7 +576,7 @@ strong {
    color: #94989d;
    font-size: 13px;
    display: block;
-   padding: 5px 0 5px 27px;
+   padding: 5px 0 5px 14px;
    -moz-transition: all 0.2s ease-out 0s;
 	-webkit-transition: all 0.2s ease-out 0s;
 	transition: all 0.2s ease-out 0s;
@@ -598,7 +596,7 @@ strong {
 .nav-bracket .children > li .fa {
    font-size: 12px;
    opacity: 0.5;
-   margin-right: 5px;
+   margin-right: 2px;
    text-align: left;
    width: auto;
    vertical-align: baseline;
@@ -609,7 +607,7 @@ strong {
 }
 
 .nav-bracket .children ul {
-   margin-left: 12px;
+   margin-left: 14px;
    border: 0;
 }
 
@@ -691,11 +689,7 @@ strong {
 .pageheader .fa {
    font-size: 24px;
    margin-right: 5px;
-	padding: 6px 7px;
-	border: 2px solid #1D2939;
-	-moz-border-radius: 50px;
-	-webkit-border-radius: 50px;
-	border-radius: 50px;
+    padding: 8px 9px;
 }
 
 .pageheader .fa.fa-pencil {
@@ -715,7 +709,7 @@ strong {
 }
 
 .pageheader .fa-file-text {
-	padding: 6px 10px;`
+	padding: 6px 10px;
 }
 
 .pageheader .fa-map-marker {
@@ -3329,17 +3323,42 @@ div.error label.error:before {
    border-right: 1px solid #eee;
 }
 
+.logopanel h1 {
+    margin: 0;
+}
+
 .logopanel a.unifik_egzakt {
     text-decoration: none;
 }
 
+.logopanel a.unifik_egzakt img {
+    width: 92px;
+    height: auto;
+    float: left;
+}
+
+.signin-info .logopanel a.unifik_egzakt img {
+    width: auto;
+    float: none;
+}
+
 .logopanel a.unifik_egzakt span {
-    display: block;
+    float: left;
     font-family: 'Source Sans Pro', sans-serif;
     font-size: 13px;
     line-height: 1.2em;
     color: #636F7C;
     letter-spacing: normal;
+    font-style: italic;
+    margin: 5px 0 0 12px;
+}
+
+.signin-info .logopanel a.unifik_egzakt span {
+    display: block;
+    float: none;
+    font-style: normal;
+    margin-top: 10px;
+    margin-left: 0;
 }
 
 .horizontal-menu.chat-view .navhor-bracket {
