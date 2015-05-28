@@ -3613,6 +3613,30 @@ div.error label.error:before {
    margin-bottom: 40px;
 }
 
+.ml5 {
+	margin-left: 5px;
+}
+
+.ml10 {
+	margin-left: 10px;
+}
+
+.ml15 {
+   margin-left: 15px;
+}
+
+.ml20 {
+	margin-left: 20px;
+}
+
+.ml30 {
+	margin-left: 30px;
+}
+
+.ml40 {
+   margin-left: 40px;
+}
+
 .mr5 {
 	margin-right: 5px;
 }
@@ -4314,4 +4338,11 @@ div.error label.error:before {
     margin-top: -16px;
     margin-left: -16px;
     z-index: 200;
+}
+
+/* Pages de contenu */
+h3.content-header-title {
+    font-family: 'LatoRegular';
+    color: #333;
+    margin: 5px 0 20px 0;
 }

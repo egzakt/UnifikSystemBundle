@@ -2,7 +2,7 @@
 {% form_theme form 'UnifikSystemBundle:Backend/Core:edit_fields.html.twig' %}
 
 {% block content_header %}
-    <h2><i class="fa fa-pencil-square-o"></i> {% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { entity: text } %}</h2>
+    <h3 class="content-header-title">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { entity: text } %}</h3>
 {% endblock %}
 
 {% block content_main %}

@@ -1,8 +1,6 @@
 {% extends 'UnifikSystemBundle:Backend/Text:layout.html.twig' %}
 
-{% block content_header %}
-    <h2><i class="fa fa-th-list"></i> {% trans %}Texts list{% endtrans %}</h2>
-{% endblock %}
+{% block content_header '' %}
 
 {% block content_main %}
 
@@ -10,13 +8,9 @@
         var url_ordre = '{{ path('unifik_system_backend_text_order') }}';
     </script>
 
-    <div class="list-actions-bar">
-        <a class="btn btn-primary btn-xs" href="{{ path('unifik_system_backend_text_edit') }}"><i class="fa fa-plus-square mr5"></i> {% trans %}Add a text{% endtrans %}</a>
-    </div>
-
-    <div class="list-box panel panel-dark">
+    <div class="list-box panel panel-dark" style="margin-top: 10px;">
         <div class="panel-heading">
-            <h3 class="panel-title">{% trans %}Main{% endtrans %}</h3>
+            <h3 class="panel-title">{% trans %}Main text list{% endtrans %} <a class="btn btn-primary btn-xs ml20" href="{{ path('unifik_system_backend_text_edit') }}"><i class="fa fa-plus-square mr5"></i> {% trans %}Add a text{% endtrans %}</a></h3>
         </div>
         <div class="panel-body panel-body-dark">
             {% include 'UnifikSystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: mainEntities } %}
@@ -26,7 +20,7 @@
     {% if staticEntities %}
         <div class="list-box panel panel-danger">
             <div class="panel-heading">
-                <h3 class="panel-title">{% trans %}Static block{% endtrans %}</h3>
+                <h3 class="panel-title">{% trans %}Static block list{% endtrans %}</h3>
             </div>
             <div class="panel-body panel-body-dark">
                 {% include 'UnifikSystemBundle:Backend/Text/Text:list_table.html.twig' with { entities: staticEntities } %}
