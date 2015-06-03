@@ -84,10 +84,6 @@ class LocaleSwitcher
         if ($element) {
             foreach ($locales as $locale) {
 
-                if (in_array('UnifikORMBehaviors\Translatable\Translatable', (new \ReflectionClass($element))->getTraitNames())) {
-                    $element->setCurrentLocale($locale->getCode());
-                }
-
                 // If the homepage of the currently processed locale is not active, we jump to the next one.
                 try {
                     $this->router->generate('section_id_1', array('_locale' => $locale->getCode()));
@@ -95,16 +91,24 @@ class LocaleSwitcher
                     continue;
                 }
 
-                // Validating the element route parameters
-                $parameters = $element->getRouteParams();
-                $parameters['_locale'] = $locale->getCode();
-                $parameters = array_filter($parameters); // Remove any FALSE values
+                if (in_array('Unifik\DoctrineBehaviorsBundle\Model\Translatable\Translatable', (new \ReflectionClass($element))->getTraitNames())) {
 
-                // Generating route ...
-                try {
-                    $url = $this->router->generate($element->getRoute($this->core->getSectionId()), $parameters);
-                } catch (\Exception $e) {
-                    // Fallback if no route found
+                    $element->setCurrentLocale($locale->getCode());
+
+                    // Validating the element route parameters
+                    $parameters = $element->getRouteParams();
+                    $parameters['_locale'] = $locale->getCode();
+                    $parameters = array_filter($parameters); // Remove any FALSE values
+
+                    // Generating route ...
+                    try {
+                        $url = $this->router->generate($element->getRoute($this->core->getSectionId()), $parameters);
+                    } catch (\Exception $e) {
+                        // Fallback if no route found
+                        $url = $this->fallBack($element, $locale);
+                    }
+
+                } else {
                     $url = $this->fallBack($element, $locale);
                 }
 

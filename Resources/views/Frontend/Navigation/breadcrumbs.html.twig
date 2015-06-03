@@ -1,9 +1,12 @@
 {% if elements %}
     <ul id="breadcrumbs">
-        <li>
-            <a href="{{ path('section_id_1') }}">{% trans %}Home{% endtrans %}</a>
-            <span>&raquo;</span>
-        </li>
+        {# only show the home element when it's not already the parent of the current elements stack #}
+        {% if elements.first.id != 1 %}
+            <li>
+                <a href="{{ path('section_id_1') }}">{% trans %}Home{% endtrans %}</a>
+                <span>&raquo;</span>
+            </li>
+        {% endif %}
         {% for element in elements %}
             <li>
                 {% if loop.last %}

@@ -1349,6 +1349,10 @@ tr.collapsable_fields table.fields tr:first-child td {
     border-top: 0;
 }
 
+/*Add .row-error class on tr.collapsable_fields when error occurs, so it will stay open*/
+tr.collapsable_fields.row-error .slide_block {
+    display: block;
+}
 
 /* Options */
 table.fields a.options_link {
@@ -1640,6 +1644,10 @@ span.cke_skin_kama {
     font: 12px/15px Arial, Helvetica, sans-serif;
     color: #333;
     margin-left: 1px;
+}
+
+.list_box input[type="checkbox"] {
+    width: auto;
 }
 
 .list_box .token {

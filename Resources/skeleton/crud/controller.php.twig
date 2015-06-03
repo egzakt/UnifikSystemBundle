@@ -5,11 +5,16 @@ namespace {{ namespace }}\Controller\{{ application }};
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\JsonResponse;
-{% if 'order' in actions or 'delete' in actions %}
 use Symfony\Component\HttpFoundation\Response;
-{% endif %}
 use Doctrine\ORM\EntityRepository;
-
+{% if datagrid -%}
+use APY\DataGridBundle\Grid\Action\MassAction;
+use APY\DataGridBundle\Grid\Column\BooleanColumn;
+use APY\DataGridBundle\Grid\Action\RowAction;
+use APY\DataGridBundle\Grid\Column\TextColumn;
+use APY\DataGridBundle\Grid\Export\CSVExport;
+use APY\DataGridBundle\Grid\Source\Entity;
+{% endif -%}
 use Unifik\SystemBundle\Lib\{{ application }}\BackendController;
 use {{ namespace }}\Entity\{{ entity }};
 use {{ namespace }}\Form\{{ application }}\{{ entity }}Type;
@@ -26,8 +31,12 @@ class {{ entity_class }}Controller extends BackendController
 
 {% include 'crud/actions/init.php.twig' %}
 
-    {%- if 'list' in actions %}
+    {%- if 'list' in actions and not datagrid %}
     {%- include 'crud/actions/list.php.twig' %}
+    {%- endif %}
+
+    {%- if 'list' in actions and datagrid %}
+    {%- include 'crud/actions/list_datagrid.php.twig' %}
     {%- endif %}
 
     {%- if 'edit' in actions %}
@@ -37,6 +46,10 @@ class {{ entity_class }}Controller extends BackendController
     {%- if 'delete' in actions %}
     {%- include 'crud/actions/delete_check.php.twig' %}
     {%- include 'crud/actions/delete.php.twig' %}
+    {%- endif %}
+
+    {%- if 'delete' in actions and datagrid %}
+    {%- include 'crud/actions/mass_delete.php.twig' %}
     {%- endif %}
 
     {%- if 'order' in actions %}

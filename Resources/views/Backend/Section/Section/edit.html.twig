@@ -27,7 +27,7 @@
 
                 {% include 'UnifikSystemBundle:Backend/Core:collapsable_fields.html.twig' with {
                     'link_name': 'Informations SEO',
-                    'fields': [form_row(form.translation.slug), form_row(form.translation.pageTitle), form_row(form.translation.headCode)]
+                    'fields': [form_row(form.translation.slug), form_row(form.translation.metaTitle), form_row(form.translation.metaTitleOverride), form_row(form.translation.metaDescription), form_row(form.translation.metaKeywords)]
                 } %}
 
                 {% include 'UnifikSystemBundle:Backend/Core:collapsable_fields.html.twig' with {

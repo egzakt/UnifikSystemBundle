@@ -101,10 +101,10 @@ class NavigationBuilder
      *
      * @param array $elements An array of elements
      */
-    public function setElements($elements)
+    public function setElements($elements, $checkActive = false)
     {
         // Wrap elements in a NavigationItem Wrapper Class
-        $wrappedElements = $this->buildNavigationItems($elements);
+        $wrappedElements = $this->buildNavigationItems($elements, null, $checkActive);
 
         $this->elements = $wrappedElements;
     }
@@ -159,11 +159,17 @@ class NavigationBuilder
      *
      * @return array
      */
-    protected function buildNavigationItems($elements, $parentElement = null)
+    protected function buildNavigationItems($elements, $parentElement = null, $checkActive = false)
     {
         $wrappedElements = array();
 
         foreach ($elements as $element) {
+
+            // Check si la section est active
+            if ($checkActive && is_callable(array($element, 'getActive')) && !$element->getActive()) {
+                continue;
+            }
+
             // Create the NavigationItem wrapper
             $wrappedElement = $this->buildNavigationItem($element);
 
@@ -175,7 +181,7 @@ class NavigationBuilder
 
             // Recursive call
             if ($element->hasChildren()) {
-                $this->buildNavigationItems($element->getChildren(), $wrappedElement);
+                $this->buildNavigationItems($element->getChildren(), $wrappedElement, $checkActive);
             }
 
             $wrappedElements[] = $wrappedElement;

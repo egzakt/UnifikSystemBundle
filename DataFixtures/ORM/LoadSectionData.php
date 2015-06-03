@@ -34,21 +34,15 @@ class LoadSectionData extends AbstractFixture implements OrderedFixtureInterface
         $sectionHome->setContainer($this->container);
         $sectionHome->setApp($manager->merge($this->getReference('app-frontend')));
 
-        $sectionHomeFr = new SectionTranslation();
-        $sectionHomeFr->setLocale($manager->merge($this->getReference('locale-fr'))->getCode());
-        $sectionHomeFr->setName('Accueil');
-        $sectionHomeFr->setActive(true);
-        $sectionHomeFr->setTranslatable($sectionHome);
+        $sectionHome->setCurrentLocale($manager->merge($this->getReference('locale-fr'))->getCode());
+        $sectionHome->setName('Accueil');
+        $sectionHome->setActive(true);
 
-        $sectionHomeEn = new SectionTranslation();
-        $sectionHomeEn->setLocale($manager->merge($this->getReference('locale-en'))->getCode());
-        $sectionHomeEn->setName('Home');
-        $sectionHomeEn->setActive(true);
-        $sectionHomeEn->setTranslatable($sectionHome);
+        $sectionHome->setCurrentLocale($manager->merge($this->getReference('locale-en'))->getCode());
+        $sectionHome->setName('Home');
+        $sectionHome->setActive(true);
 
         $manager->persist($sectionHome);
-        $manager->persist($sectionHomeFr);
-        $manager->persist($sectionHomeEn);
         $manager->flush();
 
         $this->addReference('section-home', $sectionHome);

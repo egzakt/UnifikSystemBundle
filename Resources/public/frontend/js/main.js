@@ -11,14 +11,16 @@ $(document).ready(function() {
 
     $("a.collapsible_link").click(function(e) {
         collapsible_block($(this));
-		e.preventDefault();
+        e.preventDefault();
     });
 
     // Pre-open a block if an anchor is present in the url
     anchor = document.location.hash;
     if (anchor) {
-        blockId = anchor.substr(1, anchor.length);
-        objLink = $("#" + blockId).children("a.collapsible_link");
+        var blockId = anchor.substr(1, anchor.length);
+        // remove illegal chars (i.e hashstate params)
+        blockId = blockId.replace(/[^\w-]/g,'');
+        var objLink = $("#" + blockId).children("a.collapsible_link");
         collapsible_block(objLink);
     }
 

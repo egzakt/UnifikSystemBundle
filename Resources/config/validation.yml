@@ -38,11 +38,6 @@ Unifik\SystemBundle\Entity\SectionTranslation:
         name:
             - NotBlank: { groups: [Default] }
 
-Unifik\SystemBundle\Entity\Section:
-    constraints:
-      - Callback:
-          methods: [isHeadCodeHtml]
-
 Unifik\SystemBundle\Entity\TextTranslation:
     properties:
         text:

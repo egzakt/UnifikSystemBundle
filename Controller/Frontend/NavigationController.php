@@ -2,9 +2,11 @@
 
 namespace Unifik\SystemBundle\Controller\Frontend;
 
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 use Unifik\SystemBundle\Entity\NavigationRepository;
+use Unifik\SystemBundle\Entity\SectionNavigationRepository;
 use Unifik\SystemBundle\Lib\Frontend\BaseController;
 use Unifik\SystemBundle\Entity\MappingRepository;
 use Unifik\SystemBundle\Entity\SectionRepository;
@@ -18,6 +20,11 @@ class NavigationController extends BaseController
      * @var SectionRepository
      */
     protected $sectionRepository;
+
+    /**
+     * @var SectionNavigationRepository
+     */
+    protected $sectionNavigationRepository;
 
     /**
      * @var MappingRepository
@@ -35,6 +42,7 @@ class NavigationController extends BaseController
     public function init()
     {
         $this->sectionRepository = $this->getEm()->getRepository('UnifikSystemBundle:Section');
+        $this->sectionNavigationRepository = $this->getEm()->getRepository('UnifikSystemBundle:SectionNavigation');
         $this->mappingRepository = $this->getEm()->getRepository('UnifikSystemBundle:Mapping');
         $this->navigationRepository = $this->getEm()->getRepository('UnifikSystemBundle:Navigation');
     }
@@ -42,18 +50,33 @@ class NavigationController extends BaseController
     /**
      * Render a navigation using the navigation code as the fetch criteria
      *
-     * @param string $code     The navigation code
-     * @param int    $maxLevel The level maximum limit, this is the rendering loop level limit, not the section entity level
-     * @param bool   $exploded When false only the currently selected tree path is displayed
-     * @param string $template Force the template code to use
-     * @param array  $attr     Array of attribure to add to the element (Ex. id="aaa" class="bbb")
+     * @param Request $request The Request
+     * @param string  $code     The navigation code
+     * @param int     $maxLevel The level maximum limit, this is the rendering loop level limit, not the section entity level
+     * @param bool    $exploded When false only the currently selected tree path is displayed
+     * @param string  $template Force the template code to use
+     * @param array   $attr     Array of attribure to add to the element (Ex. id="aaa" class="bbb")
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function byCodeAction($code, $maxLevel = 10, $exploded = false, $template = '', $attr = array())
+    public function byCodeAction(Request $request, $code, $maxLevel = 10, $exploded = false, $template = '', $attr = array())
     {
+        // Cache
+        $response = new Response();
+        $response->setPublic();
+
+        $sectionLastUpdate = $this->sectionRepository->findLastUpdate();
+        $sectionNavigationLastUpdate = $this->sectionNavigationRepository->findLastUpdate();
+
+        $response->setEtag($sectionLastUpdate . $sectionNavigationLastUpdate);
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
+        // Rebuild the cache
         $navigation = $this->navigationRepository->findOneByCode($code);
 
         if (false == $navigation) {
@@ -65,37 +88,53 @@ class NavigationController extends BaseController
         $template = ($template ? '_' . $template : '');
 
         $navigationBuilder = $this->get('unifik_system.navigation_builder');
-        $navigationBuilder->setElements($sections);
+        $navigationBuilder->setElements($sections, true);
         $navigationBuilder->setSelectedElement($this->getCore()->getSection());
         $navigationBuilder->build();
 
         $elements = $navigationBuilder->getElements();
 
-        return $this->render('UnifikSystemBundle:Frontend/Navigation:by_code' . $template . '.html.twig', array(
-            'code' => $code,
-            'sections' => $elements,
-            'maxLevel' => $maxLevel,
-            'currentSection' => $this->getSection(),
-            'attr' => $attr,
-            'exploded' => $exploded
-        ));
+        return $this->render(
+            'UnifikSystemBundle:Frontend/Navigation:by_code' . $template . '.html.twig',
+            array(
+                'code' => $code,
+                'sections' => $elements,
+                'maxLevel' => $maxLevel,
+                'currentSection' => $this->getSection(),
+                'attr' => $attr,
+                'exploded' => $exploded
+            ),
+            $response
+        );
     }
 
     /**
      * Render a navigation displaying children starting from a section
      *
-     * @param mixed  $section  The section entity or section id to start from
-     * @param int    $maxLevel The level maximum limit, this is the rendering loop level limit, not the section entity level
-     * @param bool   $exploded When false only the currently selected tree path is displayed
-     * @param string $template Force the template code to use
-     * @param array  $attr     Array of attribure to add to the element (Ex. id="aaa" class="bbb")
+     * @param Request $request The Request
+     * @param mixed   $section  The section entity or section id to start from
+     * @param int     $maxLevel The level maximum limit, this is the rendering loop level limit, not the section entity level
+     * @param bool    $exploded When false only the currently selected tree path is displayed
+     * @param string  $template Force the template code to use
+     * @param array   $attr     Array of attribure to add to the element (Ex. id="aaa" class="bbb")
      *
      * @return Response
      *
      * @throws \Exception
      */
-    public function fromSectionAction($section, $maxLevel = 10, $exploded = false, $template = '', $attr = [])
+    public function fromSectionAction(Request $request, $section, $maxLevel = 10, $exploded = false, $template = '', $attr = [])
     {
+        // Cache
+        $response = new Response();
+        $response->setPublic();
+
+        $response->setEtag($this->sectionRepository->findLastUpdate());
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
+        // Rebuild the cache
         if (is_numeric($section)) {
             $section = $this->sectionRepository->find($section);
         }
@@ -106,22 +145,30 @@ class NavigationController extends BaseController
             $elements = $parents[1]->getChildren();
         }
 
+        elseif (count($section->getChildren())){
+            $elements = $section->getChildren();
+        }
+
         $template = ($template ? '_' . $template : '');
 
         $navigationBuilder = $this->get('unifik_system.navigation_builder');
-        $navigationBuilder->setElements($elements);
+        $navigationBuilder->setElements($elements, true);
         $navigationBuilder->setSelectedElement($this->getCore()->getSection());
         $navigationBuilder->build();
 
         $elements = $navigationBuilder->getElements();
 
-        return $this->render('UnifikSystemBundle:Frontend/Navigation:from_section' . $template . '.html.twig', array(
-            'sections' => $elements,
-            'maxLevel' => $maxLevel,
-            'currentSection' => $this->getSection(),
-            'attr' => $attr,
-            'exploded' => $exploded
-        ));
+        return $this->render(
+            'UnifikSystemBundle:Frontend/Navigation:from_section' . $template . '.html.twig',
+            array(
+                'sections' => $elements,
+                'maxLevel' => $maxLevel,
+                'currentSection' => $this->getSection(),
+                'attr' => $attr,
+                'exploded' => $exploded
+            ),
+            $response
+        );
     }
 
     /**
@@ -149,8 +196,22 @@ class NavigationController extends BaseController
     {
         $elements = $this->get('unifik_system.page_title')->getElements();
 
+        $elementPageTitle = null;
+
+        if (count($elements)) {
+            $currentElement = $elements[count($elements) - 1];
+            $elementPageTitle = $this->get('unifik_doctrine_behaviors.metadatable_getter')->getMetadata($currentElement, 'title');
+            $elementOverridePageTitle = $this->get('unifik_doctrine_behaviors.metadatable_getter')->getMetadata($currentElement, 'titleOverride');
+
+            if ($elementPageTitle || $elementOverridePageTitle) {
+                unset($elements[count($elements) - 1]);
+            }
+        }
+
         return $this->render('UnifikSystemBundle:Backend/Navigation:page_title.html.twig', array(
-            'elements' => $elements,
+            'element_page_title' => $elementPageTitle,
+            'element_override_page_title' => $elementOverridePageTitle,
+            'elements' => $elements
         ));
     }
 
@@ -161,6 +222,9 @@ class NavigationController extends BaseController
      */
     public function localeSwitcherAction()
     {
+        $response = new Response();
+        $response->setPublic();
+
         $localeSwitcher = $this->get('unifik_system.locale_switcher');
         $localeSwitcher->setElement($this->getCore()->getElement());
 
@@ -168,9 +232,10 @@ class NavigationController extends BaseController
 
         return $this->render(
             'UnifikSystemBundle:Frontend/Navigation:locale_switcher.html.twig',
-            array(
+            [
                 'routes' => $routes,
-            )
+            ],
+            $response
         );
     }
 

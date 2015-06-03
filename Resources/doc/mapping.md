@@ -142,3 +142,21 @@ unifik_sitemap_frontend_xml:
 ```
 
 Common use cases for manual routes with context are global route that needs the Unifik context to work properly like RSS feeds or sitemaps.
+
+### Trailing route
+
+If you want to add a route at the end of the Router, you must use the `trailing_route` option. Using this option, the router will force the injection of this route at the end of the Router.
+
+You may also specify use the `ordering` option to specify at which order you want the route to be mapped at the end of the Router.
+
+```yml
+unifik_last_trailing_route:
+   pattern:  /last/trailing/route
+   defaults: { _controller: "UnifikTrailingRouteBundle:Last:index" }
+   options:  { trailing_route: true, ordering: 2 }
+
+unifik_first_trailing_route:
+   pattern:  /first/trailing/route
+   defaults: { _controller: "UnifikTrailingRouteBundle:First:index" }
+   options:  { trailing_route: true, ordering: 1 }
+```
