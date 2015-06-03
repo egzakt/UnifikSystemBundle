@@ -24,5 +24,9 @@ class UnifikSystemExtension extends Extension
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $container->setParameter('unifik_system.metadata.title', $config['metadata']['title']);
+        $container->setParameter('unifik_system.metadata.description', $config['metadata']['description']);
+        $container->setParameter('unifik_system.metadata.keywords', $config['metadata']['keywords']);
     }
 }
