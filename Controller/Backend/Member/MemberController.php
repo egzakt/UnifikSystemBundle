@@ -66,19 +66,23 @@ class MemberController extends BaseController
 
             $previousEncodedPassword = $member->getPassword();
 
-            $form->bindRequest($request);
+            $form->submit($request);
 
             if ($form->isValid()) {
 
-//                // New password set
-//                if ($form->get('password')->getData()) {
-//                    $encoder = $this->get('security.encoder_factory')->getEncoder($member);
-//                    $encodedPassword = $encoder->encodePassword($member->getPassword(), $member->getSalt());
-//                } else {
-//                    $encodedPassword = $previousEncodedPassword;
-//                }
-//
-//                $member->setPassword($encodedPassword);
+                // Flusher avant de setter le mot de passe, sinon le id est null (et le salt sera pas valide)
+                $this->getEm()->persist($member);
+                $this->getEm()->flush();
+
+                // New password set
+                if ($form->get('password')->getData()) {
+                    $encoder = $this->get('security.encoder_factory')->getEncoder($member);
+                    $encodedPassword = $encoder->encodePassword($member->getPassword(), $member->getSalt());
+                } else {
+                    $encodedPassword = $previousEncodedPassword;
+                }
+
+                $member->setPassword($encodedPassword);
 
                 $this->getEm()->persist($member);
                 $this->getEm()->flush();

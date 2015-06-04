@@ -77,13 +77,14 @@ class NavigationController extends BaseController
         }
 
         // Rebuild the cache
-        $navigation = $this->navigationRepository->findOneByCode($code);
+        $app_id = $this->getApp()->getId();
+        $navigation = $this->navigationRepository->findOneByCodeAndApp($code, $app_id);
 
         if (false == $navigation) {
             throw new \Exception('Can\'t find a navigation entity using code "' . $code . '"');
         }
 
-        $sections = $this->sectionRepository->findByNavigationAndApp($navigation->getId(), 2);
+        $sections = $this->sectionRepository->findByNavigationAndApp($navigation->getId(), $app_id);
 
         $template = ($template ? '_' . $template : '');
 

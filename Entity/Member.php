@@ -61,6 +61,11 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
     private $telephone;
 
     /**
+     * @var string $salt
+     */
+    private $salt;
+
+    /**
      * @var boolean $emailConfirmed
      */
     private $emailConfirmed;
@@ -69,6 +74,23 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
      * @var boolean $active
      */
     private $active;
+
+    /**
+     * @var Datetime $resetAskDate
+     */
+    private $resetAskDate;
+
+    /**
+     * @var string $token
+     */
+    private $token;
+
+    /**
+     * This is the preferred locale of the user
+     *
+     * @var string
+     */
+    private $locale;
 
     /**
      * Get id
@@ -89,7 +111,7 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
             return $this->firstname . ' ' . $this->lastname;
         }
 
-        return parent::__toString();
+        return $this->getEntityName();
     }
 
     /**
@@ -323,6 +345,48 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
     }
 
     /**
+     * @param \Datetime $resetAskDate
+     */
+    public function setResetAskDate($resetAskDate)
+    {
+        $this->resetAskDate = $resetAskDate;
+    }
+
+    /**
+     * @return \Datetime
+     */
+    public function getResetAskDate()
+    {
+        return $this->resetAskDate;
+    }
+
+    /**
+     * @param string $token
+     */
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    /**
+     * @return string
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    public function generateToken() {
+        $this->token = md5(uniqid().$this->getSalt());
+        return $this->token;
+    }
+
+    public function removeToken() {
+        $this->token = null;
+        $this->resetAskDate = null;
+    }
+
+    /**
      * @return bool
      */
     public function isAccountNonExpired()
@@ -371,7 +435,8 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
      */
     public function getSalt()
     {
-        return 'member_' . $this->id . '_sea_salt';
+        $this->salt = 'member_' . $this->id . '_sea_salt';
+        return $this->salt;
     }
 
     /**
@@ -385,11 +450,32 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
     }
 
     /**
+     * @param string $locale
+     */
+    public function setLocale($locale)
+    {
+//        $this->locale = $locale;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocale()
+    {
+//        return $this->locale;
+        return 'fr';
+    }
+
+    /**
      * Meant for erasing sensitive data before persisting a token
      */
     public function eraseCredentials()
     {
         // nothing to do
+    }
+
+    public function getResetHash() {
+        return md5($this->resetAskDate->format('Y-m-d H:i:s').$this->password.$this->getSalt());
     }
 
     /**
@@ -410,8 +496,10 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
     {
         return serialize(array(
             $this->id,
+            $this->email,
             $this->password,
-            $this->email
+            $this->getSalt(),
+            $this->active
         ));
     }
 
@@ -424,8 +512,10 @@ class Member extends BaseEntity implements AdvancedUserInterface, \Serializable
     {
         list(
             $this->id,
+            $this->email,
             $this->password,
-            $this->email
+            $this->salt,
+            $this->active
             ) = unserialize($serialized);
     }
 }

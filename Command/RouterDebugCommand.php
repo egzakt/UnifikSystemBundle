@@ -3,6 +3,7 @@
 namespace Unifik\SystemBundle\Command;
 
 use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\Output;
 
@@ -24,7 +25,10 @@ class RouterDebugCommand extends BaseRouterDebugCommand
         $this
             ->setName('unifik:router:debug')
             ->setDefinition(array(
-                new InputArgument('name', InputArgument::OPTIONAL, 'A route name')
+                new InputArgument('name', InputArgument::OPTIONAL, 'A route name'),
+                new InputOption('show-controllers', null,  InputOption::VALUE_NONE, 'Show assigned controllers in overview'),
+                new InputOption('format', null, InputOption::VALUE_REQUIRED, 'To output route(s) in other formats', 'txt'),
+                new InputOption('raw', null, InputOption::VALUE_NONE, 'To output raw route(s)'),
             ))
             ->setDescription('Displays current routes for an application')
             ->setHelp(<<<EOF
