@@ -1,7 +1,7 @@
 {% extends 'UnifikSystemBundle:Backend/Section:layout.html.twig' %}
 
-{% block content_header %}
-    <h1>{% trans %}Sections List{% endtrans %}</h1>
+{% block section_title %}
+    <h2><i class="fa fa-file-text-o"></i> {% trans %}Root Sections{% endtrans %}</h2>
 {% endblock %}
 
 {% block content_main %}
@@ -10,102 +10,94 @@
        var url_ordre = '{{ path('unifik_system_backend_section_root_order', { appSlug: managedApp.slug }) }}';
     </script>
 
-    <div id="list_actions_bar">
-       <a class="add" href="{{ path('unifik_system_backend_section_root_edit', { appSlug: managedApp.slug }) }}">
-           {% trans %}Add a section{% endtrans %}
-       </a>
-    </div>
-
     {% for navigation in navigations %}
         {% if navigation.sections|length %}
-            <div class="list_box">
-                <h2>{{ navigation|capitalize|trans }}</h2>
-
-                {% include 'UnifikSystemBundle:Backend/Section/Root:list_table.html.twig' with {
-                    'entities': navigation.sections,
-                    'navigation': navigation
-                } %}
+            <div class="list-box panel panel-dark"{% if loop.first %} style="margin-top: 10px;"{% endif %}>
+                <div class="panel-heading">
+                    <h3 class="panel-title">{{ navigation|capitalize|trans }} <a class="btn btn-primary btn-xs ml20" href="{{ path('unifik_system_backend_section_root_edit', { appSlug: managedApp.slug }) }}"><i class="fa fa-plus-square mr5"></i> {% trans %}Add a section{% endtrans %}</a></h3>
+                </div>
+                <div class="panel-body panel-body-dark">
+                    {% include 'UnifikSystemBundle:Backend/Section/Root:list_table.html.twig' with {
+                        'entities': navigation.sections,
+                        'navigation': navigation
+                    } %}
+                </div>
             </div>
         {% endif %}
     {% endfor %}
 
     {% if withoutNavigation %}
-        <div class="list_box">
-            <h2>{% trans %}Without navigation{% endtrans %}</h2>
-
-            <table cellspacing="0" class="table-autosort">
-                <thead>
-                    <tr>
-                        <th class="name table-sortable:ignorecase">
-                            {% trans %}Name{% endtrans %}
-                        </th>
-                        <th class="table-sortable:numeric">
-                            {% trans %}Nb. of subsections{% endtrans %}
-                        </th>
-                        <th class=" table-sortable:date">
-                            {% trans %}Last update{% endtrans %}
-                        </th>
-                        <th class="edit">
-                            &nbsp;
-                        </th>
-                        <th class="delete">
-                            &nbsp;
-                        </th>
-                    </tr>
-                    <tr class="filters">
-                        <th class="name">
-                            <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                        <th class="default_ordering">
-                            &nbsp;
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                        <th>
-                            &nbsp;
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for section in withoutNavigation %}
-                    <tr id="item_{{ section.id }}">
-                        <td class="name{% if not section.active %} inactive{% endif %}">
-                            <a href="{{ path('unifik_system_backend_section_root_edit', { id: section.id, appSlug: managedApp.slug }) }}">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': section } %}</a>
-                        </td>
-                        <td>
-                            {{ section.children|length }}
-                        </td>
-                        <td>
-                            {{ section.updatedAt|date('Y-m-d') }}
-                        </td>
-                        <td class="edit">
-                            {% if section.isEditable %}
-                                <a href="{{ path('unifik_system_backend_section_root_edit', { id: section.id, appSlug: managedApp.slug }) }}" title="{% trans %}Edit{% endtrans %}">
-                                    <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+        <div class="list-box panel panel-dark">
+            <div class="panel-heading">
+                <h3 class="panel-title">{% trans %}Without navigation{% endtrans %} <a class="btn btn-primary btn-xs ml20" href="{{ path('unifik_system_backend_section_root_edit', { appSlug: managedApp.slug }) }}"><i class="fa fa-plus-square mr5"></i> {% trans %}Add a section{% endtrans %}</a></h3>
+            </div>
+            <div class="panel-body panel-body-dark">
+                <table class="table-autosort table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="name table-sortable:ignorecase">
+                                {% trans %}Name{% endtrans %}
+                            </th>
+                            <th class="table-sortable:numeric">
+                                {% trans %}Nb. of subsections{% endtrans %}
+                            </th>
+                            <th class=" table-sortable:date">
+                                {% trans %}Last update{% endtrans %}
+                            </th>
+                            <th class="edit">
+                                &nbsp;
+                            </th>
+                        </tr>
+                        <tr class="filters">
+                            <th class="name">
+                                <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                            <th class="default_ordering">
+                                &nbsp;
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for section in withoutNavigation %}
+                        <tr id="item_{{ section.id }}">
+                            <td class="name{% if not section.active %} inactive{% endif %}">
+                                <a href="{{ path('unifik_system_backend_section_root_edit', { id: section.id, appSlug: managedApp.slug }) }}">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': section } %}</a>
+                            </td>
+                            <td>
+                                {{ section.children|length }}
+                            </td>
+                            <td>
+                                {{ section.updatedAt|date('Y-m-d') }}
+                            </td>
+                            <td class="table-action">
+                                {% if section.isEditable %}
+                                    <a class="edit" href="{{ path('unifik_system_backend_section_root_edit', { id: section.id, appSlug: managedApp.slug }) }}" title="{% trans %}Edit{% endtrans %}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                {% endif %}
+                                <a class="delete" href="{{ path('unifik_system_backend_section_root_delete', { id: section.id, appSlug: managedApp.slug }) }}" rel="{{ path('unifik_system_backend_section_root_delete', { id: section.id, appSlug: managedApp.slug, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
+                                    <i class="fa fa-trash-o"></i>
                                 </a>
-                            {% endif %}
-                        </td>
-                        <td class="delete">
-                            <a href="{{ path('unifik_system_backend_section_root_delete', { id: section.id, appSlug: managedApp.slug }) }}" rel="{{ path('unifik_system_backend_section_root_delete', { id: section.id, appSlug: managedApp.slug, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
-                                <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
-                            </a>
-                        </td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-            <div class="total">
-                <span class="sub-total"></span>
-                {% set count = withoutNavigation|length %}
-                {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+                <div class="total dataTables_info">
+                    <span class="sub-total"></span>
+                    {% set count = withoutNavigation|length %}
+                    {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+                </div>
             </div>
         </div>
     {% endif %}

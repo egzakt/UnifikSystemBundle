@@ -1,4 +1,4 @@
-<table cellspacing="0" class="table-autosort">
+<table class="table-autosort table table-striped">
     <thead>
         <tr>
             <th class="name table-sortable:ignorecase">
@@ -14,14 +14,11 @@
                 <th class="edit">
                     &nbsp;
                 </th>
-                <th class="delete">
-                    &nbsp;
-                </th>
             {% else %}
                 <th class="default_ordering  table-sortable:numeric">
                     {% trans %}Ordering{% endtrans %}
                 </th>
-                <th colspan="2" class="switch_list_mode">
+                <th class="switch_list_mode">
                     <a href="#"><img src="{{ asset("bundles/unifiksystem/backend/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
                 </th>
             {% endif %}
@@ -39,7 +36,6 @@
             <th>
                 &nbsp;
             </th>
-            <th>&nbsp;</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -60,16 +56,14 @@
                         {{ entity.ordering }}
                     </td>
                 {% endif %}
-                <td class="edit">
+                <td class="table-action">
                     {% if entity.isEditable %}
-                        <a href="{{ path('unifik_system_backend_section_root_edit', { id: entity.id, appSlug: managedApp.slug }) }}" title="{% trans %}Edit{% endtrans %}">
-                            <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
+                        <a class="edit" href="{{ path('unifik_system_backend_section_root_edit', { id: entity.id, appSlug: managedApp.slug }) }}" title="{% trans %}Edit{% endtrans %}">
+                            <i class="fa fa-pencil"></i>
                         </a>
                     {% endif %}
-                </td>
-                <td class="delete">
-                    <a href="{{ path('unifik_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug }) }}" rel="{{ path('unifik_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
-                        <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                    <a class="delete" href="{{ path('unifik_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug }) }}" rel="{{ path('unifik_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
+                        <i class="fa fa-trash-o"></i>
                     </a>
                 </td>
             </tr>
@@ -77,7 +71,7 @@
     </tbody>
 </table>
 
-<div class="total">
+<div class="total dataTables_info">
     <span class="sub-total"></span>
     {% set count = entities|length %}
     {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
