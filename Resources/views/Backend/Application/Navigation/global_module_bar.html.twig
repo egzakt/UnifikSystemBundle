@@ -1,5 +1,5 @@
 {% if is_granted('ROLE_DEVELOPER') %}
     <li{% if selected %} class="selected"{% endif %}>
-        <a href="{{ path('unifik_system_backend_application') }}"><img src="{{ asset('bundles/unifiksystem/backend/images/icons/root_section.gif') }}" width="13" height="12" alt="" />{% trans %}Applications{% endtrans %}</a>
+        <a href="{{ path('unifik_system_backend_application') }}"><i class="fa fa-laptop mr5"></i>{% trans %}Applications{% endtrans %}</a>
     </li>
 {% endif %}

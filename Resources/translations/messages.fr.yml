@@ -47,6 +47,9 @@ This section has one or more subsections.: Cette section a des sous-sections qui
 'Delete:': 'Supprimer :'
 'Replace:': 'Remplacer :'
 
+Application's modules: Modules de l'application
+Global modules: Modules globaux
+
 Texts: Textes
 Add a text: Ajouter un texte
 Texts list: Liste des textes

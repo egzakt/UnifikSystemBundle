@@ -42,6 +42,14 @@
                                 {{ render(controller('UnifikSystemBundle:Backend/Navigation:sectionBar')) }}
                             {% endblock %}
 
+                            {% block app_module_bar %}
+                                {{ render(controller('UnifikSystemBundle:Backend/Navigation:appModuleBar')) }}
+                            {% endblock %}
+
+                            {% block global_module_bar %}
+                                {{ render(controller('UnifikSystemBundle:Backend/Navigation:globalModuleBar')) }}
+                            {% endblock %}
+
                         </div><!-- leftpanelinner -->
                     </div><!-- leftpanel -->
 
@@ -85,32 +93,6 @@
                 </section>
 
             {% endblock %}
-
-            <!--
-
-                <div id="cols_wrapper">
-
-                    <div id="navigation_col">
-                        {% block app_module_bar %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:appModuleBar')) }}
-                        {% endblock %}
-
-                        {% block global_module_bar %}
-                            {{ render(controller('UnifikSystemBundle:Backend/Navigation:globalModuleBar')) }}
-                        {% endblock %}
-                    </div>
-
-                    <div style="clear:both;"></div>
-                    <div id="unifik">
-                        {% trans %}Developed by{% endtrans %}
-                        <a target="_blank" href="http://www.egzakt.com">
-                            <img width="56" height="20" title="Egzakt" alt="Egzakt" src="{{ asset('bundles/unifiksystem/backend/images/graphics/egzakt_logo.png') }}">
-                        </a>
-                    </div>
-
-                </div>
-                -->
-
 
         {% endblock %}
 

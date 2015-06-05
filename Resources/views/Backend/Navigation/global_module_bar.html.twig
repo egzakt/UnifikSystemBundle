@@ -1,7 +1,10 @@
 {% import 'UnifikSystemBundle:System:mapping_macro.html.twig' as renderer %}
 
-<ul id="global_bundles">
-    {% for mapping in mappings %}
-        {{ renderer.generate(mapping) }}
-    {% endfor %}
-</ul>
+<h5 class="sidebartitle">{% trans %}Global modules{% endtrans %}</h5>
+<nav>
+    <ul class="nav nav-pills nav-stacked nav-bracket">
+        {% for mapping in mappings %}
+            {{ renderer.generate(mapping) }}
+        {% endfor %}
+    </ul>
+</nav>
