@@ -1,4 +1,4 @@
-{% if apps|length > 1 or apps[0].id != appFrontend or is_granted('ROLE_DEVELOPER') %}
+{% if apps|length > 1 or is_granted('ROLE_DEVELOPER') %}
     <div id="apps">
         <div class="padding">
             <h6>{% trans %}Application{% endtrans %}</h6>
