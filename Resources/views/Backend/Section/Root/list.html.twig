@@ -27,7 +27,7 @@
     {% endfor %}
 
     {% if withoutNavigation %}
-        <div class="list-box panel panel-dark">
+        <div class="list-box panel panel-danger">
             <div class="panel-heading">
                 <h3 class="panel-title">{% trans %}Without navigation{% endtrans %} <a class="btn btn-primary btn-xs ml20" href="{{ path('unifik_system_backend_section_root_edit', { appSlug: managedApp.slug }) }}"><i class="fa fa-plus-square mr5"></i> {% trans %}Add a section{% endtrans %}</a></h3>
             </div>
