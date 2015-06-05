@@ -31,7 +31,7 @@ class NavigationController extends BaseController
      */
     public function appModuleBarAction($_masterRoute)
     {
-        $selected = (0 === strpos($_masterRoute, 'unifik_system_backend_section'));
+        $selected = (0 === strpos($_masterRoute, 'unifik_system_backend_section_root'));
 
         return $this->render('UnifikSystemBundle:Backend/Section/Navigation:app_module_bar.html.twig', array(
             'selected' => $selected,
