@@ -1,17 +1,12 @@
-<div class="form_actions_bar">
-    <ul>
-        <li>
-            <a href="{{ cancel_route }}">{% trans %}Cancel{% endtrans %}</a>
-            {% if entity.isDeletable %}
-            <span>|</span>
-        </li>
-        <li>
-            <a href="{% if delete_route is defined %}{{ delete_route }}{% else %}{{ path( entity.getRouteBackend('delete'), entity.getRouteBackendParams() ) }}{% endif %}" rel="{% if delete_message_route is defined %}{{ delete_message_route }}{% else %}{{ path( entity.getRouteBackend('delete'), entity.getRouteBackendParams({ 'message': true }) ) }}{% endif %}" class="delete">
-                {% trans %}Delete{% endtrans %}
-            </a>
-            {% endif %}
-        </li>
-    </ul>
-    <input class="save" type="submit" value="{% trans %}Save{% endtrans %}" name="save" />
-    <input class="save_continue" type="submit" value="{% trans %}Save and continue{% endtrans %}" name="save_continue" />
+<div class="panel-footer text-right">
+    <a href="{{ cancel_route }}" class="btn btn-default pull-left">{% trans %}Cancel{% endtrans %}</a>
+
+    {% if entity.isDeletable %}
+        <a href="{% if delete_route is defined %}{{ delete_route }}{% else %}{{ path( entity.getRouteBackend('delete'), entity.getRouteBackendParams() ) }}{% endif %}" rel="{% if delete_message_route is defined %}{{ delete_message_route }}{% else %}{{ path( entity.getRouteBackend('delete'), entity.getRouteBackendParams({ 'message': true }) ) }}{% endif %}" class="delete btn btn-danger">
+            {% trans %}Delete{% endtrans %}
+        </a>
+    {% endif %}
+
+    <button class="btn btn-primary" name="save_continue">{% trans %}Save and continue{% endtrans %}</button>
+    <button class="btn btn-darkblue" name="save">{% trans %}Save{% endtrans %}</button>
 </div>

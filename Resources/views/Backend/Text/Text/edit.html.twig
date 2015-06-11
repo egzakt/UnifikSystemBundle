@@ -1,63 +1,63 @@
 {% extends 'UnifikSystemBundle:Backend/Text:layout.html.twig' %}
-{% form_theme form 'UnifikSystemBundle:Backend/Core:edit_fields.html.twig' %}
-
-{% block content_header %}
-    <h3 class="content-header-title">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { entity: text } %}</h3>
-{% endblock %}
+{% form_theme form 'UnifikSystemBundle:Backend/Core:bootstrap_edit_fields.html.twig' %}
 
 {% block content_main %}
+    <div class="row">
+        <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
+            <div class="col-md-8">
+                <div class="panel panel-dark">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { entity: text } %}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ form_errors(form) }}
 
-    <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
+                        {{ form_row(form.translation.active) }}
 
-        {% block edit_actions %}
-            {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
-                entity: text,
-                delete_route: path('unifik_system_backend_text_delete', { id: text.id ?: 0 }),
-                cancel_route: path('unifik_system_backend_text')
-            } %}
-        {% endblock %}
+                        {% if not text.static %}
+                            {{ form_row(form.collapsable) }}
+                            {{ form_row(form.translation.name) }}
+                        {% endif %}
 
-        <div id="fields_box">
-            <table class="fields" cellspacing="0">
+                        {{ form_row(form.translation.text) }}
 
-                {{ form_errors(form) }}
+                        {{ form_rest(form) }}
 
-                {{ form_row(form.translation.active) }}
+                        {% if text.id %}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{% trans %}Last update{% endtrans %}</label>
+                                <div class="col-sm-10">
+                                    {{ text.updatedAt|localizeddate('medium') }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div><!-- panel-body -->
 
-                {% if not text.static %}
-                    {{ form_row(form.collapsable) }}
-                    {{ form_row(form.translation.name) }}
-                {% endif %}
-
-                {{ form_row(form.translation.text) }}
-
-                {{ form_rest(form) }}
-
-                {% if text.id %}
-                    <tr>
-                        <th>
-                            {% trans %}Last update{% endtrans %} :
-                        </th>
-                        <td style="vertical-align:bottom">
-                            {{ text.updatedAt|localizeddate('medium') }}
-                        </td>
-                    </tr>
-                {% endif %}
-
-            </table>
-        </div>
-
-        {{ block('edit_actions') }}
-
-    </form>
+                    {% block edit_actions %}
+                         {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
+                             entity: text,
+                             delete_route: path('unifik_system_backend_text_delete', { id: text.id ?: 0 }),
+                             cancel_route: path('unifik_system_backend_text')
+                         } %}
+                    {% endblock %}
+                </div>
+            </div>
+        </form>
+    </div>
 
     <script type="text/javascript">
+        var onloadCollapsable = true;
         $('#text_collapsable').click(function(){
-            var $row = $('#text_translation_name').parents('tr');
+            var $row = $('#text_translation_name').parents('.form-group:first');
             if ($('#text_collapsable').is(':checked')) {
-                $row.show();
+                $row.slideDown();
             } else {
-                $row.hide();
+                if (onloadCollapsable) {
+                    onloadCollapsable = false;
+                    $row.hide();
+                } else {
+                    $row.slideUp();
+                }
             }
         }).triggerHandler('click');
     </script>

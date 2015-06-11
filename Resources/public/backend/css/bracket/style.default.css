@@ -4346,3 +4346,13 @@ h3.content-header-title {
     color: #333;
     margin: 5px 0 20px 0;
 }
+
+/* Pages de détail */
+.panel-footer a.delete {
+    margin-right: 25px;
+}
+
+/* Form */
+label .required {
+    color: #DD211C;
+}
