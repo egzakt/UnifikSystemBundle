@@ -36,13 +36,13 @@ jQuery(document).ready(function() {
 //      });
 //   }
    
-   function adjustmainpanelheight() {
-      // Adjust mainpanel height
-      var docHeight = jQuery(document).height();
-      if(docHeight > jQuery('.mainpanel').height())
-         jQuery('.mainpanel').height(docHeight);
-   }
-   adjustmainpanelheight();
+   //function adjustmainpanelheight() {
+   //   // Adjust mainpanel height
+   //   var docHeight = jQuery(document).height();
+   //   if(docHeight > jQuery('.mainpanel').height())
+   //      jQuery('.mainpanel').minHeight(docHeight);
+   //}
+   //adjustmainpanelheight();
    
    
    // Tooltip

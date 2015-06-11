@@ -50,6 +50,9 @@
         $('#text_collapsable').click(function(){
             var $row = $('#text_translation_name').parents('.form-group:first');
             if ($('#text_collapsable').is(':checked')) {
+                if (onloadCollapsable) {
+                    onloadCollapsable = false;
+                }
                 $row.slideDown();
             } else {
                 if (onloadCollapsable) {
