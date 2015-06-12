@@ -1,18 +1,22 @@
 {% extends 'UnifikSystemBundle:Backend:layout.html.twig' %}
 
-{% block breadcrumbs '' %}
+{% block section_title %}
+    <h2><i class="fa fa-laptop"></i> {% trans %}Applications{% endtrans %}</h2>
+{% endblock %}
 
 {% block content %}
-
-    {% block content_header %}
-        <h1>{{ section }}</h1>
-    {% endblock %}
 
     {% block flash_message %}
         {% include 'UnifikSystemBundle:Backend/Core:flash_message.html.twig' %}
     {% endblock %}
 
-    {% block content_main '' %}
-    {% block content_footer '' %}
+    {% block content_header %}
+    {% endblock %}
+
+    {% block content_main %}
+    {% endblock %}
+
+    {% block content_footer %}
+    {% endblock %}
 
 {% endblock %}
