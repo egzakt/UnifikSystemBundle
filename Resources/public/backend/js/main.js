@@ -41,8 +41,6 @@ $(function(){
 
     // List mode togle
     $('.switch_list_mode a').attr('title', tooltipOrderMode);
-    $('.switch_list_mode a').tooltip();
-
     $('.switch_list_mode a').click(function(e){
         switchListMode($(this));
         e.preventDefault();
@@ -258,14 +256,9 @@ function switchListMode(linkObject) {
     listBoxObject.find('table:first').toggleClass('table-autosort');
     listBoxObject.find('table:first').toggleClass('liste_sortable');
 
-    $('.tooltip').hide();
-
     if (linkObject.hasClass('selected')) {
 
         linkObject.children('img').attr('src', imgOrderModeOn);
-
-        // Change tooltip text
-        $('.tooltip').html(tooltipSearchMode);
 
         // Sort by default ordering
         defaultOrderingTh = listBoxObject.find('thead th.default_ordering');
@@ -300,9 +293,6 @@ function switchListMode(linkObject) {
         // Disable tableDnD plugin
         listBoxObject.find('table tr').unbind();
         listBoxObject.find('table tr').css('cursor', '');
-
-        // Change tooltip text
-        $('.tooltip').html(tooltipOrderMode);
     }
 }
 
