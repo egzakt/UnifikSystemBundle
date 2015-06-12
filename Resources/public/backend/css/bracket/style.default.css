@@ -4219,9 +4219,12 @@ div.error label.error:before {
     width: 110px;
 }
 
-.list-box .impersonate {
-    width: 15px;
-    padding-top: 8px;
+.list-box thead tr.filters th {
+    padding-left: 0;
+}
+
+.list-box thead tr.filters th.name {
+    padding-left: 8px;
 }
 
 .list-box th.switch_list_mode {
