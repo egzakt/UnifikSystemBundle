@@ -21,6 +21,10 @@
         {{ form_label(form) }}
         <div class="{{ block('form_group_class') }}">
             {{ form_widget(form) }}
+
+            {% if attr.alt is defined %}
+                <div class="note">{{ attr.alt|trans|raw }}</div>
+            {% endif %}
             {{ form_errors(form) }}
         </div>
     </div>
@@ -44,14 +48,16 @@
 {% block choice_widget %}
     {% spaceless %}
         {% if expanded %}
+            {% set attr = attr|merge({'class': (attr.class|default('') ~ ' choice-expanded')|trim}) %}
             <ul {{ block('widget_container_attributes') }}>
                 {% for key, child in form %}
                     <li>
-                        {{ form_widget(child) }}&nbsp;{{ form_label(child, null, {'withoutColon': true, 'entity': child.vars.data}) }}
+                        {{ form_widget(child) }}{{ form_label(child, null, {'withoutColon': true, 'entity': child.vars.data}) }}
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
+            {% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-control input-sm')|trim}) %}
             <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
                 {% if empty_value is not none %}
                     <option value="">{{ empty_value|trans }}</option>
@@ -109,12 +115,13 @@
 {% block tree_choice_widget %}
 {% spaceless %}
     {% if expanded %}
+        {% set attr = attr|merge({'class': (attr.class|default('') ~ ' choice-expanded')|trim}) %}
         <ul {{ block('widget_container_attributes') }}>
             {% if add_select_all is defined %}
                 {% block select_all %}
                 <li>
-                    <div class="select_all_wrapper">
-                        <input type="checkbox" name="select_all_{{ id }}" id="select_all_{{ id }}" value="" class="select_all" /> &nbsp;<label for="select_all_{{ id }}">{% trans %}Select All{% endtrans %}</label>
+                    <div class="select_all_wrapper checkbox ckbox ckbox-primary">
+                        <input type="checkbox" name="select_all_{{ id }}" id="select_all_{{ id }}" value="" class="select_all" /><label for="select_all_{{ id }}">{% trans %}Select All{% endtrans %}</label>
                     </div>
                 </li>
                 {% endblock %}
@@ -135,11 +142,12 @@
             {% endif %}
         {% for key, child in form %}
             <li>
-                {{ form_widget(child) }}&nbsp;{{ form_label(child, null, {'withoutColon': true, 'entity': form.vars.choices[key].data}) }}
+                {{ form_widget(child) }}{{ form_label(child, null, {'withoutColon': true, 'entity': form.vars.choices[key].data}) }}
             </li>
         {% endfor %}
         </ul>
     {% else %}
+    {% set attr = attr|merge({'class': (attr.class|default('') ~ ' form-control input-sm')|trim}) %}
     <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
         {% if empty_value is not none %}
             <option value="">{{ empty_value|trans }}</option>
@@ -164,12 +172,34 @@
     {% endspaceless %}
 {% endblock %}
 
+{% block checkbox_radio_label %}
+    {# Do no display the label if widget is not defined in order to prevent double label rendering #}
+    {% if widget is defined %}
+        {% if required %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' required')|trim}) %}
+        {% endif %}
+        {% if parent_label_class is defined %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ parent_label_class)|trim}) %}
+        {% endif %}
+        {% if label is not sameas(false) and label is empty %}
+            {% set label = name|humanize %}
+        {% endif %}
+        {% if not compound %}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {% endif %}
+        {{- widget|raw -}}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+            {{- label is not sameas(false) ? label|trans({}, translation_domain) -}}
+        </label>
+    {% endif %}
+{% endblock checkbox_radio_label %}
+
 {% block checkbox_widget -%}
     {% set parent_label_class = parent_label_class|default('') -%}
     {% if 'checkbox-inline' in parent_label_class %}
         {{- form_label(form, null, { widget: block('checkbox_widget_extended') }) -}}
     {% else -%}
-        <div class="checkbox">
+        <div class="checkbox ckbox ckbox-primary">
             {{- form_label(form, null, { widget: block('checkbox_widget_extended') }) -}}
         </div>
     {%- endif %}
@@ -215,9 +245,6 @@
                 {{ label|trans|raw }}
             {%- endif -%}
         </label>
-        {% if attr.alt is defined %}f
-            <div class="note">{{ attr.alt|trans|raw }}</div>
-        {% endif %}
     {% endif %}
 {% endspaceless %}
 {%- endblock form_label %}

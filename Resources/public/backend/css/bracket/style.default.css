@@ -4356,3 +4356,28 @@ h3.content-header-title {
 label .required {
     color: #DD211C;
 }
+
+.panel-collapse .panel-body {
+    background-color: #f7f7f7;
+}
+
+form div.note {
+    font-size: 0.85em;
+    line-height: 1.2em;
+    font-weight: normal;
+    margin-top: 7px;
+}
+
+form .choice-expanded {
+    padding-left: 0;
+    list-style-type: none;
+}
+
+form .panel-group-collapsable h4 a:before {
+    font-family: 'FontAwesome';
+    content: "\F068";
+}
+
+form .panel-group-collapsable h4 a.collapsed:before {
+    content: "\F067";
+}
