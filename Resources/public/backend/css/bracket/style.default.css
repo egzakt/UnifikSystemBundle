@@ -1851,7 +1851,7 @@ div.error label.error:before {
 	margin-left: 10px;
 }
 
-.filemanager-options .filter-type a.selected {
+.filemanager-options a.selected {
 	text-decoration: underline;
 	color: #2A6496;
 }
