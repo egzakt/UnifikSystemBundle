@@ -1856,6 +1856,21 @@ div.error label.error:before {
 	color: #2A6496;
 }
 
+.filemanager-options a.selected i {
+    color: #2A6496;
+}
+
+.filemanager-options .main a.selected {
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.filemanager-options .main a:hover,
+.filemanager-options .main a:hover i {
+    text-decoration: none;
+    color: #2A6496;
+}
+
 .filemanager .thmb {
 	border: 1px solid #fcfcfc;
 	background: #fcfcfc;
@@ -4383,4 +4398,28 @@ form .panel-group-collapsable h4 a:before {
 
 form .panel-group-collapsable h4 a.collapsed:before {
     content: "\F067";
+}
+
+input#media_text_search {
+    height: 22px;
+    margin-left: 10px;
+}
+
+#media_text_search_container {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+}
+
+a.clearlink {
+    background: url("/bundles/unifikmedia/backend/images/icons/close-button.png") no-repeat scroll 0 0 transparent;
+    background-position: center center;
+    cursor: pointer;
+    height: 12px;
+    width: 12px;
+    z-index: 2000;
+    border: 0px solid;
+    position: absolute;
+    right: 4px;
+    top: 4px;
 }
