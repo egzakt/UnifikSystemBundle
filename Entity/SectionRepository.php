@@ -206,4 +206,23 @@ class SectionRepository extends BaseEntityRepository
             return null;
         }
     }
+
+    public function findByRoute($route) {
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->select('s', 'a', 't')
+            ->innerJoin('s.app', 'a')
+            ->innerJoin('s.translations', 't')
+            ->innerJoin('s.mappings', 'm')
+            ->where('m.target = :route')
+            ->andWhere('m.type = :map_type')
+            ->andWhere('a.slug != :backend_slug')
+            ->andWhere('t.locale != :locale')
+            ->setParameter('route', $route)
+            ->setParameter('locale', $this->getLocale())
+            ->setParameter('map_type', 'route')
+            ->setParameter('backend_slug', 'backend')
+            ->orderBy('a.ordering', 'ASC');
+
+        return $this->processQuery($queryBuilder);
+    }
 }

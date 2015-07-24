@@ -117,7 +117,7 @@ class NavigationController extends BaseController
         $appCurrent = $this->getCore()->getApp();
 
         $appRepo = $this->getDoctrine()->getRepository('UnifikSystemBundle:App');
-        $apps = $appRepo->findBy(array(), array('ordering' => 'asc'));
+        $apps = $appRepo->findAllHasAccess($this->get('security.context'), $this->getUser()->getId());
 
         // BC fix, previous version had a "backend" application that need to be removed
         foreach ($apps as $key => $app) {
@@ -128,7 +128,8 @@ class NavigationController extends BaseController
 
         return $this->render('UnifikSystemBundle:Backend/Navigation:app.html.twig', array(
             'apps' => $apps,
-            'appCurrent' => $appCurrent
+            'appCurrent' => $appCurrent,
+            'appFrontend' => AppRepository::FRONTEND_APP_ID
         ));
     }
 

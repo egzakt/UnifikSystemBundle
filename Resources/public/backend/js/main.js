@@ -85,6 +85,10 @@ $(function(){
         position: { 'my': 'left+8 center', 'at': 'right center' },
         show: { duration: 200 }
     });
+
+    $('#app-selector').change(function() {
+        window.location.href = $(this).val();
+    });
 });
 
 /*

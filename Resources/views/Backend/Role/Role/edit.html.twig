@@ -1,5 +1,6 @@
 {% extends 'UnifikSystemBundle:Backend/Role:layout.html.twig' %}
 {% form_theme form 'UnifikSystemBundle:Backend/Core:edit_fields.html.twig' %}
+{% form_theme form.sections 'UnifikSystemBundle:Backend/Role/Role:_form_sections.html.twig' %}
 
 {% block content_header %}
     <h1>{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</h1>
