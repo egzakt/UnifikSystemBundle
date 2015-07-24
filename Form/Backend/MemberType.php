@@ -29,7 +29,11 @@ class MemberType extends AbstractType
             ->add('city')
             ->add('postalCode', null, array('label' => 'Postal code'))
             ->add('telephone')
-            ->add('password', 'repeated')
+            ->add('password', 'repeated', array(
+                'type' => 'password',
+                'invalid_message' => 'The password fields must match.',
+                'first_options' => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat')))
             ->add('email')
         ;
     }

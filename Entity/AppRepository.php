@@ -32,4 +32,18 @@ class AppRepository extends BaseEntityRepository
 
         return $this->processQuery($qb);
     }
+
+    public function findAllHasAccess($securityContext = null, $userId = null)
+    {
+        $qb = $this->createQueryBuilder('a');
+        if ($securityContext !== null && !$securityContext->isGranted('ROLE_BACKEND_ADMIN')) {
+            $qb->innerJoin('a.sections', 's')
+                ->innerJoin('s.roles', 'sr')
+                ->innerJoin('sr.users', 'ru')
+                ->where('ru.id = :userId')
+                ->setParameter('userId', $userId);
+        }
+        $qb->orderBy('a.ordering', 'ASC');
+        return $this->processQuery($qb);
+    }
 }

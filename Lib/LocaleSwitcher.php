@@ -83,8 +83,7 @@ class LocaleSwitcher
 
         if ($element) {
             foreach ($locales as $locale) {
-
-                if (in_array('UnifikORMBehaviors\Translatable\Translatable', (new \ReflectionClass($element))->getTraitNames())) {
+                if (in_array('Unifik\DoctrineBehaviorsBundle\Model\Translatable\Translatable', (new \ReflectionClass($element))->getTraitNames())) {
                     $element->setCurrentLocale($locale->getCode());
                 }
 

@@ -1,0 +1,57 @@
+{% extends 'UnifikSystemBundle:Backend/Core:edit_fields.html.twig' %}
+{% block tree_choice_widget %}
+    {% spaceless %}
+        {% if expanded %}
+            <ul {{ block('widget_container_attributes') }}>
+                {% if add_select_all is defined %}
+                    {% block select_all %}
+                    <li>
+                        <div class="select_all_wrapper">
+                            <input type="checkbox" name="select_all_{{ id }}" id="select_all_{{ id }}" value="" class="select_all" /> &nbsp;<label for="select_all_{{ id }}">{% trans %}Select All{% endtrans %}</label>
+                        </div>
+                    </li>
+                    {% endblock %}
+                    {% block javascripts %}
+                    {{ parent() }}
+
+                    <script type="text/javascript">
+                        var str_select_all = '{% trans %}Select All{% endtrans %}';
+                        var str_unselect_all = '{% trans %}Unselect All{% endtrans %}';
+                    </script>
+
+                    {% javascripts
+                    '@UnifikSystemBundle/Resources/public/backend/js/tree-choice.js'
+                    %}
+                    <script type="text/javascript" src="{{ asset_url }}"></script>
+                    {% endjavascripts %}
+                    {% endblock  %}
+                {% endif %}
+                {% set lastApp = false %}
+                {% for key, child in form %}
+                    {% if choices[key].data.app and choices[key].data.app.id != lastApp %}
+                        <li><strong>{{ choices[key].data.app }}</strong></li>
+                        {% set lastApp = choices[key].data.app.id %}
+                    {% endif %}
+                    <li>
+                        &nbsp;&nbsp;&nbsp;{{ form_widget(child) }}&nbsp;{{ form_label(child, null, {'withoutColon': true, 'entity': form.vars.choices[key].data}) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <select {{ block('widget_attributes') }}{% if multiple %} multiple="multiple"{% endif %}>
+                {% if empty_value is not none %}
+                    <option value="">{{ empty_value|trans }}</option>
+                {% endif %}
+                {% if preferred_choices|length > 0 %}
+                    {% set options = preferred_choices %}
+                    {{ block('tree_choice_widget_options') }}
+                    {% if choices|length > 0 and separator is not none %}
+                        <option disabled="disabled">{{ separator }}</option>
+                    {% endif %}
+                {% endif %}
+                {% set options = choices %}
+                {{ block('tree_choice_widget_options') }}
+            </select>
+        {% endif %}
+    {% endspaceless %}
+{% endblock tree_choice_widget %}

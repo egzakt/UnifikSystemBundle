@@ -317,4 +317,9 @@ class App extends BaseEntity
     {
         return array('name');
     }
+
+    public function getCoreName()
+    {
+        return strtolower(str_replace(array('-', ' '), array('_', '_'), $this->getSlug()));
+    }
 }
