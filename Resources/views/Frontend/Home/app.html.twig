@@ -1,0 +1,10 @@
+{% extends 'UnifikSystemBundle:Frontend:layout.html.twig' %}
+
+{% block main %}
+    <div id="main" role="main" class="full">
+        <div id="content_col">
+            {{ render(controller('UnifikCarouselBundle:Frontend/Carousel:carousel')) }}
+            {{ render(controller('UnifikSystemBundle:Frontend/Text:DisplayTexts')) }}
+        </div>
+    </div>
+{% endblock %}

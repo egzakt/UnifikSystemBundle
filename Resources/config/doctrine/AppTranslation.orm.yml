@@ -1,0 +1,30 @@
+Unifik\SystemBundle\Entity\App:
+  type: entity
+  repositoryClass: Unifik\SystemBundle\Entity\AppRepository
+  fields:
+    id:
+      type: integer
+      id: true
+      generator:
+        strategy: AUTO
+    name:
+      type: string
+      length: 255
+      gedmo:
+        - sluggable
+    prefix:
+      type: string
+      nullable: true
+    ordering:
+      type: integer
+      nullable: true
+  oneToMany:
+    sections:
+      targetEntity: Unifik\SystemBundle\Entity\Section
+      mappedBy: app
+    mappings:
+      targetEntity: Unifik\SystemBundle\Entity\Mapping
+      mappedBy: app
+    navigations:
+      targetEntity: Unifik\SystemBundle\Entity\Navigation
+      mappedBy: app
