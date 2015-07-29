@@ -57,11 +57,17 @@ class ApplicationPathExtension extends \Twig_Extension {
     public function getAppRoute($route_name, $app_id = null) {
         if (!$this->mappingRepository)
             $this->mappingRepository = $this->doctrine->getManager()->getRepository('UnifikSystemBundle:Mapping');
-        $mapping = $this->mappingRepository->findOneBy(array(
-            'app'=>($app_id ? $app_id: $this->systemCore->getApplicationCore()->getApp()->getId()),
+        $app_id = ($app_id ? $app_id: $this->systemCore->getApplicationCore()->getApp()->getId());
+        $mapping = false;
+        $mappings = $this->mappingRepository->findBy(array(
+            'app'=>$app_id,
             'type'=>'route',
             'target'=>$route_name,
-        ), array('section'=>'ASC'));
+        ), array('ordering'=>'ASC'), 1);
+
+        // findBy au lieu de findOneBy, au cas où 2+
+        if (count($mappings) > 0)
+            $mapping = $mappings[0];
 
         if ($mapping) {
             // Faut checker toutes les routes, à cause du mapping alias
@@ -72,7 +78,7 @@ class ApplicationPathExtension extends \Twig_Extension {
                         $real_name = preg_replace('/^[aA-zZ]{2}__[A-Z]{2}__/', '', $defaults['_unifikRequest']['mappedRouteName']);
 
                         // On a trouvé la bonne route
-                        if ($real_name == $route_name)
+                        if ($real_name == $route_name && $defaults['_unifikRequest']['sectionId'] == $mapping->getSection()->getId())
                             return preg_replace('/^[aA-zZ]{2}__[A-Z]{2}__/', '', $name);
                     }
                 }
