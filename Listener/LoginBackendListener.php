@@ -54,7 +54,7 @@ class LoginBackendListener
         if ($apps && !in_array($apps[0]->getId(), array(AppRepository::FRONTEND_APP_ID, AppRepository::BACKEND_APP_ID))) {
             $event->getRequest()->request->set('_target_path',
                 $this->router->generate('unifik_system_backend_switch_managed_app',
-                    array('appSlug' => $apps[0]->getSlug()),
+                    array('appCode' => $apps[0]->getCode()),
                     UrlGeneratorInterface::ABSOLUTE_URL)
                 );
         }

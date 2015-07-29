@@ -20,7 +20,10 @@
                     {% trans %}Name{% endtrans %}
                 </th>
                 <th class="table-sortable:ignorecase">
-                    {% trans %}Prefix{% endtrans %}
+                    {% trans %}Slug{% endtrans %}
+                </th>
+                <th class="table-sortable:ignorecase">
+                    {% trans %}Code{% endtrans %}
                 </th>
                 <th class="edit">
                     &nbsp;
@@ -34,7 +37,10 @@
                     <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
                 </th>
                 <th>
-                    <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a prefix"|trans }}" />
+                    <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a slug"|trans }}" />
+                </th>
+                <th>
+                    <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a code"|trans }}" />
                 </th>
                 <th>
                     &nbsp;
@@ -49,11 +55,14 @@
                 <tr id="item_{{ application.id }}">
                     <td class="name">
                         <a href="{{ path('unifik_system_backend_application_edit', { applicationId: application.id }) }}">
-                            {{ application }}
+                            {{ application|replace({'<': ' <'})|striptags }}
                         </a>
                     </td>
                     <td>
-                        {{ application.prefix }}
+                        {{ application.slug }}
+                    </td>
+                    <td>
+                        {{ application.code }}
                     </td>
                     <td class="edit">
                         {% if application.isEditable %}

@@ -68,17 +68,18 @@ class Loader extends BaseLoader
                 $sectionId = (int) $forceSectionId;
 
                 $section = $this->databaseConnection->fetchAssoc('
-                    SELECT st.slug AS sectionSlug, a.id AS appId, a.prefix AS appPrefix, a.name AS appName, a.slug AS appSlug
+                    SELECT st.slug AS sectionSlug, a.id AS appId, a.code AS appCode, at.name AS appName, at.slug AS appSlug
                     FROM section s
                     LEFT JOIN section_translation st ON st.translatable_id = s.id
                     LEFT JOIN app a ON a.id = s.app_id
+                    LEFT JOIN app_translation at ON at.translatable_id = a.id
                     WHERE s.id =
                 ' . $sectionId);
 
                 $unifikRequest = [
                     'sectionId' => $sectionId,
                     'appId' => $section['appId'],
-                    'appPrefix' => $section['appPrefix'],
+                    'appCode' => $section['appCode'],
                     'appName' => $section['appName'],
                     'appSlug' => $section['appSlug'],
                     'sectionSlug' => $section['sectionSlug'],
@@ -102,7 +103,7 @@ class Loader extends BaseLoader
      */
     protected function removeMappingSourceRoutes($collection)
     {
-        $appSlugs = $this->findAllApplicationSlugs($this->mappings);
+        $appCodes = $this->findAllApplicationCodes($this->mappings);
         $trailingRoutesOrdering = 1000;
 
         foreach ($collection->all() as $name => $route) {
@@ -122,7 +123,7 @@ class Loader extends BaseLoader
                 $collection->remove($name);
             }
 
-            if (preg_match('/' . static::ROUTING_PREFIX . 'unifik_|_' . implode('_|_', $appSlugs) .'_/', $name)) {
+            if (preg_match('/' . static::ROUTING_PREFIX . 'unifik_|_' . implode('_|_', $appCodes) .'_/', $name) && strpos($name, '_backend_') === false) {
                 $collection->remove($name);
             }
         }
@@ -137,17 +138,17 @@ class Loader extends BaseLoader
      *
      * @return array
      */
-    protected function findAllApplicationSlugs($mappings)
+    protected function findAllApplicationCodes($mappings)
     {
-        $slugs = [];
+        $codes = [];
 
         foreach ($mappings as $mapping) {
-            $slugs[] = $mapping['app_slug'];
+            $codes[] = $mapping['app_code'];
         }
 
-        $slugs = array_unique($slugs);
+        $codes = array_unique($codes);
 
-        return $slugs;
+        return $codes;
     }
 
     /**
@@ -160,9 +161,9 @@ class Loader extends BaseLoader
         $unifikRequest = array(
             'sectionId' => null,
             'appId' => 1,
-            'appPrefix' => 'admin',
+            'appCode' => 'backend',
             'appName' => 'Backend',
-            'appSlug' => 'backend'
+            'appSlug' => 'admin'
         );
 
         foreach ($collection->all() as $name => $route) {
@@ -237,8 +238,12 @@ class Loader extends BaseLoader
         // expanding section paths
         $sectionsPath = $this->computeParentSlugs($mapping['section_id'], $mapping['locale']);
 
-        if ($mapping['app_prefix']) {
-            $sectionsPath = $mapping['app_prefix'] . '/' . $sectionsPath;
+        if ($mapping['app_slug']) {
+            if ($route->getOption('no_section_slug')) {
+                $sectionsPath = $mapping['app_slug'];
+            } else {
+                $sectionsPath = $mapping['app_slug'] . '/' . $sectionsPath;
+            }
         }
 
         $expandedPath = preg_replace('/{(sectionsPath)}/', $sectionsPath, $route->getPath());
@@ -248,7 +253,7 @@ class Loader extends BaseLoader
         $unifikRequest = array(
             'sectionId' => $mapping['section_id'],
             'appId' => $mapping['app_id'],
-            'appPrefix' => $mapping['app_prefix'],
+            'appCode' => $mapping['app_code'],
             'appName' => $mapping['app_name'],
             'appSlug' => $mapping['app_slug'],
             'sectionSlug' => $mapping['slug'],
@@ -352,7 +357,7 @@ class Loader extends BaseLoader
     protected function getMappingSqlQuery()
     {
         return '
-            SELECT m.target, s.id as section_id, s.parent_id, st.locale, st.slug, a.id as app_id, a.prefix as app_prefix, a.name as app_name, a.slug as app_slug, (
+            SELECT m.target, s.id as section_id, s.parent_id, st.locale, st.slug, a.id as app_id, a.code as app_code, at.name as app_name, at.slug as app_slug, (
                 SELECT COUNT(t.id) FROM text t
                 INNER JOIN text_translation tt ON tt.translatable_id = t.id
                 WHERE t.section_id = s.id
@@ -370,6 +375,7 @@ class Loader extends BaseLoader
             INNER JOIN section s ON s.id = m.section_id
             INNER JOIN section_translation st ON st.translatable_id = s.id
             INNER JOIN app a ON a.id = s.app_id
+            INNER JOIN app_translation at ON at.translatable_id = a.id
             WHERE m.app_id <> 1
             AND s.app_id <> 1
             AND m.type = "route"

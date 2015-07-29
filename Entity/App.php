@@ -13,7 +13,8 @@ use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
  */
 class App extends BaseEntity
 {
-    use UnifikORMBehaviors\Sluggable\Sluggable;
+    use UnifikORMBehaviors\Translatable\Translatable;
+    use UnifikORMBehaviors\Timestampable\Timestampable;
 
     /**
      * @var integer
@@ -21,24 +22,19 @@ class App extends BaseEntity
     private $id;
 
     /**
-     * @var string $name
-     */
-    private $name;
-
-    /**
      * @var int $order
      */
     private $order;
 
     /**
+     * @var string $code
+     */
+    private $code;
+
+    /**
      * @var integer $ordering
      */
     private $ordering;
-
-    /**
-     * @var string $prefix
-     */
-    private $prefix;
 
     /**
      * @var array
@@ -82,31 +78,13 @@ class App extends BaseEntity
      */
     public function __toString()
     {
-        if ($this->id) {
-            return $this->name;
+        if ($this->getName()) {
+            return $this->getName();
+        } elseif ($this->getCode()) {
+            return $this->getCode();
         }
 
         return 'New Application';
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name The name of the App
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string
-     */
-    public function getName()
-    {
-        return $this->name;
     }
 
     /**
@@ -130,13 +108,29 @@ class App extends BaseEntity
     }
 
     /**
+     * @return string
+     */
+    public function getCode()
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode($code)
+    {
+        $this->code = $code;
+    }
+
+    /**
      * Get the default route to entity
      *
      * @param string $suffix
      *
      * @return string
      */
-    public function getRoute($suffix = 'edit')
+    public function getRouteBackend($suffix = 'edit')
     {
         $route = 'unifik_system_backend_application';
 
@@ -154,7 +148,7 @@ class App extends BaseEntity
      *
      * @return array
      */
-    public function getRouteParams($params = array())
+    public function getRouteBackendParams($params = array())
     {
         $defaults = array('applicationId' => intval($this->id));
         $params = array_merge($defaults, $params);
@@ -208,26 +202,6 @@ class App extends BaseEntity
     public function setId($id)
     {
         $this->id = $id;
-    }
-
-    /**
-     * Set prefix
-     *
-     * @param string $prefix
-     */
-    public function setPrefix($prefix)
-    {
-        $this->prefix = $prefix;
-    }
-
-    /**
-     * Get prefix
-     *
-     * @return string
-     */
-    public function getPrefix()
-    {
-        return $this->prefix;
     }
 
     /**
@@ -308,18 +282,73 @@ class App extends BaseEntity
         return $this->navigations;
     }
 
+    public function getCoreName()
+    {
+        return strtolower(str_replace(array('-', ' '), array('_', '_'), $this->getCode()));
+    }
+
     /**
-     * Get Sluggable Fields
+     * Check if it has children (for navigation)
+     *
+     * @return bool
+     */
+    public function hasChildren() {
+        return ($this->getChildren()->count() > 0);
+    }
+
+    /**
+     * Get Home Section (for navigation)
+     *
+     * @return Collection
+     */
+    public function getHomeSection() {
+        $sections = $this->getSections();
+        foreach ($sections as $section) {
+            if ($section->isHomeSection()) {
+                return $section;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get children (for navigation)
+     *
+     * @return Collection
+     */
+    public function getChildren() {
+        $sections = clone $this->getSections();
+        $home = $this->getHomeSection();
+        if ($home) {
+            $sections->removeElement($home);
+        }
+
+        return $sections;
+    }
+
+    /**
+     * Get route
+     *
+     * @return string
+     */
+    public function getRouteFrontend()
+    {
+        $home = $this->getHomeSection();
+        if ($home) {
+            return 'section_id_' . $home->getId();
+        }
+        return false;
+    }
+
+    /**
+     * Get Frontend route params
+     *
+     * @param array $params Array of params to get
      *
      * @return array
      */
-    public function getSluggableFields()
+    public function getRouteFrontendParams($params = array())
     {
-        return array('name');
-    }
-
-    public function getCoreName()
-    {
-        return strtolower(str_replace(array('-', ' '), array('_', '_'), $this->getSlug()));
+        return $params;
     }
 }

@@ -1,6 +1,5 @@
-Unifik\SystemBundle\Entity\App:
+Unifik\SystemBundle\Entity\AppTranslation:
   type: entity
-  repositoryClass: Unifik\SystemBundle\Entity\AppRepository
   fields:
     id:
       type: integer
@@ -12,19 +11,6 @@ Unifik\SystemBundle\Entity\App:
       length: 255
       gedmo:
         - sluggable
-    prefix:
-      type: string
+    active:
+      type: boolean
       nullable: true
-    ordering:
-      type: integer
-      nullable: true
-  oneToMany:
-    sections:
-      targetEntity: Unifik\SystemBundle\Entity\Section
-      mappedBy: app
-    mappings:
-      targetEntity: Unifik\SystemBundle\Entity\Mapping
-      mappedBy: app
-    navigations:
-      targetEntity: Unifik\SystemBundle\Entity\Navigation
-      mappedBy: app

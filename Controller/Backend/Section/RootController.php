@@ -43,7 +43,7 @@ class RootController extends BackendController
         parent::init();
 
         $this->createAndPushNavigationElement('Sections', 'unifik_system_backend_section_root', array(
-            'appSlug' => $this->getApp()->getSlug()
+            'appCode' => $this->getApp()->getCode()
         ));
 
         $this->navigationRepository = $this->getEm()->getRepository('UnifikSystemBundle:Navigation');
@@ -148,12 +148,12 @@ class RootController extends BackendController
                 );
 
                 if ($request->request->has('save')) {
-                    return $this->redirect($this->generateUrl('unifik_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));
+                    return $this->redirect($this->generateUrl('unifik_system_backend_section_root', array('appCode' => $this->getApp()->getCode())));
                 }
 
                 return $this->redirect($this->generateUrl('unifik_system_backend_section_root_edit', array(
                     'id' => $entity->getId() ? : 0,
-                    'appSlug' => $this->getApp()->getSlug()
+                    'appCode' => $this->getApp()->getCode()
                 )));
             } else {
                 $this->addFlashError('Some fields are invalid.');
@@ -196,7 +196,7 @@ class RootController extends BackendController
         $section = $this->sectionRepository->find($id);
         $this->deleteEntity($section);
 
-        return $this->redirect($this->generateUrl('unifik_system_backend_section_root', array('appSlug' => $this->getApp()->getSlug())));
+        return $this->redirect($this->generateUrl('unifik_system_backend_section_root', array('appCode' => $this->getApp()->getCode())));
     }
 
     /**

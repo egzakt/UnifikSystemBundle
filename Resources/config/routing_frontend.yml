@@ -2,6 +2,11 @@ unifik_system_frontend_home:
     pattern:  /
     defaults: { _controller: "UnifikSystemBundle:Frontend/Home:index" }
 
+unifik_system_frontend_app_home:
+    pattern:  /{sectionsPath}
+    defaults: { _controller: "UnifikSystemBundle:Frontend/Home:appIndex" }
+    options: { no_section_slug: true }
+
 unifik_system_frontend_text:
     pattern:  /{sectionsPath}
     defaults: { _controller: "UnifikSystemBundle:Frontend/Text:index" }

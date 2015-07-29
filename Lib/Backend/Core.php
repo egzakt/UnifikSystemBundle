@@ -186,9 +186,9 @@ class Core implements ApplicationCoreInterface
         }
 
         $appRepo = $this->doctrine->getManager()->getRepository('UnifikSystemBundle:App');
-        if ($this->request->get('appSlug')) {
-            $this->app = $appRepo->findOneBy(array('slug' => $this->request->get('appSlug')));
-            $method = 'route parameter {appSlug}';
+        if ($this->request->get('appCode')) {
+            $this->app = $appRepo->findOneByCode($this->request->get('appCode'));
+            $method = 'route parameter {appCode}';
         } elseif ($this->getSection()) {
             $this->app = $this->getSection()->getApp();
             $method = 'the section entity';

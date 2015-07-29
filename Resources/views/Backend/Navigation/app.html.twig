@@ -5,8 +5,8 @@
             {% if apps|length > 5 %}
                 <select id="app-selector">
                     {% for application in apps %}
-                        <option value="{{ path('unifik_system_backend_switch_managed_app', { appSlug: application.slug }) }}"{% if application.id == appCurrent.id %} selected="selected"{% endif %}>
-                            <span>{{ application|capitalize|trans }}</span>
+                        <option value="{{ path('unifik_system_backend_switch_managed_app', { appCode: application.code }) }}"{% if application.id == appCurrent.id %} selected="selected"{% endif %}>
+                            <span>{{ application|replace({'<': ' <'})|striptags|capitalize|trans }}</span>
                         </option>
                     {% endfor %}
                 </select>
@@ -14,8 +14,8 @@
                 <ul>
                     {% for application in apps %}
                         <li>
-                            <a href="{{ path('unifik_system_backend_switch_managed_app', { appSlug: application.slug }) }}" {% if application.id == appCurrent.id %}class="selected"{% endif %}>
-                                <span>{{ application|capitalize|trans }}</span>
+                            <a href="{{ path('unifik_system_backend_switch_managed_app', { appCode: application.code }) }}" {% if application.id == appCurrent.id %}class="selected"{% endif %}>
+                                <span>{{ application|replace({'<': ' <'})|striptags|capitalize|trans }}</span>
                             </a>
                         </li>
                     {% endfor %}

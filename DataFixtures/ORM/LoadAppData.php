@@ -10,6 +10,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
 use Unifik\SystemBundle\Entity\App;
+use Unifik\SystemBundle\Entity\AppTranslation;
+use Unifik\SystemBundle\Entity\AppRepository;
 
 class LoadAppData extends AbstractFixture implements OrderedFixtureInterface, ContainerAwareInterface
 {
@@ -29,17 +31,35 @@ class LoadAppData extends AbstractFixture implements OrderedFixtureInterface, Co
         $metadata->setIdGeneratorType(ClassMetadata::GENERATOR_TYPE_NONE);
 
         $appBackend = new App();
-        $appBackend->setId(1);
-        $appBackend->setName('Backend');
-        $appBackend->setPrefix('admin');
+        $appBackend->setId(AppRepository::BACKEND_APP_ID);
+        $appBackend->setCode('backend');
         $appBackend->setOrdering(1);
+        $appBackendTranslation = new AppTranslation();
+        $appBackendTranslation->setLocale('fr');
+        $appBackendTranslation->setName('Backend');
+        $appBackendTranslation->setSlug('admin');
+        $appBackend->addTranslation($appBackendTranslation);
+        $appBackendTranslation = new AppTranslation();
+        $appBackendTranslation->setLocale('en');
+        $appBackendTranslation->setName('Backend');
+        $appBackendTranslation->setSlug('admin');
+        $appBackend->addTranslation($appBackendTranslation);
 
         $manager->persist($appBackend);
 
         $appFrontend = new App();
-        $appFrontend->setId(2);
-        $appFrontend->setName('Frontend');
+        $appFrontend->setId(AppRepository::FRONTEND_APP_ID);
         $appFrontend->setOrdering(2);
+        $appFrontendTranslation = new AppTranslation();
+        $appFrontendTranslation->setLocale('fr');
+        $appFrontendTranslation->setName('Frontend');
+        $appFrontendTranslation->setSlug('');
+        $appFrontend->addTranslation($appFrontendTranslation);
+        $appFrontendTranslation = new AppTranslation();
+        $appFrontendTranslation->setLocale('en');
+        $appFrontendTranslation->setName('Frontend');
+        $appFrontendTranslation->setSlug('');
+        $appFrontend->addTranslation($appFrontendTranslation);
 
         $manager->persist($appFrontend);
 

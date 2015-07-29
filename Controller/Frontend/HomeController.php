@@ -28,4 +28,14 @@ class HomeController extends BaseController
             $response
         );
     }
+
+    /**
+     * Index Action
+     *
+     * @return Response
+     */
+    public function appIndexAction()
+    {
+        return $this->render('UnifikSystemBundle:Frontend/Home:app.html.twig');
+    }
 }

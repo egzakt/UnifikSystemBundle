@@ -37,7 +37,7 @@ class ControllerListener
         }
 
         $unifikRequest = $request->get('_unifikRequest');
-        $applicationName = $unifikRequest['appSlug'];
+        $applicationName = $unifikRequest['appCode'];
         $applicationName = strtolower(str_replace(array('-', ' '), array('_', '_'), $applicationName));
 
         if (false == $applicationName) {

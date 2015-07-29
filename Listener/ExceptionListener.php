@@ -13,6 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Kernel;
 
+use Unifik\SystemBundle\Entity\AppRepository;
 use Unifik\SystemBundle\Entity\Section;
 use Unifik\SystemBundle\Lib\Frontend\Core;
 
@@ -118,7 +119,7 @@ class ExceptionListener
         $unifikRequest = array(
             'sectionId' => $section->getId(),
             'appId' => 2, // Frontend
-            'appPrefix' => '',
+            'appCode' => '',
             'appName' => 'Frontend',
             'appSlug' => '',
         );
@@ -158,7 +159,7 @@ class ExceptionListener
         if (!$section) {
             $section = new Section();
             $section->setCurrentLocale($this->defaultLocale);
-            $section->setApp($this->entityManager->getRepository('UnifikSystemBundle:App')->find(2));
+            $section->setApp($this->entityManager->getRepository('UnifikSystemBundle:App')->find(AppRepository::FRONTEND_APP_ID));
             $section->setId($id);
             $section->setName($this->translator->trans($name, array(), 'messages', $this->defaultLocale));
             $section->setActive(true);

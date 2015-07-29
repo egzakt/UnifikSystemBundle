@@ -60,12 +60,17 @@ Unifik\SystemBundle\Entity\Locale:
                         
 Unifik\SystemBundle\Entity\App:
     properties:
+        code:
+            - Regex: { pattern: "/^[a-zA-Z0-9-_]*$/"}
+
+Unifik\SystemBundle\Entity\AppTranslation:
+    properties:
         name:
             - NotBlank: ~
-        prefix:
+        slug:
             - Regex: { pattern: "/^[a-zA-Z0-9-_]*$/"}
     constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: prefix, ignoreNull: false }
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity: { fields: slug, ignoreNull: false }
 
 Unifik\SystemBundle\Entity\Token:
     properties:

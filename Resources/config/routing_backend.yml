@@ -17,7 +17,7 @@ unifik_system_backend_dashboard:
     defaults: { _controller: "UnifikSystemBundle:Backend/Dashboard:index" }
 
 unifik_system_backend_switch_managed_app:
-    pattern:  /managed-application/{appSlug}
+    pattern:  /managed-application/{appCode}
     defaults: { _controller: "UnifikSystemBundle:Backend/Dashboard:index" }
 
 # Help
@@ -99,23 +99,23 @@ unifik_system_backend_text_delete_check:
 
 # Sections (roots handling)
 unifik_system_backend_section_root:
-    pattern:  /sections/{appSlug}/root
+    pattern:  /sections/{appCode}/root
     defaults: { _controller: "UnifikSystemBundle:Backend/Section/Root:list" }
 
 unifik_system_backend_section_root_order:
-    pattern:  /sections/{appSlug}/root/order
+    pattern:  /sections/{appCode}/root/order
     defaults: { _controller: "UnifikSystemBundle:Backend/Section/Root:order" }
 
 unifik_system_backend_section_root_edit:
-    pattern:  /sections/{appSlug}/root/{id}/edit
+    pattern:  /sections/{appCode}/root/{id}/edit
     defaults: { _controller: "UnifikSystemBundle:Backend/Section/Root:edit", id: 0 }
 
 unifik_system_backend_section_root_delete:
-    pattern:  /sections/{appSlug}/root/{id}/delete
+    pattern:  /sections/{appCode}/root/{id}/delete
     defaults: { _controller: "UnifikSystemBundle:Backend/Section/Root:delete" }
 
 unifik_system_backend_section_root_delete_check:
-    pattern:  /sections/{appSlug}/root/{id}/delete/check
+    pattern:  /sections/{appCode}/root/{id}/delete/check
     defaults: { _controller: "UnifikSystemBundle:Backend/Section/Root:checkDelete" }
 
 # Sections

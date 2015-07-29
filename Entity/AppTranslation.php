@@ -5,14 +5,12 @@ namespace Unifik\SystemBundle\Entity;
 use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 
 /**
- * SectionTranslation
+ * AppTranslation
  */
-class SectionTranslation
+class AppTranslation
 {
     use UnifikORMBehaviors\Translatable\Translation;
     use UnifikORMBehaviors\Sluggable\Sluggable;
-    use UnifikORMBehaviors\Metadatable\Metadatable;
-    use UnifikORMBehaviors\Taggable\Taggable;
 
     /**
      * @var integer $id

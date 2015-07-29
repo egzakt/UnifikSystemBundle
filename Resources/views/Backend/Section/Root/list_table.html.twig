@@ -47,7 +47,7 @@
         {% for entity in entities %}
             <tr id="item_{{ navigation.id }}-{{ entity.id }}">
                 <td class="name{% if not entity.active %} inactive{% endif %}">
-                    <a href="{{ path('unifik_system_backend_section_root_edit', { id: entity.id, appSlug: managedApp.slug }) }}">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
+                    <a href="{{ path('unifik_system_backend_section_root_edit', { id: entity.id, appCode: managedApp.code }) }}">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
                 </td>
                 <td>
                     {{ entity.children|length }}
@@ -62,13 +62,13 @@
                 {% endif %}
                 <td class="edit">
                     {% if entity.isEditable %}
-                        <a href="{{ path('unifik_system_backend_section_root_edit', { id: entity.id, appSlug: managedApp.slug }) }}" title="{% trans %}Edit{% endtrans %}">
+                        <a href="{{ path('unifik_system_backend_section_root_edit', { id: entity.id, appCode: managedApp.code }) }}" title="{% trans %}Edit{% endtrans %}">
                             <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
                         </a>
                     {% endif %}
                 </td>
                 <td class="delete">
-                    <a href="{{ path('unifik_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug }) }}" rel="{{ path('unifik_system_backend_section_root_delete', { id: entity.id, appSlug: managedApp.slug, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
+                    <a href="{{ path('unifik_system_backend_section_root_delete', { id: entity.id, appCode: managedApp.code }) }}" rel="{{ path('unifik_system_backend_section_root_delete', { id: entity.id, appCode: managedApp.code, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
                         <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
                     </a>
                 </td>

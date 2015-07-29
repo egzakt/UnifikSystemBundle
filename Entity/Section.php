@@ -625,4 +625,28 @@ class Section extends BaseEntity
     {
         return $this->mappings;
     }
+
+    /**
+     * Has mappings
+     *
+     * @return bool
+     */
+    public function hasMapping($target)
+    {
+        foreach ($this->mappings as $mapping) {
+            if ($mapping->getTarget() == $target && $mapping->getType() == 'route')
+                return true;
+        }
+        return false;
+    }
+
+    /**
+     * Is a Home section
+     *
+     * @return bool
+     */
+    public function isHomeSection()
+    {
+        return ($this->hasMapping('unifik_system_frontend_app_home') || $this->hasMapping('unifik_system_frontend_home'));
+    }
 }

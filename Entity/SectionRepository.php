@@ -215,12 +215,12 @@ class SectionRepository extends BaseEntityRepository
             ->innerJoin('s.mappings', 'm')
             ->where('m.target = :route')
             ->andWhere('m.type = :map_type')
-            ->andWhere('a.slug != :backend_slug')
+            ->andWhere('a.id != :backend_id')
             ->andWhere('t.locale != :locale')
             ->setParameter('route', $route)
             ->setParameter('locale', $this->getLocale())
             ->setParameter('map_type', 'route')
-            ->setParameter('backend_slug', 'backend')
+            ->setParameter('backend_id', AppRepository::BACKEND_APP_ID)
             ->orderBy('a.ordering', 'ASC');
 
         return $this->processQuery($queryBuilder);

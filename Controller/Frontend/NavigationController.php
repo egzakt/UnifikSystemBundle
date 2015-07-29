@@ -2,9 +2,11 @@
 
 namespace Unifik\SystemBundle\Controller\Frontend;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+use Unifik\SystemBundle\Entity\AppRepository;
 use Unifik\SystemBundle\Entity\NavigationRepository;
 use Unifik\SystemBundle\Entity\SectionNavigationRepository;
 use Unifik\SystemBundle\Lib\Frontend\BaseController;
@@ -37,6 +39,11 @@ class NavigationController extends BaseController
     protected $navigationRepository;
 
     /**
+     * @var AppRepository
+     */
+    protected $appRepository;
+
+    /**
      * Init
      */
     public function init()
@@ -45,6 +52,7 @@ class NavigationController extends BaseController
         $this->sectionNavigationRepository = $this->getEm()->getRepository('UnifikSystemBundle:SectionNavigation');
         $this->mappingRepository = $this->getEm()->getRepository('UnifikSystemBundle:Mapping');
         $this->navigationRepository = $this->getEm()->getRepository('UnifikSystemBundle:Navigation');
+        $this->appRepository = $this->getEm()->getRepository('UnifikSystemBundle:App');
     }
 
     /**
@@ -61,7 +69,7 @@ class NavigationController extends BaseController
      *
      * @throws \Exception
      */
-    public function byCodeAction(Request $request, $code, $maxLevel = 10, $exploded = false, $template = '', $attr = array())
+    public function byCodeAction(Request $request, $code, $appId = null, $maxLevel = 10, $exploded = false, $template = '', $excludeHome = false, $attr = array())
     {
         // Cache
         $response = new Response();
@@ -77,14 +85,22 @@ class NavigationController extends BaseController
         }
 
         // Rebuild the cache
-        $app_id = $this->getApp()->getId();
-        $navigation = $this->navigationRepository->findOneByCodeAndApp($code, $app_id);
+        $appId = ($appId === null) ? $this->getApp()->getId() : $appId;
+        $navigation = $this->navigationRepository->findOneByCodeAndApp($code, $appId);
 
         if (false == $navigation) {
             throw new \Exception('Can\'t find a navigation entity using code "' . $code . '"');
         }
 
-        $sections = $this->sectionRepository->findByNavigationAndApp($navigation->getId(), $app_id);
+        $sections = $this->sectionRepository->findByNavigationAndApp($navigation->getId(), $appId);
+        $sections = new ArrayCollection($sections);
+        if ($excludeHome) {
+            foreach ($sections as $section) {
+                if ($section->isHomeSection()) {
+                    $sections->removeElement($section);
+                }
+            }
+        }
 
         $template = ($template ? '_' . $template : '');
 
@@ -172,6 +188,49 @@ class NavigationController extends BaseController
         );
     }
 
+    public function appNavigationAction(Request $request, $template = '', $code = 'primary', $maxLevel = 10, $exploded = false, $exceptIds = array(), $attr = array())
+    {
+        // Cache
+        $response = new Response();
+        $response->setPublic();
+
+        $appLastUpdate = $this->appRepository->findLastUpdate();
+        $sectionLastUpdate = $this->sectionRepository->findLastUpdate();
+        $sectionNavigationLastUpdate = $this->sectionNavigationRepository->findLastUpdate();
+
+        $response->setEtag($appLastUpdate . $sectionLastUpdate . $sectionNavigationLastUpdate);
+
+        if ($response->isNotModified($request)) {
+            return $response;
+        }
+
+        // Rebuild the cache
+        $exceptIds = (!is_array($exceptIds)) ? array($exceptIds) : $exceptIds;
+        $exceptIds = array_merge($exceptIds, [AppRepository::BACKEND_APP_ID, AppRepository::FRONTEND_APP_ID]);
+        $apps = $this->appRepository->findAllForNavigation($code, $exceptIds);
+
+        $template = ($template ? '_' . $template : '');
+
+        $navigationBuilder = $this->get('unifik_system.navigation_builder');
+        $navigationBuilder->setElements($apps);
+        $navigationBuilder->setSelectedElement($this->getCore()->getSection());
+        $navigationBuilder->build();
+
+        $elements = $navigationBuilder->getElements();
+
+        return $this->render(
+            'UnifikSystemBundle:Frontend/Navigation:app_nav' . $template . '.html.twig',
+            array(
+                'code' => 'apps',
+                'sections' => $elements,
+                'maxLevel' => $maxLevel,
+                'currentSection' => $this->getSection(),
+                'attr' => $attr,
+                'exploded' => $exploded
+            ),
+            $response);
+    }
+
     /**
      * Breadcrumbs Action
      *
@@ -198,6 +257,7 @@ class NavigationController extends BaseController
         $elements = $this->get('unifik_system.page_title')->getElements();
 
         $elementPageTitle = null;
+        $elementOverridePageTitle = null;
 
         if (count($elements)) {
             $currentElement = $elements[count($elements) - 1];

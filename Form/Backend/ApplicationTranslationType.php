@@ -9,7 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * MemberType
  */
-class ApplicationType extends AbstractType
+class ApplicationTranslationType extends AbstractType
 {
 
     /**
@@ -22,7 +22,7 @@ class ApplicationType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('prefix', null, array('attr' => array('alt' => 'The prefix is used at the start of every URL of the application')))
+            ->add('slug')
         ;
     }
 
@@ -33,7 +33,7 @@ class ApplicationType extends AbstractType
      */
     public function getName()
     {
-        return 'app';
+        return 'appranslation';
     }
 
     /**
@@ -44,7 +44,7 @@ class ApplicationType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Unifik\SystemBundle\Entity\App'
+            'data_class' => 'Unifik\SystemBundle\Entity\AppTranslation'
         ));
     }
 }

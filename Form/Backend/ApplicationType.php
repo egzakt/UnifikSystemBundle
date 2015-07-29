@@ -21,8 +21,8 @@ class ApplicationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('prefix', null, array('attr' => array('alt' => 'The prefix is used at the start of every URL of the application')))
+            ->add('translation', new ApplicationTranslationType())
+            ->add('code')
         ;
     }
 

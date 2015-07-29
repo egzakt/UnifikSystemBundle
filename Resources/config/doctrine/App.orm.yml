@@ -7,12 +7,7 @@ Unifik\SystemBundle\Entity\App:
       id: true
       generator:
         strategy: AUTO
-    name:
-      type: string
-      length: 255
-      gedmo:
-        - sluggable
-    prefix:
+    code:
       type: string
       nullable: true
     ordering:
