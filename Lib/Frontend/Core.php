@@ -4,6 +4,7 @@ namespace Unifik\SystemBundle\Lib\Frontend;
 
 use Doctrine\Bundle\DoctrineBundle\Registry;
 use Unifik\SystemBundle\Entity\App;
+use Unifik\SystemBundle\Entity\AppRepository;
 use Unifik\SystemBundle\Entity\Section;
 use Unifik\SystemBundle\Lib\ApplicationCoreInterface;
 use Unifik\SystemBundle\Lib\Breadcrumbs;
@@ -101,6 +102,11 @@ class Core implements ApplicationCoreInterface
 
             // If a section has been found
             if ($section = $this->getSection()) {
+                $app = $section->getApp();
+                if ($app->getId() != AppRepository::FRONTEND_APP_ID && $app->getId() != AppRepository::BACKEND_APP_ID && $app->getRoute()) {
+                    $this->addNavigationElement($app);
+                }
+
                 foreach ($section->getParents() as $parent) {
                     $this->addNavigationElement($parent);
                 }
