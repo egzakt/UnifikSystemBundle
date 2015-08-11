@@ -269,7 +269,7 @@ class NavigationController extends BaseController
             }
         }
 
-        return $this->render('UnifikSystemBundle:Backend/Navigation:page_title.html.twig', array(
+        return $this->render('UnifikSystemBundle:Frontend/Navigation:page_title.html.twig', array(
             'element_page_title' => $elementPageTitle,
             'element_override_page_title' => $elementOverridePageTitle,
             'elements' => $elements
