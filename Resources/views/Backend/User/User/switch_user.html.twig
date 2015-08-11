@@ -1,3 +1,12 @@
 {% if is_granted('ROLE_DEVELOPER') and role.role != 'ROLE_DEVELOPER' %}
-    <td class="impersonate"><a href='{{ path('unifik_system_backend_dashboard', { _want_to_be_this_user: user.username }) }}'><img src="{{ asset('bundles/unifiksystem/backend/images/icons/users.gif') }}" width="13" height="12" alt="{% trans %}Impersonate{% endtrans %} {{ user.username }}" title="{% trans %}Impersonate{% endtrans %} {{ user.username }}" /></a></td>
+    {% set route =  false %}
+    {% for role in user.roles %}
+        {% if role.sections|length > 0 and not route %}
+            {% set route = path('unifik_system_backend_switch_managed_app', { _want_to_be_this_user: user.username, appCode: role.sections[0].app.code }) %}
+        {% endif %}
+    {% endfor %}
+    {% if not route %}
+        {% set route =  path('unifik_system_backend_dashboard', { _want_to_be_this_user: user.username }) %}
+    {% endif %}
+    <td class="impersonate"><a href='{{ route }}'><img src="{{ asset('bundles/unifiksystem/backend/images/icons/users.gif') }}" width="13" height="12" alt="{% trans %}Impersonate{% endtrans %} {{ user.username }}" title="{% trans %}Impersonate{% endtrans %} {{ user.username }}" /></a></td>
 {% endif %}

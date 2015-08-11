@@ -57,12 +57,15 @@ class RoleRepository extends BaseEntityRepository
         }
 
         $queryBuilder = $this->createQueryBuilder('r')
-            ->select('r', 'rt', 'u')
+            ->select('r', 'rt', 'u', 's', 'a')
             ->leftJoin('r.translations', 'rt')
             ->leftJoin('r.users', 'u')
+            ->leftJoin('r.sections', 's')
+            ->leftJoin('s.app', 'a')
             ->where('r.role NOT IN (:roles)')
             ->setParameter('roles', $roles)
-            ->orderBy('rt.name');
+            ->orderBy('rt.name')
+            ->addOrderBy('a.ordering', 'ASC');
 
         return $this->processQuery($queryBuilder);
     }

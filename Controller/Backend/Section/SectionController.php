@@ -99,7 +99,6 @@ class SectionController extends BackendController
 
                 // On insert
                 if (false == $id) {
-
                     $sectionModuleBar = $this->navigationRepository->find(NavigationRepository::SECTION_MODULE_BAR_ID);
 
                     $app = $this->getEm()->getRepository('UnifikSystemBundle:App')->findOneByName('backend');
@@ -138,6 +137,12 @@ class SectionController extends BackendController
                     $mapping->setTarget('unifik_system_frontend_text');
 
                     $entity->addMapping($mapping);
+
+                    // Add the section to the roles that give access to its parent
+                    foreach ($section->getRoles() as $role) {
+                        $role->addSection($entity);
+                        $entity->addRole($role);
+                    }
                 }
 
                 $this->getEm()->flush();
