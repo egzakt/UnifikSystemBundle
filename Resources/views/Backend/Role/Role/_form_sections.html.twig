@@ -29,7 +29,7 @@
                 {% set lastApp = false %}
                 {% for key, child in form %}
                     {% if choices[key].data.app and choices[key].data.app.id != lastApp %}
-                        <li><strong>{{ choices[key].data.app }}</strong></li>
+                        <li><strong>{{ choices[key].data.app|trans|replace({'<': ' <'})|striptags }}</strong></li>
                         {% set lastApp = choices[key].data.app.id %}
                     {% endif %}
                     <li>
