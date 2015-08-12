@@ -68,13 +68,17 @@ class AppRepository extends BaseEntityRepository
         $returnQb = $this->getReturnQueryBuilder();
         $this->setReturnQueryBuilder(true);
         $qb = $this->findAllExcept($exceptIds);
-        $qb->select('a, at, s, st, m')
+        $qb->select('a, at, s, st, m, c, ct, cc, cct')
             ->innerJoin('a.translations', 'at')
             ->innerJoin('a.sections', 's')
             ->innerJoin('s.mappings', 'm')
             ->innerJoin('s.translations', 'st')
             ->innerJoin('s.sectionNavigations', 'sn')
             ->innerJoin('sn.navigation', 'n')
+            ->leftJoin('s.children', 'c')
+            ->leftJoin('c.translations', 'ct', 'WITH', 'ct.active = true AND ct.locale = :locale')
+            ->leftJoin('c.children', 'cc')
+            ->leftJoin('cc.translations', 'cct', 'WITH', 'cct.active = true AND cct.locale = :locale')
             ->andWhere('m.app = a.id')
             ->andWhere('n.app = a.id')
             ->andWhere('m.type = :mapType')
