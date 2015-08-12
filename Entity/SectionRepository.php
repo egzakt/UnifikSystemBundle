@@ -221,7 +221,8 @@ class SectionRepository extends BaseEntityRepository
             ->setParameter('locale', $this->getLocale())
             ->setParameter('map_type', 'route')
             ->setParameter('backend_id', AppRepository::BACKEND_APP_ID)
-            ->orderBy('a.ordering', 'ASC');
+            ->orderBy('a.ordering', 'ASC')
+            ->orderBy('s.ordering', 'ASC');
 
         return $this->processQuery($queryBuilder);
     }
