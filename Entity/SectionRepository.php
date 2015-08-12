@@ -103,8 +103,12 @@ class SectionRepository extends BaseEntityRepository
     public function findByNavigationAndApp($navigationId, $appId)
     {
         $queryBuilder = $this->createQueryBuilder('s')
-            ->select('s', 'st')
+            ->select('s', 'st', 'c', 'ct', 'cc', 'cct')
             ->innerJoin('s.sectionNavigations', 'sn')
+            ->leftJoin('s.children', 'c')
+            ->leftJoin('c.translations', 'ct')
+            ->leftJoin('c.children', 'cc')
+            ->leftJoin('cc.translations', 'cct')
             ->where('s.app = :appId')
             ->andWhere('sn.navigation = :navigationId')
             ->orderBy('sn.ordering')
@@ -116,6 +120,10 @@ class SectionRepository extends BaseEntityRepository
             $queryBuilder->innerJoin('s.translations', 'st')
                 ->andWhere('st.active = true')
                 ->andWhere('st.locale = :locale')
+                ->andWhere('c.id IS NULL OR ct.active = true')
+                ->andWhere('c.id IS NULL OR ct.locale = :locale')
+                ->andWhere('cc.id IS NULL OR cct.active = true')
+                ->andWhere('cc.id IS NULL OR cct.locale = :locale')
                 ->setParameter('locale', $this->getLocale());
         }
 
@@ -216,7 +224,7 @@ class SectionRepository extends BaseEntityRepository
             ->where('m.target = :route')
             ->andWhere('m.type = :map_type')
             ->andWhere('a.id != :backend_id')
-            ->andWhere('t.locale != :locale')
+            ->andWhere('t.locale = :locale')
             ->setParameter('route', $route)
             ->setParameter('locale', $this->getLocale())
             ->setParameter('map_type', 'route')
@@ -225,5 +233,33 @@ class SectionRepository extends BaseEntityRepository
             ->orderBy('s.ordering', 'ASC');
 
         return $this->processQuery($queryBuilder);
+    }
+
+    public function findOneWithChildren($section) {
+        $section = (is_object($section)) ? $section->getId() : $section;
+
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->select('s', 'st', 'c', 'ct', 'cc', 'cct')
+            ->innerJoin('s.translations', 'st')
+            ->leftJoin('s.children', 'c')
+            ->leftJoin('c.translations', 'ct')
+            ->leftJoin('c.children', 'cc')
+            ->leftJoin('cc.translations', 'cct')
+            ->where('s.id = :section')
+            ->andWhere('t.locale = :locale')
+            ->andWhere('t.active = true')
+            ->andWhere('c.id IS NULL OR ct.locale = :locale')
+            ->andWhere('c.id IS NULL OR ct.active = true')
+            ->andWhere('cc.id IS NULL OR cct.locale = :locale')
+            ->andWhere('cc.id IS NULL OR cct.active = true')
+            ->setParameter('section', $section)
+            ->setParameter('locale', $this->getLocale())
+            ->orderBy('s.ordering', 'ASC')
+            ->addOrderBy('c.ordering', 'ASC')
+            ->addOrderBy('cc.ordering', 'ASC')
+        ;
+
+        $result = $queryBuilder->getQuery()->getFirstResult();
+        return $result;
     }
 }

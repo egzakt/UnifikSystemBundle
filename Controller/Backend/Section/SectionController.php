@@ -120,15 +120,6 @@ class SectionController extends BackendController
 
                     $entity->addMapping($mapping);
 
-                    $mapping = new Mapping();
-                    $mapping->setSection($entity);
-                    $mapping->setApp($app);
-                    $mapping->setNavigation($sectionModuleBar);
-                    $mapping->setType('render');
-                    $mapping->setTarget('UnifikSystemBundle:Backend/Section/Navigation:SectionModuleBar');
-
-                    $entity->addMapping($mapping);
-
                     // Frontend mapping
                     $mapping = new Mapping();
                     $mapping->setSection($entity);

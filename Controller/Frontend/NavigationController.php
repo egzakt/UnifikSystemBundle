@@ -105,7 +105,7 @@ class NavigationController extends BaseController
         $template = ($template ? '_' . $template : '');
 
         $navigationBuilder = $this->get('unifik_system.navigation_builder');
-        $navigationBuilder->setElements($sections, true);
+        $navigationBuilder->setElements($sections, true, $maxLevel);
         $navigationBuilder->setSelectedElement($this->getCore()->getSection());
         $navigationBuilder->build();
 
@@ -153,7 +153,7 @@ class NavigationController extends BaseController
 
         // Rebuild the cache
         if (is_numeric($section)) {
-            $section = $this->sectionRepository->find($section);
+            $section = $this->sectionRepository->findOneWithChildren($section);
         }
 
         $elements = [];
@@ -169,7 +169,7 @@ class NavigationController extends BaseController
         $template = ($template ? '_' . $template : '');
 
         $navigationBuilder = $this->get('unifik_system.navigation_builder');
-        $navigationBuilder->setElements($elements, true);
+        $navigationBuilder->setElements($elements, true, $maxLevel);
         $navigationBuilder->setSelectedElement($this->getCore()->getSection());
         $navigationBuilder->build();
 
