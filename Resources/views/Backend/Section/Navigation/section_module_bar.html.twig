@@ -1,7 +1,7 @@
 {% if is_granted('ROLE_BACKEND_ADMIN') %}
     <li>
         <a class="text{% if selected %} selected{% endif %}" href="{{ path('unifik_system_backend_section') }}">
-            {% trans %}Sections{% endtrans %}
+            {% trans %}Subsections{% endtrans %}
         </a>
     </li>
 {% endif %}
