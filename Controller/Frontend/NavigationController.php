@@ -207,6 +207,7 @@ class NavigationController extends BaseController
         // Rebuild the cache
         $exceptIds = (!is_array($exceptIds)) ? array($exceptIds) : $exceptIds;
         $exceptIds = array_merge($exceptIds, [AppRepository::BACKEND_APP_ID, AppRepository::FRONTEND_APP_ID]);
+        $this->getEm()->getUnitOfWork()->detach($this->getApp());
         $apps = $this->appRepository->findAllForNavigation($code, $exceptIds);
 
         $template = ($template ? '_' . $template : '');
