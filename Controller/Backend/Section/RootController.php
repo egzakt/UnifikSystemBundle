@@ -212,8 +212,8 @@ class RootController extends BackendController
             $elements = explode(';', trim($this->getRequest()->request->get('elements'), ';'));
 
             // Get the navigation id
-            preg_match('/_(.)*-/', $elements[0], $matches);
-            $navigationId = $matches[1];
+            $matches = explode('-', preg_replace('/(.)*_/', '', $elements[0]));
+            $navigationId = $matches[0];
 
             foreach ($elements as $element) {
 
