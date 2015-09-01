@@ -181,6 +181,7 @@ class NavigationController extends BaseController
                 'sections' => $elements,
                 'maxLevel' => $maxLevel,
                 'currentSection' => $this->getSection(),
+                'parentSection' => $section,
                 'attr' => $attr,
                 'exploded' => $exploded
             ),
