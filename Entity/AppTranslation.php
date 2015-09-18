@@ -86,4 +86,14 @@ class AppTranslation
         return array('name');
     }
 
+    /**
+     * Determines whether the slug gets regenerated on sluggable fields update or not
+     *
+     * @return bool
+     */
+    public function getRegenerateOnUpdate()
+    {
+        return false;
+    }
+
 }
