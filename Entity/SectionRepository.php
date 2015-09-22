@@ -215,15 +215,16 @@ class SectionRepository extends BaseEntityRepository
         }
     }
 
-    public function findByRoute($route) {
+    public function findByRoute($route, $app = null) {
         $queryBuilder = $this->createQueryBuilder('s')
             ->select('s', 'a', 't')
             ->innerJoin('s.app', 'a')
             ->innerJoin('s.translations', 't')
             ->innerJoin('s.mappings', 'm')
+            ->innerJoin('m.app', 'ma')
             ->where('m.target = :route')
             ->andWhere('m.type = :map_type')
-            ->andWhere('a.id != :backend_id')
+            ->andWhere('ma.id != :backend_id')
             ->andWhere('t.locale = :locale')
             ->setParameter('route', $route)
             ->setParameter('locale', $this->getLocale())
@@ -231,6 +232,11 @@ class SectionRepository extends BaseEntityRepository
             ->setParameter('backend_id', AppRepository::BACKEND_APP_ID)
             ->orderBy('a.ordering', 'ASC')
             ->orderBy('s.ordering', 'ASC');
+
+        if ($app != null) {
+            $queryBuilder->andWhere('ma.id = :app_id')
+                ->setParameter('app_id', (is_object($app) ? $app->getId(): $app ));
+        }
 
         return $this->processQuery($queryBuilder);
     }
