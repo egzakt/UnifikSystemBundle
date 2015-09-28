@@ -104,7 +104,7 @@ class RoleController extends BackendController
             if ($form->isValid()) {
 
                 // Set a Rolename for this Role
-                if (!in_array($entity->getRole(), $this->rolesAdmin)) {
+                if (!$entity->getId() && !in_array($entity->getRole(), $this->rolesAdmin)) {
                     $roleName = 'ROLE_BACKEND_' . strtoupper(preg_replace('/[^A-Za-z0-9]/', '', $entity->getName()));
                     $entity->setRole($roleName);
                 }
