@@ -67,6 +67,11 @@ class Section extends BaseEntity
     private $mappings;
 
     /**
+     * @var boolean
+     */
+    private $appActAsParent = false;
+
+    /**
      * Construct
      *
      */
@@ -186,7 +191,29 @@ class Section extends BaseEntity
      */
     public function getParent()
     {
-        return $this->parent;
+        if ($this->parent || !$this->appActAsParent)
+            return $this->parent;
+
+        // Pour la navig "byApp"...
+        if ($this->appActAsParent) {
+            return $this->app;
+        }
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getAppActAsParent()
+    {
+        return $this->appActAsParent;
+    }
+
+    /**
+     * @param boolean $appActAsParent
+     */
+    public function setAppActAsParent($appActAsParent)
+    {
+        $this->appActAsParent = $appActAsParent;
     }
 
     /**

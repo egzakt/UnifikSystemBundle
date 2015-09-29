@@ -59,7 +59,7 @@ class NavigationBuilder
      *
      * @return array
      */
-    private function buildLevel($elements, $parent = null, $level = 1)
+    private function buildLevel($elements, $level = 1)
     {
         foreach ($elements as $key => $element) {
 
@@ -67,8 +67,8 @@ class NavigationBuilder
                 throw new \Exception(get_class($element) . ' need to implement the NavigationItemInterface to be usable in the ' . get_class($this));
             }
 
-            if (!$element->getParent()) {
-                $element->setParent($parent);
+            if (method_exists($element, 'setAppActAsParent')) {
+                $element->setAppActAsParent(true);
             }
 
             $element->setSelected(get_class($element->getEntity()) == get_class($this->selectedElement) && $element->getEntity()->getId() == $this->selectedElement->getId());
@@ -94,8 +94,12 @@ class NavigationBuilder
             if (!$this->maxLevel || $level < $this->maxLevel) {
                 // This element have some children, we start the same process on the children collection
                 if ($element->hasChildren()) {
-                    $this->buildLevel($element->getChildren(), $element, ($level + 1));
+                    $this->buildLevel($element->getChildren(), ($level + 1));
                 }
+            }
+
+            if (method_exists($element, 'setAppActAsParent')) {
+                $element->setAppActAsParent(false);
             }
 
         }
