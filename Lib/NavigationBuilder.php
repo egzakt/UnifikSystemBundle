@@ -76,6 +76,7 @@ class NavigationBuilder
             // TODO Remplacer le 1 par le ID de la section 'Accueil'
             if (get_class($element->getEntity()) == 'Unifik\Backend\SectionBundle\Entity\Section' && $element->getEntity()->getId() == 1 && $element->isSelected() && ($this->container->get('unifik_system.core')->getCurrentAppName() != 'backend')) {
                 unset($elements[$key]);
+                $element->setAppActAsParent(false);
                 continue;
             }
 
