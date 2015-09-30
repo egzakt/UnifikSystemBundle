@@ -247,6 +247,7 @@ services:
         tags:
           - { name: 'twig.extension' }
         calls:
+          - [ setRequest, [ @?request= ] ]
           - [ setDoctrine, [ @doctrine ] ]
           - [ setAutoParametersHandler, [ @unifik_system.router_auto_parameters_handler ] ]
           - [ setRouter, [ @router ] ]

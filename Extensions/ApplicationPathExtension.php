@@ -45,6 +45,11 @@ class ApplicationPathExtension extends \Twig_Extension {
     private $autoParametersHandler;
 
     /**
+     * @var Request
+     */
+    private $request;
+
+    /**
      * Init Runtime
      *
      * @param Twig_Environment $environment
@@ -59,11 +64,8 @@ class ApplicationPathExtension extends \Twig_Extension {
             $this->mappingRepository = $this->doctrine->getManager()->getRepository('UnifikSystemBundle:Mapping');
         $app_id = ($app_id ? $app_id: $this->systemCore->getApplicationCore()->getApp()->getId());
         $mapping = false;
-        $mappings = $this->mappingRepository->findBy(array(
-            'app'=>$app_id,
-            'type'=>'route',
-            'target'=>$route_name,
-        ), array('ordering'=>'ASC'), 1);
+        $locale = $this->request->getLocale();
+        $mappings = $this->mappingRepository->findRoute($route_name, $locale, $app_id);
 
         // findBy au lieu de findOneBy, au cas où 2+
         if (count($mappings) > 0)
@@ -78,7 +80,7 @@ class ApplicationPathExtension extends \Twig_Extension {
                         $real_name = preg_replace('/^[aA-zZ]{2}__[A-Z]{2}__/', '', $defaults['_unifikRequest']['mappedRouteName']);
 
                         // On a trouvé la bonne route
-                        if ($real_name == $route_name && $defaults['_unifikRequest']['sectionId'] == $mapping->getSection()->getId())
+                        if ($real_name == $route_name && $defaults['_unifikRequest']['sectionId'] == $mapping->getSection()->getId() && $mapping->getSection()->getActive())
                             return preg_replace('/^[aA-zZ]{2}__[A-Z]{2}__/', '', $name);
                     }
                 }
@@ -169,5 +171,13 @@ class ApplicationPathExtension extends \Twig_Extension {
     public function setAutoParametersHandler($autoParametersHandler)
     {
         $this->autoParametersHandler = $autoParametersHandler;
+    }
+
+    /**
+     * @param Request $request
+     */
+    public function setRequest($request)
+    {
+        $this->request = $request;
     }
 }

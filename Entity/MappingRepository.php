@@ -12,4 +12,27 @@ use Unifik\SystemBundle\Lib\BaseEntityRepository;
  */
 class MappingRepository extends BaseEntityRepository
 {
+    public function findRoute($route, $locale, $app_id = null) {
+        $queryBuilder = $this->createQueryBuilder('m')
+            ->select('m', 's', 'st', 'a')
+            ->innerJoin('m.app', 'a')
+            ->innerJoin('m.section', 's')
+            ->innerJoin('s.translations', 'st')
+            ->andWhere('m.type = :type_route')
+            ->andWhere('m.target = :route')
+            ->andWhere('st.locale = :locale')
+            ->andWhere('st.active = true')
+            ->setParameter('type_route', 'route')
+            ->setParameter('route', $route)
+            ->setParameter('locale', $locale)
+            ->addOrderBy('m.ordering', 'ASC')
+            ;
+        if ($app_id) {
+            $queryBuilder->andWhere('a.id = :app_id')
+                ->setParameter('app_id', $app_id)
+                ;
+        }
+
+        return $this->processQuery($queryBuilder);
+    }
 }

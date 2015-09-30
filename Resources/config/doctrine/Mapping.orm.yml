@@ -1,5 +1,6 @@
 Unifik\SystemBundle\Entity\Mapping:
   type: entity
+  repositoryClass: Unifik\SystemBundle\Entity\MappingRepository
   fields:
     id:
       type: integer
