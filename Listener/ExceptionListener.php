@@ -119,7 +119,7 @@ class ExceptionListener
         $unifikRequest = array(
             'sectionId' => $section->getId(),
             'appId' => 2, // Frontend
-            'appCode' => '',
+            'appCode' => 'frontend',
             'appName' => 'Frontend',
             'appSlug' => '',
         );
