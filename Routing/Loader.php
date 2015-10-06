@@ -375,7 +375,7 @@ class Loader extends BaseLoader
             INNER JOIN section s ON s.id = m.section_id
             INNER JOIN section_translation st ON st.translatable_id = s.id
             INNER JOIN app a ON a.id = s.app_id
-            INNER JOIN app_translation at ON at.translatable_id = a.id
+            INNER JOIN app_translation at ON at.translatable_id = a.id AND at.locale = st.locale
             WHERE m.app_id <> 1
             AND s.app_id <> 1
             AND m.type = "route"
