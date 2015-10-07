@@ -226,6 +226,7 @@ class SectionRepository extends BaseEntityRepository
             ->andWhere('m.type = :map_type')
             ->andWhere('ma.id != :backend_id')
             ->andWhere('t.locale = :locale')
+            ->andWhere('t.active = true')
             ->setParameter('route', $route)
             ->setParameter('locale', $this->getLocale())
             ->setParameter('map_type', 'route')
