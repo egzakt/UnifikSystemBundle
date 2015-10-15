@@ -12,6 +12,7 @@
         {% block edit_actions %}
             {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
                 'delete_route': path('unifik_system_backend_section_root_delete', { 'id': entity.id ?: 0, appCode: managedApp.code }),
+                'delete_message_route': path('unifik_system_backend_section_root_delete', { 'id': entity.id ?: 0, appCode: managedApp.code, message: true }),
                 'cancel_route': path('unifik_system_backend_section_root', { appCode: managedApp.code }),
             } %}
         {% endblock %}
