@@ -224,6 +224,12 @@ class NavigationController extends BaseController
 
         $elements = $navigationBuilder->getElements();
 
+        foreach ($elements as $ele) {
+            if ($ele->getEntity()->getId() == $this->getCore()->getSection()->getApp()->getId()) {
+                $ele->setSelected(true);
+            }
+        }
+
         return $this->render(
             'UnifikSystemBundle:Frontend/Navigation:app_nav' . $template . '.html.twig',
             array(

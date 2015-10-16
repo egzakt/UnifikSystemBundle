@@ -107,11 +107,6 @@ class Loader extends BaseLoader
         $trailingRoutesOrdering = 1000;
 
         foreach ($collection->all() as $name => $route) {
-
-            if ($route->getOption('do_not_remove') || $route->getOption('force_mapping')) {
-                continue;
-            }
-
             // Remove the trailing routes and keep it in an array to place it back at the end of the Router
             if ($route->getOption('trailing_route')) {
                 if (!$ordering = $route->getOption('ordering')) {
@@ -121,6 +116,10 @@ class Loader extends BaseLoader
 
                 $this->trailingRoutes[$ordering] = ['name' => $name, 'route' => $route];
                 $collection->remove($name);
+            }
+
+            if ($route->getOption('do_not_remove') || $route->getOption('force_mapping')) {
+                continue;
             }
 
             if (preg_match('/' . static::ROUTING_PREFIX . 'unifik_|_' . implode('_|_', $appCodes) .'_/', $name) && strpos($name, '_backend_') === false) {
