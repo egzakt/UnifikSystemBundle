@@ -120,7 +120,7 @@ class ExceptionListener
             'appId' => 2, // Frontend
             'appPrefix' => '',
             'appName' => 'Frontend',
-            'appSlug' => '',
+            'appSlug' => 'frontend',
         );
 
         return $unifikRequest;
