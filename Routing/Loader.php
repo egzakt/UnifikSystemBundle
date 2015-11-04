@@ -242,6 +242,8 @@ class Loader extends BaseLoader
         }
 
         $expandedPath = preg_replace('/{(sectionsPath)}/', $sectionsPath, $route->getPath());
+        $expandedPath = str_replace('//', '/', $expandedPath);
+
         $route->setPath($expandedPath);
 
         // additionals parameters
