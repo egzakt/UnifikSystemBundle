@@ -4569,3 +4569,12 @@ ul.dynatree-container {
 #media_pager.simple-pagination ul {
     margin: 0 auto;
 }
+
+.ui-draggable-dragging {
+    z-index: 9999;
+    min-width: 400px;
+}
+
+.ui-draggable-dragging td {
+    padding: 8px;
+}
