@@ -4505,3 +4505,67 @@ ul.dynatree-container {
 #media_search_modal_container {
     display: none;
 }
+
+#media_list .scroll {
+    max-height: 549px;
+    overflow-y: auto;
+}
+
+#media_list .scroll table {
+    margin-bottom: 0;
+}
+
+#media_list .panel {
+    padding: 10px;
+}
+
+#media_list .panel h5.subtitle {
+    margin-top: 10px;
+}
+
+#media_left_col ul.dynatree-container {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.media_pager_wrapper {
+    margin-top: 1px;
+    text-align: center;
+    padding-bottom: 4px !important;
+}
+
+#media_pager {
+    padding: 0;
+    display: inline-block;
+}
+
+#media_pager.light-theme span,
+#media_pager.light-theme a {
+    border: 1px solid #ddd;
+    padding: 6px 12px;
+    margin-right: 5px;
+    cursor: pointer;
+    color: #636E7B;
+    line-height: 21px;
+    float: left;
+    position: relative;
+    background: #fff;
+    display: inline-block;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+}
+
+#media_pager.light-theme .current {
+    background-color: #428BCA;
+    border-color: #357EBD;
+    color: #fff;
+}
+
+#media_pager.simple-pagination ul {
+    margin: 0 auto;
+}
