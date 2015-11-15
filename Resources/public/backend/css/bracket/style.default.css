@@ -4499,9 +4499,15 @@ ul.dynatree-container {
 }
 
 #media_details_image,
-#media_details_document {
+#media_details_document,
+#media_details_iframe {
     margin: 10px 0;
     text-align: center;
+}
+
+#media_select_modal {
+    width: 100% !important;
+    min-height: 580px !important;
 }
 
 #media_select_modal_container,
@@ -4529,13 +4535,17 @@ ul.dynatree-container {
     margin-top: 10px;
 }
 
-#media_left_col ul.dynatree-container {
+ul.dynatree-container {
     margin-bottom: 20px;
     background-color: #fff;
-    border: 1px solid transparent;
+    border: 1px solid transparent !important;
     border-radius: 4px;
     -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
     box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+#association_nav {
+    padding-top: 10px;
 }
 
 .media_pager_wrapper {
@@ -4607,6 +4617,7 @@ ul.dynatree-container {
     min-height: 150px;
     padding: 54px 54px;
     margin: 0 0 20px 0;
+    font-family: 'LatoRegular', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
 }
 
 #dropzone .dropzone-message {
@@ -4614,11 +4625,13 @@ ul.dynatree-container {
     text-align: center;
     margin: 2em 0;
     cursor: pointer;
-    font-size: 1.5em;
-    line-height: 1.2em;
+    font-size: 19px;
+    line-height: 22px;
+    color: #636e7b;
 }
 
-.fileupload-buttons .ui-state-default {
+.fileupload-buttons .ui-state-default,
+.ui-dialog-content .fileinput-button {
     -moz-border-radius: 3px !important;
     -webkit-border-radius: 3px !important;
     border-radius: 3px !important;
@@ -4633,12 +4646,14 @@ ul.dynatree-container {
     font-weight: normal !important;
 }
 
-.fileupload-buttons .ui-state-default:hover {
+.fileupload-buttons .ui-state-default:hover,
+.ui-dialog-content .fileinput-button:hover {
     background-color: #3276b1 !important;
     border-color: #285e8e !important;
 }
 
-.fileupload-buttons .ui-button-text-icon-primary .ui-button-text {
+.fileupload-buttons .ui-button-text-icon-primary .ui-button-text,
+.ui-dialog-content .fileinput-button {
     padding: 0;
     font-family: 'LatoRegular', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
     font-size: 0.9em;
@@ -4651,6 +4666,9 @@ ul.dynatree-container {
 
 .fileupload-progress {
     margin-top: 15px;
+    font-size: 14px;
+    line-height: 21px;
+    color: #636e7b;
 }
 
 #upload_body table {
@@ -4664,4 +4682,40 @@ ul.dynatree-container {
 #upload_body table td span.preview {
     display: block;
     padding: 10px 0;
+}
+
+.ui-progressbar-value {
+    background: #ddd url(/bundles/unifiksystem/backend/css/ui-flick/images/ui-bg_highlight-soft_50_dddddd_1x100.png) 50% 50% repeat-x !important;
+    height: 100% !important;
+}
+
+.ui-widget button {
+    font-size: 14px !important;
+    font-family: 'LatoRegular', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
+}
+
+#add_embed_link {
+    font-size: 12px !important;
+}
+
+#upload_body {
+    font-family: 'LatoRegular', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
+    font-size: 14px;
+    line-height: 21px;
+    color: #636e7b;
+}
+
+.ui-widget {
+    font-family: 'LatoRegular', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
+    font-size: 14px !important;
+    line-height: 21px;
+    color: #636e7b !important;
+}
+
+.ui-widget input {
+    font-size: 13px !important;
+}
+
+.ui-widget-content {
+    color: #636e7b !important;
 }
