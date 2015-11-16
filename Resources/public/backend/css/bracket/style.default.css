@@ -4630,8 +4630,8 @@ ul.dynatree-container {
     color: #636e7b;
 }
 
-.fileupload-buttons .ui-state-default,
-.ui-dialog-content .fileinput-button {
+.media-bundle .fileupload-buttons .ui-state-default,
+.media-bundle .ui-dialog-content .fileinput-button {
     -moz-border-radius: 3px !important;
     -webkit-border-radius: 3px !important;
     border-radius: 3px !important;
@@ -4646,21 +4646,21 @@ ul.dynatree-container {
     font-weight: normal !important;
 }
 
-.fileupload-buttons .ui-state-default:hover,
-.ui-dialog-content .fileinput-button:hover {
+.media-bundle .fileupload-buttons .ui-state-default:hover,
+.media-bundle .ui-dialog-content .fileinput-button:hover {
     background-color: #3276b1 !important;
     border-color: #285e8e !important;
 }
 
-.fileupload-buttons .ui-button-text-icon-primary .ui-button-text,
-.ui-dialog-content .fileinput-button {
+.media-bundle .fileupload-buttons .ui-button-text-icon-primary .ui-button-text,
+.media-bundle .ui-dialog-content .fileinput-button {
     padding: 0;
     font-family: 'LatoRegular', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
     font-size: 0.9em;
     line-height: 1.1em;
 }
 
-.fileupload-buttons .ui-state-default .ui-icon {
+.media-bundle .fileupload-buttons .ui-state-default .ui-icon {
     display: none;
 }
 
@@ -4684,12 +4684,12 @@ ul.dynatree-container {
     padding: 10px 0;
 }
 
-.ui-progressbar-value {
+.media-bundle .ui-progressbar-value {
     background: #ddd url(/bundles/unifiksystem/backend/css/ui-flick/images/ui-bg_highlight-soft_50_dddddd_1x100.png) 50% 50% repeat-x !important;
     height: 100% !important;
 }
 
-.ui-widget button {
+.media-bundle .ui-widget button {
     font-size: 14px !important;
     font-family: 'LatoRegular', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
 }
@@ -4705,17 +4705,17 @@ ul.dynatree-container {
     color: #636e7b;
 }
 
-.ui-widget {
+.media-bundle .ui-widget {
     font-family: 'LatoRegular', 'Lucida Grande', 'Lucida Sans Unicode', Helvetica, sans-serif !important;
     font-size: 14px !important;
     line-height: 21px;
     color: #636e7b !important;
 }
 
-.ui-widget input {
+.media-bundle .ui-widget input {
     font-size: 13px !important;
 }
 
-.ui-widget-content {
+.media-bundle .ui-widget-content {
     color: #636e7b !important;
 }
