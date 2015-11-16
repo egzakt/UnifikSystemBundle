@@ -1,5 +1,5 @@
-<li>
-    <a class="text{{ "{% if selected %}" }} selected{{ "{% endif %}" }}" href="{{ '{{ path(' }}'{{ route_prefix }}'{{ ') }}' }}">
-        {{ "{% trans %}" }}{{ entity }}s{{ "{% endtrans %}" }}
+<li{{ "{% if selected %}" }} class="active"{{ "{% endif %}" }}>
+    <a class="text" href="{{ '{{ path(' }}'{{ route_prefix }}'{{ ') }}' }}">
+        <strong><i class="fa fa-cog mr5"></i> {{ "{% trans %}" }}{{ entity }}s{{ "{% endtrans %}" }}</strong>
     </a>
 </li>

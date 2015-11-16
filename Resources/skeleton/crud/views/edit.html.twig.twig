@@ -1,91 +1,87 @@
 {{ "{% extends '" ~ bundle_name ~ ":" ~ application ~ ":layout.html.twig' %}" }}
-{{ "{% form_theme form 'UnifikSystemBundle:" ~ application ~ "/Core:edit_fields.html.twig' %}" }}
-
-{{ '{% block content_header %}' }}
-    <h1>{{ "{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': " ~ twig_entity_var ~ " } %}" }}</h1>
-{{ '{% endblock %}' }}
+{{ "{% form_theme form 'UnifikSystemBundle:" ~ application ~ "/Core:bootstrap_edit_fields.html.twig' %}" }}
 
 {{ '{% block content_main %}' }}
+    <div class="row">
+        <form novalidate="novalidate" method="post" {{ "{{ form_enctype(form) }}" }}>
+            <div class="col-md-8">
+                <div class="panel panel-dark">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{{ "{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': " ~ twig_entity_var ~ " } %}" }}</h3>
+                    </div>
+                    <div class="panel-body">
 
-    {{ "{{ form_start(form) }}" }}
+                        {{ "{{ form_errors(form) }}" }}
 
-        {{ "{% block edit_actions %}" }}
-            {{ "{% include 'UnifikSystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
-                'entity': " ~ twig_entity_var ~ ",
-                'delete_route': path('" ~ route_prefix ~ "_delete', { " ~ entity_var ~ "Id: " ~ twig_entity_var ~ ".id ?: 0 }),
-                'cancel_route': path('" ~ route_prefix ~ "')
-            } %}" }}
-        {{ "{% endblock %}" }}
+                        {% if 'active' in fields|keys %}
 
-        <div id="fields_box">
+                            {{ '{{ form_row(form.active) }}' }}
+                        {% elseif 'active' in translation_fields|keys %}
 
-            {{ "{{ form_errors(form) }}" }}
+                            {{ '{{ form_row(form.translation.active) }}' }}
+                        {%- endif -%}
 
-            <table class="fields" cellspacing="0">
-            {% if 'active' in fields|keys %}
+                        {%- if 'name' in fields|keys %}
 
-                {{ '{{ form_row(form.active) }}' }}
-            {% elseif 'active' in translation_fields|keys %}
+                            {{ '{{ form_row(form.name) }}' }}
+                        {% elseif 'name' in translation_fields|keys %}
 
-                {{ '{{ form_row(form.translation.active) }}' }}
-            {%- endif -%}
+                            {{ '{{ form_row(form.translation.name) }}' }}
+                        {% endif %}
 
-            {%- if 'name' in fields|keys %}
+                        {%- if 'slug' in fields|keys %}
 
-                {{ '{{ form_row(form.name) }}' }}
-            {% elseif 'name' in translation_fields|keys %}
+                            {{ "{% include 'UnifikSystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
+                            'link_name': 'SEO Informations',
+                            'fields': [form_row(form.slug)],
+                            'id': 'slug'
+                            } %}" }}
+                        {%- endif -%}
 
-                {{ '{{ form_row(form.translation.name) }}' }}
-            {% endif %}
+                        {%- if 'slug' in translation_fields|keys %}
 
-            {%- if 'slug' in fields|keys %}
+                            {{ "{% include 'UnifikSystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
+                            'link_name': 'SEO Informations',
+                            'fields': [form_row(form.translation.slug)],
+                            'id': 'slug'
+                            } %}" }}
+                        {%- endif -%}
 
-                {{ "{% include 'UnifikSystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
-                'link_name': 'SEO Informations',
-                'fields': [form_row(form.slug)]
-                } %}" }}
-            {%- endif -%}
+                        {%- for field in fields -%}
+                            {%- if field.fieldName not in ['id', 'active', 'slug', 'name', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
 
-            {%- if 'slug' in translation_fields|keys %}
+                            {{ '{{ form_row(form.' ~ field.fieldName ~ ') }}' }}
+                            {%- endif -%}
+                        {%- endfor -%}
+                        {%- for field in translation_fields -%}
+                            {%- if field.fieldName not in ['id', 'active', 'slug', 'name', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
 
-                {{ "{% include 'UnifikSystemBundle:" ~ application ~ "/Core:collapsable_fields.html.twig' with {
-                'link_name': 'SEO Informations',
-                'fields': [form_row(form.translation.slug)]
-                } %}" }}
-            {%- endif -%}
+                            {{ '{{ form_row(form.translation.' ~ field.fieldName ~ ') }}' }}
+                            {%- endif -%}
+                        {%- endfor %}
 
-            {%- for field in fields -%}
-                {%- if field.fieldName not in ['id', 'active', 'slug', 'name', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
+                        {{ "{{ form_rest(form) }}" }}
+                        {% if 'updatedAt' in fields|keys -%}
+                        {{ "{% if " ~ twig_entity_var ~ ".id %}" }}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{{ '{% trans %}Last update{% endtrans %}' }}</label>
+                                <div class="col-sm-10">
+                                    {{ "{{ " ~ twig_entity_var ~ ".updatedAt|localizeddate('medium') }}" }}
+                                </div>
+                            </div>
+                        {{ "{% endif %}" }}
+                        {%- endif %}
+                    </div><!-- panel-body -->
 
-                {{ '{{ form_row(form.' ~ field.fieldName ~ ') }}' }}
-                {%- endif -%}
-            {%- endfor -%}
-            {%- for field in translation_fields -%}
-                {%- if field.fieldName not in ['id', 'active', 'slug', 'name', 'updatedAt', 'createdAt', 'ordering', 'locale'] %}
-
-                {{ '{{ form_row(form.translation.' ~ field.fieldName ~ ') }}' }}
-                {%- endif -%}
-            {%- endfor %}
-
-                {{ "{{ form_rest(form) }}" }}
-                {% if 'updatedAt' in fields|keys -%}
-                {{ "{% if " ~ twig_entity_var ~ ".id %}" }}
-                    <tr>
-                        <th>
-                            {{ '{% trans %}Last update{% endtrans %}' }} :
-                        </th>
-                        <td style="vertical-align:bottom">
-                            {{ "{{ " ~ twig_entity_var ~ ".updatedAt|localizeddate('medium') }}" }}
-                        </td>
-                    </tr>
-                {{ "{% endif %}" }}
-                {%- endif %}
-
-            </table>
-        </div>
-
-        {{ "{{  block('edit_actions') }}" }}
-
-    {{ "{{ form_end(form) }}" }}
-
+                    {{ "{% block edit_actions %}" }}
+                        {{ "{% include 'UnifikSystemBundle:" ~ application ~ "/Core:edit_actions.html.twig' with {
+                            'entity': " ~ twig_entity_var ~ ",
+                            'delete_route': path('" ~ route_prefix ~ "_delete', { " ~ entity_var ~ "Id: " ~ twig_entity_var ~ ".id ?: 0 }),
+                            'cancel_route': path('" ~ route_prefix ~ "')
+                        } %}" }}
+                    {{ "{% endblock %}" }}
+                </div>
+            </div>
+        </form>
+    </div>
 {{ '{% endblock content_main %}' }}

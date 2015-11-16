@@ -2,10 +2,6 @@
 
 {%- set hidden_fields = ['id', 'locale', 'active', 'featured', 'createdAt'] %}
 
-{{ '{% block content_header %}' }}
-    <h1>{{ "{% trans %}"}}{{ entity }}{{ "s List{% endtrans %}" }}</h1>
-{{ '{% endblock %}' }}
-
 {{ '{% block content_main %}' }}
 
 {% if 'ordering' in fields|keys %}
@@ -14,129 +10,127 @@
     </script>
 
 {% endif %}
-    <div id="list_actions_bar">
-       <a class="add" href="{{ "{{ path('" ~ route_prefix ~ "_edit') }}" }}">{{ "{% trans %}Add a "}}{{ entity }}{{ "{% endtrans %}" }}</a>
-    </div>
 
-    <div class="list_box">
-        <table cellspacing="0" class="table-autosort">
-            <thead>
-                <tr>
-                {%- for field, metadata in fields if field not in hidden_fields -%}
-                    {% set css_class = "" %}
+    <div class="list-box panel panel-dark" style="margin-top: 10px;">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{ "{% trans %}"}}{{ entity }}{{ "s List{% endtrans %}" }} <a class="btn btn-primary btn-xs ml20" href="{{ "{{ path('" ~ route_prefix ~ "_edit') }}" }}"><i class="fa fa-plus-square mr5"></i> {{ "{% trans %}Add a "}}{{ entity }}{{ "{% endtrans %}" }}</a></h3>
+        </div>
+        <div class="panel-body panel-body-dark">
+            <table class="table-autosort table table-striped">
+                <thead>
+                    <tr>
+                    {%- for field, metadata in fields if field not in hidden_fields -%}
+                        {% set css_class = "" %}
 
-                    {%- if loop.first -%}
-                    {% set css_class = "name" %}
-                    {%- endif -%}
+                        {%- if loop.first -%}
+                        {% set css_class = "name" %}
+                        {%- endif -%}
 
-                    {%- if field == 'ordering' -%}
-                    {% set css_class = "default_ordering  table-sortable:numeric" %}
-                    {%- endif -%}
+                        {%- if field == 'ordering' -%}
+                        {% set css_class = "default_ordering  table-sortable:numeric" %}
+                        {%- endif -%}
 
-                    {%- if metadata.type == 'boolean' -%}
-                    {% set css_class = css_class ~ " centered" %}
-                    {%- endif -%}
+                        {%- if metadata.type == 'boolean' -%}
+                        {% set css_class = css_class ~ " centered" %}
+                        {%- endif -%}
 
-                    {%- if metadata.type in ['date', 'datetime'] -%}
-                    {% set css_class = css_class ~ " table-sortable:date" %}
-                    {%- elseif metadata.type == 'string' -%}
-                    {% set css_class = css_class ~ " table-sortable:ignorecase" %}
-                    {%- endif %}
-
-                    <th{% if css_class != '' %} class="{{ css_class }}"{% endif %}>
-                        {% if metadata.type in ['date', 'datetime'] -%}
-                            {{ '{% trans %}' }}{{ field|replace({'_at': ''})|capitalize }}{{ '{% endtrans %}' }}
-                        {%- else -%}
-                            {{ '{% trans %}' }}{{ field|capitalize }}{{ '{% endtrans %}' }}
+                        {%- if metadata.type in ['date', 'datetime'] -%}
+                        {% set css_class = css_class ~ " table-sortable:date" %}
+                        {%- elseif metadata.type == 'string' -%}
+                        {% set css_class = css_class ~ " table-sortable:ignorecase" %}
                         {%- endif %}
 
-                    </th>
-                {%- endfor %}
+                        <th{% if css_class != '' %} class="{{ css_class }}"{% endif %}>
+                            {% if metadata.type in ['date', 'datetime'] -%}
+                                {{ '{% trans %}' }}{{ field|replace({'_at': ''})|capitalize }}{{ '{% endtrans %}' }}
+                            {%- else -%}
+                                {{ '{% trans %}' }}{{ field|capitalize }}{{ '{% endtrans %}' }}
+                            {%- endif %}
 
-                    {% if 'ordering' in fields|keys -%}
-                    <th colspan="2" class="switch_list_mode">
-                    <a href="#"><img src="{{ '{{ asset("bundles/unifiksystem/backend/images/buttons/switch_list_mode_off.gif") }}' }}" width="20" height="20" alt="" /></a>
-                    </th>
-                    {%- else -%}
-                    <th class="edit"></th>
-                    <th class="delete"></th>
-                    {% endif %}
+                        </th>
+                    {%- endfor %}
 
-                </tr>
-                <tr class="filters">
-                    {% for field, metadata in fields if field not in hidden_fields -%}
-                    <th{% if loop.first %} class="name"{% elseif(field == 'ordering') %} class="default_ordering"{% endif %}>
-                        {% if metadata.type == 'string' -%}
-                        <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ '{{ "Search a ' }}{{ field }}{{ '"|trans }}' }}" />
+                        {% if 'ordering' in fields|keys -%}
+                        <th colspan="2" class="switch_list_mode">
+                            <a href="#" data-toggle="tooltip" data-placement="left" class="tooltips"><img src="{{ '{{ asset("bundles/unifiksystem/backend/images/buttons/switch_list_mode_off.gif") }}' }}" width="20" height="20" alt="" /></a>
+                        </th>
                         {%- else -%}
-                        &nbsp;
-                        {%- endif %}
-
-                    </th>
-                    {% endfor -%}
-                    <th>&nbsp;</th>
-                    <th>&nbsp;</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{ '{% for ' ~ twig_entity_var ~ ' in ' ~ twig_entity_var ~ 's %}' }}
-                    <tr id="item_{{ '{{ ' ~ twig_entity_var ~ '.id }}' }}">
-                        {%- for field, metadata in fields if field not in hidden_fields -%}
-                        {%- set class = ''-%}
-
-                        {# General css class #}
-                        {%- if loop.first %}{% set class = class ~ ' name' %}{% endif -%}
-                        {%- if 'active' in fields|keys %}{% set class = class ~ ' {% if not ' ~ twig_entity_var ~ '.active %} inactive{% endif %}' %}{% endif -%}
-                        {%- if 'featured' in fields|keys %}{% set class = class ~ ' {% if ' ~ twig_entity_var ~ '.featured %} featured{% endif %}' %}{% endif -%}
-
-                        {# Specific entity type css class #}
-                        {%- if field == 'ordering' %}{% set class = class ~ ' default_ordering' %}{% endif -%}
-                        {%- if metadata.type in ['boolean'] %}{% set class = class ~ ' centered' %}{% endif -%}
-
-                        {%- if field == 'name' %}
-                            {%- set render = "{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': " ~ twig_entity_var ~ " } %}" -%}
-                        {% else %}
-                            {%- set render = '{{ ' ~ twig_entity_var ~ '.' ~ field ~ '|raw }}' -%}
+                        <th class="edit"></th>
                         {% endif %}
 
-                        {%- if metadata.type in ['date', 'datetime'] %}{% set render = '{{ ' ~ twig_entity_var ~ '.' ~ field ~ "|date('Y-m-d') }}" -%}
-                        {%- elseif metadata.type in ['boolean'] %}
-                            {% set render =
-                                '{% if ' ~ twig_entity_var ~ '.' ~ field ~ ' %}
-                                <img src="{{ asset("bundles/unifiksystem/backend/images/icons/tick.png") }}" width="16" height="16" alt="yes">
-                             {% endif %}' %}
-                        {% endif %}
-
-                        <td class="{{ class }}">
-                            {% if loop.first %}<a href="{{ "{{ path(" ~ twig_entity_var ~ ".route, " ~ twig_entity_var ~ ".routeParams) }}" }}">{% endif %}
-
-                            {{- render -}}
-                            {% if loop.first %}</a>{% endif %}
-
-                        </td>
-                        {%- endfor %}
-
-                        <td class="edit">
-                            {{ "{% if " ~ twig_entity_var ~ ".isEditable %}" }}
-                                <a href="{{ "{{ path(" ~ twig_entity_var ~ ".route, " ~ twig_entity_var ~ ".routeParams) }}" }}" title="{{ '{% trans %}' }}Edit{{ '{% endtrans %}' }}">
-                                    <img src="{{ "{{ asset('bundles/unifiksystem/backend/images/buttons/edit.png') }}" }}" width="15" height="15" alt="" />
-                                </a>
-                            {{ "{% endif %}" }}
-                        </td>
-                        <td class="delete">
-                            <a href="{{ "{{ path(" ~ twig_entity_var ~ ".route('delete'), " ~ twig_entity_var ~ ".routeParams) }}" }}" rel="{{ "{{ path(" ~ twig_entity_var ~ ".route('delete'), " ~ twig_entity_var ~ ".routeParams({'message': true})) }}" }}" title="{{ '{% trans %}' }}Delete{{ '{% endtrans %}' }}">
-                                <img src="{{ "{{ asset('bundles/unifiksystem/backend/images/buttons/delete.png') }}" }}" width="12" height="15" alt="" />
-                            </a>
-                        </td>
                     </tr>
-                {{ '{% endfor %}' }}
-            </tbody>
-        </table>
+                    <tr class="filters">
+                        {% for field, metadata in fields if field not in hidden_fields -%}
+                        <th{% if loop.first %} class="name"{% elseif(field == 'ordering') %} class="default_ordering"{% endif %}>
+                            {% if metadata.type == 'string' -%}
+                            <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ '{{ "Search a ' }}{{ field }}{{ '"|trans }}' }}" />
+                            {%- else -%}
+                            &nbsp;
+                            {%- endif %}
 
-        <div class="total">
-            <span class="sub-total"></span>
-            {{ "{% set count = " ~ twig_entity_var ~ "s|length %}" }}
-            {{ "{% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}" }}
+                        </th>
+                        {% endfor -%}
+                        <th>&nbsp;</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{ '{% for ' ~ twig_entity_var ~ ' in ' ~ twig_entity_var ~ 's %}' }}
+                        <tr id="item_{{ '{{ ' ~ twig_entity_var ~ '.id }}' }}">
+                            {%- for field, metadata in fields if field not in hidden_fields -%}
+                            {%- set class = ''-%}
+
+                            {# General css class #}
+                            {%- if loop.first %}{% set class = class ~ ' name' %}{% endif -%}
+                            {%- if 'active' in fields|keys %}{% set class = class ~ ' {% if not ' ~ twig_entity_var ~ '.active %} inactive{% endif %}' %}{% endif -%}
+                            {%- if 'featured' in fields|keys %}{% set class = class ~ ' {% if ' ~ twig_entity_var ~ '.featured %} featured{% endif %}' %}{% endif -%}
+
+                            {# Specific entity type css class #}
+                            {%- if field == 'ordering' %}{% set class = class ~ ' default_ordering' %}{% endif -%}
+                            {%- if metadata.type in ['boolean'] %}{% set class = class ~ ' centered' %}{% endif -%}
+
+                            {%- if field == 'name' %}
+                                {%- set render = "{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': " ~ twig_entity_var ~ " } %}" -%}
+                            {% else %}
+                                {%- set render = '{{ ' ~ twig_entity_var ~ '.' ~ field ~ '|raw }}' -%}
+                            {% endif %}
+
+                            {%- if metadata.type in ['date', 'datetime'] %}{% set render = '{{ ' ~ twig_entity_var ~ '.' ~ field ~ "|date('Y-m-d') }}" -%}
+                            {%- elseif metadata.type in ['boolean'] %}
+                                {% set render =
+                                    '{% if ' ~ twig_entity_var ~ '.' ~ field ~ ' %}
+                                    <img src="{{ asset("bundles/unifiksystem/backend/images/icons/tick.png") }}" width="16" height="16" alt="yes">
+                                 {% endif %}' %}
+                            {% endif %}
+
+                            <td class="{{ class }}">
+                                {% if loop.first %}<a href="{{ "{{ path(" ~ twig_entity_var ~ ".route, " ~ twig_entity_var ~ ".routeParams) }}" }}">{% endif %}
+
+                                {{- render -}}
+                                {% if loop.first %}</a>{% endif %}
+
+                            </td>
+                            {%- endfor %}
+
+                            <td class="table-action">
+                                {{ "{% if " ~ twig_entity_var ~ ".isEditable %}" }}
+                                    <a class="edit" href="{{ "{{ path(" ~ twig_entity_var ~ ".route, " ~ twig_entity_var ~ ".routeParams) }}" }}" title="{{ '{% trans %}' }}Edit{{ '{% endtrans %}' }}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                {{ "{% endif %}" }}
+                                <a class="delete" href="{{ "{{ path(" ~ twig_entity_var ~ ".route('delete'), " ~ twig_entity_var ~ ".routeParams) }}" }}" rel="{{ "{{ path(" ~ twig_entity_var ~ ".route('delete'), " ~ twig_entity_var ~ ".routeParams({'message': true})) }}" }}" title="{{ '{% trans %}' }}Delete{{ '{% endtrans %}' }}">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {{ '{% endfor %}' }}
+                </tbody>
+            </table>
+
+            <div class="total dataTables_info">
+                <span class="sub-total"></span>
+                {{ "{% set count = " ~ twig_entity_var ~ "s|length %}" }}
+                {{ "{% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}" }}
+            </div>
         </div>
     </div>
 
