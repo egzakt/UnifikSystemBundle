@@ -42,7 +42,7 @@
                             <td>
                                 {{ application.prefix }}
                             </td>
-                            <td class="edit">
+                            <td class="table-action">
                                 {% if application.isEditable %}
                                     <a class="edit" href="{{ path('unifik_system_backend_application_edit', { applicationId: application.id }) }}" title="{% trans %}Edit{% endtrans %}">
                                         <i class="fa fa-pencil"></i>
