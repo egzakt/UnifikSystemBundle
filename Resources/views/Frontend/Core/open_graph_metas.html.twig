@@ -9,7 +9,7 @@
     {% endblock %}
 
     {% block og_url %}
-        <meta property="og:url" content="http://{{ app.request.host }}" />
+        <meta property="og:url" content="{{ app.request.uri }}" />
     {% endblock %}
 
     {% block og_image %}
