@@ -314,6 +314,7 @@ table.dataTable thead td:active {
     margin: 0 5px;
     line-height: 21px;
     text-align: center;
+    width: auto;
 }
 
 .grid select {
