@@ -20,6 +20,11 @@ class NavigationBuilder
     protected $elements;          // A collection of wrapped elements representing multi-level hierarchical data
 
     /**
+     * @var mixed
+     */
+    protected $maxLevel;          // The maximum level of the navigation (or false if no maximum)
+
+    /**
      * @var object
      */
     protected $selectedElement;   // The element to be set as selected in the navigation tree
@@ -86,9 +91,11 @@ class NavigationBuilder
                 }
             }
 
-            // This element have some children, we start the same process on the children collection
-            if ($element->hasChildren()) {
-                $this->buildLevel($element->getChildren(), $element, ($level + 1));
+            if (!$this->maxLevel || $level < $this->maxLevel) {
+                // This element have some children, we start the same process on the children collection
+                if ($element->hasChildren()) {
+                    $this->buildLevel($element->getChildren(), $element, ($level + 1));
+                }
             }
 
         }
@@ -101,8 +108,10 @@ class NavigationBuilder
      *
      * @param array $elements An array of elements
      */
-    public function setElements($elements, $checkActive = false)
+    public function setElements($elements, $checkActive = false, $maxLevel = false)
     {
+        $this->maxLevel = $maxLevel;
+
         // Wrap elements in a NavigationItem Wrapper Class
         $wrappedElements = $this->buildNavigationItems($elements, null, $checkActive);
 
@@ -124,8 +133,10 @@ class NavigationBuilder
      *
      * @param array $elements An array of elements
      */
-    public function addElements($elements)
+    public function addElements($elements, $maxLevel = false)
     {
+        $this->maxLevel = $maxLevel;
+
         // Wrap elements in a NavigationItem Wrapper Class
         $wrappedElements = $this->buildNavigationItems($elements);
 
@@ -159,7 +170,7 @@ class NavigationBuilder
      *
      * @return array
      */
-    protected function buildNavigationItems($elements, $parentElement = null, $checkActive = false)
+    protected function buildNavigationItems($elements, $parentElement = null, $checkActive = false, $level = 1)
     {
         $wrappedElements = array();
 
@@ -179,9 +190,11 @@ class NavigationBuilder
                 $parentElement->addChildren($wrappedElement);
             }
 
-            // Recursive call
-            if ($element->hasChildren()) {
-                $this->buildNavigationItems($element->getChildren(), $wrappedElement, $checkActive);
+            if (!$this->maxLevel || $level < $this->maxLevel) {
+                // Recursive call
+                if ($element->hasChildren()) {
+                    $this->buildNavigationItems($element->getChildren(), $wrappedElement, $checkActive, ($level + 1));
+                }
             }
 
             $wrappedElements[] = $wrappedElement;

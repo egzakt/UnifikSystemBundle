@@ -2,6 +2,7 @@
 
 namespace Unifik\SystemBundle\Form\Backend;
 
+use Doctrine\ORM\EntityRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -25,7 +26,14 @@ class RoleType extends AbstractType
                     'multiple' => true,
                     'expanded' => true,
                     'property' => 'name',
-                    'class'    => 'Unifik\SystemBundle\Entity\Section',
+                    'class'    => 'UnifikSystemBundle:Section',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('s')
+                                ->leftJoin('s.app', 'a')
+                                ->orderBy('a.ordering', 'ASC')
+                                ->addOrderBy('s.ordering', 'ASC')
+                            ;
+                    },
                     'required' => false
             ));
         }

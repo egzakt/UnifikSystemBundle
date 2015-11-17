@@ -77,18 +77,19 @@ class NavigationController extends BaseController
         }
 
         // Rebuild the cache
-        $navigation = $this->navigationRepository->findOneByCode($code);
+        $app_id = $this->getApp()->getId();
+        $navigation = $this->navigationRepository->findOneByCodeAndApp($code, $app_id);
 
         if (false == $navigation) {
             throw new \Exception('Can\'t find a navigation entity using code "' . $code . '"');
         }
 
-        $sections = $this->sectionRepository->findByNavigationAndApp($navigation->getId(), 2);
+        $sections = $this->sectionRepository->findByNavigationAndApp($navigation->getId(), $app_id);
 
         $template = ($template ? '_' . $template : '');
 
         $navigationBuilder = $this->get('unifik_system.navigation_builder');
-        $navigationBuilder->setElements($sections, true);
+        $navigationBuilder->setElements($sections, true, $maxLevel);
         $navigationBuilder->setSelectedElement($this->getCore()->getSection());
         $navigationBuilder->build();
 
@@ -136,7 +137,7 @@ class NavigationController extends BaseController
 
         // Rebuild the cache
         if (is_numeric($section)) {
-            $section = $this->sectionRepository->find($section);
+            $section = $this->sectionRepository->findOneWithChildren($section);
         }
 
         $elements = [];
@@ -152,7 +153,7 @@ class NavigationController extends BaseController
         $template = ($template ? '_' . $template : '');
 
         $navigationBuilder = $this->get('unifik_system.navigation_builder');
-        $navigationBuilder->setElements($elements, true);
+        $navigationBuilder->setElements($elements, true, $maxLevel);
         $navigationBuilder->setSelectedElement($this->getCore()->getSection());
         $navigationBuilder->build();
 

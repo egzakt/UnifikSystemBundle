@@ -40,4 +40,30 @@ class NavigationRepository extends BaseEntityRepository
 
         return $this->processQuery($query);
     }
+
+    /**
+     * Select all albums that have photos
+     *
+     * @param $appId
+     *
+     * @return mixed
+     */
+    public function findOneByCodeAndApp($code, $appId = 2)
+    {
+        $query = $this->createQueryBuilder('n');
+
+        $query->select('n', 'sn', 's', 'st')
+            ->leftJoin('n.sectionNavigations', 'sn')
+            ->leftJoin('sn.section', 's', 'WITH', $query->expr()->eq('s.app', ':appId'))
+            ->leftJoin('s.translations', 'st')
+            ->where('n.code = :code')
+            ->andWhere('n.app = :appId')
+            ->setParameter('code', $code)
+            ->setParameter('appId', $appId)
+            ->orderBy('n.id', 'ASC')
+            ->addOrderBy('sn.ordering', 'ASC')
+        ;
+
+        return $this->processQuery($query, true);
+    }
 }
