@@ -1,33 +1,26 @@
 {% if apps|length > 1 or is_granted('ROLE_DEVELOPER') %}
-    <div id="apps">
-        <div class="padding">
-            <h6>{% trans %}Application{% endtrans %}</h6>
-            {% if apps|length > 5 %}
-                <select id="app-selector">
-                    {% for application in apps %}
-                        <option value="{{ path('unifik_system_backend_switch_managed_app', { appSlug: application.slug }) }}"{% if application.id == appCurrent.id %} selected="selected"{% endif %}>
-                            <span>{{ application|capitalize|trans }}</span>
-                        </option>
-                    {% endfor %}
-                </select>
-            {% else %}
-                <ul>
-                    {% for application in apps %}
-                        <li>
-                            <a href="{{ path('unifik_system_backend_switch_managed_app', { appSlug: application.slug }) }}" {% if application.id == appCurrent.id %}class="selected"{% endif %}>
-                                <span>{{ application|capitalize|trans }}</span>
-                            </a>
-                        </li>
-                    {% endfor %}
-
-                </ul>
-            {% endif %}
-            {% if is_granted('ROLE_DEVELOPER') %}
-                <a class="add" href="{{ path('unifik_system_backend_application_edit') }}">
-                    +
-                </a>
-            {% endif %}
-            <div style="clear:both;"></div>
+    <li>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                {% trans %}Application{% endtrans %}
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                {% for application in apps %}
+                    <li>
+                        <a href="{{ path('unifik_system_backend_switch_managed_app', { appSlug: application.slug }) }}"{% if application.id == appCurrent.id %} class="selected"{% endif %}>
+                            {{ application|capitalize|trans }}
+                        </a>
+                    </li>
+                {% endfor %}
+                {% if is_granted('ROLE_DEVELOPER') %}
+                    <li>
+                        <a href="{{ path('unifik_system_backend_application_edit') }}">
+                            <i class="glyphicon glyphicon-plus"></i> {% trans %}New Application{% endtrans %}
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
         </div>
-    </div>
+    </li>
 {% endif %}

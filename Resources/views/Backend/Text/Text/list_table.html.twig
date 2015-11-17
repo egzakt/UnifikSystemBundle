@@ -1,4 +1,4 @@
-<table cellspacing="0" class="table-autosort">
+<table class="table-autosort table table-striped">
     <thead>
         <tr>
             <th class="default_ordering table-sortable:numeric">
@@ -13,8 +13,8 @@
             <th class="update table-sortable:date">
                 {% trans %}Last update{% endtrans %}
             </th>
-           <th colspan="2" class="switch_list_mode">
-                <a href="#"><img src="{{ asset("bundles/unifiksystem/backend/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
+           <th class="switch_list_mode">
+                <a href="#" data-toggle="tooltip" data-placement="left" class="tooltips"><img src="{{ asset("bundles/unifiksystem/backend/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
             </th>
         </tr>
         <tr class="filters">
@@ -31,7 +31,6 @@
                 &nbsp;
             </th>
             <th>&nbsp;</th>
-            <th>&nbsp;</th>
         </tr>
     </thead>
     <tbody>
@@ -47,20 +46,20 @@
                 </td>
                 <td class="centered">
                     {% if entity.collapsable %}
-                         <img src="{{ asset('bundles/unifiksystem/backend/images/icons/tick.png') }}" width="16" height="16" alt="{% trans %}yes{% endtrans %}">
+                         <i class="fa fa-check-square-o"></i>
+                    {% else %}
+                        &nbsp;
                     {% endif %}
                 </td>
                 <td>
                     {{ entity.updatedAt|date('Y-m-d') }}
                 </td>
-                <td class="edit">
-                    <a href="{{ path('unifik_system_backend_text_edit', { 'id': entity.id }) }}" title="{% trans %}Edit{% endtrans %}">
-                        <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="{% trans %}edit{% endtrans %}" />
+                <td class="table-action">
+                    <a class="edit" href="{{ path('unifik_system_backend_text_edit', { 'id': entity.id }) }}" title="{% trans %}Edit{% endtrans %}">
+                        <i class="fa fa-pencil"></i>
                     </a>
-                </td>
-                <td class="delete">
-                    <a href="{{ path('unifik_system_backend_text_delete', { 'id': entity.id }) }}" rel="{{ path('unifik_system_backend_text_delete', { 'id': entity.id, 'message': true }) }}" title="{% trans %}Delete{% endtrans %}">
-                        <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
+                    <a class="delete" href="{{ path('unifik_system_backend_text_delete', { 'id': entity.id }) }}" rel="{{ path('unifik_system_backend_text_delete', { 'id': entity.id, 'message': true }) }}" title="{% trans %}Delete{% endtrans %}">
+                        <i class="fa fa-trash-o"></i>
                     </a>
                 </td>
             </tr>
@@ -68,7 +67,7 @@
     </tbody>
 </table>
 
-<div class="total">
+<div class="total dataTables_info">
     <span class="sub-total"></span>
     {% set count = entities|length %}
     {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}

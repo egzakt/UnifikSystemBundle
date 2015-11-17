@@ -22,7 +22,7 @@ class TextMainTranslationType extends AbstractType
         $builder
             ->add('active')
             ->add('name')
-            ->add('text', 'ckeditor')
+            ->add('text', 'ckeditor', array('required' => true))
         ;
     }
 

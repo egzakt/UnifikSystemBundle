@@ -1,93 +1,86 @@
 {% extends 'UnifikSystemBundle:Backend/Section:layout.html.twig' %}
 
-{% block content_header %}
-    <h1>{% trans with { '%entity%': 'Subsections'|trans } %}%entity% list{% endtrans %}</h1>
-{% endblock %}
-
 {% block content_main %}
 
     <script type="text/javascript">
         var url_ordre = '{{ path('unifik_system_backend_section_order') }}';
     </script>
 
-    <div id="list_actions_bar">
-        <a class="add" href="{{ path('unifik_system_backend_section_edit') }}">{% trans %}Add a subsection{% endtrans %}</a>
-    </div>
-
-    <div class="list_box">
-        <table cellspacing="0" class="table-autosort">
-            <thead>
-            <tr>
-                <th class="default_ordering table-sortable:numeric">
-                    {% trans %}Ordering{% endtrans %}
-                </th>
-                <th class="name table-sortable:ignorecase">
-                    {% trans %}Name{% endtrans %}
-                </th>
-                <th class="table-sortable:numeric">
-                    {% trans %}Nb. of subsections{% endtrans %}
-                </th>
-                <th class="update table-sortable:date">
-                    {% trans %}Last update{% endtrans %}
-                </th>
-                <th colspan="2" class="switch_list_mode">
-                    <a href="#"><img src="{{ asset("bundles/unifiksystem/backend/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
-                </th>
-            </tr>
-            <tr class="filters">
-                <th class="default_ordering">
-                    &nbsp;
-                </th>
-                <th class="name">
-                    <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
-                </th>
-                <th>
-                    &nbsp;
-                </th>
-                <th>
-                    &nbsp;
-                </th>
-                <th>
-                    &nbsp;
-                </th>
-                <th>
-                    &nbsp;
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for entity in entities %}
-                <tr id="item_{{ entity.id }}">
-                    <td class="default_ordering">
-                        {{ entity.ordering }}
-                    </td>
-                    <td class="name{% if not entity.active %} inactive{% endif %}">
-                        <a href="{{ path('unifik_system_backend_section_edit', { 'id': entity.id }) }}">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
-                    </td>
-                    <td>
-                        {{ entity.children|length }}
-                    </td>
-                    <td>
-                        {{ entity.updatedAt|date('Y-m-d') }}
-                    </td>
-                    <td class="edit">
-                        <a href="{{ path('unifik_system_backend_section_edit', { 'id': entity.id }) }}" title="{% trans %}Edit{% endtrans %}">
-                            <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
-                        </a>
-                    </td>
-                    <td class="delete">
-                        <a href="{{ path('unifik_system_backend_section_delete', { 'id': entity.id }) }}" rel="{{ path('unifik_system_backend_section_delete', { 'id': entity.id, 'message': true }) }}" title="{% trans %}Delete{% endtrans %}">
-                            <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
-                        </a>
-                    </td>
+    <div class="list-box panel panel-dark" style="margin-top: 10px;">
+        <div class="panel-heading">
+            <h3 class="panel-title">{% trans with { '%entity%': 'Subsections'|trans } %}%entity% list{% endtrans %} <a class="btn btn-primary btn-xs ml20" href="{{ path('unifik_system_backend_section_edit') }}"><i class="fa fa-plus-square mr5"></i> {% trans %}Add a subsection{% endtrans %}</a></h3>
+        </div>
+        <div class="panel-body panel-body-dark">
+            <table class="table-autosort table table-striped">
+                <thead>
+                <tr>
+                    <th class="default_ordering table-sortable:numeric">
+                        {% trans %}Ordering{% endtrans %}
+                    </th>
+                    <th class="name table-sortable:ignorecase">
+                        {% trans %}Name{% endtrans %}
+                    </th>
+                    <th class="table-sortable:numeric">
+                        {% trans %}Nb. of subsections{% endtrans %}
+                    </th>
+                    <th class="update table-sortable:date">
+                        {% trans %}Last update{% endtrans %}
+                    </th>
+                    <th class="switch_list_mode">
+                        <a href="#" data-toggle="tooltip" data-placement="left" class="tooltips"><img src="{{ asset("bundles/unifiksystem/backend/images/buttons/switch_list_mode_off.gif") }}" width="20" height="20" alt="" /></a>
+                    </th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <div class="total">
-            <span class="sub-total"></span>
-            {% set count = entities|length %}
-            {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+                <tr class="filters">
+                    <th class="default_ordering">
+                        &nbsp;
+                    </th>
+                    <th class="name">
+                        <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                    <th>
+                        &nbsp;
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr id="item_{{ entity.id }}">
+                        <td class="default_ordering">
+                            {{ entity.ordering }}
+                        </td>
+                        <td class="name{% if not entity.active %} inactive{% endif %}">
+                            <a href="{{ path('unifik_system_backend_section_edit', { 'id': entity.id }) }}">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</a>
+                        </td>
+                        <td>
+                            {{ entity.children|length }}
+                        </td>
+                        <td>
+                            {{ entity.updatedAt|date('Y-m-d') }}
+                        </td>
+                        <td class="table-action">
+                            <a class="edit" href="{{ path('unifik_system_backend_section_edit', { 'id': entity.id }) }}" title="{% trans %}Edit{% endtrans %}">
+                                <i class="fa fa-pencil"></i>
+                            </a>
+                            <a class="delete" href="{{ path('unifik_system_backend_section_delete', { 'id': entity.id }) }}" rel="{{ path('unifik_system_backend_section_delete', { 'id': entity.id, 'message': true }) }}" title="{% trans %}Delete{% endtrans %}">
+                                <i class="fa fa-trash-o"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="total dataTables_info">
+                <span class="sub-total"></span>
+                {% set count = entities|length %}
+                {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+            </div>
         </div>
     </div>
 

@@ -1,10 +1,29 @@
-<div id="header">
-    <a href="{{ path('unifik_system_backend_dashboard') }}" class="unifik_egzakt">
-        <img src="{{ asset('bundles/unifiksystem/backend/images/graphics/logo.png') }}" width="125" height="43" alt="{{ project_title }}" title="{{ project_title }}" />
-        <span>bâti sur Symfony par Egzakt</span>
-    </a>
-
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        {{ render(controller('UnifikSystemBundle:Backend/Navigation:App')) }}
-    {% endif %}
+<div class="header-right">
+    <ul class="headermenu">
+        {% block locale_bar %}
+            {{ render(controller('UnifikSystemBundle:Backend/Navigation:LocaleBar')) }}
+        {% endblock %}
+        {% block app_navigation %}
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                {{ render(controller('UnifikSystemBundle:Backend/Navigation:App')) }}
+            {% endif %}
+        {% endblock %}
+        {% block userinfos %}
+            {% if app.user %}
+                <li>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-default dropdown-toggle dropdown-toggle-min-width" data-toggle="dropdown">
+                            {#<img src="{{ asset('bundles/unifiksystem/backend/images/graphics/loggeduser.png') }}" alt=""/>#}
+                            {{ app.user.username }}
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-usermenu pull-right">
+                            {{ render(controller('UnifikSystemBundle:Backend/Role/Navigation:impersonatingBar')) }}
+                            <li><a href="{{ path('unifik_system_backend_logout') }}"><i class="glyphicon glyphicon-log-out"></i> {% trans %}Logout{% endtrans %}</a></li>
+                        </ul>
+                    </div>
+                </li>
+            {% endif %}
+        {% endblock %}
+    </ul>
 </div>

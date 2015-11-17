@@ -24,7 +24,7 @@ class SectionTranslationType extends MetadatableType
         $builder
             ->add('active')
             ->add('name')
-            ->add('slug')
+            ->add('slug', null, ['required' => false, 'attr' => ['alt' => 'Will be auto-generated if blank.']])
         ;
     }
 

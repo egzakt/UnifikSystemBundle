@@ -1,5 +1,5 @@
-<li>
-    <a class="text{% if selected %} selected{% endif %}" href="{{ path('unifik_system_backend_text') }}">
-        {% trans %}Texts{% endtrans %}
+<li{% if selected %} class="active"{% endif %}>
+    <a href="{{ path('unifik_system_backend_text') }}">
+        <strong><i class="fa fa-pencil-square-o mr5"></i> {% trans %}Texts{% endtrans %}</strong>
     </a>
 </li>

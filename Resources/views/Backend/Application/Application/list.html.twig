@@ -1,82 +1,66 @@
 {% extends 'UnifikSystemBundle:Backend/Application:layout.html.twig' %}
 
-{% block content_header %}
-    <h1>{% trans %}Applications List{% endtrans %}</h1>
-{% endblock %}
-
 {% block content_main %}
-
-    <div id="list_actions_bar">
-        <a class="add" href="{{ path('unifik_system_backend_application_edit', { applicationId: 0 }) }}">
-            {% trans %}Add an application{% endtrans %}
-        </a>
-    </div>
-
-    <div class="list_box">
-        <table cellspacing="0" class="table-autosort">
-            <thead>
-            <tr>
-                <th class="name table-sortable:ignorecase">
-                    {% trans %}Name{% endtrans %}
-                </th>
-                <th class="table-sortable:ignorecase">
-                    {% trans %}Prefix{% endtrans %}
-                </th>
-                <th class="edit">
-                    &nbsp;
-                </th>
-                <th class="delete">
-                    &nbsp;
-                </th>
-            </tr>
-            <tr class="filters">
-                <th class="name">
-                    <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
-                </th>
-                <th>
-                    <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a prefix"|trans }}" />
-                </th>
-                <th>
-                    &nbsp;
-                </th>
-                <th>
-                    &nbsp;
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for application in applications %}
-                <tr id="item_{{ application.id }}">
-                    <td class="name">
-                        <a href="{{ path('unifik_system_backend_application_edit', { applicationId: application.id }) }}">
-                            {{ application }}
-                        </a>
-                    </td>
-                    <td>
-                        {{ application.prefix }}
-                    </td>
-                    <td class="edit">
-                        {% if application.isEditable %}
-                            <a href="{{ path('unifik_system_backend_application_edit', { applicationId: application.id }) }}" title="{% trans %}Edit{% endtrans %}">
-                                <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
-                            </a>
-                        {% endif %}
-                    </td>
-                    <td class="delete">
-                        <a href="{{ path('unifik_system_backend_application_delete', { applicationId: application.id }) }}" rel="{{ path('unifik_system_backend_application_delete', { applicationId: application.id, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
-                            <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <div class="total">
-            <span class="sub-total"></span>
-            {% set count = applications|length %}
-            {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+    <div class="list-box panel panel-dark" style="margin-top: 10px;">
+        <div class="panel-heading">
+            <h3 class="panel-title">{% trans %}Applications List{% endtrans %} <a class="btn btn-primary btn-xs ml20" href="{{ path('unifik_system_backend_application_edit', { applicationId: 0 }) }}"><i class="fa fa-plus-square mr5"></i> {% trans %}Add an application{% endtrans %}</a></h3>
+        </div>
+        <div class="panel-body panel-body-dark">
+            <table class="table-autosort table table-striped">
+                <thead>
+                    <tr>
+                        <th class="name table-sortable:ignorecase">
+                            {% trans %}Name{% endtrans %}
+                        </th>
+                        <th class="table-sortable:ignorecase">
+                            {% trans %}Prefix{% endtrans %}
+                        </th>
+                        <th class="edit">
+                            &nbsp;
+                        </th>
+                    </tr>
+                    <tr class="filters">
+                        <th class="name">
+                            <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
+                        </th>
+                        <th>
+                            <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a prefix"|trans }}" />
+                        </th>
+                        <th>
+                            &nbsp;
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for application in applications %}
+                        <tr id="item_{{ application.id }}">
+                            <td class="name">
+                                <a href="{{ path('unifik_system_backend_application_edit', { applicationId: application.id }) }}">
+                                    {{ application }}
+                                </a>
+                            </td>
+                            <td>
+                                {{ application.prefix }}
+                            </td>
+                            <td class="edit">
+                                {% if application.isEditable %}
+                                    <a class="edit" href="{{ path('unifik_system_backend_application_edit', { applicationId: application.id }) }}" title="{% trans %}Edit{% endtrans %}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                {% endif %}
+                                <a class="delete" href="{{ path('unifik_system_backend_application_delete', { applicationId: application.id }) }}" rel="{{ path('unifik_system_backend_application_delete', { applicationId: application.id, message: true }) }}" title="{% trans %}Delete{% endtrans %}">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <div class="total dataTables_info">
+                <span class="sub-total"></span>
+                {% set count = applications|length %}
+                {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+            </div>
         </div>
     </div>
-
 {% endblock content_main %}

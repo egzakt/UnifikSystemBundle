@@ -30,6 +30,8 @@ class LocaleController extends BackendController
         if (false === $this->get('security.context')->isGranted('ROLE_BACKEND_ADMIN')) {
             throw new AccessDeniedHttpException('You don\'t have the privileges to view this page.');
         }
+
+        $this->createAndPushNavigationElement('Languages', 'unifik_system_backend_locale');
     }
 
     /**
@@ -66,6 +68,8 @@ class LocaleController extends BackendController
             $locale = new Locale();
             $locale->setContainer($this->container);
         }
+
+        $this->pushNavigationElement($locale);
 
         $form = $this->createForm(new LocaleType(), $locale);
 

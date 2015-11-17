@@ -1,0 +1,16 @@
+{% if app.user %}
+    <div class="visible-xs hidden-sm hidden-md hidden-lg">
+        <h5 class="sidebartitle actitle">{% trans %}Account{% endtrans %}</h5>
+        <div class="media userlogged">
+            {#<img src="{{ asset('bundles/unifiksystem/backend/images/graphics/loggeduser.png') }}" class="media-object" alt="" />#}
+            <div class="media-body">
+                <h4>{{ app.user.username }}</h4>
+            </div>
+
+            <ul class="nav nav-pills nav-stacked nav-bracket">
+                {{ render(controller('UnifikSystemBundle:Backend/Role/Navigation:impersonatingBar')) }}
+                <li><a href="{{ path('unifik_system_backend_logout') }}"><i class="glyphicon glyphicon-log-out"></i> {% trans %}Logout{% endtrans %}</a></li>
+            </ul>
+        </div>
+    </div>
+{% endif %}

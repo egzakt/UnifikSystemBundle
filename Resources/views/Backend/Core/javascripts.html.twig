@@ -1,4 +1,9 @@
 {% javascripts
+    '@UnifikSystemBundle/Resources/public/backend/js/jquery.cookies.js'
+    '@UnifikSystemBundle/Resources/public/backend/js/modernizr.min.js'
+    '@UnifikSystemBundle/Resources/public/backend/js/toggles.min.js'
+    '@UnifikSystemBundle/Resources/public/backend/js/custom.js'
+
     '@UnifikSystemBundle/Resources/public/backend/js/jquery.tablednd_0_5.js'
     '@UnifikSystemBundle/Resources/public/backend/js/jquery.fancybox-1.3.1.pack.js'
     '@UnifikSystemBundle/Resources/public/backend/js/ZeroClipboard.min.js'
@@ -24,7 +29,6 @@
     // Lists labels
     Table.AutoSortTitle = "{% trans %}Click to sort{% endtrans %}";
     Table.FilterAllLabel = "{% trans %}Filter: All{% endtrans %}";
-    var tooltipSearchMode = "{% trans %}Return to search mode{% endtrans %}";
     var tooltipOrderMode = "{% trans %}Switch to order mode. This will allow you to change the items order on the site{% endtrans %}";
     var imgOrderModeOff = '{{ asset("bundles/unifiksystem/backend/images/buttons/switch_list_mode_off.gif") }}';
     var imgOrderModeOn = '{{ asset("bundles/unifiksystem/backend/images/buttons/switch_list_mode_on.gif") }}';

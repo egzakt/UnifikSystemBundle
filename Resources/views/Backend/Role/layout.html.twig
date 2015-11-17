@@ -1,15 +1,22 @@
 {% extends 'UnifikSystemBundle:Backend:layout.html.twig' %}
 
-{% block content %}
+{% block section_title %}
+    <h2><i class="fa fa-user"></i> {% trans %}Roles{% endtrans %}</h2>
+{% endblock %}
 
-    {% block content_header %}
-        <h1>{% trans %}Role list{% endtrans %}</h1>
-    {% endblock  %}
+{% block content %}
 
     {% block flash_message %}
         {% include 'UnifikSystemBundle:Backend/Core:flash_message.html.twig' %}
     {% endblock %}
 
-    {% block content_main '' %}
+    {% block content_header %}
+    {% endblock %}
+
+    {% block content_main %}
+    {% endblock %}
+
+    {% block content_footer %}
+    {% endblock %}
 
 {% endblock %}

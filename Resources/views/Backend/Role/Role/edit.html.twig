@@ -1,51 +1,42 @@
 {% extends 'UnifikSystemBundle:Backend/Role:layout.html.twig' %}
-{% form_theme form 'UnifikSystemBundle:Backend/Core:edit_fields.html.twig' %}
-{% form_theme form.sections 'UnifikSystemBundle:Backend/Role/Role:_form_sections.html.twig' %}
-
-{% block content_header %}
-    <h1>{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</h1>
-{% endblock %}
+{% form_theme form 'UnifikSystemBundle:Backend/Core:bootstrap_edit_fields.html.twig' %}
 
 {% block content_main %}
+    <div class="row">
+        <form novalidate="novalidate" action="{{ path(entity.route, entity.routeParams) }}" method="post" {{ form_enctype(form) }}>
+            <div class="col-md-8">
+                <div class="panel panel-dark">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ form_errors(form) }}
 
-    <form novalidate="novalidate" action="{{ path(entity.route, entity.routeParams) }}" method="post" {{ form_enctype(form) }}>
+                        {{ form_row(form.translation.name) }}
 
-        {% block edit_action %}
-            {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
-                'delete_route': path(entity.route('delete'), entity.routeParams),
-                'cancel_route': path('unifik_system_backend_role'),
-            } %}
-        {% endblock %}
+                        {% if form.sections is defined %}
+                            {{ form_row(form.sections) }}
+                        {% endif %}
 
-        <div id="fields_box">
-            <table class="fields" cellspacing="0">
+                        {{ form_rest(form) }}
 
-                {{ form_errors(form) }}
-
-                {{ form_row(form.translation.name) }}
-
-                {% if form.sections is defined %}
-                    {{ form_row(form.sections) }}
-                {% endif %}
-
-                {{ form_rest(form) }}
-
-                {% if entity.id %}
-                    <tr>
-                        <th>
-                            {% trans %}Last update {% endtrans %} :
-                        </th>
-                        <td style="vertical-align:bottom">
-                            {{ entity.updatedAt|localizeddate('medium') }}
-                        </td>
-                    </tr>
-                {% endif %}
-
-            </table>
-        </div>
-
-        {{ block('edit_action') }}
-
-    </form>
-
+                        {% if entity.id %}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{% trans %}Last update{% endtrans %}</label>
+                                <div class="col-sm-10">
+                                    {{ entity.updatedAt|localizeddate('medium') }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div><!-- panel-body -->
+                    {% block edit_action %}
+                        {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
+                            'delete_route': path(entity.route('delete'), entity.routeParams),
+                            'cancel_route': path('unifik_system_backend_role'),
+                        } %}
+                    {% endblock %}
+                </div>
+            </div>
+        </form>
+    </div>
 {% endblock content_main %}
