@@ -238,19 +238,17 @@ class SectionRepository extends BaseEntityRepository
         $section = (is_object($section)) ? $section->getId() : $section;
 
         $queryBuilder = $this->createQueryBuilder('s')
-            ->select('s', 'st', 'c', 'ct', 'cc', 'cct')
-            ->innerJoin('s.translations', 'st')
+            ->select('s', 't', 'c', 'ct', 'cc', 'cct')
+            ->innerJoin('s.translations', 't')
             ->leftJoin('s.children', 'c')
             ->leftJoin('c.translations', 'ct')
             ->leftJoin('c.children', 'cc')
             ->leftJoin('cc.translations', 'cct')
             ->where('s.id = :section')
-            ->andWhere('st.locale = :locale')
-            ->andWhere('st.active = true')
-            ->andWhere('c.id IS NULL OR ct.locale = :locale')
-            ->andWhere('c.id IS NULL OR ct.active = true')
-            ->andWhere('cc.id IS NULL OR cct.locale = :locale')
-            ->andWhere('cc.id IS NULL OR cct.active = true')
+            ->andWhere('t.locale = :locale')
+            ->andWhere('t.active = true')
+            ->andWhere('c.id IS NULL OR (ct.active = true AND ct.locale = :locale)')
+            ->andWhere('cc.id IS NULL OR (cct.active = true AND cct.locale = :locale)')
             ->setParameter('section', $section)
             ->setParameter('locale', $this->getLocale())
             ->orderBy('s.ordering', 'ASC')
@@ -258,7 +256,10 @@ class SectionRepository extends BaseEntityRepository
             ->addOrderBy('cc.ordering', 'ASC')
         ;
 
-        $result = $queryBuilder->getQuery()->getFirstResult();
-        return $result;
+
+        $result = $queryBuilder->getQuery()->getResult();
+        if (count($result))
+            return $result[0];
+        return null;
     }
 }
