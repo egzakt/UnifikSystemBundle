@@ -9,6 +9,7 @@ Unifik\SystemBundle\Entity\SectionNavigation:
     ordering:
       type: integer
       nullable: true
+  repositoryClass: Unifik\SystemBundle\Entity\SectionNavigationRepository
   manyToOne:
     section:
       targetEntity: Unifik\SystemBundle\Entity\Section

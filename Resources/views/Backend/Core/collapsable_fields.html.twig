@@ -1,12 +1,16 @@
-<tr class="collapsable_fields">
-    <td colspan="2">
-        <a href="#" class="slide_link">{{ link_name|trans }}</a>
-        <div class="slide_block">
-            <table class="fields">
-                {% for field in fields %}
-                    {{ field|raw }}
-                {% endfor %}
-            </table>
+<div class="panel panel-default panel-group panel-group-collapsable">
+    <div class="panel-heading">
+        <h4 class="panel-title">
+            <a data-toggle="collapse" class="collapsed" href="#collapsable-{{ id }}">
+                &nbsp;&nbsp;{{ link_name|trans }}
+            </a>
+        </h4>
+    </div>
+    <div id="collapsable-{{ id }}" class="panel-collapse collapse">
+        <div class="panel-body">
+            {% for field in fields %}
+                {{ field|raw }}
+            {% endfor %}
         </div>
-    </td>
-</tr>
+    </div>
+</div>

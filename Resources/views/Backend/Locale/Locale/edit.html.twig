@@ -1,53 +1,47 @@
 {% extends 'UnifikSystemBundle:Backend/Locale:layout.html.twig' %}
-{% form_theme form 'UnifikSystemBundle:Backend/Core:edit_fields.html.twig' %}
-
-{% block content_header %}
-    <h1>{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': locale } %}</h1>
-{% endblock %}
+{% form_theme form 'UnifikSystemBundle:Backend/Core:bootstrap_edit_fields.html.twig' %}
 
 {% block content_main %}
+    <div class="row">
+        <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
+            <div class="col-md-8">
+                <div class="panel panel-dark">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': locale } %}</h3>
+                    </div>
+                    <div class="panel-body">
+                    {{ form_errors(form) }}
 
-    <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
+                    {{ form_row(form.active) }}
+                    {{ form_row(form.name) }}
 
-        {% block edit_actions %}
-            {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
-                'entity': locale,
-                'delete_route': path('unifik_system_backend_locale_delete', { 'id': locale.id ?: 0 }),
-                'cancel_route': path('unifik_system_backend_locale')
-            } %}
-        {% endblock %}
-
-        <div id="fields_box">
-            <table class="fields" cellspacing="0">
-
-                {{ form_errors(form) }}
-
-                {{ form_row(form.active) }}
-                {{ form_row(form.name) }}
-
-                <tr>
-                    <th>
+                    <div class="form-group">
                         {{ form_errors(form.code) }}
                         {{ form_label(form.code) }}
-                    </th>
-                    <td>
-                        {{ form_widget(form.code) }}
-                        <div class="url_pattern note">
-                            {% trans %}Home page URL{% endtrans %}{% trans %}:{% endtrans %}
-                            {# using the dashboard route as the base route because it cannot be disabled and/or removed like frontend routes #}
-                            <span>{{ url('unifik_system_backend_dashboard')|replace({ 'admin/': '' }) }}</span>
-                        </div>
-                    </td>
-                </tr>
+                        <div class="col-sm-10">
+                            {{ form_widget(form.code) }}
+                            <div class="url_pattern note">
+                                {% trans %}Home page URL{% endtrans %}{% trans %}:{% endtrans %}
+                                {# using the dashboard route as the base route because it cannot be disabled and/or removed like frontend routes #}
+                                <span>{{ url('unifik_system_backend_dashboard')|replace({ 'admin/': '' }) }}</span>
+                            </div>
+                       </div>
+                    </div>
 
-                {{ form_row(form._token) }}
+                    {{ form_row(form._token) }}
+                </div><!-- panel-body -->
 
-            </table>
-        </div>
-
-        {{ block('edit_actions') }}
-
-    </form>
+                {% block edit_actions %}
+                    {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
+                        'entity': locale,
+                        'delete_route': path('unifik_system_backend_locale_delete', { 'id': locale.id ?: 0 }),
+                        'cancel_route': path('unifik_system_backend_locale')
+                    } %}
+                {% endblock %}
+                </div>
+            </div>
+        </form>
+    </div>
 
     <script>
         $(function(){

@@ -1,7 +1,7 @@
 {% block og %}
 
     {% block og_title %}
-        <meta property="og:title" content="{{ render(controller('UnifikSystemBundle:Frontend/Navigation:PageTitle')) }}" />
+        <meta property="og:title" content="{{ render(controller('UnifikSystemBundle:Frontend/Navigation:pageTitle')) }}" />
     {% endblock %}
 
     {% block og_type %}
@@ -9,7 +9,7 @@
     {% endblock %}
 
     {% block og_url %}
-        <meta property="og:url" content="http://{{ app.request.host }}" />
+        <meta property="og:url" content="{{ app.request.uri }}" />
     {% endblock %}
 
     {% block og_image %}
@@ -17,7 +17,7 @@
     {% endblock %}
 
     {% block og_description %}
-        <meta property="og:description" content="{{ project_description }}" />
+        {{ render_esi(controller('UnifikSystemBundle:Frontend/Metadata:metadata', { metaName: 'description', ogMeta: true })) }}
     {% endblock %}
 
 {% endblock %}

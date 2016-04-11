@@ -1,0 +1,81 @@
+.grid_header {
+    background-color: #fff;
+    padding: 10px;
+    height: 22px;
+    margin-top: 10px;
+}
+
+.grid_header .grid_massactions_helper {
+    padding-top: 3px;
+    display: inline-block;
+}
+
+.grid_header .grid_massactions_helper a {
+    text-decoration: none;
+    padding-right: 3px;
+    padding-left: 3px;
+}
+
+.grid_header .grid_massactions_helper .mass-actions-selected {
+    padding-left: 10px;
+    color: #2882E6;
+}
+
+span.grid-filter-select-query,
+span.grid-filter-input-query {
+    display: block;
+    margin-top: 5px;
+}
+
+.grid .grid_body {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.grid .grid_body table tr th {
+    vertical-align: top;
+}
+
+a.order {
+    padding-right: 10px;
+    background-repeat: no-repeat;
+    background-position: right 50%;
+}
+
+a.order.asc {
+    background-image: url("/bundles/unifiksystem/backend/images/icons//order_asc.gif");
+}
+
+a.order.desc {
+    background-image: url("/bundles/unifiksystem/backend/images/icons/order_desc.gif");
+}
+
+.grid_footer {
+    background-color: #fff;
+    height: 43px;
+    margin-bottom: 10px;
+}
+.grid_footer .paginator {
+    border: none;
+    margin: 0;
+    padding: 10px;
+}
+.grid_footer .exports {
+    border: none;
+    margin: 0;
+    padding: 10px;
+}
+
+.grid_header .grid_massactions select,
+.grid_footer .exports select {
+    margin-left: 5px;
+    margin-right: 10px;
+}
+
+.grid_boolean_true {
+    color: #34a543;
+}
+
+.grid_boolean_false {
+    color: red;
+}

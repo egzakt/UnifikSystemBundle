@@ -2,6 +2,7 @@
 
 namespace Unifik\SystemBundle\Entity;
 
+use Doctrine\ORM\Query;
 use Unifik\DoctrineBehaviorsBundle\Model as UnifikORMBehaviors;
 use Unifik\SystemBundle\Lib\BaseEntityRepository;
 
@@ -13,98 +14,46 @@ class SectionRepository extends BaseEntityRepository
     use UnifikORMBehaviors\Repository\TranslatableEntityRepository;
 
     /**
-     * Find By Navigation From Tree
-     *
-     * @param string     $navigationName Navigation name
-     * @param array|null $criteria       Criteria
-     * @param array|null $orderBy        OrderBy fields
-     *
+     * Find All For Tree
+     * 
+     * @param integer|null $appId
+     * @param array $excludedSectionIds
      * @return array
      */
-    public function findByNavigationFromTree($navigationName, array $criteria = null, array $orderBy = null)
+    public function findAllForTree($appId = null, $excludedSectionIds = array())
     {
-        $tree = $this->findAllFromTree($criteria, $orderBy);
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->select('s','st')
+            ->innerjoin('s.mappings', 'm')
+            ->leftJoin('s.sectionNavigations','sn')
+            ->leftJoin('sn.navigation','n')
+            ->groupBy('s.id')
+            ->orderBy('s.ordering','ASC')
+            ->addOrderBy('sn.ordering','ASC');
 
-        $navigationSections = array();
-        foreach ($tree as $key => $section) {
-
-            foreach ($section->getSectionNavigations() as $sectionNavigation) {
-
-                if ($sectionNavigation->getNavigation()->getName() == $navigationName) {
-                    $navigationSections[$sectionNavigation->getOrdering()] = $section;
-                }
-            }
-
+        if ($appId !== null) {
+            $queryBuilder
+                ->innerJoin('s.app','a')
+                ->andWhere('a.id = :appId')
+                ->setParameter('appId',$appId);
         }
 
-        ksort($navigationSections);
-
-        return $navigationSections;
-    }
-
-    /**
-     * Find All From Tree
-     *
-     * @param array|null $criteria Criteria
-     * @param array|null $orderBy  OrderBy fields
-     *
-     * @return array
-     */
-    public function findAllFromTree(array $criteria = null, array $orderBy = null)
-    {
-        $dql = 'SELECT s, t, sn, n, b, p
-                FROM UnifikSystemBundle:Section s
-                LEFT JOIN s.sectionNavigations sn
-                LEFT JOIN sn.navigation n
-                LEFT JOIN sb.bundle b
-                LEFT JOIN b.params p ';
+        if (!empty($excludedSectionIds)) {
+            $queryBuilder
+                ->andWhere('s.id NOT IN (:excludedSectionIds)')
+                ->setParameter('excludedSectionIds',$excludedSectionIds);
+        }
 
         if ($this->getCurrentAppName() == 'backend') {
-            $dql .= 'LEFT JOIN s.translations t ';
+            $queryBuilder->leftJoin('s.translations','st','WITH','st.locale = :locale')
+                ->setParameter('locale',$this->getLocale());
         } else {
-            $dql .= 'INNER JOIN s.translations t ';
-            $criteria['locale'] = $this->getLocale();
-            if ($this->_em->getClassMetadata($this->_entityName . 'Translation')->hasField('active') && !in_array('active', array_keys($criteria))) {
-                $criteria['active'] = true;
-            }
+            $queryBuilder
+                ->innerJoin('s.translations','st','WITH','st.locale = :locale AND st.active = true')
+                ->setParameter('locale',$this->getLocale());
         }
-
-        if ($criteria) {
-
-            $dql .= 'WHERE ';
-
-            foreach (array_keys($criteria) as $column) {
-                if (!$this->_class->hasField($column) && $this->_em->getClassMetadata($this->_entityName . 'Translation')->hasField($column)) {
-                    $dql .= 't.' . $column . ' = :' .  $column . ' AND ';
-                } else {
-                    $dql .= 's.' . $column . ' = :' .  $column . ' AND ';
-                }
-            }
-
-            $dql = substr($dql, 0, -4);
-        }
-
-        if ($orderBy) {
-            // Temporary hack (waiting for the function to be rewritten)
-            if ($this->getCurrentAppName() == 'backend') {
-                $dql .= 'ORDER BY s.' . key($orderBy);
-            } else {
-                // TODO: add an ordering column in the navigation table
-                $dql .= 'ORDER BY n.id, sn.' . key($orderBy);
-            }
-
-            $dql .= ' ' . $orderBy['ordering'];
-        }
-
-        $query = $this->getEntityManager()->createQuery($dql);
-
-        if ($criteria) {
-            $query->setParameters($criteria);
-        }
-
-        $tree = $this->buildTree($query->getResult());
-
-        return $tree;
+        
+        return $this->buildTree($queryBuilder->getQuery()->getResult());
     }
 
     /**
@@ -154,8 +103,12 @@ class SectionRepository extends BaseEntityRepository
     public function findByNavigationAndApp($navigationId, $appId)
     {
         $queryBuilder = $this->createQueryBuilder('s')
-            ->select('s', 'st')
+            ->select('s', 'st', 'c', 'ct', 'cc', 'cct')
             ->innerJoin('s.sectionNavigations', 'sn')
+            ->leftJoin('s.children', 'c')
+            ->leftJoin('c.translations', 'ct')
+            ->leftJoin('c.children', 'cc')
+            ->leftJoin('cc.translations', 'cct')
             ->where('s.app = :appId')
             ->andWhere('sn.navigation = :navigationId')
             ->orderBy('sn.ordering')
@@ -167,6 +120,10 @@ class SectionRepository extends BaseEntityRepository
             $queryBuilder->innerJoin('s.translations', 'st')
                 ->andWhere('st.active = true')
                 ->andWhere('st.locale = :locale')
+                ->andWhere('c.id IS NULL OR ct.active = true')
+                ->andWhere('c.id IS NULL OR ct.locale = :locale')
+                ->andWhere('cc.id IS NULL OR cct.active = true')
+                ->andWhere('cc.id IS NULL OR cct.locale = :locale')
                 ->setParameter('locale', $this->getLocale());
         }
 
@@ -236,6 +193,28 @@ class SectionRepository extends BaseEntityRepository
         return $ids;
     }
 
+    /**
+     * Find the last update of a Section entity
+     *
+     * @param null $queryBuilder
+     * @return mixed
+     */
+    public function findLastUpdate($queryBuilder = null)
+    {
+        if (!$queryBuilder) {
+            $queryBuilder = $this->createQueryBuilder('s');
+        }
+
+        try {
+            return $queryBuilder->select('s.updatedAt')
+                ->addOrderBy('s.updatedAt', 'DESC')
+                ->setMaxResults(1)
+                ->getQuery()->getSingleScalarResult();
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
+
     public function findByRoute($route) {
         $queryBuilder = $this->createQueryBuilder('s')
             ->select('s', 'a', 't')
@@ -245,7 +224,7 @@ class SectionRepository extends BaseEntityRepository
             ->where('m.target = :route')
             ->andWhere('m.type = :map_type')
             ->andWhere('a.slug != :backend_slug')
-            ->andWhere('t.locale != :locale')
+            ->andWhere('t.locale = :locale')
             ->setParameter('route', $route)
             ->setParameter('locale', $this->getLocale())
             ->setParameter('map_type', 'route')
@@ -253,5 +232,34 @@ class SectionRepository extends BaseEntityRepository
             ->orderBy('a.ordering', 'ASC');
 
         return $this->processQuery($queryBuilder);
+    }
+
+    public function findOneWithChildren($section) {
+        $section = (is_object($section)) ? $section->getId() : $section;
+
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->select('s', 't', 'c', 'ct', 'cc', 'cct')
+            ->innerJoin('s.translations', 't')
+            ->leftJoin('s.children', 'c')
+            ->leftJoin('c.translations', 'ct')
+            ->leftJoin('c.children', 'cc')
+            ->leftJoin('cc.translations', 'cct')
+            ->where('s.id = :section')
+            ->andWhere('t.locale = :locale')
+            ->andWhere('t.active = true')
+            ->andWhere('c.id IS NULL OR (ct.active = true AND ct.locale = :locale)')
+            ->andWhere('cc.id IS NULL OR (cct.active = true AND cct.locale = :locale)')
+            ->setParameter('section', $section)
+            ->setParameter('locale', $this->getLocale())
+            ->orderBy('s.ordering', 'ASC')
+            ->addOrderBy('c.ordering', 'ASC')
+            ->addOrderBy('cc.ordering', 'ASC')
+        ;
+
+
+        $result = $queryBuilder->getQuery()->getResult();
+        if (count($result))
+            return $result[0];
+        return null;
     }
 }

@@ -1,7 +1,7 @@
 {% import 'UnifikSystemBundle:System:mapping_macro.html.twig' as renderer %}
 
 {% if mappings %}
-    <ul id="bundles">
+    <ul class="nav nav-tabs section-module-bar">
         {% for mapping in mappings %}
             {{ renderer.generate(mapping) }}
         {% endfor %}

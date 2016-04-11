@@ -23,6 +23,7 @@ class CreatableEntityType extends AbstractType
         }
 
         $view->vars['quick_create_route'] = $options['quick_create_route'];
+        $view->vars['quick_create_label'] = $options['quick_create_label'];
 
         $tokens = explode('\\', $options['class']);
         $view->vars['entity_name'] = array_pop($tokens);
@@ -36,7 +37,8 @@ class CreatableEntityType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'quick_create_route' => null
+            'quick_create_route' => null,
+            'quick_create_label' => null,
         ));
     }
 

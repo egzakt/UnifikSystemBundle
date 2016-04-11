@@ -1,48 +1,43 @@
 {% extends 'UnifikSystemBundle:Backend/Application:layout.html.twig' %}
-{% form_theme form 'UnifikSystemBundle:Backend/Core:edit_fields.html.twig' %}
-
-{% block content_header %}
-    <h1>{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</h1>
-{% endblock %}
+{% form_theme form 'UnifikSystemBundle:Backend/Core:bootstrap_edit_fields.html.twig' %}
 
 {% block content_main %}
+    <div class="row">
+        {{ form_start(form, { attr: { novalidate: 'novalidate' } }) }}
+            <div class="col-md-8">
+                <div class="panel panel-dark">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ form_errors(form) }}
 
-    {{ form_start(form, { attr: { novalidate: 'novalidate' } }) }}
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.prefix) }}
 
-        {% block edit_actions %}
-            {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
-                'delete_route': path(entity.route('delete'), entity.routeParams),
-                'delete_message_route': path(entity.route('delete'), entity.routeParams({ 'message': true })),
-                'cancel_route': path('unifik_system_backend_application')
-            } %}
-        {% endblock %}
+                        {{ form_rest(form) }}
+                    </div><!-- panel-body -->
+                    {% block edit_action %}
+                        {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
+                        'delete_route': path(entity.route('delete'), entity.routeParams),
+                        'delete_message_route': path(entity.route('delete'), entity.routeParams({ 'message': true })),
+                        'cancel_route': path('unifik_system_backend_application')
+                        } %}
+                    {% endblock %}
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </div>
 
-        <div id="fields_box">
-            <table class="fields" cellspacing="0">
+    <script>
+        $(function(){
 
-                {{ form_errors(form) }}
+            var handleNameChange = function(){
+                var slug = $(this).val().toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
+                $('#app_prefix').val(slug);
+            };
 
-                {{ form_row(form.name) }}
-                {{ form_row(form.prefix) }}
-
-                {{ form_rest(form) }}
-            </table>
-        </div>
-
-        <script>
-            $(function(){
-
-                var handleNameChange = function(){
-                    var slug = $(this).val().toLowerCase().replace(/[^\w ]+/g, '').replace(/ +/g, '-');
-                    $('#app_prefix').val(slug);
-                };
-
-                $('#app_name').on('keyup, change', handleNameChange);
-            });
-        </script>
-
-        {{ block('edit_actions') }}
-
-    {{ form_end(form) }}
-
+            $('#app_name').on('keyup, change', handleNameChange);
+        });
+    </script>
 {% endblock content_main %}

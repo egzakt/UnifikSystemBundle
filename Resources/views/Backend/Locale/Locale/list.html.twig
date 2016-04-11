@@ -1,75 +1,64 @@
-{% extends 'UnifikSystemBundle:Backend/Member:layout.html.twig' %}
-
-{% block content_header %}
-    <h1>{% trans %}Language list{% endtrans %}</h1>
-{% endblock %}
+{% extends 'UnifikSystemBundle:Backend/Locale:layout.html.twig' %}
 
 {% block content_main %}
+    <div class="list-box panel panel-dark" style="margin-top: 10px;">
+            <div class="panel-heading">
+                <h3 class="panel-title">{% trans %}Language list{% endtrans %} <a class="btn btn-primary btn-xs ml20" href="{{ path('unifik_system_backend_locale_edit') }}"><i class="fa fa-plus-square mr5"></i> {% trans %}Add a language{% endtrans %}</a></h3>
+            </div>
+            <div class="panel-body panel-body-dark">
+                <table class="table-autosort table table-striped">
+                    <thead>
+                        <tr>
+                            <th class="name table-sortable:ignorecase">
+                                {% trans %}Name{% endtrans %}
+                            </th>
+                            <th class="table-sortable:ignorecase">
+                                {% trans %}Code{% endtrans %}
+                            </th>
+                            <th class="edit"></th>
+                        </tr>
+                        <tr class="filters">
+                            <th class="name">
+                                <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
+                            </th>
+                            <th>
+                                <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a code"|trans }}" />
+                            </th>
+                            <th>
+                                &nbsp;
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for locale in locales %}
+                        <tr id="item_{{ locale.id }}">
+                            <td class="name{% if not locale.active %} inactive{% endif %}{% if locale.code == default_locale %} featured{% endif %}">
+                                <a href="{{ path(locale.route, locale.routeParams) }}">{{ locale }}</a>
+                            </td>
+                            <td>
+                                {{ locale.code }}
+                            </td>
+                            <td class="table-action">
+                                {% if locale.isEditable %}
+                                    <a href="{{ path(locale.route, locale.routeParams) }}" title="{% trans %}Edit{% endtrans %}">
+                                        <i class="fa fa-pencil"></i>
+                                    </a>
+                                {% endif %}
+                                <a href="{{ path(locale.route('delete'), locale.routeParams) }}" rel="{{ path(locale.route('delete'), locale.routeParams({'message': true})) }}" title="{% trans %}Delete{% endtrans %}">
+                                    <i class="fa fa-trash-o"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
 
-    <div id="list_actions_bar">
-        <a class="add" href="{{ path('unifik_system_backend_locale_edit') }}">{% trans %}Add a language{% endtrans %}</a>
-    </div>
-
-    <div class="list_box">
-        <table cellspacing="0" class="table-autosort">
-            <thead>
-            <tr>
-                <th class="name table-sortable:ignorecase">
-                    {% trans %}Name{% endtrans %}
-                </th>
-                <th class="table-sortable:ignorecase">
-                    {% trans %}Code{% endtrans %}
-                </th>
-                <th class="edit"></th>
-                <th class="delete"></th>
-            </tr>
-            <tr class="filters">
-                <th class="name">
-                    <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a name"|trans }}" />
-                </th>
-                <th>
-                    <input onkeyup="Table.filter(this,this)" class="filter" alt="{{ "Search a code"|trans }}" />
-                </th>
-                <th>
-                    &nbsp;
-                </th>
-                <th>
-                    &nbsp;
-                </th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for locale in locales %}
-                <tr id="item_{{ locale.id }}">
-                    <td class="name{% if not locale.active %} inactive{% endif %}{% if locale.code == default_locale %} featured{% endif %}">
-                        <a href="{{ path(locale.route, locale.routeParams) }}">{{ locale }}</a>
-                    </td>
-                    <td>
-                        {{ locale.code }}
-                    </td>
-                    <td class="edit">
-                        {% if locale.isEditable %}
-                            <a href="{{ path(locale.route, locale.routeParams) }}" title="{% trans %}Edit{% endtrans %}">
-                                <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/edit.png') }}" width="15" height="15" alt="" />
-                            </a>
-                        {% endif %}
-                    </td>
-                    <td class="delete">
-                        <a href="{{ path(locale.route('delete'), locale.routeParams) }}" rel="{{ path(locale.route('delete'), locale.routeParams({'message': true})) }}" title="{% trans %}Delete{% endtrans %}">
-                            <img src="{{ asset('bundles/unifiksystem/backend/images/buttons/delete.png') }}" width="12" height="15" alt="" />
-                        </a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-
-        <div class="total">
-            <span class="sub-total"></span>
-            {% set count = locales|length %}
-            {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+                <div class="total dataTables_info">
+                    <span class="sub-total"></span>
+                    {% set count = locales|length %}
+                    {% transchoice count %}{0} No results|{1} One result|]1,Inf] %count% results{% endtranschoice %}
+                </div>
+            </div>
         </div>
-    </div>
-
 {% endblock content_main %}
 

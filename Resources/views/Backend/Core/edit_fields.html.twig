@@ -208,7 +208,7 @@
 
 {% block radio_widget %}
 {% spaceless %}
-    {% if level is defined %}{{ tree_indentation(level)|raw }}{% endif %}<input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %}" />
+    {% if level is defined %}{{ tree_indentation(level)|raw }}{% endif %}<input type="radio" {{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} />
 {% endspaceless %}
 {% endblock radio_widget %}
 
@@ -288,7 +288,7 @@
 {% block creatable_entity_widget %}
     {% spaceless %}
         {{ block('choice_widget') }}
-        <a href="{{ path(quick_create_route) }}" class="quick_create_link{% if not form.vars.expanded %} aside{% endif %}">{% trans with { '%entity%': entity_name|trans } %}Create a new %entity%{% endtrans %}</a>
+        <a href="{{ path(quick_create_route) }}" class="quick_create_link{% if not form.vars.expanded %} aside{% endif %}">{% if form.vars.quick_create_label %}{{ form.vars.quick_create_label|trans({ '%entity%': entity_name|trans }) }}{% else %}{% trans with { '%entity%': entity_name|trans } %}Create a new %entity%{% endtrans %}{% endif %}</a>
         <div class="quick_create_container" data-input-id="{{ form.vars.id }}" data-input-name="{{ form.vars.full_name }}" data-input-type="{% if not form.vars.expanded %}select{% elseif form.vars.multiple %}checkbox{% else %}radio{% endif %}"></div>
     {% endspaceless %}
 {% endblock %}
@@ -303,3 +303,27 @@
 {% block media_select_widget %}
     {% include 'UnifikMediaBundle:Backend/Form:fields.html.twig' with {'widget_attributes': block('widget_attributes')} %}
 {% endblock %}
+
+{% block taggable_widget %}
+    {{ block('choice_widget') }}
+    {% if form.vars.use_fcbkcomplete %}
+        <script>
+            $(function(){
+                if (typeof $.fn.fcbkcomplete !== 'undefined') {
+                    // Add a selected class on selected elements so FCBKComplete automatically add it
+                    $('#{{ form.vars.id }} > option:selected').addClass('selected');
+
+                    $('#{{ form.vars.id }}').fcbkcomplete({
+                        addontab: true,
+                        complete_text: '{% trans %}Start typing...{% endtrans %}',
+                        newel: {{ form.vars.allow_add ? 'true' : 'false' }},
+                        filter_selected: true,
+                        maxitems: Number.MAX_VALUE
+                    });
+                } else {
+                    console.log('{% trans %}TaggableType Error : Fcbkcomplete plugin is not loaded.{% endtrans %}');
+                }
+            });
+        </script>
+    {% endif %}
+{% endblock taggable_widget %}

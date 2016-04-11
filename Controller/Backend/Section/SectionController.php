@@ -45,6 +45,8 @@ class SectionController extends BackendController
 
         $this->sectionRepository = $this->getEm()->getRepository('UnifikSystemBundle:Section');
         $this->navigationRepository = $this->getEm()->getRepository('UnifikSystemBundle:Navigation');
+
+        $this->createAndPushNavigationElement('Subsections list', 'unifik_system_backend_section');
     }
 
     /**
@@ -118,15 +120,6 @@ class SectionController extends BackendController
                     $mapping->setNavigation($sectionModuleBar);
                     $mapping->setType('render');
                     $mapping->setTarget('UnifikSystemBundle:Backend/Text/Navigation:SectionModuleBar');
-
-                    $entity->addMapping($mapping);
-
-                    $mapping = new Mapping();
-                    $mapping->setSection($entity);
-                    $mapping->setApp($app);
-                    $mapping->setNavigation($sectionModuleBar);
-                    $mapping->setType('render');
-                    $mapping->setTarget('UnifikSystemBundle:Backend/Section/Navigation:SectionModuleBar');
 
                     $entity->addMapping($mapping);
 

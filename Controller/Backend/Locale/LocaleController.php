@@ -2,6 +2,7 @@
 
 namespace Unifik\SystemBundle\Controller\Backend\Locale;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,6 +30,8 @@ class LocaleController extends BackendController
         if (false === $this->get('security.context')->isGranted('ROLE_BACKEND_ADMIN')) {
             throw new AccessDeniedHttpException('You don\'t have the privileges to view this page.');
         }
+
+        $this->createAndPushNavigationElement('Languages', 'unifik_system_backend_locale');
     }
 
     /**
@@ -66,6 +69,8 @@ class LocaleController extends BackendController
             $locale->setContainer($this->container);
         }
 
+        $this->pushNavigationElement($locale);
+
         $form = $this->createForm(new LocaleType(), $locale);
 
         if ('POST' == $request->getMethod()) {
@@ -82,7 +87,7 @@ class LocaleController extends BackendController
                     array('%entity%' => $locale))
                 );
 
-                $this->get('unifik_database_config.container_invalidator')->invalidate();
+                $this->invalidateDatabaseConfig();
 
                 if ($request->request->has('save')) {
                     return $this->redirect($this->generateUrl('unifik_system_backend_locale'));
@@ -130,9 +135,19 @@ class LocaleController extends BackendController
         $locale = $this->getEm()->getRepository('UnifikSystemBundle:Locale')->find($id);
         $this->deleteEntity($locale);
 
-        $this->get('unifik_database_config.container_invalidator')->invalidate();
+        $this->invalidateDatabaseConfig();
 
         return $this->redirect($this->generateUrl('unifik_system_backend_locale'));
+    }
+
+    /**
+     * Invalidate the DatabaseConfig service
+     */
+    protected function invalidateDatabaseConfig()
+    {
+        if ($databaseConfigService = $this->container->get('unifik_database_config.container_invalidator', ContainerInterface::NULL_ON_INVALID_REFERENCE)) {
+            $databaseConfigService->invalidate();
+        }
     }
 
 }

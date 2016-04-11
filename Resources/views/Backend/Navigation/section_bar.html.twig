@@ -1,11 +1,14 @@
-{% if sections %}
-    <ul id="sections">
-        {% include 'UnifikSystemBundle:Backend/Navigation:section_bar_level.html.twig' with { 'level': 2 } %}
-    </ul>
-{% else %}
-    {% if is_granted('ROLE_BACKEND_ADMIN') %}
-        {% trans %}There is no section in this application{% endtrans %}
-        <br />
-        <a href="{{ path('unifik_system_backend_section_root_edit', { appSlug: managedApp.slug }) }}">{% trans %}Create a new section{% endtrans %}</a>
+<h5 class="sidebartitle">{% trans %}Sections{% endtrans %}</h5>
+<nav>
+    {% if sections %}
+        <ul class="nav nav-pills nav-stacked nav-bracket">
+            {% include 'UnifikSystemBundle:Backend/Navigation:section_bar_level.html.twig' with { 'level': 2 } %}
+        </ul>
+    {% else %}
+        {% if is_granted('ROLE_BACKEND_ADMIN') %}
+            {% trans %}There is no section in this application{% endtrans %}
+            <br />
+            <a href="{{ path('unifik_system_backend_section_root_edit', { appSlug: managedApp.slug }) }}">{% trans %}Create a new section{% endtrans %}</a>
+        {% endif %}
     {% endif %}
-{% endif %}
+</nav>

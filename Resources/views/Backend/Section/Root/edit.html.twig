@@ -1,56 +1,57 @@
 {% extends 'UnifikSystemBundle:Backend/Section:layout.html.twig' %}
-{% form_theme form 'UnifikSystemBundle:Backend/Core:edit_fields.html.twig' %}
+{% form_theme form 'UnifikSystemBundle:Backend/Core:bootstrap_edit_fields.html.twig' %}
 
-{% block content_header %}
-    <h1>{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}</h1>
+{% block section_title %}
+    <h2><i class="fa fa-sitemap"></i> {% trans %}Root Sections{% endtrans %}</h2>
 {% endblock %}
 
 {% block content_main %}
+    <div class="row">
+        <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
+            <div class="col-md-8">
+                <div class="panel panel-dark">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">{% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { entity: entity } %}</h3>
+                    </div>
+                    <div class="panel-body">
+                        {{ form_errors(form) }}
 
-    <form novalidate="novalidate" method="post" {{ form_enctype(form) }}>
+                        {{ form_row(form.translation.active) }}
+                        {{ form_row(form.translation.name) }}
 
-        {% block edit_actions %}
-            {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
-                'delete_route': path('unifik_system_backend_section_root_delete', { 'id': entity.id ?: 0, appSlug: managedApp.slug }),
-                'cancel_route': path('unifik_system_backend_section_root', { appSlug: managedApp.slug }),
-            } %}
-        {% endblock %}
+                        {% include 'UnifikSystemBundle:Backend/Core:collapsable_fields.html.twig' with {
+                            'link_name': 'SEO Informations',
+                            'fields': [form_row(form.translation.slug), form_row(form.translation.metaTitle), form_row(form.translation.metaTitleOverride), form_row(form.translation.metaDescription), form_row(form.translation.metaKeywords)],
+                            'id': 'seo'
+                        } %}
 
-        <div id="fields_box">
-            <table class="fields" cellspacing="0">
+                        {% include 'UnifikSystemBundle:Backend/Core:collapsable_fields.html.twig' with {
+                            'link_name': 'Parameters',
+                            'fields': [form_row(form.parent), form_row(form.app), form_row(form.navigations)],
+                            'id': 'parameters'
+                        } %}
 
-                {{ form_errors(form) }}
+                        {{ form_rest(form) }}
 
-                {{ form_row(form.translation.active) }}
-                {{ form_row(form.translation.name) }}
+                        {% if entity.id %}
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">{% trans %}Last update{% endtrans %}</label>
+                                <div class="col-sm-10">
+                                    {{ entity.updatedAt|localizeddate('medium') }}
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div><!-- panel-body -->
 
-                {% include 'UnifikSystemBundle:Backend/Core:collapsable_fields.html.twig' with {
-                    'link_name': 'SEO Informations',
-                    'fields': [form_row(form.translation.slug), form_row(form.translation.pageTitle), form_row(form.translation.headCode)]
-                } %}
-
-                {% include 'UnifikSystemBundle:Backend/Core:collapsable_fields.html.twig' with {
-                    'link_name': 'Parameters',
-                    'fields': [form_row(form.parent), form_row(form.app), form_row(form.navigations)]
-                } %}
-
-                {{ form_rest(form) }}
-
-                {% if entity.id %}
-                    <tr>
-                        <th>
-                            {% trans %}Last update{% endtrans %} :
-                        </th>
-                        <td style="vertical-align:bottom">
-                            {{ entity.updatedAt|localizeddate('medium') }}
-                        </td>
-                    </tr>
-                {% endif %}
-            </table>
-        </div>
-
-        {{ block('edit_actions') }}
-
-    </form>
+                    {% block edit_actions %}
+                        {% include 'UnifikSystemBundle:Backend/Core:edit_actions.html.twig' with {
+                            'delete_route': path('unifik_system_backend_section_root_delete', { 'id': entity.id ?: 0, appSlug: managedApp.slug }),
+                            'cancel_route': path('unifik_system_backend_section_root', { appSlug: managedApp.slug }),
+                        } %}
+                    {% endblock %}
+                </div>
+            </div>
+        </form>
+    </div>
 
 {% endblock content_main %}

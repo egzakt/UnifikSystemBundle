@@ -33,6 +33,7 @@ parameters:
     unifik_frontend.core.class:                                 Unifik\SystemBundle\Lib\Frontend\Core
     unifik_system.translation_editor_loader.class:              Unifik\SystemBundle\Translation\TranslationEditorLoader
     unifik_system.twig.application_context_extension.class:     Unifik\SystemBundle\Extensions\ApplicationContextExtension
+    unifik_system.datagrid_bridge.class:                        Unifik\SystemBundle\Lib\DatagridBridge
     unifik_system.twig.application_path_extension.class:        Unifik\SystemBundle\Extensions\ApplicationPathExtension
 
 services:
@@ -100,6 +101,7 @@ services:
           - [ setLocale, [ %locale% ] ]
           - [ setSystemCore, [ @unifik_system.core ] ]
           - [ setControllerNameConverter, [ @controller_name_converter ] ]
+          - [ setContainer, [ @service_container] ]
 
     unifik_system.twig_translation_extension:
         class: %unifik_system.twig_translation_extension.class%
@@ -249,3 +251,7 @@ services:
           - [ setAutoParametersHandler, [ @unifik_system.router_auto_parameters_handler ] ]
           - [ setRouter, [ @router ] ]
           - [ setSystemCore, [ @unifik_system.core ] ]
+
+    unifik_system.datagrid_bridge:
+       class: %unifik_system.datagrid_bridge.class%
+       arguments: [@unifik_system.core]

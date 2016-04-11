@@ -1,3 +1,5 @@
+Dashboard: Tableau de bord
+
 User: Utilisateur
 Password: Mot de passe
 Content Management System (CMS): Système de gestion de contenu (CMS)
@@ -18,6 +20,7 @@ Footer: Pied de page
 Nb. of subsections: Nombre de sous-sections
 Subsections list: Liste des sous-sections
 Sections List: Liste des sections
+Root Sections: Sections racines
 Subsections: sous-sections
 Add a section: Ajouter une section
 Add a subsection: Ajouter une sous-section
@@ -41,6 +44,12 @@ Last update: Mise à jour
 Search a name: Rechercher un nom
 Search a title: Rechercher un titre
 This section has one or more subsections.: Cette section a des sous-sections qui lui sont reliées.
+'Delete:': 'Supprimer :'
+'Replace:': 'Remplacer :'
+This field is required: Ce champ est requis
+
+Application's modules: Modules de l'application
+Global modules: Modules globaux
 
 Texts: Textes
 Add a text: Ajouter un texte
@@ -51,8 +60,8 @@ Text: Texte
 Content: Contenu
 Collapsable: Déroulant
 Search a content: Recherche un contenu
-Main: Principaux
-Static block: Blocs statiques
+Main text list: Liste des textes principaux
+Static block list: Liste des blocs texte statiques
 The Text has been saved.: Le texte a été enregistré.
 The Text has been deleted.: Le texte a été supprimé.
 
@@ -81,7 +90,7 @@ Cancel: Annuler
 Save and continue: Enregistrer et continuer
 Save: Enregistrer
 Delete: Supprimer
-'cannot be deleted because of these restrictions:': 'ne peut être supprimé à cause des ces restrictions:'
+'cannot be deleted because of these restrictions:': 'ne peut être supprimé à cause de ces restrictions:'
 
 Some fields are invalid.: Des champs sont invalides.
 %entity% has been saved.: %entity% a été enregistré.
@@ -141,7 +150,9 @@ Search a Translation: Rechercher une traduction
 
 Displayed on the language switcher: Affiché sur le sélecteur de langue
 Home page URL: URL de la page d'accueil
-
+Welcome to Unifik: Bienvenue dans Unifik
+All Rights Reserved: Tous droits réservés
+Account: Compte
 Home: Accueil
 ":": " :"
 
@@ -153,3 +164,13 @@ The requested URL was not found on this server: La page à laquelle vous tentez 
 
 There is no section in this application: Il n'y a aucune section dans cette application
 Create a new section: Créer une nouvelle section
+
+# Datagrid
+Export: Exporter
+"true": oui
+"false": non
+Created at: Date de création
+Updated at: Mise à jour
+Selected _s_ rows: _s_ ligne(s) sélectionnées
+Do you want to delete this row?: Êtes-vous sur de vouloir effacer cette ligne?
+No data: Aucune donnée à afficher

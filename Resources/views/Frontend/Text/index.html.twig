@@ -1,5 +1,5 @@
 {% extends 'UnifikSystemBundle:Frontend:layout.html.twig' %}
 
 {% block content_main %}
-    {{ render(controller('UnifikSystemBundle:Frontend/Text:DisplayTexts')) }}
+    {{ render_esi(controller('UnifikSystemBundle:Frontend/Text:displayTexts')) }}
 {% endblock %}

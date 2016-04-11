@@ -71,6 +71,7 @@ class ExceptionListener
         $exception = $event->getException();
 
         $this->request->setLocale($this->defaultLocale);
+        $this->request->setDefaultLocale($this->defaultLocale);
 
         if ($exception instanceof NotFoundHttpException) {
 
@@ -80,6 +81,9 @@ class ExceptionListener
 
             $unifikRequest = $this->generateUnifikRequest($section);
             $this->setUnifikRequestAttributes($unifikRequest);
+            $this->request->setLocale($this->request->attributes->get('_locale', $this->defaultLocale));
+            $this->request->setDefaultLocale($this->request->attributes->get('_locale', $this->defaultLocale));
+            $this->entityManager->getRepository('UnifikSystemBundle:Section')->setLocale($this->request->attributes->get('_locale'));
 
             $response = $this->templating->renderResponse('UnifikSystemBundle:Frontend/Exception:404.html.twig', array('section' => $section));
             $response->setStatusCode(404);
@@ -116,7 +120,7 @@ class ExceptionListener
             'appId' => 2, // Frontend
             'appPrefix' => '',
             'appName' => 'Frontend',
-            'appSlug' => ''
+            'appSlug' => 'frontend',
         );
 
         return $unifikRequest;

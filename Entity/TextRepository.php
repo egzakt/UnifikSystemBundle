@@ -14,4 +14,39 @@ use Unifik\SystemBundle\Lib\BaseEntityRepository;
 class TextRepository extends BaseEntityRepository
 {
     use UnifikORMBehaviors\Repository\TranslatableEntityRepository;
+
+    /**
+     * Find the last update of a Text entity
+     *
+     * @param null $queryBuilder
+     * @param int|null $sectionId
+     * @param int|null $textId
+     *
+     * @return mixed
+     */
+    public function findLastUpdate($queryBuilder = null, $sectionId = null, $textId = null)
+    {
+        if (!$queryBuilder) {
+            $queryBuilder = $this->createQueryBuilder('t');
+        }
+
+        if ($sectionId) {
+            $queryBuilder->andWhere('t.section = :sectionId')
+                ->setParameter('sectionId', $sectionId);
+        }
+
+        if ($textId) {
+            $queryBuilder->andWhere('t.id = :textId')
+                ->setParameter('textId', $textId);
+        }
+
+        try {
+            return $queryBuilder->select('t.updatedAt')
+                    ->addOrderBy('t.updatedAt', 'DESC')
+                    ->setMaxResults(1)
+                    ->getQuery()->getSingleScalarResult();
+        } catch (\Exception $e) {
+            return null;
+        }
+    }
 }

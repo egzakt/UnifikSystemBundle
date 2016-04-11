@@ -7,7 +7,7 @@
             <meta charset="utf-8" />
             <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
-            <title>{% block title %}{{ render(controller('UnifikSystemBundle:Frontend/Navigation:pageTitle')) }}{% endblock %}</title>
+            <title>{% block title %}{{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:pageTitle')) }}{% endblock %}</title>
 
             {% block metas %}
                 {% include 'UnifikSystemBundle:Frontend/Core:metas.html.twig' %}
@@ -26,7 +26,7 @@
             <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
             <script>window.jQuery.ui || document.write('<script src="{{ asset('bundles/unifiksystem/frontend/js/jquery-ui.min.js') }}"><\/script>')</script>
 
-            {% block head_extra %}{{ render(controller('UnifikSystemBundle:Frontend/Core:headExtra')) }}{% endblock %}
+            {% block head_extra %}{{ render_esi(controller('UnifikSystemBundle:Frontend/Core:headExtra')) }}{% endblock %}
 
             <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,8 +43,8 @@
             <div id="wrapper">
 
                 <header id="site_header">
-                    {{ render(controller('UnifikSystemBundle:Frontend/Navigation:localeSwitcher')) }}
-                    {{ render(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'secondary', attr: { id: 'secondary_navigation' } })) }}
+                    {{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:localeSwitcher')) }}
+                    {{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'secondary', attr: { id: 'secondary_navigation' } })) }}
 
                     {% block logo %}
                         <div id="logo">
@@ -53,17 +53,17 @@
                     {% endblock %}
                 </header>
 
-                {{ render(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'primary', maxLevel: 1, attr: { id: 'primary_navigation' } })) }}
+                {{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'primary', maxLevel: 1, attr: { id: 'primary_navigation' } })) }}
 
                 {% block main %}
                     <main id="main" role="main" class="clearfix{% if not section.parent and not section.children %} full{% endif %}">
 
                         {% block nav_col %}
-                            {{ render(controller('UnifikSystemBundle:Frontend/Navigation:fromSection', { section: section, attr: { id: 'sub_navigation', class: 'aside_nav' } } )) }}
+                            {{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:fromSection', { section: section.id, attr: { id: 'sub_navigation', class: 'aside_nav' } } )) }}
                         {% endblock %}
 
                         <div id="content_col">
-                            {% block breadcrumbs %}{{ render(controller('UnifikSystemBundle:Frontend/Navigation:breadcrumbs')) }}{% endblock %}
+                            {% block breadcrumbs %}{{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:breadcrumbs')) }}{% endblock %}
 
                             {% block content %}
                                 {% block content_top %}
@@ -90,7 +90,7 @@
                 {% endblock %}
 
                 <footer id="site_footer">
-                    {{ render(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'footer', attr: { id: 'footer_navigation' } })) }}
+                    {{ render_esi(controller('UnifikSystemBundle:Frontend/Navigation:byCode', { code: 'footer', attr: { id: 'footer_navigation' } })) }}
                 </footer>
             </div>
 
