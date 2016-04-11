@@ -18,7 +18,7 @@ Unifik\SystemBundle\Entity\Member:
       length: 255
     password:
       type: string
-      length: 32
+      length: 255
     address:
       type: string
       nullable: true
