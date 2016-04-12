@@ -189,3 +189,9 @@ unifik_system_backend_translation_insert:
 unifik_system_backend_translation_rebuild_token:
     pattern:  /translation-editor/rebuild-tokens
     defaults: { _controller: "UnifikSystemBundle:Backend/Translation/Translation:rebuildToken" }
+
+unifik_system_backend_quickcreatejs:
+    pattern:  /quickCreate.js
+    defaults: { _controller: "UnifikSystemBundle:Backend/Javascripts:quickCreate" }
+    options:
+        expose: true
