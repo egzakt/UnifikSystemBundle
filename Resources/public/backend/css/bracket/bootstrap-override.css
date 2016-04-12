@@ -588,11 +588,6 @@ h4, .h4 {
    padding: 20px;
 }
 
-.panel-default > .panel-heading {
-   border-color: #e7e7e7;
-   background-color: #fff;
-}
-
 .panel-heading-empty {
    background: none;
    border-bottom: 0;
@@ -613,24 +608,35 @@ h4, .h4 {
    border-bottom: 0;
 }
 
-.panel-success .panel-heading {
-   background-color: #1CAF9A;
-}
-
-.panel-warning .panel-heading {
-   background-color: #F0AD4E;
-}
-
-.panel-danger .panel-heading {
-   background-color: #D9534F;
-}
-
-.panel-info .panel-heading {
-   background-color: #5BC0DE;
-}
-
-.panel-dark .panel-heading {
+.panel-dark .panel-heading,
+.panel-dark > .panel-heading {
    background-color: #1d2939;
+}
+
+.panel-default .panel-heading,
+.panel-default > .panel-heading {
+    border-color: #e7e7e7;
+    background-color: #fff;
+}
+
+.panel-info .panel-heading,
+.panel-info > .panel-heading {
+    background-color: #5BC0DE;
+}
+
+.panel-success .panel-heading,
+.panel-success > .panel-heading {
+    background-color: #1CAF9A;
+}
+
+.panel-warning .panel-heading,
+.panel-warning > .panel-heading {
+    background-color: #F0AD4E;
+}
+
+.panel-danger .panel-heading,
+.panel-danger > .panel-heading {
+    background-color: #D9534F;
 }
 
 .panel-btns a {
@@ -661,7 +667,8 @@ h4, .h4 {
    text-decoration: none;
 }
 
-.panel-title {
+.panel-title,
+.panel-default > .panel-heading .panel-title {
    font-size: 18px;
    color: #111;
    /*font-family: 'LatoBold'; */
