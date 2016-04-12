@@ -1,5 +1,7 @@
 <div class="panel-footer text-right">
-    <a href="{{ cancel_route }}" class="btn btn-default pull-left">{% trans %}Cancel{% endtrans %}</a>
+    {% if cancel_route is defined and cancel_route %}
+        <a href="{{ cancel_route }}" class="btn btn-default pull-left">{% trans %}Cancel{% endtrans %}</a>
+    {% endif %}
 
     {% if entity.isDeletable %}
         <a href="{% if delete_route is defined %}{{ delete_route }}{% else %}{{ path( entity.getRouteBackend('delete'), entity.getRouteBackendParams() ) }}{% endif %}" rel="{% if delete_message_route is defined %}{{ delete_message_route }}{% else %}{{ path( entity.getRouteBackend('delete'), entity.getRouteBackendParams({ 'message': true }) ) }}{% endif %}" class="delete btn btn-danger">
@@ -7,6 +9,8 @@
         </a>
     {% endif %}
 
-    <button class="btn btn-primary" name="save_continue">{% trans %}Save and continue{% endtrans %}</button>
+    {% if not save_continue is defined or save_continue %}
+        <button class="btn btn-primary" name="save_continue">{% trans %}Save and continue{% endtrans %}</button>
+    {% endif %}
     <button class="btn btn-darkblue" name="save">{% trans %}Save{% endtrans %}</button>
 </div>
