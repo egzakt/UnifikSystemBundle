@@ -16,7 +16,9 @@
 %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
-<script src="{{ path('unifik_system_backend_quickcreatejs') }}"></script>
+{% if app.user %}
+    <script src="{{ path('unifik_system_backend_quickcreatejs') }}"></script>
+{% endif %}
 
 <script>
     var session_locale = '{{ app.request.locale }}';
