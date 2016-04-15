@@ -17,7 +17,7 @@ class TextController extends BaseController
     /**
      * @var TextRepository
      */
-    private $textRepository;
+    protected $textRepository;
 
     /**
      * Init
