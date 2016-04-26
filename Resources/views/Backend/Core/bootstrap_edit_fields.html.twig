@@ -224,27 +224,29 @@
 
 {% block form_label -%}
 {% spaceless %}
-    {% if label is sameas(false) %}
-        <div class="{{ block('form_label_class') }}"></div>
-    {% else %}
-        {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ block('form_label_class'))|trim}) %}
-        {% if not compound -%}
-            {% set label_attr = label_attr|merge({'for': id}) %}
-        {%- endif %}
-        {% if label is empty -%}
-            {% set label = name|humanize %}
-        {%- endif -%}
-        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
-            {% if required and checked is not defined %}
-                {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
-                <span class="required" title="{% trans %}This field is required{% endtrans %}">* </span>
+    {% if name != 'translation' %}
+        {% if label is sameas(false) %}
+            <div class="{{ block('form_label_class') }}"></div>
+        {% else %}
+            {% set label_attr = label_attr|merge({class: (label_attr.class|default('') ~ ' ' ~ block('form_label_class'))|trim}) %}
+            {% if not compound -%}
+                {% set label_attr = label_attr|merge({'for': id}) %}
             {%- endif %}
-            {%- if entity.id is defined -%}
-                {% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}
-            {%- else -%}
-                {{ label|trans|raw }}
+            {% if label is empty -%}
+                {% set label = name|humanize %}
             {%- endif -%}
-        </label>
+            <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>
+                {% if required and checked is not defined %}
+                    {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+                    <span class="required" title="{% trans %}This field is required{% endtrans %}">* </span>
+                {%- endif %}
+                {%- if entity.id is defined -%}
+                    {% include 'UnifikSystemBundle:Backend/Core:entity_title.html.twig' with { 'entity': entity } %}
+                {%- else -%}
+                    {{ label|trans|raw }}
+                {%- endif -%}
+            </label>
+        {% endif %}
     {% endif %}
 {% endspaceless %}
 {%- endblock form_label %}
@@ -297,7 +299,7 @@
 {% block creatable_entity_widget %}
     {% spaceless %}
         {{ block('choice_widget') }}
-        <a href="{{ path(quick_create_route) }}" class="quick_create_link{% if not form.vars.expanded %} aside{% endif %}">{% trans with { '%entity%': entity_name|trans } %}Create a new %entity%{% endtrans %}</a>
+        <a href="{{ path(quick_create_route) }}" class="btn btn-primary btn-xs quick_create_link{% if not form.vars.expanded %} aside{% endif %}"><i class="fa fa-plus-square mr5"></i>{% if form.vars.quick_create_label %}{{ form.vars.quick_create_label|trans({ '%entity%': entity_name|trans }) }}{% else %}{% trans with { '%entity%': entity_name|trans } %}Create a new %entity%{% endtrans %}{% endif %}</a>
         <div class="quick_create_container" data-input-id="{{ form.vars.id }}" data-input-name="{{ form.vars.full_name }}" data-input-type="{% if not form.vars.expanded %}select{% elseif form.vars.multiple %}checkbox{% else %}radio{% endif %}"></div>
     {% endspaceless %}
 {% endblock %}
