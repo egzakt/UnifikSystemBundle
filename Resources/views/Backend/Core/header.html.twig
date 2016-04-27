@@ -1,5 +1,10 @@
 <div class="header-right">
     <ul class="headermenu">
+        {% block access_website %}
+            <li>
+                <a target="_blank" class="btn btn-default go-to-site pull-right" href="/">{% trans %}Access Website{% endtrans %}</a>
+            </li>
+        {% endblock %}
         {% block locale_bar %}
             {{ render(controller('UnifikSystemBundle:Backend/Navigation:LocaleBar')) }}
         {% endblock %}

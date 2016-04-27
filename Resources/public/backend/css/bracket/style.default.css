@@ -144,14 +144,18 @@ strong {
 }
 
 .headermenu > li {
-   display: inline-block;
-   float: left;
-	border-left: 1px solid #eee;
-	position: relative;
+    display: inline-block;
+    float: left;
+    border-left: 1px solid #eee;
+    position: relative;
+    height: 50px;
+}
+
+.headermenu .btn {
+    margin: 8px 10px;
 }
 
 .headermenu .dropdown-toggle {
-   padding: 12px 10px;
    border-color: #fff;
 	background: #fff;
 	-moz-border-radius: 0;
@@ -159,6 +163,8 @@ strong {
 	border-radius: 0;
 	border: 0;
     height: 50px;
+    padding: 12px 10px;
+    margin: 0;
 }
 
 .headermenu .dropdown-toggle-min-width {
