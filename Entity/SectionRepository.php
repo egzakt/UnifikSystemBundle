@@ -106,9 +106,7 @@ class SectionRepository extends BaseEntityRepository
             ->select('s', 'st', 'c', 'ct', 'cc', 'cct')
             ->innerJoin('s.sectionNavigations', 'sn')
             ->leftJoin('s.children', 'c')
-            ->leftJoin('c.translations', 'ct')
             ->leftJoin('c.children', 'cc')
-            ->leftJoin('cc.translations', 'cct')
             ->where('s.app = :appId')
             ->andWhere('sn.navigation = :navigationId')
             ->orderBy('sn.ordering')
@@ -117,14 +115,17 @@ class SectionRepository extends BaseEntityRepository
             ->setParameter('navigationId', $navigationId);
 
         if ($this->getCurrentAppName() != 'backend') {
-            $queryBuilder->innerJoin('s.translations', 'st')
+            $queryBuilder
+                ->leftJoin('c.translations', 'ct', 'WITH', 'ct.active = true and ct.locale = :locale')
+                ->leftJoin('cc.translations', 'cct', 'WITH', 'cct.active = true and cct.locale = :locale')
+                ->innerJoin('s.translations', 'st')
                 ->andWhere('st.active = true')
                 ->andWhere('st.locale = :locale')
-                ->andWhere('c.id IS NULL OR ct.active = true')
-                ->andWhere('c.id IS NULL OR ct.locale = :locale')
-                ->andWhere('cc.id IS NULL OR cct.active = true')
-                ->andWhere('cc.id IS NULL OR cct.locale = :locale')
                 ->setParameter('locale', $this->getLocale());
+        } else {
+            $queryBuilder
+                ->leftJoin('c.translations', 'ct')
+                ->leftJoin('cc.translations', 'cct');
         }
 
         return $this->processQuery($queryBuilder);
@@ -241,14 +242,12 @@ class SectionRepository extends BaseEntityRepository
             ->select('s', 't', 'c', 'ct', 'cc', 'cct')
             ->innerJoin('s.translations', 't')
             ->leftJoin('s.children', 'c')
-            ->leftJoin('c.translations', 'ct')
+            ->leftJoin('c.translations', 'ct', 'WITH', 'ct.active = true and ct.locale = :locale')
             ->leftJoin('c.children', 'cc')
-            ->leftJoin('cc.translations', 'cct')
+            ->leftJoin('cc.translations', 'cct', 'WITH', 'cct.active = true and cct.locale = :locale')
             ->where('s.id = :section')
             ->andWhere('t.locale = :locale')
             ->andWhere('t.active = true')
-            ->andWhere('c.id IS NULL OR (ct.active = true AND ct.locale = :locale)')
-            ->andWhere('cc.id IS NULL OR (cct.active = true AND cct.locale = :locale)')
             ->setParameter('section', $section)
             ->setParameter('locale', $this->getLocale())
             ->orderBy('s.ordering', 'ASC')
