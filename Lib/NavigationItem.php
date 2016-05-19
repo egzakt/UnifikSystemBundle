@@ -119,6 +119,39 @@ class NavigationItem implements NavigationItemInterface
     }
 
     /**
+     * Replace a child object with a new one
+     *
+     * @param $oldChild
+     * @param $newChild
+     */
+    public function replaceChild($oldChild, $newChild)
+    {
+        foreach ($this->children as $key => $child) {
+            if ($child == $oldChild) {
+                $this->children[$key] = $newChild;
+            }
+        }
+    }
+
+    /**
+     * Checks if a child objet exists in the children list
+     *
+     * @param $child
+     *
+     * @return bool
+     */
+    public function containsChild($child)
+    {
+        foreach ($this->children as $key => $existingChild) {
+            if ($existingChild == $child) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * Set Parent
      *
      * @param $parent
