@@ -187,7 +187,15 @@ class NavigationBuilder
             // Set the parent element and add the children to this parent element
             if ($parentElement) {
                 $wrappedElement->setParent($parentElement);
-                $parentElement->addChildren($wrappedElement);
+
+                if (!$element instanceof $wrappedElement) {
+                    // If the child already exists in the parent but just wasn't wrapped we only need to replace it with the wrapped object
+                    if ($parentElement->containsChild($element)) {
+                        $parentElement->replaceChild($element, $wrappedElement);
+                    } else {
+                        $parentElement->addChildren($wrappedElement);
+                    }
+                }
             }
 
             if (!$this->maxLevel || $level < $this->maxLevel) {
@@ -215,6 +223,12 @@ class NavigationBuilder
     protected function buildNavigationItem($element)
     {
         $wrappedElement = $this->container->get('unifik_system.navigation_item');
+
+        // If the element is already wrapped no need to wrap it again
+        if ($element instanceof $wrappedElement) {
+            return $element;
+        }
+
         $wrappedElement->setEntity($element);
 
         return $wrappedElement;
