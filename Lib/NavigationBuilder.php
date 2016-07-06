@@ -152,10 +152,10 @@ class NavigationBuilder
      *
      * @param $element
      */
-    public function addElement($element)
+    public function addElement($element, $checkActive = false, $maxLevel = false)
     {
         // Wrap element in a NavigationItem Wrapper Class
-        $wrappedElement = $this->buildNavigationItems(array($element));
+        $wrappedElement = $this->buildNavigationItems(array($element), null, $checkActive, $maxLevel);
 
         $this->elements[] = $wrappedElement[0];
     }
