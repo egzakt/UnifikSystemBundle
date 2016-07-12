@@ -841,6 +841,8 @@ h4, .h4 {
 }
 
 .dropdown-menu {
+   max-height: 320px;
+   overflow-x: auto;
    -moz-border-radius: 3px;
    -webkit-border-radius: 3px;
    border-radius: 3px;
