@@ -1,0 +1,58 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{# General overrides #}
+
+{% block form_row -%}
+    {% set type = type|default('text') -%}
+    <div class="form-cell{% if type == 'file' %} form-type-file{% endif %}{% if errors|length > 0 %} error{% endif %}">
+        {{- form_label(form) -}}
+        {{- form_widget(form) -}}
+    </div>
+    {{- form_errors(form) -}}
+{%- endblock form_row %}
+
+{% block form_errors -%}
+    {% if errors|length > 0 -%}
+        {%- for error in errors -%}
+            <div class="error-line">{{ error.message }}</div>
+        {%- endfor -%}
+    {%- endif %}
+{%- endblock form_errors %}
+
+{% block form_label -%}
+    {% if label is not sameas(false) -%}
+        {% set asterisk = required %}
+        {% if not compound -%}
+            {% set label_attr = label_attr|merge({'for': id}) %}
+        {%- endif %}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
+        {%- endif %}
+        {% if label is empty -%}
+            {% set label = name|humanize %}
+        {%- endif -%}
+        <label {% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
+    {%- endif %}
+{% endblock form_label %}
+
+{% block form_widget_simple -%}
+    {% set type = type|default('text') -%}
+    {% set label_value = '' %}
+    {% if label is empty -%}
+        {% set label = name|humanize %}
+    {%- endif -%}
+    {% if label_attr.class is defined and 'sr-only' in label_attr.class %}
+        {% set label_value = label %}
+    {%- endif -%}
+    {% spaceless %}
+        <input type="{{ type }}" {{ block('widget_attributes') }} />
+    {% endspaceless %}
+{%- endblock form_widget_simple %}
+
+{% block radio_widget -%}
+    <input type="radio" {% if class != '' %}class="{{ class }}" {% endif %}{{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} /><label class="inner-label" for="{{ id }}">{{ label|trans }}</label>
+{%- endblock radio_widget %}
+
+{%- block textarea_widget -%}
+    <textarea {{ block('widget_attributes') }}{% if label %} placeholder="{% if required %}* {% endif %}{{ label|trans({}, translation_domain) }}"{% endif %}>{% if value %}{{ value }}{% endif %}</textarea>
+{%- endblock textarea_widget -%}
