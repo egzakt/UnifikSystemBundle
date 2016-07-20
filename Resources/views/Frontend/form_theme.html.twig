@@ -37,15 +37,8 @@
 
 {% block form_widget_simple -%}
     {% set type = type|default('text') -%}
-    {% set label_value = '' %}
-    {% if label is empty -%}
-        {% set label = name|humanize %}
-    {%- endif -%}
-    {% if label_attr.class is defined and 'sr-only' in label_attr.class %}
-        {% set label_value = label %}
-    {%- endif -%}
     {% spaceless %}
-        <input type="{{ type }}" {{ block('widget_attributes') }} />
+        <input type="{{ type }}"{% if value is defined %} value="{{ value }}"{% endif %} {{ block('widget_attributes') }} />
     {% endspaceless %}
 {%- endblock form_widget_simple %}
 
