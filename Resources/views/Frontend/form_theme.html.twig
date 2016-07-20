@@ -47,5 +47,5 @@
 {%- endblock radio_widget %}
 
 {%- block textarea_widget -%}
-    <textarea {{ block('widget_attributes') }}{% if label %} placeholder="{% if required %}* {% endif %}{{ label|trans({}, translation_domain) }}"{% endif %}>{% if value %}{{ value }}{% endif %}</textarea>
+    <textarea {{ block('widget_attributes') }}>{% if value %}{{ value }}{% endif %}</textarea>
 {%- endblock textarea_widget -%}
