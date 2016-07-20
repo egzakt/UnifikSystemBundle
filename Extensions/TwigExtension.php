@@ -113,6 +113,7 @@ class TwigExtension extends \Twig_Extension
             'format_currency' => new \Twig_Filter_Method($this, 'formatCurrency'),
             'ceil' => new \Twig_Filter_Method($this, 'ceil'),
             'titleCase' => new \Twig_Filter_Method($this, 'titleCase'),
+            'preg_replace' => new \Twig_Filter_Method($this, 'pregReplace'),
         );
     }
 
@@ -411,5 +412,22 @@ class TwigExtension extends \Twig_Extension
         $string = ucfirst($string);
 
         return $string;
+    }
+
+    /**
+     * Perform a preg_replace on a string
+     *
+     * @param string $string
+     * @param string $pattern
+     * @param string $replacement
+     * @param integer $qty
+     * @return mixed|string
+     */
+    public function pregReplace($string, $pattern, $replacement, $qty = -1)
+    {
+        if (!$string)
+            return '';
+
+        return preg_replace($pattern, $replacement, $string, $qty);
     }
 }
