@@ -43,7 +43,7 @@
 {%- endblock form_widget_simple %}
 
 {% block radio_widget -%}
-    <input type="radio" {% if class != '' %}class="{{ class }}" {% endif %}{{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} /><label class="inner-label" for="{{ id }}">{{ label|trans }}</label>
+    <input type="radio" {% if class is defined and class != '' %}class="{{ class }}" {% endif %}{{ block('widget_attributes') }}{% if value is defined %} value="{{ value }}"{% endif %}{% if checked %} checked="checked"{% endif %} /><label class="inner-label" for="{{ id }}">{{ label|trans }}</label>
 {%- endblock radio_widget %}
 
 {%- block textarea_widget -%}
