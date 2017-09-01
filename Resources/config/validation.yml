@@ -26,7 +26,7 @@ Unifik\SystemBundle\Entity\User:
             - NotBlank: { groups: [new, edit, forgot_password] }
         password:
             - NotBlank: { groups: [new, reset_password] }
-            - Length: { groups: [new, edit, reset_password], min: 8, minMessage: Password must be at least 8 characters long }
+            - Regex: { groups: [new, edit, reset_password], pattern: '/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/', message: Password must be at least 8 characters long and contain 1 number }
         roles:
             - Count: { groups: [new, edit], min: 1, minMessage: You must select at least 1 role }
     constraints:
