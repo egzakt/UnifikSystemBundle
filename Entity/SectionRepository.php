@@ -102,29 +102,53 @@ class SectionRepository extends BaseEntityRepository
      */
     public function findByNavigationAndApp($navigationId, $appId)
     {
-        $queryBuilder = $this->createQueryBuilder('s')
-            ->select('s', 'st', 'c', 'ct', 'cc', 'cct')
-            ->innerJoin('s.sectionNavigations', 'sn')
-            ->leftJoin('s.children', 'c')
-            ->leftJoin('c.translations', 'ct')
-            ->leftJoin('c.children', 'cc')
-            ->leftJoin('cc.translations', 'cct')
-            ->where('s.app = :appId')
-            ->andWhere('sn.navigation = :navigationId')
-            ->orderBy('sn.ordering')
+        if ($this->getCurrentAppName() == 'backend') {
+            $queryBuilder = $this->createQueryBuilder('s')
+                ->select('s', 'st', 'c', 'ct', 'cc', 'cct')
+                ->innerJoin('s.sectionNavigations', 'sn')
+                ->leftJoin('s.children', 'c')
+                ->leftJoin('c.translations', 'ct')
+                ->leftJoin('c.children', 'cc')
+                ->leftJoin('cc.translations', 'cct')
+                ->where('s.app = :appId')
+                ->andWhere('sn.navigation = :navigationId')
+                ->orderBy('sn.ordering')
+                ->setParameter('appId', $appId)
+                ->setParameter('navigationId', $navigationId);
 
-            ->setParameter('appId', $appId)
-            ->setParameter('navigationId', $navigationId);
+        } else {
+            $qb = $this->createQueryBuilder('s');
+            $qb->select('s', 'st')
+                ->innerJoin('s.translations', 'st', 'WITH', 'st.active = true AND st.locale = :locale')
+                ->innerJoin('s.sectionNavigations', 'sn')
+                ->where('s.app = :appId')
+                ->andWhere('sn.navigation = :navigationId')
+                ->orderBy('sn.ordering')
+                ->setParameter('appId', $appId)
+                ->setParameter('navigationId', $navigationId)
+                ->setParameter('locale', $this->getLocale())
+            ;
 
-        if ($this->getCurrentAppName() != 'backend') {
-            $queryBuilder->innerJoin('s.translations', 'st')
-                ->andWhere('st.active = true')
-                ->andWhere('st.locale = :locale')
-                ->andWhere('c.id IS NULL OR ct.active = true')
-                ->andWhere('c.id IS NULL OR ct.locale = :locale')
-                ->andWhere('cc.id IS NULL OR cct.active = true')
-                ->andWhere('cc.id IS NULL OR cct.locale = :locale')
-                ->setParameter('locale', $this->getLocale());
+            $qb2 = clone $qb;
+            $sections = $qb2->getQuery()->getResult();
+
+            $qb2 = clone $qb;
+            $qb2->select('PARTIAL s.{id}', 'c', 'ct')
+                ->innerJoin('s.children', 'c')
+                ->innerJoin('c.translations', 'ct', 'WITH', 'ct.active = true AND ct.locale = :locale')
+            ;
+            $qb2->getQuery()->getResult();
+
+            $qb2 = clone $qb;
+            $qb2->select('PARTIAL s.{id}', 'c', 'cc', 'cct')
+                ->innerJoin('s.children', 'c')
+                ->innerJoin('c.translations', 'ct', 'WITH', 'ct.active = true AND ct.locale = :locale')
+                ->innerJoin('c.children', 'cc')
+                ->innerJoin('cc.translations', 'cct', 'WITH', 'cct.active = true AND cct.locale = :locale')
+            ;
+            $qb2->getQuery()->getResult();
+
+            return $sections;
         }
 
         return $this->processQuery($queryBuilder);

@@ -11,6 +11,8 @@ use Unifik\SystemBundle\Lib\BaseEntityRepository;
  */
 class NavigationRepository extends BaseEntityRepository
 {
+    use UnifikORMBehaviors\Repository\TranslatableEntityRepository;
+
     const SECTION_BAR_ID = 1;
     const SECTION_MODULE_BAR_ID = 2;
     const GLOBAL_MODULE_BAR_ID = 3;
@@ -50,20 +52,43 @@ class NavigationRepository extends BaseEntityRepository
      */
     public function findOneByCodeAndApp($code, $appId = 2)
     {
-        $query = $this->createQueryBuilder('n');
+        $qb = $this->createQueryBuilder('n');
 
-        $query->select('n', 'sn', 's', 'st')
-            ->leftJoin('n.sectionNavigations', 'sn')
-            ->leftJoin('sn.section', 's', 'WITH', $query->expr()->eq('s.app', ':appId'))
-            ->leftJoin('s.translations', 'st')
+        $qb->select('n')
             ->where('n.code = :code')
             ->andWhere('n.app = :appId')
             ->setParameter('code', $code)
             ->setParameter('appId', $appId)
             ->orderBy('n.id', 'ASC')
-            ->addOrderBy('sn.ordering', 'ASC')
-        ;
+            ;
 
-        return $this->processQuery($query, true);
+        $qb2 = clone $qb;
+        $nav = $qb2->getQuery()->getOneOrNullResult();
+
+        $qb2 = clone $qb;
+        $qb2->select('PARTIAL n.{id}', 'sn', 's', 'st')
+            ->innerJoin('n.sectionNavigations', 'sn')
+            ->innerJoin('sn.section', 's', 'WITH', 's.app = :appId')
+            ->innerJoin('s.translations', 'st', 'WITH', 'st.active = true AND st.locale = :locale')
+            ->orderBy('n.id', 'ASC')
+            ->addOrderBy('sn.ordering', 'ASC')
+            ->setParameter('locale', $this->getLocale())
+        ;
+        $qb2->getQuery()->getResult();
+
+        $qb2 = clone $qb;
+        $qb2->select('PARTIAL n.{id}', 'sn', 's', 'c', 'ct')
+            ->innerJoin('n.sectionNavigations', 'sn')
+            ->innerJoin('sn.section', 's', 'WITH', 's.app = :appId')
+            ->innerJoin('s.translations', 'st', 'WITH', 'st.active = true AND st.locale = :locale')
+            ->innerJoin('s.children', 'c')
+            ->innerJoin('c.translations', 'ct', 'WITH', 'ct.active = true AND ct.locale = :locale')
+            ->orderBy('n.id', 'ASC')
+            ->addOrderBy('sn.ordering', 'ASC')
+            ->setParameter('locale', $this->getLocale())
+        ;
+        $qb2->getQuery()->getResult();
+
+        return $nav;
     }
 }

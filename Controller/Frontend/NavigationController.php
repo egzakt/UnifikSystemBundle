@@ -214,7 +214,7 @@ class NavigationController extends BaseController
         $template = ($template ? '_' . $template : '');
 
         $navigationBuilder = $this->get('unifik_system.navigation_builder');
-        $navigationBuilder->setElements($apps);
+        $navigationBuilder->setElements($apps, true);
         if ($this->getSection()->isHomeSection()) {
             $navigationBuilder->setSelectedElement($this->getCore()->getSection()->getApp());
         } else {

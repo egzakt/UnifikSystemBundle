@@ -67,38 +67,43 @@ class AppRepository extends BaseEntityRepository
     {
         $returnQb = $this->getReturnQueryBuilder();
         $this->setReturnQueryBuilder(true);
+
         $qb = $this->findAllExcept($exceptIds);
-        $qb->select('a, at, s, st, m, c, ct, cc, cct')
+        $qb->select('a', 'at', 's', 'st', 'm', 'sn', 'n')
             ->innerJoin('a.translations', 'at')
-            ->innerJoin('a.sections', 's')
-            ->innerJoin('s.mappings', 'm')
-            ->innerJoin('s.translations', 'st')
-            ->innerJoin('s.sectionNavigations', 'sn')
-            ->innerJoin('sn.navigation', 'n')
-            ->leftJoin('s.children', 'c')
-            ->leftJoin('c.translations', 'ct')
-            ->leftJoin('c.children', 'cc')
-            ->leftJoin('cc.translations', 'cct')
-            ->andWhere('m.app = a.id')
-            ->andWhere('n.app = a.id')
-            ->andWhere('m.type = :mapType')
-            ->andWhere('st.active = true')
-            ->andWhere('st.locale = :locale')
             ->andWhere('at.active = true')
             ->andWhere('at.locale = :locale')
-            ->andWhere('c.id IS NULL OR (ct.active = true AND ct.locale = :locale)')
-            ->andWhere('cc.id IS NULL OR (cct.active = true AND cct.locale = :locale)')
-            ->andWhere('at.locale = :locale')
-            ->andWhere('n.code = :code')
-            ->setParameter('mapType', 'route')
+            ->innerJoin('a.sections', 's')
+            ->innerJoin('s.mappings', 'm', 'WITH', 'm.app = a.id AND m.type = :mapType')
+            ->innerJoin('s.translations', 'st', 'WITH', 'st.active = true AND st.locale = :locale')
+            ->innerJoin('s.sectionNavigations', 'sn')
+            ->innerJoin('sn.navigation', 'n', 'WITH', 'n.app = a.id AND n.code = :code')
             ->setParameter('locale', $this->getLocale())
             ->setParameter('code', $code)
-            ->addOrderBy('sn.ordering', 'ASC')
-            ->addOrderBy('m.ordering', 'ASC')
+            ->setParameter('mapType', 'route')
+            ;
+        $qb2 = clone $qb;
+        $apps = $qb2->getQuery()->getResult();
+
+        $qb2 = clone $qb;
+        $qb2->select('PARTIAL a.{id}', 's', 'c', 'ct')
+            ->innerJoin('s.children', 'c')
+            ->innerJoin('c.translations', 'ct', 'WITH', 'ct.active = true AND ct.locale = :locale')
         ;
+        $qb2->getQuery()->getResult();
+
+        $qb2 = clone $qb;
+        $qb2->select('PARTIAL a.{id}', 's', 'c', 'cc', 'cct')
+            ->innerJoin('s.children', 'c')
+            ->innerJoin('c.translations', 'ct', 'WITH', 'ct.active = true AND ct.locale = :locale')
+            ->innerJoin('c.children', 'cc')
+            ->innerJoin('cc.translations', 'cct', 'WITH', 'cct.active = true AND cct.locale = :locale')
+        ;
+        $qb2->getQuery()->getResult();
 
         $this->setReturnQueryBuilder($returnQb);
-        return $this->processQuery($qb);
+
+        return $apps;
     }
 
     public function findAllHasAccess($securityContext = null, $userId = null)
