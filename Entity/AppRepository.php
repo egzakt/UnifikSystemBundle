@@ -63,6 +63,7 @@ class AppRepository extends BaseEntityRepository
         return $this->processQuery($qb);
     }
 
+
     public function findAllForNavigation($code = '', $exceptIds)
     {
         $returnQb = $this->getReturnQueryBuilder();
@@ -78,6 +79,8 @@ class AppRepository extends BaseEntityRepository
             ->innerJoin('s.translations', 'st', 'WITH', 'st.active = true AND st.locale = :locale')
             ->innerJoin('s.sectionNavigations', 'sn')
             ->innerJoin('sn.navigation', 'n', 'WITH', 'n.app = a.id AND n.code = :code')
+            ->addOrderBy('sn.ordering', 'ASC')
+            ->addOrderBy('s.ordering', 'ASC')
             ->setParameter('locale', $this->getLocale())
             ->setParameter('code', $code)
             ->setParameter('mapType', 'route')
@@ -89,6 +92,7 @@ class AppRepository extends BaseEntityRepository
         $qb2->select('PARTIAL a.{id}', 's', 'c', 'ct')
             ->innerJoin('s.children', 'c')
             ->innerJoin('c.translations', 'ct', 'WITH', 'ct.active = true AND ct.locale = :locale')
+            ->addOrderBy('c.ordering', 'ASC')
         ;
         $qb2->getQuery()->getResult();
 
@@ -98,6 +102,8 @@ class AppRepository extends BaseEntityRepository
             ->innerJoin('c.translations', 'ct', 'WITH', 'ct.active = true AND ct.locale = :locale')
             ->innerJoin('c.children', 'cc')
             ->innerJoin('cc.translations', 'cct', 'WITH', 'cct.active = true AND cct.locale = :locale')
+            ->addOrderBy('c.ordering', 'ASC')
+            ->addOrderBy('cc.ordering', 'ASC')
         ;
         $qb2->getQuery()->getResult();
 
